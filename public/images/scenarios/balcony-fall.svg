@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="fallBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#051F20" />
+      <stop offset="100%" stop-color="#0B2B26" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#fallBg)" />
+  <!-- Balcony railing at top -->
+  <rect x="0" y="60" width="280" height="15" fill="#163832" />
+  <line x1="40" y1="75" x2="40" y2="160" stroke="#235347" stroke-width="4" />
+  <line x1="100" y1="75" x2="100" y2="160" stroke="#235347" stroke-width="4" />
+  <line x1="160" y1="75" x2="160" y2="160" stroke="#235347" stroke-width="4" />
+  <line x1="220" y1="75" x2="220" y2="160" stroke="#235347" stroke-width="4" />
+  <rect x="0" y="160" width="280" height="20" fill="#163832" />
+  <!-- Falling flower pot trajectory -->
+  <path d="M180 80 C 260 180, 360 260, 460 380" stroke="#DE1110" stroke-width="2.5" stroke-dasharray="6 6" fill="none" opacity="0.8" />
+  <!-- Tumbling ceramic pot -->
+  <polygon points="340 230 380 235 370 270 350 268" fill="#235347" stroke="#8EB69B" stroke-width="2" transform="rotate(45 360 250)" />
+  <!-- Parked car windshield target -->
+  <polygon points="360 440 660 440 580 340 440 340" fill="#163832" stroke="#235347" stroke-width="2.5" />
+  <circle cx="480" cy="380" r="16" fill="#DE1110" opacity="0.9" />
+  <!-- Tag -->
+  <g transform="translate(40, 40)">
+    <rect width="210" height="34" rx="17" fill="#051F20" stroke="#DE1110" stroke-width="1.5" />
+    <circle cx="20" cy="17" r="5" fill="#DE1110" />
+    <text x="36" y="22" fill="#DAF1DE" font-family="sans-serif" font-size="12" font-weight="600">CĂDERE OBIECTE DIN IMOBIL</text>
+  </g>
+</svg>

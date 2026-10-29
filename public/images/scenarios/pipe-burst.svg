@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051F20" />
+      <stop offset="60%" stop-color="#0B2B26" />
+      <stop offset="100%" stop-color="#163832" />
+    </linearGradient>
+    <radialGradient id="waterGlow" cx="50%" cy="80%" r="60%">
+      <stop offset="0%" stop-color="#8EB69B" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#051F20" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="pipe" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#163832" />
+      <stop offset="50%" stop-color="#8EB69B" />
+      <stop offset="100%" stop-color="#0B2B26" />
+    </linearGradient>
+    <linearGradient id="wall" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B2B26" />
+      <stop offset="100%" stop-color="#051F20" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Room -->
+  <rect width="800" height="500" fill="url(#bg)" />
+  <rect x="0" y="320" width="800" height="180" fill="#0B2B26" opacity="0.9" />
+
+  <!-- Floor perspective lines -->
+  <path d="M0 320 L800 320 M-50 500 L250 320 M200 500 L380 320 M500 500 L520 320 M750 500 L660 320" stroke="#163832" stroke-width="2" opacity="0.6" />
+
+  <!-- Wall crack & burst location -->
+  <path d="M380 120 L395 190 L385 240 L410 270 L398 320" stroke="#DE1110" stroke-width="2.5" fill="none" opacity="0.8" />
+  <circle cx="395" cy="220" r="16" fill="#DE1110" opacity="0.2" />
+
+  <!-- Vertical Pipe in cross-section -->
+  <rect x="388" y="60" width="16" height="260" rx="4" fill="url(#pipe)" />
+  <!-- Burst Joint -->
+  <ellipse cx="396" cy="215" rx="14" ry="10" fill="#DE1110" opacity="0.9" />
+
+  <!-- Water Jet Spray -->
+  <path d="M396 215 C440 180, 520 210, 580 290" stroke="#DAF1DE" stroke-width="3.5" fill="none" opacity="0.85" stroke-dasharray="8 4" />
+  <path d="M396 215 C420 160, 480 180, 540 260" stroke="#8EB69B" stroke-width="2.5" fill="none" opacity="0.7" />
+  <path d="M396 215 C360 170, 310 210, 260 280" stroke="#DAF1DE" stroke-width="3" fill="none" opacity="0.8" stroke-dasharray="6 3" />
+  <path d="M396 215 C370 190, 340 230, 290 310" stroke="#8EB69B" stroke-width="2" fill="none" opacity="0.6" />
+
+  <!-- Water puddles on floor -->
+  <ellipse cx="420" cy="410" rx="280" ry="65" fill="url(#waterGlow)" />
+  <ellipse cx="400" cy="410" rx="240" ry="50" fill="#8EB69B" opacity="0.25" />
+  <ellipse cx="380" cy="420" rx="180" ry="35" fill="#DAF1DE" opacity="0.2" />
+
+  <!-- Floating debris / swollen floorboards -->
+  <rect x="220" y="380" width="120" height="18" rx="3" fill="#163832" transform="rotate(-4 220 380)" stroke="#235347" />
+  <rect x="460" y="395" width="140" height="20" rx="3" fill="#163832" transform="rotate(3 460 395)" stroke="#235347" />
+
+  <!-- Warning Badge Overlay -->
+  <g transform="translate(40, 40)">
+    <rect width="180" height="34" rx="17" fill="#051F20" stroke="#DE1110" stroke-width="1.5" />
+    <circle cx="20" cy="17" r="5" fill="#DE1110" />
+    <text x="36" y="22" fill="#DAF1DE" font-family="sans-serif" font-size="12" font-weight="600" letter-spacing="0.5">AVARIE CONDUCTĂ</text>
+  </g>
+</svg>

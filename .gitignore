@@ -1,0 +1,19 @@
+# Dependencies and generated output
+node_modules/
+.next/
+out/
+dist/
+coverage/
+.vercel/
+*.log
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Client leads and local data
+data/leads.json
+
+# macOS
+.DS_Store
