@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient: Deep moody room -->
+    <linearGradient id="frostRoomBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051F20" />
+      <stop offset="45%" stop-color="#0B2B26" />
+      <stop offset="100%" stop-color="#163832" />
+    </linearGradient>
+
+    <!-- Metallic copper pipe with frost gradient -->
+    <linearGradient id="frozenCopperPipe" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0B2B26" />
+      <stop offset="25%" stop-color="#8EB69B" />
+      <stop offset="60%" stop-color="#DAF1DE" />
+      <stop offset="85%" stop-color="#8EB69B" />
+      <stop offset="100%" stop-color="#0B2B26" />
+    </linearGradient>
+
+    <!-- Ice crystal glow -->
+    <radialGradient id="iceGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#DAF1DE" stop-opacity="0.9" />
+      <stop offset="40%" stop-color="#8EB69B" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#051F20" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Water flood reflection -->
+    <radialGradient id="waterSpread" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8EB69B" stop-opacity="0.5" />
+      <stop offset="60%" stop-color="#163832" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#051F20" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Wall and floor background -->
+  <rect width="800" height="500" fill="url(#frostRoomBg)" />
+
+  <!-- Concrete utility wall texture lines -->
+  <line x1="0" y1="120" x2="800" y2="120" stroke="#163832" stroke-width="1.5" opacity="0.4" />
+  <line x1="0" y1="240" x2="800" y2="240" stroke="#163832" stroke-width="1.5" opacity="0.4" />
+  
+  <!-- Baseboard and tiled floor -->
+  <rect x="0" y="340" width="800" height="160" fill="#07201D" />
+  <line x1="0" y1="340" x2="800" y2="340" stroke="#235347" stroke-width="3" />
+  <!-- Perspective floor joints -->
+  <path d="M-80 500 L240 340 M160 500 L380 340 M420 500 L510 340 M680 500 L640 340 M920 500 L760 340" stroke="#0B2B26" stroke-width="2" opacity="0.7" />
+
+  <!-- Wall frost / ice crystallization spreading on cold drywall -->
+  <path d="M340 180 Q320 230 260 250 Q310 270 330 320" stroke="#DAF1DE" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="3 3" />
+  <path d="M460 170 Q490 220 540 240 Q490 270 470 310" stroke="#DAF1DE" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="3 3" />
+
+  <!-- Water puddles across floor with light sheen -->
+  <ellipse cx="400" cy="425" rx="330" ry="60" fill="url(#waterSpread)" />
+  <ellipse cx="410" cy="420" rx="260" ry="42" fill="#8EB69B" opacity="0.35" />
+  <ellipse cx="390" cy="430" rx="180" ry="25" fill="#DAF1DE" opacity="0.25" />
+
+  <!-- Domestic Vertical Water Supply Pipe -->
+  <!-- Upper section -->
+  <rect x="388" y="40" width="24" height="165" rx="3" fill="url(#frozenCopperPipe)" stroke="#163832" stroke-width="1" />
+  <!-- Wall mounting brackets -->
+  <rect x="380" y="80" width="40" height="12" rx="2" fill="#235347" stroke="#8EB69B" stroke-width="1" />
+  <circle cx="385" cy="86" r="2.5" fill="#051F20" />
+  <circle cx="415" cy="86" r="2.5" fill="#051F20" />
+
+  <!-- Lower section beneath rupture -->
+  <rect x="388" y="245" width="24" height="110" rx="3" fill="url(#frozenCopperPipe)" stroke="#163832" stroke-width="1" />
+  <rect x="380" y="300" width="40" height="12" rx="2" fill="#235347" stroke="#8EB69B" stroke-width="1" />
+  <circle cx="385" cy="306" r="2.5" fill="#051F20" />
+  <circle cx="415" cy="306" r="2.5" fill="#051F20" />
+
+  <!-- FROZEN RUPTURE ZONE -->
+  <!-- Bulging, split pipe section deformed by internal ice expansion -->
+  <path d="M388 200 C370 205, 366 235, 388 248 L412 248 C434 235, 430 205, 412 200 Z" fill="#235347" stroke="#DE1110" stroke-width="2.5" />
+  <!-- Visible longitudinal fissure crack in pipe -->
+  <path d="M394 205 Q404 220 398 232 Q406 242 400 246" stroke="#DE1110" stroke-width="3.5" fill="none" stroke-linecap="round" />
+  
+  <!-- Solid ice plug protruding from split metal -->
+  <polygon points="398,212 408,218 402,230 394,224" fill="#DAF1DE" opacity="0.9" stroke="#8EB69B" stroke-width="1" />
+
+  <!-- Ice stalactites hanging from rupture -->
+  <polygon points="378,240 382,275 385,240" fill="#DAF1DE" opacity="0.85" />
+  <polygon points="392,246 395,290 398,246" fill="#DAF1DE" opacity="0.9" />
+  <polygon points="410,244 413,270 416,244" fill="#DAF1DE" opacity="0.8" />
+  <polygon points="422,238 425,262 427,238" fill="#DAF1DE" opacity="0.7" />
+
+  <!-- Pressurized water jet spraying from crack upon thawing -->
+  <!-- High velocity spray arc right -->
+  <path d="M402 220 C460 170, 560 210, 640 290" stroke="#DAF1DE" stroke-width="4" fill="none" opacity="0.9" stroke-linecap="round" />
+  <path d="M402 220 C440 180, 510 210, 580 320" stroke="#8EB69B" stroke-width="2.5" fill="none" opacity="0.75" stroke-dasharray="8 4" />
+  <!-- High velocity spray arc left -->
+  <path d="M396 222 C340 185, 260 220, 190 300" stroke="#DAF1DE" stroke-width="3.5" fill="none" opacity="0.85" stroke-linecap="round" />
+  <path d="M396 222 C360 200, 310 240, 240 330" stroke="#8EB69B" stroke-width="2" fill="none" opacity="0.7" stroke-dasharray="6 3" />
+
+  <!-- Downward cascading water stream into floor puddle -->
+  <path d="M395 248 Q393 290 392 345 Q391 385 390 415" stroke="#DAF1DE" stroke-width="5" fill="none" opacity="0.85" />
+  <path d="M402 248 Q405 290 404 345 Q403 385 406 415" stroke="#8EB69B" stroke-width="3" fill="none" opacity="0.7" />
+
+  <!-- Splashing droplets and ripples around puddle impact point -->
+  <ellipse cx="395" cy="415" rx="28" ry="8" fill="none" stroke="#DAF1DE" stroke-width="2" opacity="0.8" />
+  <ellipse cx="395" cy="415" rx="55" ry="14" fill="none" stroke="#8EB69B" stroke-width="1.5" opacity="0.5" />
+  <circle cx="365" cy="385" r="3" fill="#DAF1DE" opacity="0.8" />
+  <circle cx="430" cy="390" r="2.5" fill="#DAF1DE" opacity="0.8" />
+  <circle cx="380" cy="370" r="2" fill="#DAF1DE" opacity="0.7" />
+  <circle cx="415" cy="365" r="3" fill="#DAF1DE" opacity="0.7" />
+
+  <!-- Frost indicator badge -->
+  <g transform="translate(620, 40)">
+    <rect width="140" height="42" rx="10" fill="#051F20" stroke="#8EB69B" stroke-width="1.5" opacity="0.95" />
+    <text x="70" y="26" fill="#DAF1DE" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="0.5">AVARIE DE ÎNGHEȚ</text>
+  </g>
+
+  <!-- Editorial Alert Badge (Top-Left) -->
+  <g transform="translate(40, 40)">
+    <rect width="250" height="38" rx="19" fill="#051F20" stroke="#DE1110" stroke-width="2" />
+    <circle cx="22" cy="19" r="6" fill="#DE1110" />
+    <text x="38" y="24" fill="#DAF1DE" font-family="sans-serif" font-size="12" font-weight="700" letter-spacing="0.5">AVARIE CONDUCTĂ ÎNGHEȚATĂ</text>
+  </g>
+</svg>

@@ -59,7 +59,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     explanation:
       'Polița obligatorie PAD NU despăgubește avariile produse de conducte interioare, defecțiuni de robineți sau electrocasnice. Pentru a fi protejat la spargeri de țevi casnice ai nevoie de o poliță facultativă de locuință cu clauza de apă de conductă inclusă.',
-    caveatNote: 'Peste 70% dintre români cred eronat că PAD acoperă inundațiile provocate de vecini sau robineți defecți.',
+    caveatNote: 'PAD acoperă exclusiv dezastrele naturale prin Legea 260/2008. Inundațiile de conductă sau de la vecini cer expres o poliță facultativă separată.',
   },
   {
     id: 'quiz-3-copil-televizor-magazin',

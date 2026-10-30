@@ -18,6 +18,9 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { SCENARIOS } from '@/data/scenarios';
+import { useSmartScroll } from '@/hooks/useSmartScroll';
+import { getStoredAttribution } from '@/lib/referralManager';
+import { trackEvent } from '@/lib/analytics';
 
 const INSURANCE_OBJECTS = [
   { id: 'locuinta', label: 'Locuința (Casă, Apartament sau Bunuri din casă)' },
@@ -36,7 +39,15 @@ export const PersistentQuoteCTA: React.FC = () => {
   const [serverError, setServerError] = useState<string | null>(null);
   const [confirmedLeadId, setConfirmedLeadId] = useState<string | null>(null);
 
+  const [hasFocus, setHasFocus] = useState(false);
+
   const pathname = usePathname();
+
+  const isCtaVisible = useSmartScroll({
+    threshold: 8,
+    topOffset: 50,
+    disableWhen: isOpen || hasFocus,
+  });
 
   // Form State: Exploratory First, then Contact
   const [category, setCategory] = useState('locuinta');
@@ -89,6 +100,7 @@ export const PersistentQuoteCTA: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setServerError(null);
 
     // Client-side validation
@@ -117,6 +129,8 @@ export const PersistentQuoteCTA: React.FC = () => {
     setIsSubmitting(true);
 
     try {
+      const attribution = getStoredAttribution();
+
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -131,6 +145,8 @@ export const PersistentQuoteCTA: React.FC = () => {
           message: message.trim(),
           consent,
           website_honeypot: honeypot,
+          referralToken: attribution.referralToken || undefined,
+          referralLandingPath: attribution.landingPath || undefined,
         }),
       });
 
@@ -141,9 +157,22 @@ export const PersistentQuoteCTA: React.FC = () => {
       }
 
       // Confirmed server-issued lead ID
-      setConfirmedLeadId(data.leadId || `lead_${Date.now()}`);
+      const newLeadId = data.leadId || `lead_${Date.now()}`;
+      setConfirmedLeadId(newLeadId);
+
+      // Track successful lead submission with zero PII
+      trackEvent('lead_submitted', {
+        leadId: newLeadId,
+        category,
+        persisted: Boolean(data.persisted),
+        hasReferral: Boolean(attribution.referralToken),
+      });
     } catch (err: any) {
       setServerError(err.message || 'Eroare de comunicare cu serverul.');
+      trackEvent('lead_submission_failed', {
+        category,
+        errorReason: err.message || 'unknown',
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -164,12 +193,30 @@ export const PersistentQuoteCTA: React.FC = () => {
 
   return (
     <>
-      {/* Persistent Fixed Bottom-Right Trigger Button */}
-      <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 print:hidden">
+      {/* Persistent Fixed Trigger Button with Smart Hide & Mobile Navigation Offset */}
+      <div
+        onFocusCapture={() => setHasFocus(true)}
+        onBlurCapture={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+            setHasFocus(false);
+          }
+        }}
+        className={`fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] right-3.5 sm:bottom-6 sm:right-6 z-40 print:hidden transform transition-all duration-300 ease-in-out motion-reduce:transition-none ${
+          isCtaVisible
+            ? 'translate-y-0 opacity-100 pointer-events-auto'
+            : 'translate-y-32 opacity-0 pointer-events-none'
+        }`}
+      >
         <button
           type="button"
-          onClick={() => setIsOpen(true)}
-          aria-label="Deschide dialogul Ce vrei să-ți asiguri?"
+          onClick={() => {
+            setIsOpen(true);
+            trackEvent('quote_cta_clicked', {
+              sourceLocation: 'persistent_button',
+              preselectedCategory: category,
+            });
+          }}
+          aria-label="Deschide dialogul Ce vrei să știi despre asigurarea ta?"
           className="group relative flex items-center gap-2.5 py-3 px-5 sm:py-3.5 sm:px-6 rounded-full bg-[#06141B] hover:bg-slate-900 text-white font-bold text-xs sm:text-sm shadow-xl shadow-slate-900/25 hover:shadow-2xl hover:shadow-slate-900/40 border border-slate-700/60 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
         >
           <span className="w-2 h-2 rounded-full bg-[#E10600] animate-pulse" />
@@ -177,10 +224,10 @@ export const PersistentQuoteCTA: React.FC = () => {
           
           {/* Full label on desktop, responsive compact on very small screens */}
           <span className="tracking-tight font-extrabold hidden xs:inline">
-            Ce vrei să-ți asiguri?
+            Ce vrei să verifici?
           </span>
           <span className="tracking-tight font-extrabold xs:hidden">
-            Hai să discutăm
+            Audit clauze
           </span>
 
           <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:translate-x-0.5 transition-transform" />
@@ -201,13 +248,13 @@ export const PersistentQuoteCTA: React.FC = () => {
               <div className="space-y-1">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-[10px] font-mono font-bold uppercase tracking-wider">
                   <ShieldCheck className="w-3 h-3 text-[#E10600]" />
-                  <span>Consultanță Exploratorie · Fără Angajament Financiar</span>
+                  <span>Audit de Clauze · Fără Presiune Comercială</span>
                 </div>
                 <h3 id="explore-modal-title" className="text-xl sm:text-2xl font-black text-[#06141B]">
-                  Ce vrei să-ți asiguri?
+                  Ce vrei să știi despre asigurarea ta?
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Spune-ne ce vrei să protejezi și îți prezentăm opțiunile potrivite situației tale. Fără obligații sau presiune de cumpărare.
+                  Spune-ne ce te preocupă sau ce poliță vrei să clarifici. Analizăm clauzele exacte și îți explicăm unde sunt capcanele, fără discursuri de vânzare.
                 </p>
               </div>
               <button
@@ -239,15 +286,15 @@ export const PersistentQuoteCTA: React.FC = () => {
                 </div>
                 <div className="space-y-1.5">
                   <h4 className="text-lg font-bold text-[#06141B]">
-                    Îți mulțumim pentru deschidere!
+                    Solicitarea ta a fost înregistrată
                   </h4>
                   <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
-                    Am înregistrat solicitarea ta. Un consultant va analiza opțiunile disponibile și te va contacta pentru o discuție clară, fără nicio presiune.
+                    Analizăm situația și clauzele aplicabile și revenim cu un răspuns clar, direct și documentat pe contracte reale. Fără insistențe comerciale.
                   </p>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600 inline-block">
-                  <span className="text-slate-400">ID Dialog:</span>{' '}
+                  <span className="text-slate-400">ID Solicitare:</span>{' '}
                   <strong className="text-[#06141B] select-all">{confirmedLeadId}</strong>
                 </div>
 
@@ -264,9 +311,27 @@ export const PersistentQuoteCTA: React.FC = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 mt-5">
                 {serverError && (
-                  <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-[#E10600] flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 shrink-0" />
-                    <span>{serverError}</span>
+                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-[#E10600] space-y-2">
+                    <div className="flex items-center gap-2 font-bold">
+                      <AlertCircle className="w-4 h-4 shrink-0" />
+                      <span>{serverError}</span>
+                    </div>
+                    <div className="pt-0.5 flex flex-wrap items-center gap-2">
+                      <a
+                        href="https://wa.me/436509536345"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors inline-flex items-center gap-1 text-[11px]"
+                      >
+                        WhatsApp Direct (+43 650 953 6345)
+                      </a>
+                      <a
+                        href="mailto:cristianvaduva@duck.com"
+                        className="px-2.5 py-1 rounded-lg bg-[#06141B] text-white font-bold hover:bg-slate-800 transition-colors inline-flex items-center gap-1 text-[11px]"
+                      >
+                        Trimite E-mail
+                      </a>
+                    </div>
                   </div>
                 )}
 
@@ -284,7 +349,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                 {/* 1. Insurance Object / Need (Exploratory Choice First) */}
                 <div>
                   <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1">
-                    1. Ce vrei să protejezi? <span className="text-[#E10600]">*</span>
+                    1. Ce bun sau risc te preocupă? <span className="text-[#E10600]">*</span>
                   </label>
                   <select
                     value={category}
@@ -302,13 +367,13 @@ export const PersistentQuoteCTA: React.FC = () => {
                 {/* 2. Optional Situation Description */}
                 <div>
                   <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1">
-                    2. Spune-ne pe scurt despre situația ta <span className="text-slate-400 font-normal lowercase">(opțional)</span>
+                    2. Detalii despre situația ta sau clauza care te pune pe gânduri <span className="text-slate-400 font-normal lowercase">(opțional)</span>
                   </label>
                   <textarea
                     rows={2}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Ex: mă preocupă infiltrațiile de la vecini, vreau CASCO fără bătăi de cap sau plec în vacanță..."
+                    placeholder="Ex: am o casă de vacanță lăsată iarna, mă tem de infiltrații la bloc sau vreau CASCO fără bătăi de cap..."
                     className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                   />
                 </div>
@@ -316,15 +381,19 @@ export const PersistentQuoteCTA: React.FC = () => {
                 {/* 3. Contact Details */}
                 <div className="pt-2 border-t border-slate-100 space-y-3">
                   <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold block">
-                    3. Unde îți putem trimite opțiunile?
+                    3. Unde îți trimitem analiza?
                   </span>
 
                   {/* Full Name */}
                   <div className="relative">
                     <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
+                      id="quote-name"
+                      name="name"
                       type="text"
                       required
+                      autoComplete="name"
+                      maxLength={100}
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Numele tău complet *"
@@ -337,8 +406,12 @@ export const PersistentQuoteCTA: React.FC = () => {
                     <div className="relative">
                       <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
+                        id="quote-phone"
+                        name="phone"
                         type="tel"
                         required
+                        autoComplete="tel"
+                        maxLength={20}
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="Număr de telefon *"
@@ -349,8 +422,12 @@ export const PersistentQuoteCTA: React.FC = () => {
                     <div className="relative">
                       <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
+                        id="quote-email"
+                        name="email"
                         type="email"
                         required
+                        autoComplete="email"
+                        maxLength={120}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Adresă de e-mail *"
@@ -364,6 +441,8 @@ export const PersistentQuoteCTA: React.FC = () => {
                 <div className="pt-1">
                   <label className="flex items-start gap-2.5 cursor-pointer text-xs text-slate-600 select-none">
                     <input
+                      id="quote-consent"
+                      name="consent"
                       type="checkbox"
                       checked={consent}
                       onChange={(e) => setConsent(e.target.checked)}
@@ -372,13 +451,13 @@ export const PersistentQuoteCTA: React.FC = () => {
                     <span>
                       Sunt de acord cu prelucrarea datelor de contact în conformitate cu{' '}
                       <Link
-                        href="/declinare-responsabilitate"
+                        href="/confidentialitate"
                         target="_blank"
-                        className="underline text-[#06141B] hover:text-[#E10600]"
+                        className="underline text-[#06141B] font-semibold hover:text-[#E10600]"
                       >
                         politica de confidențialitate
                       </Link>{' '}
-                      pentru a discuta opțiunile potrivite situației mele.
+                      pentru a primi analiza clauzelor și opțiunile aplicabile.
                     </span>
                   </label>
                 </div>
@@ -393,17 +472,17 @@ export const PersistentQuoteCTA: React.FC = () => {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin text-white" />
-                        <span>Se transmit opțiunile tale...</span>
+                        <span>Se transmite solicitarea ta...</span>
                       </>
                     ) : (
                       <>
-                        <span>Află opțiunile tale potrivite</span>
+                        <span>Cere analiza clauzelor tale</span>
                         <ArrowRight className="w-4 h-4 text-slate-300" />
                       </>
                     )}
                   </button>
                   <p className="text-[11px] text-center text-slate-500 mt-2">
-                    Fără obligații financiare. Consultanță independentă &amp; educațională.
+                    Fără vânzări forțate. Analiză contractuală documentată.
                   </p>
                 </div>
               </form>

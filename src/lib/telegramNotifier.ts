@@ -19,7 +19,9 @@ export interface LeadNotificationPayload {
   category?: string;
   scenarioTitle?: string;
   scenarioSlug?: string;
+  sourcePage?: string;
   message?: string;
+  referralToken?: string;
 }
 
 // In-memory deduplication set for lead notifications (TTL: 10 minutes)
@@ -109,6 +111,14 @@ export async function sendTelegramLeadNotification(
     messageLines.push(`<b>📖 Scenariu:</b> ${escapeTelegramHtml(lead.scenarioTitle)}`);
   }
 
+  if (lead.sourcePage) {
+    messageLines.push(`<b>📍 Pagină Sursă:</b> <code>${escapeTelegramHtml(lead.sourcePage)}</code>`);
+  }
+
+  if (lead.referralToken) {
+    messageLines.push(`<b>🔗 Recomandare:</b> <code>${escapeTelegramHtml(lead.referralToken)}</code>`);
+  }
+
   if (lead.message && lead.message.trim().length > 0) {
     messageLines.push(``);
     messageLines.push(`<b>💬 Detalii / Mesaj:</b>`);
@@ -116,7 +126,7 @@ export async function sendTelegramLeadNotification(
   }
 
   messageLines.push(``);
-  messageLines.push(`<i>Trimis de pe WHAT IF INSURANCE (whatif.cristianvaduva.com)</i>`);
+  messageLines.push(`<i>Trimis de pe WHAT IF INSURANCE (whatifinsurance.cristianvaduva.com)</i>`);
 
   const telegramPayload = {
     chat_id: chatId,
@@ -164,5 +174,82 @@ export async function sendTelegramLeadNotification(
     }
     console.warn(`[TelegramNotifier] Network exception for lead ${lead.id}: ${error?.message || 'unknown error'}`);
     return { success: false, reason: 'network_exception' };
+  }
+}
+
+export interface OperationalAlertPayload {
+  type: 'repeated_form_failure' | 'operational_anomaly' | 'high_interest_scenario';
+  summary: string;
+  metadata?: Record<string, string | number>;
+}
+
+// In-memory throttling for operational monitoring alerts: max 1 alert per 15 minutes
+let lastOperationalAlertTime = 0;
+
+/**
+ * Privacy-preserving, throttled operational alert service for critical platform events.
+ * Strictly excludes any PII, full URLs, IP addresses, or personal form inputs.
+ */
+export async function sendTelegramOperationalAlert(
+  alert: OperationalAlertPayload
+): Promise<{ success: boolean; reason?: string }> {
+  const botToken = process.env.TELEGRAM_BOT_TOKEN?.trim();
+  const chatId = process.env.TELEGRAM_CHAT_ID?.trim();
+  const alertsEnabled = process.env.ENABLE_TELEGRAM_ALERTS !== 'false';
+
+  if (!alertsEnabled) {
+    return { success: false, reason: 'alerts_disabled' };
+  }
+
+  if (!botToken || !chatId) {
+    return { success: false, reason: 'credentials_not_configured' };
+  }
+
+  const now = Date.now();
+  if (now - lastOperationalAlertTime < 15 * 60 * 1000) {
+    return { success: true, reason: 'throttled' };
+  }
+  lastOperationalAlertTime = now;
+
+  const lines = [
+    `<b>⚠️ ALERTĂ OPERAȚIONALĂ — WHAT IF INSURANCE</b>`,
+    ``,
+    `<b>Tip:</b> <code>${escapeTelegramHtml(alert.type)}</code>`,
+    `<b>Data:</b> ${escapeTelegramHtml(new Date().toLocaleString('ro-RO', { timeZone: 'Europe/Bucharest' }))}`,
+    `<b>Sumar:</b> ${escapeTelegramHtml(alert.summary.substring(0, 200))}`,
+  ];
+
+  if (alert.metadata) {
+    lines.push(``);
+    lines.push(`<b>Parametri Tehnici:</b>`);
+    for (const [k, v] of Object.entries(alert.metadata)) {
+      if (!['name', 'email', 'phone', 'ip', 'message'].includes(k.toLowerCase())) {
+        lines.push(`• <i>${escapeTelegramHtml(k)}:</i> <code>${escapeTelegramHtml(String(v).substring(0, 100))}</code>`);
+      }
+    }
+  }
+
+  const payload = {
+    chat_id: chatId,
+    text: lines.join('\n'),
+    parse_mode: 'HTML',
+    disable_web_page_preview: true,
+  };
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+    return { success: res.ok };
+  } catch {
+    clearTimeout(timeoutId);
+    return { success: false, reason: 'network_error' };
   }
 }

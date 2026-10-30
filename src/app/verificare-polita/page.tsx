@@ -33,7 +33,7 @@ const CHECKLIST_ITEMS: Record<string, ChecklistItem[]> = {
       title: 'Avarii la instalațiile interioare de apă (apă de conductă)',
       question: 'Este acoperită spargerea țevilor interioare și căutarea/localizarea avariei în perete?',
       importance: 'Critic',
-      reason: 'Avariile de apă reprezintă peste 40% din daunele locative și sunt complet excluse de polița obligatorie PAD.',
+      reason: 'Avariile de apă reprezintă principala cauză de daună pe locuințe și sunt complet excluse de polița obligatorie PAD.',
     },
     {
       id: 'c2',
@@ -93,7 +93,7 @@ const CHECKLIST_ITEMS: Record<string, ChecklistItem[]> = {
       title: 'Apelarea obligatorie a centralei de alarmă',
       question: 'Ești obligat să suni la asistență ÎNAINTE de a merge la spital?',
       importance: 'Critic',
-      reason: 'Nerespectarea procedurii de notificare prealabilă poate duce la decontarea a doar 50% din cheltuieli.',
+      reason: 'Nerespectarea procedurii de notificare prealabilă a asistenței poate atrage o franșiză suplimentară sau decontarea doar parțială a cheltuielilor.',
     },
   ],
   viata: [
@@ -169,15 +169,15 @@ export default function PolicyChecklistPage() {
 
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-mono font-bold uppercase tracking-wider">
             <FileCheck2 className="w-3.5 h-3.5 text-[#E10600]" />
-            <span>Instrument Gratuit · Fără Date Personale</span>
+            <span>Audit Practic · Fără Înregistrare · Fără Date Personale</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight">
-            Checklist personal: Ce verifici în contractul tău
+            Nu ghici. Verifică ce ai semnat.
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-            Selectează domeniile care te privesc. Am sintetizat clauzele cele mai frecvent disputate și excluderile ignorate, într-o listă practică pe care o poți parcurge în câteva minute.
+            11 clauze contractuale care decid dosarul de daună: excluderi la țeavă spartă, franșize ascunse în parcare, carantină medicală și termenul critic de notificare.
           </p>
         </div>
       </div>
@@ -223,10 +223,10 @@ export default function PolicyChecklistPage() {
           <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
             <div>
               <span className="text-xs font-mono uppercase text-slate-500 font-bold block">
-                PASUL 2: LISTA DE PUNCTE CRITICE DE AUDITAT
+                PASUL 2: CLAUZE CONTRACTUALE CU IMPACT FINANCIAR DIRECT
               </span>
               <p className="text-xs text-slate-600 mt-0.5">
-                Bifează fiecare punct pe măsură ce găsești clauza în polița ta actuală.
+                Bifează fiecare clauză pe măsură ce o identifici în contractul tău sau în condițiile generale.
               </p>
             </div>
             <div className="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono text-slate-700 font-bold">
@@ -299,16 +299,15 @@ export default function PolicyChecklistPage() {
         <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
           <div className="flex items-center gap-2 text-xs font-mono uppercase text-[#E10600] font-bold">
             <ShieldCheck className="w-4 h-4" />
-            <span>Nu ești sigur ce conțin contractele tale?</span>
+            <span>Vrei o a doua privire pe contractul tău?</span>
           </div>
 
           <h2 className="text-xl sm:text-2xl font-black text-[#06141B]">
-            Solicită o verificare profesionistă a polițelor tale
+            Trimiți contractul, primești o analiză fără filtre comerciale
           </h2>
 
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
-            Termenii tehnici și literele mici pot fi greu de interpretat. Poți solicita o consultație dedicată de analiză
-            a riscurilor tale personale sau de afaceri, fără promisiuni nerealiste și fără obligații comerciale.
+            Literele mici și definițiile juridice pot schimba complet soarta unui dosar de daună. Solicită o revizuire aplicată a polițelor tale — fără presiune de vânzare, doar o analiză clară a clauzelor.
           </p>
 
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
@@ -316,7 +315,7 @@ export default function PolicyChecklistPage() {
               href="/contact?topic=review-polita"
               className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 shadow-sm"
             >
-              <span>Trimite solicitare de audit</span>
+              <span>Cere o analiză dedicată de clauze</span>
               <ArrowRight className="w-4 h-4 text-slate-300" />
             </Link>
 

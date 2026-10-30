@@ -96,13 +96,13 @@ export default function DesprePage() {
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight leading-tight">
-            WHAT IF INSURANCE: De la riscuri abstracte la inteligență clară
+            WHAT IF INSURANCE: De la presupuneri abstracte la certitudini contractuale
           </h1>
 
           <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed">
-            Asigurările sunt adesea vândute prin teamă sau prin contracte greu accesibile pe care puțini le parcurg în detaliu.
-            WHAT IF INSURANCE a fost creat pentru a schimba această paradigmă prin scenarii vizuale reale,
-            transparență argumentată și instrumente de decizie informată.
+            Asigurările sunt adesea semnate din obligație și citite abia după producerea daunei.
+            WHAT IF INSURANCE a fost creat ca un laborator editorial de inteligență a riscurilor:
+            121 de dosare documentate pe contracte reale, fără limbaj corporatist și fără iluzii de acoperire universală.
           </p>
         </div>
       </div>
@@ -238,10 +238,10 @@ export default function DesprePage() {
         <section className="p-8 sm:p-10 rounded-3xl bg-[#06141B] text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="space-y-2 text-center sm:text-left">
             <h3 className="text-xl sm:text-2xl font-black">
-              Ești pregătit să afli ce acoperă polița ta?
+              Ai o poliță. Ai și răspunsul la clauza care contează?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300">
-              Testează-ți cunoștințele prin quiz sau solicită un audit independent al contractelor tale.
+              Testează-ți intuiția în quiz sau solicită o a doua opinie independentă pe contractul tău.
             </p>
           </div>
 
@@ -250,13 +250,13 @@ export default function DesprePage() {
               href="/quiz"
               className="py-3 px-5 rounded-full bg-[#E10600] hover:bg-red-700 text-white text-xs font-bold transition-all shadow-md"
             >
-              Începe Quiz-ul
+              Test de intuiție (8 întrebări)
             </Link>
             <Link
               href="/contact?topic=review-polita"
               className="py-3 px-5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all"
             >
-              Solicită Audit
+              Audit clauze
             </Link>
           </div>
         </section>

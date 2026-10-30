@@ -42,11 +42,14 @@ export async function generateMetadata({
     };
   }
 
-  const pageUrl = `https://insurance.cristianvaduva.com/scenarii/${scenario.categoryId}/${scenario.slug}`;
+  const pageUrl = `https://whatifinsurance.cristianvaduva.com/scenarii/${scenario.categoryId}/${scenario.slug}`;
 
   return {
     title: `WHAT IF: ${scenario.title} — Ce se întâmplă dacă?`,
     description: scenario.socialDescription || scenario.shortDescription,
+    alternates: {
+      canonical: pageUrl,
+    },
     openGraph: {
       title: `WHAT IF: ${scenario.mainQuestion}`,
       description: scenario.socialHook,
@@ -95,7 +98,7 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
             className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-[#06141B] transition-colors py-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Înapoi la toate scenariile</span>
+            <span>Toate cele 121 de cazuri</span>
           </Link>
 
           <span className="text-xs font-mono text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 font-bold uppercase">
@@ -236,7 +239,7 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
             <div className="flex items-center gap-2.5 text-[#06141B]">
               <HelpCircle className="w-5 h-5 text-slate-700" />
               <h3 className="text-base font-bold text-[#06141B] uppercase tracking-wider text-xs font-mono">
-                Întrebări de pus asigurătorului tău
+                Ce întrebi înainte să semnezi
               </h3>
             </div>
             <p className="text-xs text-slate-600">

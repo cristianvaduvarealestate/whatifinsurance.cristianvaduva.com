@@ -19,6 +19,8 @@ import {
   ArrowLeft,
   Lock,
 } from 'lucide-react';
+import { getStoredAttribution } from '@/lib/referralManager';
+import { trackEvent } from '@/lib/analytics';
 
 export default function ContactPage() {
   return (
@@ -49,6 +51,8 @@ function ContactFormContent() {
       setFormType('review');
     } else if (initialTopic === 'business') {
       setFormType('business');
+    } else if (initialTopic === 'sugestie-scenariu' || initialTopic === 'sugestie') {
+      setFormType('scenario');
     }
   }, [initialTopic, initialScenario]);
 
@@ -71,6 +75,7 @@ function ContactFormContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     setErrorMessage('');
 
     if (!name.trim()) {
@@ -89,6 +94,8 @@ function ContactFormContent() {
     setLoading(true);
 
     try {
+      const attribution = getStoredAttribution();
+
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -104,6 +111,8 @@ function ContactFormContent() {
           preferredContact,
           consent,
           website_honeypot: honeypot,
+          referralToken: attribution.referralToken || undefined,
+          referralLandingPath: attribution.landingPath || undefined,
         }),
       });
 
@@ -113,10 +122,23 @@ function ContactFormContent() {
         throw new Error(data.error || 'A apărut o problemă la transmiterea solicitării.');
       }
 
+      const assignedLeadId = data.leadId || '';
       setSuccess(true);
-      setConfirmedLeadId(data.leadId || '');
+      setConfirmedLeadId(assignedLeadId);
+
+      // Track lead submission
+      trackEvent('lead_submitted', {
+        leadId: assignedLeadId || 'lead_contact_page',
+        category,
+        persisted: Boolean(data.persisted),
+        hasReferral: Boolean(attribution.referralToken),
+      });
     } catch (err: any) {
       setErrorMessage(err.message || 'Eroare de conexiune cu serverul.');
+      trackEvent('lead_submission_failed', {
+        category,
+        errorReason: err.message || 'unknown',
+      });
     } finally {
       setLoading(false);
     }
@@ -141,12 +163,11 @@ function ContactFormContent() {
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight">
-            Hai să discutăm despre riscurile tale reale
+            Hai să vorbim despre riscurile reale, nu despre formulare standard.
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-            Ai o întrebare despre un scenariu anume, dorești verificarea unei polițe existente sau vrei o discuție
-            despre riscurile afacerii tale? Completează formularul de mai jos sau folosește canalele directe de contact.
+            Ai o nelămurire despre o clauză, vrei un audit al poliței actuale sau ai o întrebare tehnică? Alege tipul de solicitare și hai să discutăm deschis — direct pe contracte, fără discursuri corporatiste.
           </p>
         </div>
       </div>
@@ -157,9 +178,9 @@ function ContactFormContent() {
           {/* Tab selector for the 4 form types */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 rounded-2xl bg-slate-100 border border-slate-200">
             {[
-              { id: 'general', label: 'Întrebare Generală', icon: MessageSquare },
+              { id: 'general', label: 'Dilemă Generală', icon: MessageSquare },
               { id: 'review', label: 'Audit Poliță', icon: FileText },
-              { id: 'scenario', label: 'Consultare Scenariu', icon: HelpCircle },
+              { id: 'scenario', label: 'Caz Specific', icon: HelpCircle },
               { id: 'business', label: 'Risc Business', icon: Briefcase },
             ].map((tab) => {
               const active = formType === tab.id;
@@ -194,12 +215,11 @@ function ContactFormContent() {
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-black text-[#06141B]">
-                  Solicitarea ta a fost înregistrată!
+                  Solicitarea ta a fost înregistrată
                 </h3>
                 <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                  Mulțumim pentru încredere. Am salvat detaliile solicitării tale cu numărul de referință{' '}
-                  <span className="font-mono text-[#06141B] font-bold">{confirmedLeadId}</span>. Cristian Văduva
-                  sau un reprezentant te va contacta în cel mai scurt timp prin metoda preferată.
+                  Am salvat detaliile solicitării tale cu numărul de referință{' '}
+                  <span className="font-mono text-[#06141B] font-bold">{confirmedLeadId}</span>. Analizăm clauzele aplicabile și revenim prin metoda de contact aleasă de tine.
                 </p>
                 <div className="pt-4">
                   <button
@@ -229,34 +249,57 @@ function ContactFormContent() {
 
                 <div className="space-y-1">
                   <h2 className="text-xl font-bold text-[#06141B]">
-                    {formType === 'general' && 'Întrebare sau mesaj general'}
-                    {formType === 'review' && 'Solicitare de verificare & audit poliță existentă'}
-                    {formType === 'scenario' && 'Consultare specifică pe un scenariu de risc'}
-                    {formType === 'business' && 'Consultanță pentru companii și răspunderi profesionale'}
+                    {formType === 'general' && 'Dilemă de risc sau întrebare generală'}
+                    {formType === 'review' && 'Audit & analiză de clauze contractuale'}
+                    {formType === 'scenario' && 'Consultare specifică pe un scenariu documentat'}
+                    {formType === 'business' && 'Consultanță pentru companii și răspundere profesională'}
                   </h2>
                   <p className="text-xs text-slate-500">
-                    {formType === 'general' && 'Adresează orice nelămurire legată de platformă sau conceptele de asigurare.'}
-                    {formType === 'review' && 'Spune-ne ce tip de contract deții și ce clauze dorești să analizăm împreună.'}
-                    {formType === 'scenario' && 'Discută cum se aplică scenariul selectat în situația ta personală.'}
-                    {formType === 'business' && 'Pentru riscuri comerciale, flote auto, răspundere profesională sau cyber.'}
+                    {formType === 'general' && 'Scrie-ne despre orice clauză sau situație din asigurări pe care vrei s-o lămurești.'}
+                    {formType === 'review' && 'Spune-ne ce tip de contract deții și analizăm excluderile și punctele critice.'}
+                    {formType === 'scenario' && 'Discutăm cum se aplică scenariul analizat la proprietatea sau mașina ta.'}
+                    {formType === 'business' && 'Pentru riscuri comerciale, flote, întreruperea activității sau răspundere civilă.'}
                   </p>
                 </div>
 
                 {errorMessage && (
-                  <div className="p-4 rounded-xl bg-red-50 border border-red-200 flex items-center gap-3 text-xs text-red-700">
-                    <AlertCircle className="w-4 h-4 text-[#E10600] shrink-0" />
-                    <span>{errorMessage}</span>
+                  <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 space-y-2.5">
+                    <div className="flex items-center gap-2.5 font-bold">
+                      <AlertCircle className="w-4 h-4 text-[#E10600] shrink-0" />
+                      <span>{errorMessage}</span>
+                    </div>
+                    <div className="pt-1 flex flex-wrap items-center gap-2">
+                      <span className="text-slate-600 font-medium">Alternative directe de contact:</span>
+                      <a
+                        href="https://wa.me/436509536345"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors inline-flex items-center gap-1 text-[11px]"
+                      >
+                        WhatsApp Direct (+43 650 953 6345)
+                      </a>
+                      <a
+                        href="mailto:cristianvaduva@duck.com"
+                        className="px-2.5 py-1 rounded-lg bg-[#06141B] text-white font-bold hover:bg-slate-800 transition-colors inline-flex items-center gap-1 text-[11px]"
+                      >
+                        Trimite E-mail
+                      </a>
+                    </div>
                   </div>
                 )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono uppercase text-slate-700 font-bold block">
+                    <label htmlFor="contact-name" className="text-xs font-mono uppercase text-slate-700 font-bold block">
                       Nume Complet <span className="text-[#E10600]">*</span>
                     </label>
                     <input
+                      id="contact-name"
+                      name="name"
                       type="text"
                       required
+                      autoComplete="name"
+                      maxLength={100}
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Ex: Ion Popescu"
@@ -265,12 +308,16 @@ function ContactFormContent() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono uppercase text-slate-700 font-bold block">
+                    <label htmlFor="contact-email" className="text-xs font-mono uppercase text-slate-700 font-bold block">
                       Adresă E-mail <span className="text-[#E10600]">*</span>
                     </label>
                     <input
+                      id="contact-email"
+                      name="email"
                       type="email"
                       required
+                      autoComplete="email"
+                      maxLength={120}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="nume@exemplu.ro"
@@ -281,11 +328,15 @@ function ContactFormContent() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono uppercase text-slate-700 font-bold block">
+                    <label htmlFor="contact-phone" className="text-xs font-mono uppercase text-slate-700 font-bold block">
                       Număr Telefon (Opțional)
                     </label>
                     <input
+                      id="contact-phone"
+                      name="phone"
                       type="tel"
+                      autoComplete="tel"
+                      maxLength={20}
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="07xxxxxxxx"
@@ -294,10 +345,12 @@ function ContactFormContent() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono uppercase text-slate-700 font-bold block">
+                    <label htmlFor="contact-preferred" className="text-xs font-mono uppercase text-slate-700 font-bold block">
                       Metodă de contact preferată
                     </label>
                     <select
+                      id="contact-preferred"
+                      name="preferredContact"
                       value={preferredContact}
                       onChange={(e) => setPreferredContact(e.target.value)}
                       className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-sm focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
@@ -394,7 +447,7 @@ function ContactFormContent() {
                     ) : (
                       <>
                         <Send className="w-4 h-4 text-slate-300" />
-                        <span>Trimite solicitarea</span>
+                        <span>Trimite pentru analiză</span>
                       </>
                     )}
                   </button>

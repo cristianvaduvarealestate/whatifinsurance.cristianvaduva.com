@@ -39,7 +39,7 @@ export const PolicyCheckModal: React.FC<PolicyCheckModalProps> = ({
           <div className="flex items-center gap-2.5">
             <ShieldQuestion className="w-5 h-5 text-[#E10600]" />
             <h3 className="text-lg sm:text-xl font-black text-[#06141B]">
-              Verifică Polița Ta
+              Audit Rapid de Clauze
             </h3>
           </div>
           <button
@@ -57,13 +57,13 @@ export const PolicyCheckModal: React.FC<PolicyCheckModalProps> = ({
           <form onSubmit={handleSubmit} className="space-y-4 mt-5">
             {scenarioTitle && (
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700">
-                <span className="font-bold text-[#06141B]">Scenariu de plecare:</span> {scenarioTitle}
+                <span className="font-bold text-[#06141B]">Punct de plecare:</span> {scenarioTitle}
               </div>
             )}
 
             <div>
               <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
-                Tipul de asigurare de verificat
+                1. Ce tip de poliță vrei să clarifici?
               </label>
               <select
                 value={policyType}
@@ -80,7 +80,7 @@ export const PolicyCheckModal: React.FC<PolicyCheckModalProps> = ({
 
             <div>
               <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
-                Situația ta actuală
+                2. Situația ta actuală
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -92,7 +92,7 @@ export const PolicyCheckModal: React.FC<PolicyCheckModalProps> = ({
                       : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-400'
                   }`}
                 >
-                  Dețin o poliță și vreau s-o verific
+                  Am o poliță și vreau s-o verific
                 </button>
                 <button
                   type="button"
@@ -103,27 +103,27 @@ export const PolicyCheckModal: React.FC<PolicyCheckModalProps> = ({
                       : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-400'
                   }`}
                 >
-                  Nu am încă, vreau îndrumare
+                  Vreau să închei una, fără capcane
                 </button>
               </div>
             </div>
 
             <div>
               <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
-                Întrebare sau clauză de lămurit (Opțional)
+                3. Ce clauză te pune pe gânduri? (Opțional)
               </label>
               <textarea
                 rows={3}
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
-                placeholder="Exemplu: Aș vrea să știu dacă asigurarea mea acoperă apa de conductă sau daunele vecinilor..."
+                placeholder="Exemplu: Aș vrea să știu dacă asigurarea mea acoperă apa de conductă, franșiza sau daunele vecinilor..."
                 className="w-full p-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none resize-none placeholder:text-slate-400"
               />
             </div>
 
             {/* Quick Link to full form */}
             <div className="pt-1 flex items-center justify-between text-xs text-slate-500">
-              <span>Pentru un audit complet cu date de contact:</span>
+              <span>Pentru o analiză aplicată cu date de contact:</span>
               <Link
                 href="/contact?topic=review-polita"
                 onClick={onClose}
@@ -137,7 +137,7 @@ export const PolicyCheckModal: React.FC<PolicyCheckModalProps> = ({
               type="submit"
               className="w-full py-3.5 px-4 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-all"
             >
-              <span>Continuă verificarea</span>
+              <span>Trimite solicitarea de audit</span>
               <ArrowRight className="w-4 h-4 text-slate-300" />
             </button>
           </form>
@@ -147,10 +147,10 @@ export const PolicyCheckModal: React.FC<PolicyCheckModalProps> = ({
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <h4 className="text-xl font-bold text-[#06141B]">
-              Solicitare recepționată!
+              Solicitarea ta de audit a fost recepționată
             </h4>
             <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
-              Dacă dorești o analiză aprofundată a contractului tău cu feedback direct din partea lui Cristian Văduva, poți trimite o solicitare de audit pe pagina dedicată de contact.
+              Dacă vrei o analiză aplicată pe contractul tău semnat, accesează formularul dedicat de contact cu detaliile poliței tale.
             </p>
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
               <Link
@@ -161,7 +161,7 @@ export const PolicyCheckModal: React.FC<PolicyCheckModalProps> = ({
                 }}
                 className="py-2.5 px-5 rounded-full bg-[#06141B] text-white text-xs font-bold hover:bg-slate-800 transition-colors"
               >
-                Completează datele de contact
+                Mergi la formularul detaliat
               </Link>
 
               <button

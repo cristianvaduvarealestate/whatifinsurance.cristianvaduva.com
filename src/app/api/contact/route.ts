@@ -40,23 +40,32 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Server-side validation
-    const { name, email, phone, formType, message, category, scenarioTitle, scenarioSlug, consent } = body;
+    const { name, email, phone, formType, message, category, scenarioTitle, scenarioSlug, consent, referralToken, referralLandingPath } = body;
 
+    // Name validation with upper boundary limit
     if (!name || typeof name !== 'string' || name.trim().length < 2) {
       return NextResponse.json(
         { error: 'Numele complet este obligatoriu (minim 2 caractere).' },
         { status: 400 }
       );
     }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || typeof email !== 'string' || !emailRegex.test(email.trim())) {
+    if (name.trim().length > 100) {
       return NextResponse.json(
-        { error: 'Adresa de e-mail introdusă este invalidă.' },
+        { error: 'Numele introdus depășește lungimea maximă admisă (100 de caractere).' },
         { status: 400 }
       );
     }
 
+    // Email validation with RFC-compliant regex and upper boundary limit
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+    if (!email || typeof email !== 'string' || !emailRegex.test(email.trim()) || email.trim().length > 120) {
+      return NextResponse.json(
+        { error: 'Adresa de e-mail introdusă este invalidă sau depășește limita admisă.' },
+        { status: 400 }
+      );
+    }
+
+    // Explicit GDPR consent is mandatory
     if (!consent) {
       return NextResponse.json(
         { error: 'Este necesar acordul pentru prelucrarea datelor în vederea contactării.' },
@@ -64,69 +73,138 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (formType === 'oferta' || formType === 'quote_request' || formType === 'asigurare_intrebare' || formType === 'ce_vrei_sa_asiguri') {
-      const phoneClean = typeof phone === 'string' ? phone.replace(/[^0-9+]/g, '') : '';
-      if (!phoneClean || phoneClean.length < 6) {
+    // Reasonable phone validation: required for quote & consultation forms
+    const isQuoteForm =
+      formType === 'oferta' ||
+      formType === 'quote_request' ||
+      formType === 'asigurare_intrebare' ||
+      formType === 'ce_vrei_sa_asiguri';
+
+    const phoneClean = typeof phone === 'string' ? phone.trim().replace(/[^0-9+]/g, '') : '';
+
+    if (isQuoteForm) {
+      if (!phoneClean || phoneClean.length < 8 || phoneClean.length > 20) {
         return NextResponse.json(
-          { error: 'Numărul de telefon este obligatoriu pentru a vă putea prezenta opțiunile (minim 6 cifre).' },
+          { error: 'Numărul de telefon este obligatoriu pentru prezentarea opțiunilor (între 8 și 20 de caractere).' },
           { status: 400 }
         );
       }
+    } else if (phoneClean && (phoneClean.length < 8 || phoneClean.length > 20)) {
+      return NextResponse.json(
+        { error: 'Numărul de telefon introdus este invalid (trebuie să aibă între 8 și 20 de caractere).' },
+        { status: 400 }
+      );
     }
 
-    // Sanitize string inputs (basic HTML strip)
-    const sanitize = (str: any) =>
-      typeof str === 'string' ? str.replace(/[<>]/g, '').trim() : '';
+    // Sanitize string inputs (strip potential HTML/tags and enforce strict length bounds)
+    const sanitize = (str: any, maxLen = 200) => {
+      if (typeof str !== 'string') return '';
+      return str.replace(/[<>]/g, '').trim().substring(0, maxLen);
+    };
+
+    // Sanitize referral attribution (opaque token: max 32 chars, strictly alphanumeric / dash / underscore)
+    const cleanReferralToken =
+      typeof referralToken === 'string' && /^[a-zA-Z0-9_-]{8,32}$/.test(referralToken.trim())
+        ? referralToken.trim()
+        : undefined;
+
+    const cleanReferralLanding =
+      typeof referralLandingPath === 'string' ? sanitize(referralLandingPath, 100) : undefined;
 
     const leadRecord = {
       id: `lead_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
       timestamp: new Date().toISOString(),
-      formType: sanitize(formType) || 'general',
-      name: sanitize(name),
-      email: email.trim().toLowerCase(),
-      phone: sanitize(phone),
-      category: sanitize(category),
-      scenarioTitle: sanitize(scenarioTitle),
-      scenarioSlug: sanitize(scenarioSlug),
-      message: sanitize(message),
+      formType: sanitize(formType, 50) || 'general',
+      name: sanitize(name, 100),
+      email: email.trim().toLowerCase().substring(0, 120),
+      phone: phoneClean.substring(0, 20),
+      category: sanitize(category, 80),
+      scenarioTitle: sanitize(scenarioTitle, 200),
+      scenarioSlug: sanitize(scenarioSlug, 100),
+      sourcePage: cleanReferralLanding || sanitize(scenarioSlug ? `/scenarii/${category}/${scenarioSlug}` : req.headers.get('referer') || '/contact', 120),
+      message: sanitize(message, 2500),
+      referralToken: cleanReferralToken,
+      referralLandingPath: cleanReferralLanding,
       ipMasked: ip.split('.').slice(0, 3).join('.') + '.xxx', // Masked IP for privacy
       status: 'pending_review',
     };
 
-    // 3. Local Secure Append-Only File Storage
-    // Saves leads to a protected directory inside the project (data/leads.json)
-    const storageDir = path.join(process.cwd(), 'data');
-    if (!fs.existsSync(storageDir)) {
-      fs.mkdirSync(storageDir, { recursive: true });
+    // 3. Deduplication Check (Durable via Netlify Blobs with in-memory fast path)
+    // Compute SHA-256 fingerprint from sanitized submission components (zero PII stored in key)
+    const crypto = await import('crypto');
+    const fingerprintSource = `${email.trim().toLowerCase()}|${sanitize(formType, 50)}|${phoneClean}|${sanitize(message, 120)}`;
+    const submissionFingerprint = crypto.createHash('sha256').update(fingerprintSource).digest('hex');
+
+    const { saveLead, checkAndRegisterDeduplication } = await import('@/lib/leadStorage');
+    const dedupCheck = await checkAndRegisterDeduplication(submissionFingerprint, leadRecord.id);
+
+    if (dedupCheck.isDuplicate) {
+      console.info(`[ContactRoute] Duplicate submission detected. Returning existing lead reference.`);
+      return NextResponse.json({
+        success: true,
+        leadId: dedupCheck.existingLeadId || leadRecord.id,
+        persisted: true,
+        duplicatePrevented: true,
+        message: 'Solicitarea dumneavoastră a fost deja recepționată și este în curs de procesare de către consultant.',
+      });
     }
 
-    const storagePath = path.join(storageDir, 'leads.json');
-    let existingLeads: any[] = [];
-    if (fs.existsSync(storagePath)) {
-      try {
-        const fileContent = fs.readFileSync(storagePath, 'utf8');
-        existingLeads = JSON.parse(fileContent);
-      } catch (e) {
-        existingLeads = [];
-      }
-    }
+    // 4. Persistent Lead Storage (Netlify Blobs in production, Local Disk in development)
+    const storageResult = await saveLead(leadRecord);
 
-    existingLeads.push(leadRecord);
-    fs.writeFileSync(storagePath, JSON.stringify(existingLeads, null, 2), 'utf8');
-
-    // 4. Shared Telegram Notification Infrastructure (Non-blocking)
+    // 5. Shared Telegram Notification Infrastructure (Decoupled from persistence)
+    let telegramDispatched = false;
     try {
-      await sendTelegramLeadNotification(leadRecord);
+      const result = await sendTelegramLeadNotification(leadRecord);
+      telegramDispatched = Boolean(result.success);
     } catch (telegramErr: any) {
-      // Safe error logging without tokens or PII; lead is already safely stored locally
+      // Safe error logging without tokens or PII
       console.warn(`[ContactRoute] Telegram notification dispatch failed for lead ${leadRecord.id}:`, telegramErr?.message || 'unknown');
     }
 
-    // Return confirmed submission
+    // 5. Fail-Safe Guarantee: Never report false success if lead cannot be guaranteed
+    // If persistent storage failed AND Telegram notification failed, do not deceive the user.
+    if (!storageResult.persisted && !telegramDispatched) {
+      console.error(`[ContactRoute] Lead ${leadRecord.id} could not be persisted or notified.`);
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Sistemul automat de recepție este temporar indisponibil. Solicitarea dumneavoastră nu a putut fi salvată în siguranță.',
+          fallbackContact: {
+            phone: '0767110439',
+            whatsapp: '+43 650 953 6345',
+            whatsappUrl: 'https://wa.me/436509536345',
+            email: 'cristianvaduva@duck.com',
+          },
+        },
+        { status: 503 }
+      );
+    }
+
+    if (!storageResult.persisted && telegramDispatched) {
+      console.warn(`[ContactRoute] Lead ${leadRecord.id} was notified via Telegram, but persistent storage was unavailable.`);
+    }
+
+    // Return confirmed submission with decoupled statuses and transparent messaging
+    const responseMessage = storageResult.persisted
+      ? 'Solicitarea dumneavoastră a fost înregistrată și securizată în baza de date. Vă vom contacta în cel mai scurt timp.'
+      : 'Solicitarea a fost transmisă consultantului pe canal direct de urgență. Pentru siguranță sporită, vă recomandăm să notați numărul de referință sau să ne contactați direct.';
+
     return NextResponse.json({
       success: true,
       leadId: leadRecord.id,
-      message: 'Solicitarea dumneavoastră a fost înregistrată cu succes. Vă vom contacta în cel mai scurt timp.',
+      persisted: storageResult.persisted,
+      storageEngine: storageResult.engine,
+      telegramNotified: telegramDispatched,
+      message: responseMessage,
+      ...(!storageResult.persisted && {
+        fallbackContact: {
+          phone: '0767110439',
+          whatsapp: '+43 650 953 6345',
+          whatsappUrl: 'https://wa.me/436509536345',
+          email: 'cristianvaduva@duck.com',
+        },
+      }),
     });
   } catch (error: any) {
     console.error('Contact form submission error:', error?.message);

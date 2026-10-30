@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Kitchen background wall gradient -->
+    <linearGradient id="kitchenBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051F20" />
+      <stop offset="60%" stop-color="#0B2B26" />
+      <stop offset="100%" stop-color="#163832" />
+    </linearGradient>
+
+    <!-- Dishwasher stainless steel body -->
+    <linearGradient id="applianceSteel" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#163832" />
+      <stop offset="25%" stop-color="#235347" />
+      <stop offset="50%" stop-color="#8EB69B" />
+      <stop offset="75%" stop-color="#235347" />
+      <stop offset="100%" stop-color="#0B2B26" />
+    </linearGradient>
+
+    <!-- Kitchen countertop granite/quartz -->
+    <linearGradient id="countertop" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#051F20" />
+      <stop offset="50%" stop-color="#163832" />
+      <stop offset="100%" stop-color="#051F20" />
+    </linearGradient>
+
+    <!-- Cabinet wood veneer gradient -->
+    <linearGradient id="cabinetWood" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0B2B26" />
+      <stop offset="100%" stop-color="#163832" />
+    </linearGradient>
+
+    <!-- Water pooling glow -->
+    <radialGradient id="waterLeakGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#DAF1DE" stop-opacity="0.6" />
+      <stop offset="40%" stop-color="#8EB69B" stop-opacity="0.4" />
+      <stop offset="85%" stop-color="#163832" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#051F20" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Wall Background -->
+  <rect width="800" height="500" fill="url(#kitchenBg)" />
+
+  <!-- Kitchen Splashback tiles -->
+  <g opacity="0.3">
+    <line x1="0" y1="80" x2="800" y2="80" stroke="#8EB69B" stroke-width="1" />
+    <line x1="0" y1="120" x2="800" y2="120" stroke="#8EB69B" stroke-width="1" />
+    <line x1="100" y1="50" x2="100" y2="140" stroke="#8EB69B" stroke-width="1" />
+    <line x1="200" y1="50" x2="200" y2="140" stroke="#8EB69B" stroke-width="1" />
+    <line x1="300" y1="50" x2="300" y2="140" stroke="#8EB69B" stroke-width="1" />
+    <line x1="400" y1="50" x2="400" y2="140" stroke="#8EB69B" stroke-width="1" />
+    <line x1="500" y1="50" x2="500" y2="140" stroke="#8EB69B" stroke-width="1" />
+    <line x1="600" y1="50" x2="600" y2="140" stroke="#8EB69B" stroke-width="1" />
+    <line x1="700" y1="50" x2="700" y2="140" stroke="#8EB69B" stroke-width="1" />
+  </g>
+
+  <!-- Floor line & tiled floor perspective -->
+  <rect x="0" y="380" width="800" height="120" fill="#07201D" />
+  <line x1="0" y1="380" x2="800" y2="380" stroke="#235347" stroke-width="2.5" />
+  <path d="M-50 500 L200 380 M150 500 L350 380 M400 500 L500 380 M650 500 L650 380 M900 500 L800 380" stroke="#0B2B26" stroke-width="2" opacity="0.7" />
+
+  <!-- Continuous Kitchen Countertop -->
+  <rect x="60" y="140" width="680" height="22" rx="3" fill="url(#countertop)" stroke="#235347" stroke-width="1.5" />
+
+  <!-- Left Kitchen Cabinet Unit (MDF) -->
+  <rect x="70" y="162" width="180" height="200" fill="url(#cabinetWood)" stroke="#235347" stroke-width="2" />
+  <!-- Cabinet door handle -->
+  <rect x="230" y="240" width="6" height="45" rx="3" fill="#8EB69B" />
+  <!-- Cabinet drawer line -->
+  <line x1="70" y1="210" x2="250" y2="210" stroke="#051F20" stroke-width="2" />
+  
+  <!-- Right Kitchen Cabinet Unit (MDF) with Swollen Base Damage -->
+  <rect x="550" y="162" width="180" height="200" fill="url(#cabinetWood)" stroke="#235347" stroke-width="2" />
+  <!-- Cabinet door handle -->
+  <rect x="565" y="240" width="6" height="45" rx="3" fill="#8EB69B" />
+  <!-- Cabinet drawer line -->
+  <line x1="550" y1="210" x2="730" y2="210" stroke="#051F20" stroke-width="2" />
+
+  <!-- Center Unit: Integrated Dishwasher -->
+  <rect x="260" y="162" width="280" height="200" fill="url(#applianceSteel)" stroke="#235347" stroke-width="2" />
+  <!-- Control Panel & Digital Display -->
+  <rect x="270" y="170" width="260" height="34" rx="4" fill="#051F20" stroke="#163832" stroke-width="1.5" />
+  <circle cx="288" cy="187" r="5" fill="#DE1110" />
+  <rect x="370" y="177" width="60" height="20" rx="3" fill="#0B2B26" stroke="#235347" />
+  <circle cx="388" cy="187" r="4" fill="#DE1110" />
+  <circle cx="400" cy="187" r="4" fill="#DE1110" opacity="0.6" />
+  <circle cx="412" cy="187" r="4" fill="#DE1110" opacity="0.3" />
+
+  <!-- Dishwasher Horizontal Recessed Door Handle -->
+  <rect x="330" y="214" width="140" height="12" rx="4" fill="#051F20" stroke="#8EB69B" stroke-width="1" />
+
+  <!-- Cabinet Plinth / Kickboard with Water Damage and Warping -->
+  <!-- Left Plinth -->
+  <rect x="70" y="362" width="180" height="18" fill="#0B2B26" stroke="#163832" />
+  
+  <!-- Center Plinth (Removed/Gapped showing leaking hose) -->
+  <rect x="260" y="362" width="280" height="18" fill="#0B2B26" stroke="#DE1110" stroke-width="1.5" stroke-dasharray="8 4" />
+  
+  <!-- Swollen, warped, delaminating MDF plinth on right corner -->
+  <path d="M550 362 C570 354, 610 350, 640 357 C670 363, 710 356, 730 362 L730 380 L550 380 Z" fill="#235347" stroke="#DE1110" stroke-width="2" />
+  <!-- Dark moisture rot / mould spots on MDF base -->
+  <circle cx="580" cy="370" r="4" fill="#051F20" opacity="0.9" />
+  <circle cx="615" cy="368" r="5" fill="#051F20" opacity="0.85" />
+  <circle cx="650" cy="372" r="6" fill="#051F20" opacity="0.9" />
+  <circle cx="690" cy="369" r="4.5" fill="#051F20" opacity="0.85" />
+
+  <!-- The Leak: Water escaping from under dishwasher door & hose joint -->
+  <!-- Water stream dripping beneath kickboard -->
+  <path d="M380 350 Q382 368 385 385" stroke="#DAF1DE" stroke-width="3" fill="none" opacity="0.9" />
+  <path d="M420 352 Q418 370 415 385" stroke="#8EB69B" stroke-width="2.5" fill="none" opacity="0.8" />
+  <path d="M350 355 Q348 372 345 385" stroke="#DAF1DE" stroke-width="2.5" fill="none" opacity="0.85" />
+
+  <!-- Massive Water Spreading Across Floor -->
+  <ellipse cx="400" cy="435" rx="340" ry="55" fill="url(#waterLeakGlow)" />
+  <ellipse cx="420" cy="435" rx="280" ry="40" fill="#8EB69B" opacity="0.4" />
+  <ellipse cx="410" cy="440" rx="190" ry="25" fill="#DAF1DE" opacity="0.3" />
+
+  <!-- Water puddles creeping under right MDF cabinet -->
+  <ellipse cx="630" cy="410" rx="90" ry="22" fill="#8EB69B" opacity="0.5" />
+  <ellipse cx="630" cy="410" rx="60" ry="14" fill="#DAF1DE" opacity="0.35" />
+
+  <!-- Moisture alert badge & Callout Arrow -->
+  <g transform="translate(630, 290)">
+    <line x1="0" y1="35" x2="0" y2="65" stroke="#DE1110" stroke-width="2" stroke-dasharray="3 3" />
+    <polygon points="0,70 -5,60 5,60" fill="#DE1110" />
+    <rect x="-70" y="0" width="140" height="32" rx="6" fill="#051F20" stroke="#DE1110" stroke-width="1.5" />
+    <text x="0" y="16" fill="#DAF1DE" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">MDF UMFLAT DE APĂ</text>
+    <text x="0" y="27" fill="#DE1110" font-family="sans-serif" font-size="8" font-weight="600" text-anchor="middle">DAUNĂ STRUCTURALĂ</text>
+  </g>
+
+  <!-- Editorial Alert Badge (Top-Left) -->
+  <g transform="translate(40, 40)">
+    <rect width="260" height="38" rx="19" fill="#051F20" stroke="#DE1110" stroke-width="2" />
+    <circle cx="22" cy="19" r="6" fill="#DE1110" />
+    <text x="38" y="24" fill="#DAF1DE" font-family="sans-serif" font-size="12" font-weight="700" letter-spacing="0.5">SCURGERE MAȘINĂ DE SPĂLAT VASE</text>
+  </g>
+</svg>

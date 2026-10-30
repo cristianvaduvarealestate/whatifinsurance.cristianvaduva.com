@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Dark room background gradient -->
+    <linearGradient id="fireRoomBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051F20" />
+      <stop offset="60%" stop-color="#0B2B26" />
+      <stop offset="100%" stop-color="#163832" />
+    </linearGradient>
+
+    <!-- Flame / electrical arc radial glow -->
+    <radialGradient id="arcGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFDD00" stop-opacity="0.9" />
+      <stop offset="25%" stop-color="#DE1110" stop-opacity="0.75" />
+      <stop offset="65%" stop-color="#235347" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#051F20" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Soot burn gradient on wall -->
+    <radialGradient id="sootSpill" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#020B0C" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#0B2B26" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#051F20" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Wall Background -->
+  <rect width="800" height="500" fill="url(#fireRoomBg)" />
+
+  <!-- Baseboard and floor line -->
+  <rect x="0" y="380" width="800" height="120" fill="#07201D" />
+  <line x1="0" y1="380" x2="800" y2="380" stroke="#235347" stroke-width="2" />
+  <line x1="0" y1="365" x2="800" y2="365" stroke="#163832" stroke-width="1.5" />
+
+  <!-- Massive Blackened Soot V-pattern climbing wall from outlet -->
+  <path d="M400 280 C320 220, 240 100, 220 0 L580 0 C560 100, 480 220, 400 280 Z" fill="url(#sootSpill)" />
+  <ellipse cx="400" cy="270" rx="140" ry="110" fill="url(#sootSpill)" opacity="0.9" />
+
+  <!-- Wall Outlet / Breaker Box Area -->
+  <g transform="translate(340, 210)">
+    <!-- Charred Wall Socket Plate -->
+    <rect width="120" height="120" rx="8" fill="#051F20" stroke="#DE1110" stroke-width="2" />
+    <!-- Melted plastic socket faces -->
+    <rect x="25" y="25" width="70" height="70" rx="4" fill="#020B0C" stroke="#235347" stroke-width="1.5" />
+    <circle cx="45" cy="60" r="5" fill="#DE1110" />
+    <circle cx="75" cy="60" r="5" fill="#DE1110" />
+    <!-- Charred melt dripping from faceplate -->
+    <path d="M40 95 C42 120, 38 135, 42 145" stroke="#020B0C" stroke-width="6" stroke-linecap="round" fill="none" />
+    <path d="M80 95 C78 115, 82 130, 80 140" stroke="#020B0C" stroke-width="5" stroke-linecap="round" fill="none" />
+  </g>
+
+  <!-- Arc Flash & Fire Glow -->
+  <ellipse cx="400" cy="270" rx="220" ry="170" fill="url(#arcGlow)" />
+
+  <!-- High-Voltage Electric Arc Lightning Sparks -->
+  <path d="M400 270 L370 240 L385 220 L350 190" stroke="#FFDD00" stroke-width="3" fill="none" stroke-linecap="round" />
+  <path d="M400 270 L435 245 L420 225 L455 185" stroke="#DAF1DE" stroke-width="2.5" fill="none" stroke-linecap="round" />
+  <path d="M400 270 L380 295 L360 310" stroke="#FFDD00" stroke-width="2.5" fill="none" stroke-linecap="round" />
+  <path d="M400 270 L430 300 L445 320" stroke="#DAF1DE" stroke-width="2.5" fill="none" stroke-linecap="round" />
+
+  <!-- Flames licking up from outlet -->
+  <path d="M375 250 Q360 170 395 130 Q410 180 390 220 Z" fill="#DE1110" opacity="0.85" />
+  <path d="M385 245 Q395 160 415 120 Q425 175 410 230 Z" fill="#FFDD00" opacity="0.9" />
+  <path d="M405 240 Q435 180 430 145 Q420 200 425 240 Z" fill="#DE1110" opacity="0.8" />
+
+  <!-- Smoke trails rising to ceiling -->
+  <path d="M380 130 C340 70, 320 30, 300 0" stroke="#0B2B26" stroke-width="16" fill="none" opacity="0.6" stroke-linecap="round" />
+  <path d="M420 120 C460 65, 480 30, 500 0" stroke="#0B2B26" stroke-width="18" fill="none" opacity="0.6" stroke-linecap="round" />
+  <path d="M400 120 C390 50, 410 20, 400 0" stroke="#163832" stroke-width="12" fill="none" opacity="0.5" stroke-linecap="round" />
+
+  <!-- Charred floorboards and fallen embers -->
+  <ellipse cx="400" cy="400" rx="110" ry="25" fill="#020B0C" opacity="0.9" />
+  <circle cx="370" cy="395" r="3" fill="#DE1110" />
+  <circle cx="430" cy="402" r="2.5" fill="#FFDD00" />
+  <circle cx="395" cy="408" r="3.5" fill="#DE1110" />
+  <circle cx="415" cy="392" r="2" fill="#FFDD00" />
+
+  <!-- Editorial Alert Badge (Top-Left) -->
+  <g transform="translate(40, 40)">
+    <rect width="260" height="38" rx="19" fill="#051F20" stroke="#DE1110" stroke-width="2" />
+    <circle cx="22" cy="19" r="6" fill="#DE1110" />
+    <text x="38" y="24" fill="#DAF1DE" font-family="sans-serif" font-size="12" font-weight="700" letter-spacing="0.5">SCURTCIRCUIT ELECTRIC &amp; INCENDIU</text>
+  </g>
+</svg>

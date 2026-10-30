@@ -29,33 +29,34 @@ export default function ConfidentialitatePage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-8 text-xs sm:text-sm leading-relaxed text-brand-light/90">
-        {/* Review Flag Notice */}
-        <div className="p-5 rounded-2xl bg-brand-surface border border-brand-border/60 space-y-2">
-          <div className="flex items-center gap-2 text-brand-silver font-bold font-mono text-xs uppercase">
-            <AlertTriangle className="w-4 h-4 text-brand-red" />
-            <span>Notă de Transparență &amp; Placeholder Legal</span>
-          </div>
-          <p className="text-brand-muted">
-            Acest document reflectă arhitectura locală actuală a platformei. Elementele corporative formale
-            (Operatorul de date juridic înregistrat, CUI, sediul social) sunt marcate ca placeholders deschise
-            pentru revizuire profesională înainte de operarea la scară comercială.
-          </p>
-        </div>
-
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-brand-light font-mono uppercase tracking-wider">
             1. Cine este responsabil de prelucrarea datelor (Operatorul)
           </h2>
           <p>
-            Platforma online <strong>WHAT IF INSURANCE</strong> este administrată și inițiată de către{' '}
-            <strong>Cristian Văduva</strong> [Date juridice operator: Persoană Fizică Autorizată / Entitate Juridică în curs de desemnare contractuală].
+            Platforma online <strong>WHAT IF INSURANCE</strong> (accesibilă la adresa{' '}
+            <code>whatifinsurance.cristianvaduva.com</code>) este o inițiativă digitală independentă de simulare și educație în domeniul riscurilor asigurate, administrată și dezvoltată de către{' '}
+            <strong>Cristian Văduva</strong>, în calitate de inițiator și administrator al platformei.
           </p>
           <p>
-            Pentru orice întrebări sau exercitarea drepturilor privind datele dumneavoastră personale, ne puteți contacta direct la:{' '}
-            <a href="mailto:cristianvaduva@duck.com" className="text-brand-silver underline">
-              cristianvaduva@duck.com
-            </a>{' '}
-            sau la numărul de telefon: 0767110439.
+            Pentru orice întrebări, solicitări de acces sau exercitarea drepturilor privind datele dumneavoastră personale, ne puteți contacta direct prin canalele dedicate:
+          </p>
+          <ul className="list-disc pl-5 space-y-1 text-brand-muted">
+            <li>
+              <strong>E-mail dedicat protecției datelor:</strong>{' '}
+              <a href="mailto:cristianvaduva@duck.com" className="text-brand-silver underline">
+                cristianvaduva@duck.com
+              </a>
+            </li>
+            <li>
+              <strong>Contact telefonic:</strong>{' '}
+              <a href="tel:0767110439" className="text-brand-silver underline">
+                0767110439
+              </a>
+            </li>
+          </ul>
+          <p className="text-xs text-brand-muted/80 pt-2 border-t border-brand-border/40">
+            <strong>Notă de transparență:</strong> Această platformă este un proiect educațional independent. Website-ul nu este deținut, operat sau administrat de Generali România Asigurare Reasigurare S.A. Toate mărcile, denumirile comerciale și produsele menționate aparțin titularilor de drept și sunt utilizate strict în scop informativ și metodologic.
           </p>
         </section>
 
@@ -78,6 +79,12 @@ export default function ConfidentialitatePage() {
             </li>
             <li>
               <strong>Date legate de solicitare:</strong> Categoria de asigurare vizată, scenariul selectat, mesajul transmis.
+            </li>
+            <li>
+              <strong>Date tehnice de atribuire a recomandărilor (Referral):</strong> Dacă accesați platforma printr-un link de recomandare distribuit de un utilizator, stocăm local pe dispozitivul dumneavoastră exclusiv un identificator opac, aleatoriu și non-sensibil (de tip <code>ref_...</code>), fără a asocia sau transmite date cu caracter personal. Acest token expiră automat după 30 de zile și servește strict agregării statistice operaționale a sursei de trafic.
+            </li>
+            <li>
+              <strong>Date analitice de navigare:</strong> Evenimentele legate de utilizarea chestionarelor educaționale și a studioului vizual sunt înregistrate fără colectarea de nume, adrese de e-mail, telefoane sau date financiare.
             </li>
           </ul>
           <p>
@@ -102,9 +109,7 @@ export default function ConfidentialitatePage() {
             4. Destinatarii datelor și stocarea locală
           </h2>
           <p>
-            În stadiul curent de dezvoltare locală, solicitările transmise prin formular sunt procesate local pe serverul aplicației
-            și salvate într-un fișier securizat de evidență internă (<code>data/leads.json</code>). Datele nu sunt vândute, închiriate
-            sau transmise către terți în scopuri de marketing.
+            În mediul de producție pe platforma Netlify, solicitările transmise prin formular sunt stocate într-un depozit securizat de cheie-valoare Netlify Blobs (<code>whatif-leads</code>), accesibil exclusiv pentru gestionarea autorizată a dosarului dumneavoastră, iar în mediul local de dezvoltare într-o evidență protejată. Datele nu sunt vândute, închiriate sau transmise către terți în scopuri de marketing.
           </p>
           <p>
             Perioada de retenție a datelor din solicitări este de <strong>maximum 12 luni</strong> de la data transmiterii, după care

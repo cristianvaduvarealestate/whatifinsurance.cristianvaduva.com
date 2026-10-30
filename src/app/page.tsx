@@ -118,7 +118,7 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={handleSurpriseMe}
-                    aria-label="Surprinde-mă cu un scenariu — Descoperă scenarii neașteptate și află ce ai putea să nu știi despre asigurări"
+                    aria-label="Surprinde-mă cu un scenariu — Descoperă situații neașteptate și află ce ai putea să nu știi despre asigurări"
                     title="Surprinde-mă cu un scenariu — Descoperă situații neașteptate și află ce ai putea să nu știi despre asigurări."
                     className="py-4 px-6 sm:px-7 rounded-full bg-[#06141B] hover:bg-slate-900 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-3 shadow-lg shadow-slate-900/20 hover:shadow-xl transition-all group"
                   >
@@ -142,19 +142,8 @@ export default function HomePage() {
                     onClick={() => setIsPolicyModalOpen(true)}
                     className="py-4 px-4 text-slate-600 hover:text-[#06141B] text-sm font-semibold underline underline-offset-4 transition-colors"
                   >
-                    Verifică polița ta
+                    Ai deja o poliță? Verifică clauzele
                   </button>
-                </div>
-
-                {/* Visible supporting explanation sentence */}
-                <div className="p-3 rounded-2xl bg-slate-100/80 border border-slate-200/90 text-xs text-slate-700 space-y-1">
-                  <div className="flex items-center gap-2 font-bold text-[#06141B]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E10600]" />
-                    <span>Descoperă scenarii neașteptate și află ce ai putea să nu știi despre asigurări.</span>
-                  </div>
-                  <p className="text-[11px] text-slate-500 font-normal leading-relaxed pl-3.5">
-                    Fiecare click alege la întâmplare o situație din viața reală și îți arată clar dacă ar fi acoperită sau dacă ai suporta costul din economii proprii.
-                  </p>
                 </div>
               </div>
 
@@ -164,7 +153,7 @@ export default function HomePage() {
                   <span className="font-mono text-xl font-black text-[#06141B] block">
                     121
                   </span>
-                  <span className="text-slate-500 font-medium">Scenarii Distincte</span>
+                  <span className="text-slate-500 font-medium">Scenarii Practice</span>
                 </div>
                 <div>
                   <span className="font-mono text-xl font-black text-[#06141B] block">
@@ -174,9 +163,9 @@ export default function HomePage() {
                 </div>
                 <div>
                   <span className="font-mono text-xl font-black text-[#E10600] block">
-                    100%
+                    0 Lei
                   </span>
-                  <span className="text-slate-500 font-medium">Bazat pe Condiții Reale</span>
+                  <span className="text-slate-500 font-medium">Acces Liber &amp; Gratuit</span>
                 </div>
               </div>
             </div>
@@ -186,7 +175,7 @@ export default function HomePage() {
               <div className="relative rounded-3xl bg-white border border-slate-200/90 p-5 sm:p-6 shadow-2xl shadow-slate-200/80 transition-all">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                   <span className="text-[11px] font-mono uppercase tracking-wider text-[#E10600] font-bold">
-                    Cazul Săptămânii
+                    DOSARUL SĂPTĂMÂNII
                   </span>
                   <span className="text-[11px] font-mono text-slate-500 font-semibold">
                     {heroScenario.categoryName}
@@ -245,7 +234,7 @@ export default function HomePage() {
                     href={`/scenarii/${heroScenario.categoryId}/${heroScenario.slug}`}
                     className="flex-1 py-3 px-4 rounded-xl bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors text-center shadow-sm"
                   >
-                    <span>Analizează acest scenariu</span>
+                    <span>Deschide dosarul de caz</span>
                     <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
                   </Link>
 
@@ -253,7 +242,7 @@ export default function HomePage() {
                     type="button"
                     onClick={() => setActiveShareScenario(heroScenario)}
                     className="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-[#06141B] transition-colors"
-                    title="Surprinde-ți prietenii"
+                    title="Trimite acest caz"
                   >
                     <Share2 className="w-4 h-4" />
                   </button>
@@ -266,51 +255,247 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================
-          SECȚIUNEA B — „AI ȘTIUT ASTA?” (MODUL DE CURIOZITATE)
+          SECȚIUNEA — PARTICIPARE ACTIVĂ & VALOARE IMEDIATĂ
+          "What's in it for me if I participate?"
+         ======================================================== */}
+      <section className="py-20 lg:py-24 bg-slate-50/80 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Header */}
+          <div className="max-w-3xl mb-14 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#051F20]/5 border border-[#051F20]/15 text-xs font-mono font-bold text-[#051F20] uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-[#E10600]" />
+              <span>Valoare Practică · De ce să participi?</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight leading-tight">
+              Învață din situații reale. <br className="hidden sm:inline" />
+              <span className="text-[#051F20]">Fii mai pregătit pentru ce urmează.</span>
+            </h2>
+
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              Nu trebuie să ai o asigurare ca să beneficiezi de WHAT IF INSURANCE. Platforma este construită pentru oricine vrea să recunoască din timp riscurile financiare, să știe ce întrebări să pună și să evite surprizele neplăcute.
+            </p>
+          </div>
+
+          {/* 4 Participation Activity Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            
+            {/* Card 1: Explore Scenarios */}
+            <div className="p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between group">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-[#235347] group-hover:scale-105 transition-transform">
+                  <Compass className="w-6 h-6 text-[#235347]" />
+                </div>
+                
+                <div className="space-y-2">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                    01 · Explorare
+                  </span>
+                  <h3 className="text-lg font-bold text-[#06141B] leading-snug">
+                    Descoperă riscuri ascunse
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Înveți să recunoști capcanele înainte de a semna un contract sau de a cumpăra un bun scump. Afli ce plătește o poliță și ce rămâne în sarcina ta.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-6 mt-6 border-t border-slate-100">
+                <Link
+                  href="/scenarii"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#051F20] hover:text-[#DE1110] transition-colors"
+                >
+                  <span>Explorează 121 de cazuri</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 2: Challenge a Friend */}
+            <div className="p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between group">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-[#DE1110] group-hover:scale-105 transition-transform">
+                  <MessageCircle className="w-6 h-6 text-[#DE1110]" />
+                </div>
+                
+                <div className="space-y-2">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                    02 · Dezbatere
+                  </span>
+                  <h3 className="text-lg font-bold text-[#06141B] leading-snug">
+                    Provoacă un prieten
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Deschide o discuție utilă despre situații reale: de la ecrane sparte la vecini inundați. Comparați intuiția fără discursuri plictisitoare de vânzare.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-6 mt-6 border-t border-slate-100">
+                <Link
+                  href="/studio?concept=surprinde-prietenii"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#051F20] hover:text-[#DE1110] transition-colors"
+                >
+                  <span>Creează o provocare</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 3: Suggest a Situation */}
+            <div className="p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between group">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-[#051F20] group-hover:scale-105 transition-transform">
+                  <Send className="w-6 h-6 text-[#051F20]" />
+                </div>
+                
+                <div className="space-y-2">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                    03 · Caz Personal
+                  </span>
+                  <h3 className="text-lg font-bold text-[#06141B] leading-snug">
+                    Propune o situație
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Ai o dilemă neclară sau ai trăit o întâmplare bizară? Trimite-ne situația ta. O analizăm din perspectiva clauzelor reale din contractele din România și îți trimitem un punct de vedere util.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-6 mt-6 border-t border-slate-100">
+                <Link
+                  href="/contact?topic=sugestie-scenariu"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#051F20] hover:text-[#DE1110] transition-colors"
+                >
+                  <span>Trimite o situație</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 4: Test Intuition Quiz */}
+            <div className="p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between group">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-700 group-hover:scale-105 transition-transform">
+                  <CheckSquare className="w-6 h-6 text-amber-700" />
+                </div>
+                
+                <div className="space-y-2">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                    04 · Autoevaluare
+                  </span>
+                  <h3 className="text-lg font-bold text-[#06141B] leading-snug">
+                    Testează-ți intuiția
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    8 întrebări scurte despre clauze cotidiene. Afli în 3 minute cât de bine distingi presupunerile comune de realitatea contractelor din România.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-6 mt-6 border-t border-slate-100">
+                <Link
+                  href="/quiz"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#051F20] hover:text-[#DE1110] transition-colors"
+                >
+                  <span>Începe testul (3 min)</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Honest Value Exchange Callout */}
+          <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-2xs">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+              </div>
+              <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
+                <strong className="text-[#06141B]">Schimb onest de valoare:</strong> Investești puțină atenție și câștigi pregătire reală, întrebări mai bune la semnare și claritate financiară. Fără cont obligatoriu, acces liber și anonim la scenarii și quiz.
+              </p>
+            </div>
+
+            <Link
+              href="/studio"
+              className="py-2.5 px-5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#06141B] font-bold text-xs shrink-0 transition-colors"
+            >
+              Deschide Studio Share
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ========================================================
+          SECȚIUNEA B — „CLAUZA CARE SCHIMBĂ TOTUL” (CURIOZITATE)
          ======================================================== */}
       <section className="py-16 bg-slate-50/70 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-white border border-slate-200 p-8 sm:p-12 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="space-y-4 max-w-2xl">
+          <div className="rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-sm grid grid-cols-1 lg:grid-cols-12 items-center">
+            
+            {/* Left Photographic Preview (5 cols) */}
+            <div className="lg:col-span-5 relative h-64 lg:h-full min-h-[260px] bg-slate-900 overflow-hidden">
+              <img
+                src="/images/scenarios/vacant-freeze-damage.jpg"
+                alt="Avarie de conductă spartă de ger într-un imobil neocupat"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 opacity-90"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <span className="px-2.5 py-1 rounded bg-[#E10600] text-white text-[10px] font-mono font-bold uppercase tracking-wider">
+                  Clauza de Nelocuire (30–60 zile)
+                </span>
+                <p className="text-white text-xs font-medium mt-1">
+                  Condiții de prevenție la îngheț în imobile neocupate
+                </p>
+              </div>
+            </div>
+
+            {/* Right Editorial Copy (7 cols) */}
+            <div className="lg:col-span-7 p-6 sm:p-10 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E10600]/10 border border-[#E10600]/20 text-xs font-mono font-bold text-[#E10600] uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5" />
-                Ai știut asta?
+                Clauza care schimbă totul
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-black text-[#06141B] leading-tight">
-                O țeavă înghețată se sparge cât ești plecat de acasă în concediu.
+                Pleci 30 de zile în vacanță. Știai că o avarie de îngheț poate fi exclusă dacă locuința rămâne neîncălzită?
               </h2>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Știai că majoritatea polițelor facultative de locuință conțin o clauză de „imobil neocupat” care suspendă sau exclude daunele provocate de îngheț dacă locuința rămâne nelocuită mai mult de 30 sau 60 de zile consecutive fără oprirea apei?
+                Multe polițe facultative conțin clauze specifice de neocupare: dacă imobilul rămâne nelocuit peste 30–60 de zile fără menținerea unei temperaturi minime sau fără oprirea alimentării cu apă, daunele produse de îngheț pot fi refuzate ori limitate contractual. Verifică cerințele exacte din contractul tău.
               </p>
 
               <div className="text-xs font-mono text-slate-400">
-                Sursă normativă: Condiții generale de asigurare a locuinței (clauze de absență prelungită)
+                Sursă: Condițiile Generale pentru Asigurarea Locuinței (clauza de neocupare 30-60 de zile)
+              </div>
+
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <Link
+                  href="/scenarii/casa/teava-inghetata-iarna"
+                  className="py-3.5 px-6 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-xs sm:text-sm text-center transition-all flex items-center justify-center gap-2"
+                >
+                  <span>Vezi cum funcționează clauza</span>
+                  <ArrowRight className="w-4 h-4 text-slate-300" />
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const s = SCENARIOS.find((item) => item.slug === 'teava-inghetata-iarna');
+                    if (s) setActiveShareScenario(s);
+                  }}
+                  className="py-3.5 px-5 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all"
+                >
+                  <Share2 className="w-3.5 h-3.5 text-[#E10600]" />
+                  <span>Trimite-i cuiva care călătorește des</span>
+                </button>
               </div>
             </div>
 
-            <div className="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
-              <Link
-                href="/scenarii/casa/teava-inghetata-absenta"
-                className="py-3.5 px-6 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-xs sm:text-sm text-center transition-all flex items-center justify-center gap-2"
-              >
-                <span>Descoperă scenariul</span>
-                <ArrowRight className="w-4 h-4 text-slate-300" />
-              </Link>
-
-              <button
-                type="button"
-                onClick={() => {
-                  const s = SCENARIOS.find((item) => item.slug === 'teava-inghetata-absenta');
-                  if (s) setActiveShareScenario(s);
-                }}
-                className="py-3.5 px-5 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all"
-              >
-                <Share2 className="w-3.5 h-3.5 text-[#E10600]" />
-                <span>Trimite unui prieten</span>
-              </button>
-            </div>
           </div>
         </div>
       </section>
@@ -322,13 +507,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#E10600] block mb-2">
-              Discuții Reale · Provoacă-ți Prietenii
+              Clauze cu Plot Twist · Ce ar spune prietenii tăi?
             </span>
             <h2 className="text-2xl sm:text-4xl font-black text-[#06141B] tracking-tight">
-              Trimite asta unui prieten
+              Trimite-i asta persoanei care spune «mie nu mi se poate întâmpla»
             </h2>
             <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
-              Situații surprinzătoare unde părerile sunt împărțite până la citirea clauzelor din contract. Pune-i pe gânduri:
+              Trei situații în care aproape toată lumea pariază pe răspunsul greșit — până când deschid contractul:
             </p>
           </div>
 
@@ -336,33 +521,42 @@ export default function HomePage() {
             {debateScenarios.map((item, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all flex flex-col justify-between"
+                className="group rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all flex flex-col justify-between overflow-hidden"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-bold text-[#E10600] shadow-sm">
+                  {/* Photo Header */}
+                  <div className="relative w-full h-44 overflow-hidden bg-slate-200">
+                    <img
+                      src={item.scenario.heroImage || '/images/scenarios/pipe-burst.jpg'}
+                      alt={item.scenario.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/70 text-white text-[10px] font-mono font-bold uppercase tracking-wider backdrop-blur-xs">
                       {item.question}
-                    </span>
-                    <span className="text-xs font-mono text-slate-400">
+                    </div>
+                    <div className="absolute top-3 right-3 px-2 py-0.5 rounded bg-white/90 text-[#06141B] text-[10px] font-mono font-bold">
                       0{idx + 1}
-                    </span>
+                    </div>
                   </div>
 
-                  <h3 className="text-lg font-bold text-[#06141B] mb-2 leading-snug">
-                    {item.scenario.title}
-                  </h3>
+                  {/* Card Content */}
+                  <div className="p-6">
+                    <h3 className="text-base sm:text-lg font-bold text-[#06141B] mb-2 leading-snug">
+                      {item.scenario.title}
+                    </h3>
 
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-                    {item.angle}
-                  </p>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      {item.angle}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-200 flex items-center justify-between gap-3">
+                <div className="p-6 pt-0 border-t border-slate-200/60 mt-4 flex items-center justify-between gap-3">
                   <Link
                     href={`/scenarii/${item.scenario.categoryId}/${item.scenario.slug}`}
                     className="text-xs font-bold text-[#06141B] hover:text-[#E10600] flex items-center gap-1 transition-colors"
                   >
-                    <span>Vezi răspunsul</span>
+                    <span>Află ce spune clauza</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
 
@@ -370,10 +564,10 @@ export default function HomePage() {
                     type="button"
                     onClick={() => setActiveShareScenario(item.scenario)}
                     className="py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-[#06141B] text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-colors"
-                    title="Trimite provocarea"
+                    title="Trimite dilema"
                   >
                     <Send className="w-3 h-3 text-[#E10600]" />
-                    <span>Provoacă</span>
+                    <span>Trimite</span>
                   </button>
                 </div>
               </div>
@@ -390,13 +584,13 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 block mb-2">
-                Selecție Editorială
+                Situații Frecvente, Decizii Grele
               </span>
               <h2 className="text-2xl sm:text-4xl font-black text-[#06141B] tracking-tight">
-                Explorează după situația ta
+                Casa ta arată perfect. Riscul nu se vede în poze.
               </h2>
               <p className="text-slate-600 text-sm sm:text-base mt-2 max-w-xl">
-                O selecție curatoriată de situații cotidiene frecvente. Descoperă riscul, află condițiile și vezi ce s-ar schimba dacă ai o poliță adecvată.
+                De la furtunul mașinii de spălat până la bateria unei mașini electrice: vezi exact unde se oprește acoperirea standard și unde începe răspunderea ta.
               </p>
             </div>
 
@@ -404,7 +598,7 @@ export default function HomePage() {
               href="/scenarii"
               className="py-3 px-5 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-2 transition-colors shrink-0 shadow-sm"
             >
-              <span>Explorează toate cele 121 scenarii</span>
+              <span>Explorează toate cele 121 de cazuri</span>
               <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
             </Link>
           </div>
@@ -420,10 +614,10 @@ export default function HomePage() {
           <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div>
               <h3 className="text-base font-bold text-[#06141B]">
-                Cauți un risc specific? Avem 121 de situații documentate.
+                Ai o întrebare despre o situație anume? Avem 121 de dosare documentate.
               </h3>
               <p className="text-xs text-slate-600 mt-1">
-                Casă, mașini electrice, călătorii exotice, răspundere civilă, tehnologie, proprietăți de lux și familie.
+                Casă, baterii EV, spitale peste hotare, răspundere pentru copii, riscuri cyber și bunuri de colecție.
               </p>
             </div>
             <Link
@@ -445,16 +639,16 @@ export default function HomePage() {
             <div className="space-y-4 max-w-xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-slate-300 text-xs font-mono font-semibold uppercase tracking-wider">
                 <HelpCircle className="w-3.5 h-3.5 text-[#E10600]" />
-                Provocare Interactivă
+                Provocare · Testează-ți Intuiția
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
-                8 situații. <br />
-                <span className="text-slate-300">Câte răspunsuri nimerești?</span>
+                Crezi că știi ce acoperă polița ta? <br />
+                <span className="text-slate-300">8 întrebări scurte.</span>
               </h2>
 
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Trotinete electrice, baterii EV zgâriate, inundație de la vecinul de sus sau bagaje furate în vacanță. Crezi că știi ce acoperă o asigurare standard? Pune-ți intuiția la încercare și află deciziile reale ale asigurătorilor.
+                Trotinete electrice, telefoane scăpate în apă, baterii EV sau apă aspirată la motor. Fără teorie și fără discursuri corporatiste: doar situații concrete și verdicte contractuale documentate.
               </p>
             </div>
 
@@ -463,7 +657,7 @@ export default function HomePage() {
                 href="/quiz"
                 className="py-4 px-8 rounded-full bg-[#E10600] hover:bg-red-700 text-white font-extrabold text-sm sm:text-base text-center transition-all shadow-md flex items-center justify-center gap-2"
               >
-                <span>Acceptă provocarea</span>
+                <span>Începe testul (3 minute)</span>
                 <ArrowRight className="w-4 h-4 text-white" />
               </Link>
 
@@ -473,7 +667,7 @@ export default function HomePage() {
                 className="py-4 px-6 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-sm text-center transition-all flex items-center justify-center gap-2"
               >
                 <Shuffle className="w-4 h-4 text-slate-300" />
-                <span>Un caz aleatoriu</span>
+                <span>Un caz la întâmplare</span>
               </button>
             </div>
           </div>
@@ -489,29 +683,29 @@ export default function HomePage() {
             
             <div className="lg:col-span-6 space-y-4">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 block">
-                Instrument Gratuit · Fără Date Personale
+                Practic &amp; Imediat · Fără Date Personale
               </span>
 
               <h2 className="text-2xl sm:text-4xl font-black text-[#06141B] tracking-tight">
-                Verifică ce contează cu adevărat în polița ta
+                Ai un contract sau te gândești să închei unul? Ai răspunsul la aceste 3 întrebări?
               </h2>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Nu aștepta momentul unei daune pentru a afla ce nu acoperă contractul. Am sintetizat clauzele critice, franșizele ascunse și obligațiile de notificare pe care trebuie să le verifici chiar azi în propriul dosar de asigurare.
+                Nu aștepta momentul unei daune ca să afli ce nu acoperă contractul. Am extras clauzele critice, franșizele din parcare și termenele contractuale exacte de avizare pe care trebuie să le cauți chiar azi în propriul dosar.
               </p>
 
               <div className="space-y-2.5 pt-2 text-xs sm:text-sm text-slate-700">
                 <div className="flex items-center gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#06141B] shrink-0" />
-                  <span>Termenele limită de notificare (adesea 24h - 48h de la eveniment)</span>
+                  <span>Termenele limită de notificare (specifice fiecărui produs, ex. max. 3 zile lucrătoare la Eurocasa)</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#06141B] shrink-0" />
-                  <span>Clauzele specifice de neglijență sau absență din locuință</span>
+                  <span>Clauzele specifice de neocupare prelungită sau oprire a apei</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#06141B] shrink-0" />
-                  <span>Franșizele per eveniment și sub-limitele la bunuri de valoare</span>
+                  <span>Franșizele per eveniment și plafoanele separate la electronice sau bijuterii</span>
                 </div>
               </div>
 
@@ -521,7 +715,7 @@ export default function HomePage() {
                   className="py-3.5 px-6 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-xs sm:text-sm inline-flex items-center gap-2 transition-all shadow-sm"
                 >
                   <CheckSquare className="w-4 h-4 text-slate-300" />
-                  <span>Generează checklistul tău</span>
+                  <span>Deschide lista celor 8 verificări</span>
                 </Link>
               </div>
             </div>
@@ -531,7 +725,7 @@ export default function HomePage() {
               <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                   <span className="text-xs font-mono font-bold uppercase text-slate-900">
-                    Exemplu de Clauze de Verificat
+                    Exemple de Clauze din Contract
                   </span>
                   <span className="text-xs font-mono text-slate-400">PDF / Printabil</span>
                 </div>
@@ -539,11 +733,11 @@ export default function HomePage() {
                 <div className="space-y-3 text-xs">
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
                     <div className="font-bold text-[#06141B] mb-0.5">Locuință · Infiltrații de la vecini</div>
-                    <p className="text-slate-600">Polița acoperă doar daunele provocate ție sau include și răspunderea ta civilă față de terți?</p>
+                    <p className="text-slate-600">Polița acoperă doar daunele provocate ție sau include și răspunderea ta civilă față de vecinii de dedesubt?</p>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                    <div className="font-bold text-[#06141B] mb-0.5">Auto · Apă aspirată la motor</div>
-                    <p className="text-slate-600">CASCO menționează expres excluderea intrării voluntare pe drumuri inundate?</p>
+                    <div className="font-bold text-[#06141B] mb-0.5">Auto · Apă aspirată la motor (hidrolock)</div>
+                    <p className="text-slate-600">CASCO menționează expres excluderea traversării zonelor cu acumulări de apă?</p>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
                     <div className="font-bold text-[#06141B] mb-0.5">Călătorii · Urgențe fără notificare prealabilă</div>
@@ -552,7 +746,7 @@ export default function HomePage() {
                 </div>
 
                 <p className="text-[11px] text-slate-400 italic pt-1">
-                  * Generează lista completă adaptată situației tale prin instrumentul gratuit.
+                  * Deschide lista completă în 8 puncte adaptată situației tale prin instrumentul gratuit.
                 </p>
               </div>
             </div>
@@ -567,15 +761,15 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#E10600] block mb-3">
-            Consultanță &amp; Audit Profesional
+            Claritate Contractuală · Fără Presiune
           </span>
 
           <h2 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight">
-            Ai descoperit un risc pe care vrei să-l înțelegi mai bine?
+            Vrei să știi exact ce ai semnat? Sau ce ar trebui să semnezi?
           </h2>
 
           <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto mt-4 leading-relaxed">
-            Fiecare situație este unică. Dacă ai întrebări despre polița ta actuală sau vrei să afli cum te poți proteja împotriva unui scenariu specific, solicită o analiză individuală fără niciun angajament.
+            Fiecare contract are detalii particulare. Dacă vrei o privire independentă asupra poliței tale actuale — fără discursuri de vânzare și fără niciun angajament financiar — solicită o analiză de clauze.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
@@ -583,7 +777,7 @@ export default function HomePage() {
               href="/contact?topic=review-polita"
               className="w-full sm:w-auto py-4 px-8 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md transition-all"
             >
-              <span>Solicită o analiză a poliței</span>
+              <span>Solicită o analiză de clauze</span>
               <ArrowRight className="w-4 h-4 text-slate-300" />
             </Link>
 
@@ -591,7 +785,7 @@ export default function HomePage() {
               href="/contact"
               className="w-full sm:w-auto py-4 px-7 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 text-[#06141B] font-semibold text-sm sm:text-base transition-all"
             >
-              Pune o întrebare
+              Întreabă un specialist
             </Link>
           </div>
 
@@ -619,7 +813,7 @@ export default function HomePage() {
             </h2>
 
             <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
-              WHAT IF INSURANCE te ajută să explorezi situații neașteptate. Pe platforma de consultanță în asigurări poți merge mai departe și discuta despre nevoile tale reale de protecție.
+              WHAT IF INSURANCE te ajută să înțelegi riscurile. Pe platforma dedicată de consultanță discutăm despre soluții contractuale concrete, adaptate situației tale reale.
             </p>
           </div>
 
@@ -632,10 +826,10 @@ export default function HomePage() {
                   01
                 </span>
                 <h3 className="font-bold text-base text-[#06141B] leading-snug">
-                  Audit Independent de Polițe
+                  Audit &amp; Verificare de Clauze
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Analizăm contractele tale actuale pentru a depista excluderile ascunse, franșizele nerealiste și clauzele de neocupare înainte de producerea daunei.
+                  Depistăm excluderile ascunse, franșizele din parcare și clauzele de neocupare înainte de producerea daunei.
                 </p>
               </div>
               <span className="text-[11px] font-mono text-slate-400 mt-4 pt-3 border-t border-slate-100">
@@ -652,11 +846,11 @@ export default function HomePage() {
                   Consultanță Fără Presiune
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Ghidaj dedicat pentru persoane fizice, familii și antreprenori. Identificăm riscurile specifice stilului tău de viață sau afacerii tale.
+                  Ghidaj direct pentru persoane fizice, familii și antreprenori. Identificăm riscurile reale ale stilului tău de viață.
                 </p>
               </div>
               <span className="text-[11px] font-mono text-slate-400 mt-4 pt-3 border-t border-slate-100">
-                Soluții 100% personalizate
+                Recomandări bazate pe contracte reale
               </span>
             </div>
 
@@ -669,7 +863,7 @@ export default function HomePage() {
                   Parteneriat Oficial Generali
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Acces la portofoliul unuia dintre cei mai stabili asigurători mondiali: All-Risks locuință, CASCO fără bătăi de cap, sănătate și călătorii internaționale.
+                  Acces la portofoliul unuia dintre cei mai stabili asigurători mondiali: All-Risks locuință, CASCO fără dispute, sănătate și călătorii internaționale.
                 </p>
               </div>
               <span className="text-[11px] font-mono text-[#C21B17] font-bold mt-4 pt-3 border-t border-slate-100">
@@ -686,7 +880,7 @@ export default function HomePage() {
                   Active de Valoare &amp; Companii
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Management de risc pentru supercaruri, ambarcațiuni, colecții de artă, răspunderea administratorilor (D&O) și riscuri cibernetice complexe.
+                  Management de risc pentru supercaruri, ambarcațiuni, colecții de artă, răspunderea administratorilor (D&amp;O) și riscuri cibernetice.
                 </p>
               </div>
               <span className="text-[11px] font-mono text-slate-400 mt-4 pt-3 border-t border-slate-100">
@@ -704,10 +898,10 @@ export default function HomePage() {
                 <span>PLATFORMA DE BROKERAJ &amp; CONSULTANȚĂ</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black tracking-tight">
-                Treci de la curiozitate la siguranță contractuală.
+                Treci de la presupuneri la certitudini contractuale.
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
-                Vizitează platforma principală pentru emitere de polițe, asistență la daune și consultanță directă cu Cristian Văduva.
+                Accesează platforma principală pentru emitere de polițe, suport la deschiderea dosarelor și consultanță directă cu Cristian Văduva.
               </p>
             </div>
 
@@ -718,7 +912,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto py-4 px-7 rounded-full bg-white hover:bg-slate-100 text-[#06141B] font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-md group"
               >
-                <span>Descoperă Insurance.CristianVaduva.com</span>
+                <span>Accesează Insurance.CristianVaduva.com</span>
                 <ArrowUpRight className="w-4 h-4 text-[#E10600] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
 
@@ -726,7 +920,7 @@ export default function HomePage() {
                 href="/contact?topic=review-polita"
                 className="w-full sm:w-auto py-4 px-6 rounded-full bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm flex items-center justify-center gap-2 border border-slate-700 transition-all text-center"
               >
-                Solicită un audit gratuit
+                Solicită un audit de clauze
               </Link>
             </div>
           </div>

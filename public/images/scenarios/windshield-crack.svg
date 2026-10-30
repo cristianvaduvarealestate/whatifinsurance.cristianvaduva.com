@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="windshieldBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051F20" />
+      <stop offset="50%" stop-color="#0B2B26" />
+      <stop offset="100%" stop-color="#163832" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#windshieldBg)" />
+
+  <!-- Car Dashboard perspective silhouette -->
+  <path d="M0 400 Q400 360 800 400 L800 500 L0 500 Z" fill="#051F20" stroke="#0B2B26" stroke-width="2" />
+  <path d="M250 430 Q400 410 550 430" stroke="#163832" stroke-width="4" fill="none" />
+
+  <!-- Rearview Mirror -->
+  <polygon points="370,0 430,0 420,80 380,80" fill="#0B2B26" />
+  <rect x="340" y="80" width="120" height="40" rx="8" fill="#051F20" stroke="#163832" stroke-width="2" />
+
+  <!-- Stone Chip Impact Center (480, 220) with deep fissure -->
+  <circle cx="480" cy="220" r="8" fill="#DE1110" opacity="0.9" />
+  <circle cx="480" cy="220" r="14" fill="none" stroke="#DAF1DE" stroke-width="2" />
+
+  <!-- Radiating Cracks across the driver line of sight -->
+  <g stroke="#DAF1DE" stroke-linecap="round" opacity="0.85">
+    <!-- Main Long Stress Cracks -->
+    <path d="M480 220 L380 180 L220 160 L80 170" stroke-width="2.5" />
+    <path d="M480 220 L560 170 L720 120" stroke-width="2" />
+    <path d="M480 220 L520 290 L600 370" stroke-width="2.5" />
+    <path d="M480 220 L430 310 L350 390" stroke-width="2" />
+    <path d="M480 220 L470 120 L450 40" stroke-width="1.8" />
+    <path d="M480 220 L390 250 L270 300" stroke-width="1.8" />
+
+    <!-- Secondary Starburst Branching Fractures -->
+    <path d="M380 180 L350 140" stroke-width="1.2" />
+    <path d="M220 160 L200 120" stroke-width="1.2" />
+    <path d="M520 290 L570 300" stroke-width="1.2" />
+    <path d="M430 310 L410 350" stroke-width="1.2" />
+
+    <!-- Bullseye fracture ring -->
+    <ellipse cx="480" cy="220" rx="35" ry="30" fill="none" stroke-width="1" stroke-dasharray="8 4" />
+    <ellipse cx="480" cy="220" rx="60" ry="50" fill="none" stroke-width="0.8" opacity="0.6" />
+  </g>
+
+  <!-- Incoming Stone Vector -->
+  <path d="M620 140 L500 210" stroke="#DE1110" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.7" />
+  <circle cx="625" cy="137" r="3" fill="#8EB69B" />
+
+  <!-- Alert Badge -->
+  <g transform="translate(40, 40)">
+    <rect width="250" height="36" rx="18" fill="#051F20" stroke="#DE1110" stroke-width="1.5" />
+    <circle cx="22" cy="18" r="6" fill="#DE1110" />
+    <text x="38" y="23" fill="#DAF1DE" font-family="sans-serif" font-size="12" font-weight="700" letter-spacing="0.5">PARBRIZ FISURAT DE PIATRA DIN TRAFIC</text>
+  </g>
+</svg>

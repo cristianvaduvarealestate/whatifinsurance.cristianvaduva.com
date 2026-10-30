@@ -14,6 +14,8 @@ coverage/
 
 # Client leads and local data
 data/leads.json
+public/share-exports-test/
+*.tsbuildinfo
 
 # macOS
 .DS_Store

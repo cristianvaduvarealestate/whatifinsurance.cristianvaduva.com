@@ -1,17 +1,22 @@
+import { Suspense } from 'react';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { PersistentQuoteCTA } from '@/components/lead/PersistentQuoteCTA';
+import { MobileBottomNav } from '@/components/layout/MobileBottomNav';
+import { ReferralTracker } from '@/components/analytics/ReferralTracker';
 
 export const metadata: Metadata = {
-  title: 'WHAT IF INSURANCE — Descoperă ce se poate întâmpla. Află ce te poate proteja.',
-  description: 'O platformă interactivă care transformă riscurile cotidiene în experiențe vizuale captivante. Înțelege diferența critică dintre situația cu și fără asigurare.',
+  title: 'WHAT IF INSURANCE — Ai fi acoperit dacă s-ar întâmpla mâine?',
+  description:
+    'Descoperă riscurile reale ale vieții cotidiene la care nu te-ai gândit niciodată. Înțelege diferența critică dintre ce presupui că acoperă o poliță și ce plătești din propriul buzunar.',
   keywords: [
     'asigurari',
     'ce se intampla daca',
     'what if insurance',
     'scenarii de risc',
+    'clauze asigurare',
     'asigurare locuinta',
     'casco',
     'rca',
@@ -19,21 +24,32 @@ export const metadata: Metadata = {
     'cyber insurance',
     'raspundere civila',
   ],
-  authors: [{ name: 'Cristian Văduva', url: 'https://insurance.cristianvaduva.com' }],
+  authors: [{ name: 'Cristian Văduva', url: 'https://cristianvaduva.com' }],
   creator: 'Cristian Văduva',
-  metadataBase: new URL('https://insurance.cristianvaduva.com'),
+  metadataBase: new URL('https://whatifinsurance.cristianvaduva.com'),
+  alternates: {
+    canonical: 'https://whatifinsurance.cristianvaduva.com',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: '/favicon.svg',
+  },
   openGraph: {
     type: 'website',
     locale: 'ro_RO',
-    url: 'https://insurance.cristianvaduva.com',
-    title: 'WHAT IF INSURANCE — Descoperă ce se poate întâmpla.',
-    description: 'Explorează situații reale de risc, compară consecințele financiare și descarcă postări vizuale branduite.',
+    url: 'https://whatifinsurance.cristianvaduva.com',
+    title: 'WHAT IF INSURANCE — Ai fi acoperit dacă s-ar întâmpla mâine?',
+    description:
+      'Descoperă riscurile reale ale vieții cotidiene la care nu te-ai gândit niciodată. Înțelege diferența critică dintre ce presupui că acoperă o poliță și ce plătești din propriul buzunar.',
     siteName: 'WHAT IF INSURANCE',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'WHAT IF INSURANCE — Scenarii Interactive de Risc',
-    description: 'Vezi ce se poate schimba atunci când ai protecția potrivită.',
+    title: 'WHAT IF INSURANCE — Inteligență de Risc & Clauze Contractuale',
+    description: 'Vezi diferența reală dintre ce presupui că acoperă o poliță și ce plătești din propriul buzunar.',
   },
 };
 
@@ -50,18 +66,17 @@ export default function RootLayout({
 }) {
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'EducationalOrganization',
+    '@type': 'WebSite',
     name: 'WHAT IF INSURANCE',
     alternateName: 'Ce Se Întâmplă Dacă...?',
-    url: 'https://insurance.cristianvaduva.com',
-    logo: 'https://insurance.cristianvaduva.com/images/hero/hero-villa.jpg',
-    founder: {
+    url: 'https://whatifinsurance.cristianvaduva.com',
+    description:
+      'Platformă editorială independentă de conștientizare și simulare a riscurilor cotidiene, daune patrimoniale și clauze contractuale de asigurare.',
+    publisher: {
       '@type': 'Person',
       name: 'Cristian Văduva',
       url: 'https://cristianvaduva.com',
     },
-    description:
-      'Platformă interactivă de conștientizare și simulare a riscurilor cotidiene, daune patrimoniale și acoperire de asigurare.',
   };
 
   return (
@@ -73,10 +88,14 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col bg-white text-[#06141B] antialiased selection:bg-[#E10600] selection:text-white">
+        <Suspense fallback={null}>
+          <ReferralTracker />
+        </Suspense>
         <Navbar />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow pb-20 lg:pb-0">{children}</main>
         <Footer />
         <PersistentQuoteCTA />
+        <MobileBottomNav />
       </body>
     </html>
   );

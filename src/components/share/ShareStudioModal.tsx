@@ -65,9 +65,18 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
 
   const currentUrl = typeof window !== 'undefined'
     ? `${window.location.origin}/scenarii/${scenario.categoryId}/${scenario.slug}`
-    : `https://insurance.cristianvaduva.com/scenarii/${scenario.categoryId}/${scenario.slug}`;
+    : `https://whatifinsurance.cristianvaduva.com/scenarii/${scenario.categoryId}/${scenario.slug}`;
 
-  const challengeText = `Am găsit o situație neașteptată de risc: „${scenario.title}”. Tu ce crezi: ar fi acoperită de asigurare sau plătești din buzunar? Descoperă explicația: ${currentUrl}`;
+  const challengeText = [
+    `„${scenario.title}”`,
+    ``,
+    `📍 Situație: ${scenario.mainQuestion}`,
+    `⚖️ Ce spune contractul: ${scenario.withInsurance?.summary || scenario.shortDescription}`,
+    `🔍 Ce verifici: Consultă anexele poliței tale înainte de producerea unei daune similare.`,
+    `💬 Tu ai fi știut răspunsul contractual în această situație?`,
+    ``,
+    `Vezi analiza completă pe: ${currentUrl}`,
+  ].join('\n');
 
   const handleDownload = () => {
     if (!canvasRef.current) return;
@@ -79,7 +88,7 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
 
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(currentUrl);
+      await navigator.clipboard.writeText(`${challengeText}\n\n${currentUrl}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     } catch {
@@ -121,13 +130,13 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-[#E10600] text-xs font-mono font-bold uppercase tracking-wider mb-1">
               <Sparkles className="w-3.5 h-3.5" />
-              Surprinde-ți prietenii
+              Provocare de Risc · Export &amp; Distribuire
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-[#06141B]">
-              Pune-i pe gânduri: Tu ce crezi?
+              Trimite dilema: Tu ce crezi că se întâmplă?
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-1">
-              Descoperă o situație neașteptată, pune o întrebare și trimite-o mai departe. Vezi cine ghicește răspunsul.
+              O situație reală, o întrebare precisă. Trimite-o cuiva care este convins că lui nu i se poate întâmpla.
             </p>
           </div>
           <button
@@ -326,10 +335,6 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
                 className="w-full h-full object-contain block"
               />
             </div>
-
-            <span className="text-[10px] font-mono text-slate-400 mt-3 text-center">
-              Include watermark permanent oficial
-            </span>
           </div>
         </div>
       </div>

@@ -314,7 +314,7 @@ export const raspundereScenarios: Scenario[] = [
     "mainQuestion": "Ce poliță plătește dacă deteriorezi ireversibil un echipament electronic scump împrumutat pe încredere?",
     "shortDescription": "Un aparat mirrorless full-frame cu obiectiv de 4.000 EUR cade pe pietre într-o drumeție montană.",
     "situation": "Împrumuți de la un prieten fotograf o cameră mirrorless profesională Sony Alpha cu un obiectiv G-Master în valoare totală de 20.000 RON pentru un weekend la munte. Pe o potecă stâncoasă, te împiedici, cureaua se desprinde din prindere, iar aparatul se izbește violent de stânci. Montura obiectivului este smulsă, senzorul este fisurat, iar carcasa de magneziu este zdrobită. Aparatul este declarat daună totală economică de către service-ul autorizat.",
-    "heroImage": "/images/scenarios/art-damage.jpg",
+    "heroImage": "/images/scenarios/broken-camera.svg",
     "imageCaption": "Bunurile împrumutate (comodat) au un statut special în asigurări și sunt frecvent excluse dacă nu există o clauză dedicată pentru bunuri încredințate.",
     "severityLabel": "Risc Financiar și Moral Personal",
     "featured": false,
@@ -587,7 +587,7 @@ export const raspundereScenarios: Scenario[] = [
       "Apelează 112 pentru stingerea operativă a focului și folosește furtunul de grădină pentru a proteja casele de locuit.",
       "Colaborează deschis cu echipajul de pompieri ISU pentru redactarea Procesului-Verbal de intervenție.",
       "Asigură-ți vecinul că deții o poliță completă de asigurare care îi va reconstrui foișorul.",
-      "Avizează evenimentul la asigurătorul tău în termen de 48 de ore."
+      "Avizează evenimentul la asigurătorul tău conform termenului contractual (maxim 3 zile lucrătoare la Eurocasa)."
     ],
     "usefulDocuments": [
       "Procesul-Verbal de stingere emis de Pompieri (ISU) cu indicarea cauzei probabile",
@@ -661,7 +661,7 @@ export const raspundereScenarios: Scenario[] = [
       "Sună imediat la 112 și alertează vecinii pentru evacuarea clădirii.",
       "Oferă vecinului detaliile poliței tale de asigurare și colaborează cu pompierii.",
       "Păstrează ambalajul bateriei de artificii pentru a demonstra că a fost un produs omologat comercial.",
-      "Avizează asigurătorul în primele 48 de ore de la eveniment."
+      "Avizează asigurătorul conform termenului contractual prevăzut în poliță (uzual maxim 3 zile lucrătoare)."
     ],
     "usefulDocuments": [
       "Procesul-Verbal de stingere emis de Pompieri (ISU)",

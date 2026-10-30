@@ -3,7 +3,7 @@ import { SCENARIOS } from '@/data/scenarios';
 import { CATEGORIES } from '@/data/categories';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://insurance.cristianvaduva.com';
+  const baseUrl = 'https://whatifinsurance.cristianvaduva.com';
   const currentDate = new Date().toISOString();
 
   // Static core routes

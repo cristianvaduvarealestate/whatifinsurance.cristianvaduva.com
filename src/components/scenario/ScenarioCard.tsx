@@ -80,7 +80,7 @@ export const ScenarioCard: React.FC<ScenarioCardProps> = ({ scenario, priority =
             href={`/scenarii/${scenario.categoryId}/${scenario.slug}`}
             className="flex-1 py-2 px-3 rounded-lg bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-sm"
           >
-            <span>Analizează</span>
+            <span>Deschide cazul</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-slate-300" />
           </Link>
 
@@ -89,7 +89,7 @@ export const ScenarioCard: React.FC<ScenarioCardProps> = ({ scenario, priority =
             onClick={() => setIsShareOpen(true)}
             aria-label={`Distribuie ${scenario.title}`}
             className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-[#06141B] transition-colors"
-            title="Surprinde-ți prietenii cu acest scenariu"
+            title="Distribuie acest dosar de risc"
           >
             <Share2 className="w-4 h-4" />
           </button>

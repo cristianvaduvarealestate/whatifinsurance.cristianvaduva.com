@@ -40,26 +40,26 @@ export const ScenarioDetailClient: React.FC<ScenarioDetailClientProps> = ({ scen
         <div className="space-y-1.5 max-w-md">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#E10600] flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5" />
-            Surprinde-ți prietenii
+            Trimite dilema mai departe
           </span>
           <h3 className="text-lg sm:text-xl font-bold text-[#06141B]">
-            Cunoști pe cineva expus acestui risc?
+            Cineva apropiat crede că e acoperit în situația asta?
           </h3>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Trimite-le o provocare vizuală pentru Story sau WhatsApp cu fotografia reală a situației și află ce ar face în locul tău.
+            Exportă o imagine vizuală HD sau trimite linkul direct pe WhatsApp / Story. Vezi dacă ar ști ce răspunde contractul înainte de daună.
           </p>
         </div>
 
         {/* Buttons & Viral Actions */}
         <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-          {/* 1. Surprinde-ti prietenii */}
+          {/* 1. Surprinde-ți prietenii */}
           <button
             type="button"
             onClick={() => setIsShareOpen(true)}
             className="py-3 px-4 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
           >
             <Send className="w-3.5 h-3.5 text-slate-300" />
-            <span>Trimite provocarea</span>
+            <span>Surprinde-ți prietenii</span>
           </button>
 
           {/* 2. Încă unul (Next random scenario) */}
@@ -67,10 +67,10 @@ export const ScenarioDetailClient: React.FC<ScenarioDetailClientProps> = ({ scen
             type="button"
             onClick={handleNextRandom}
             className="py-3 px-4 rounded-full bg-white hover:bg-slate-100 border border-slate-300 text-[#06141B] font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
-            title="Descoperă următorul caz neașteptat"
+            title="Deschide alt caz documentat la întâmplare"
           >
             <Shuffle className="w-3.5 h-3.5 text-[#E10600]" />
-            <span>Încă unul</span>
+            <span>Alt caz real</span>
           </button>
 
           {/* 3. Află ce ai de verificat / Audit poliță */}
@@ -79,7 +79,7 @@ export const ScenarioDetailClient: React.FC<ScenarioDetailClientProps> = ({ scen
             className="py-3 px-4 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-slate-700" />
-            <span>Verifică polița ta</span>
+            <span>Audit clauză</span>
           </Link>
 
           {/* Copy Link */}

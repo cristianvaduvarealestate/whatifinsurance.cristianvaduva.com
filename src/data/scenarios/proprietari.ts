@@ -158,8 +158,8 @@ export const proprietariScenarios: Scenario[] = [
     "mainQuestion": "De ce refuză asigurătorii despăgubirea dacă o casă sau un apartament stă gol mai mult de 30-60 de zile?",
     "shortDescription": "Clauza de neocupare (Unoccupancy Clause) anulează acoperirea dacă proprietarul nu a notificat absența îndelungată.",
     "situation": "Ai cumpărat o casă sau un apartament ca investiție și îl lași nelocuit pe timpul iernii în așteptarea unui chiriaș potrivit. Nu oprești alimentarea generală cu apă și lași căldura pe minim. În timpul unui ger de -15°C, centrala intră în avarie, apa îngheață în calorifere și conductele plesnesc. Câteva săptămâni mai târziu, hoții observă casa nelocuită, forțează ușa din spate și fură centrala termică și cablurile de cupru. Asigurătorul respinge dosarul invocând clauza de nelocuire mai mare de 30 de zile.",
-    "heroImage": "/images/scenarios/vacant-property.jpg",
-    "imageCaption": "Polițele standard de locuință suspendă automat acoperirea pentru riscuri de apă de conductă și furt dacă imobilul rămâne nelocuit peste 30 – 60 de zile consecutive.",
+    "heroImage": "/images/scenarios/vacant-frozen-pipe.svg",
+    "imageCaption": "Condițiile de asigurare impun măsuri preventive obligatorii (oprirea apei și golirea instalației iarna) și pot condiționa acoperirea dacă imobilul rămâne nelocuit pe perioade îndelungate.",
     "severityLabel": "Risc Major de Excludere Contractuală",
     "featured": true,
     "tags": [
@@ -356,7 +356,7 @@ export const proprietariScenarios: Scenario[] = [
     "immediateSteps": [
       "Obține Raportul de intervenție de la Pompieri (ISU) cu indicarea cauzei incendiului.",
       "Fotografiază detaliat toate corpurile de mobilier arse și aparatele electrocasnice distruse.",
-      "Avizează asigurătorul în termen de 48 de ore.",
+      "Avizează asigurătorul conform termenului contractual (maxim 3 zile lucrătoare la Eurocasa).",
       "Semnează cu chiriașul un proces-verbal de constatare a incidentului."
     ],
     "usefulDocuments": [
@@ -454,7 +454,7 @@ export const proprietariScenarios: Scenario[] = [
     "mainQuestion": "Ce obligații urgente ai ca proprietar când chiriașii rămân fără căldură și apă caldă de Crăciun?",
     "shortDescription": "Schimbătorul de căldură se fisurează, lăsând familia cu bebeluș în frig în zile de sărbătoare.",
     "situation": "Este 28 decembrie, iar afară sunt -12°C. Chiriașii din apartamentul tău de investiții te sună disperați: centrala termică murală pe gaz are cod de eroare de blocaj total, curge apă sub ea, iar apartamentul s-a răcit la 14°C. În casă locuiește o familie cu un bebeluș de 4 luni. Niciun service tehnic nu are piese pe stoc în perioada sărbătorilor, iar înlocuirea de urgență cu o centrală nouă în condensare costă 8.500 RON cu tot cu montaj autorizat ISCIR.",
-    "heroImage": "/images/scenarios/freezing-pipe.jpg",
+    "heroImage": "/images/scenarios/frozen-pipe-burst.svg",
     "imageCaption": "Avariile sistemelor de încălzire în plină iarnă impun intervenții tehnice de urgență 24/7 pentru a preveni înghețul instalațiilor și rezilierea contractelor.",
     "severityLabel": "Urgență Termică și Confort Locativ",
     "featured": false,

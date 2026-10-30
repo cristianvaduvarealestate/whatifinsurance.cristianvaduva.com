@@ -52,8 +52,8 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
             }`}
           >
             <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-            <span className="hidden sm:inline">Cu Poliță</span>
-            <span className="sm:hidden">Cu Poliță</span>
+            <span className="hidden sm:inline">Cu Asigurare</span>
+            <span className="sm:hidden">Cu Asig.</span>
           </button>
 
           <button

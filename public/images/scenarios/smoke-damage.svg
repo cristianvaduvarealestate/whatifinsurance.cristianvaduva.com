@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Room ambient wall gradient -->
+    <linearGradient id="smokeRoomBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051F20" />
+      <stop offset="60%" stop-color="#0B2B26" />
+      <stop offset="100%" stop-color="#163832" />
+    </linearGradient>
+
+    <!-- Heavy soot grime spreading gradient -->
+    <radialGradient id="sootCeiling" cx="70%" cy="0%" r="80%">
+      <stop offset="0%" stop-color="#020B0C" stop-opacity="0.95" />
+      <stop offset="40%" stop-color="#051F20" stop-opacity="0.85" />
+      <stop offset="75%" stop-color="#0B2B26" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#163832" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Wall Background -->
+  <rect width="800" height="500" fill="url(#smokeRoomBg)" />
+
+  <!-- Ceiling corner perspective -->
+  <line x1="0" y1="90" x2="800" y2="90" stroke="#235347" stroke-width="2" />
+  <line x1="620" y1="90" x2="800" y2="0" stroke="#235347" stroke-width="2" />
+  <line x1="620" y1="90" x2="620" y2="500" stroke="#163832" stroke-width="2" />
+
+  <!-- Baseboard and floor line -->
+  <rect x="0" y="420" width="800" height="80" fill="#07201D" />
+  <line x1="0" y1="420" x2="800" y2="420" stroke="#235347" stroke-width="2" />
+
+  <!-- Massive Soot Layer coating the ceiling and upper walls from neighboring vent -->
+  <rect width="800" height="350" fill="url(#sootCeiling)" />
+
+  <!-- Shared Ventilation shaft / AC Duct on right where smoke infiltrated from neighbor -->
+  <g transform="translate(640, 120)">
+    <rect width="110" height="70" rx="4" fill="#020B0C" stroke="#DE1110" stroke-width="2" />
+    <!-- Grill slats -->
+    <line x1="15" y1="20" x2="95" y2="20" stroke="#235347" stroke-width="3" />
+    <line x1="15" y1="35" x2="95" y2="35" stroke="#235347" stroke-width="3" />
+    <line x1="15" y1="50" x2="95" y2="50" stroke="#235347" stroke-width="3" />
+    <!-- Billowing soot trails coming from vent -->
+    <path d="M50 35 C-30 40, -80 0, -160 20 C-240 40, -320 -10, -420 15" stroke="#020B0C" stroke-width="24" fill="none" opacity="0.8" stroke-linecap="round" />
+    <path d="M30 50 C-40 80, -120 70, -220 100 C-300 130, -400 110, -500 140" stroke="#051F20" stroke-width="18" fill="none" opacity="0.75" stroke-linecap="round" />
+    <path d="M60 20 C-20 -10, -100 -20, -180 5 C-280 30, -380 0, -480 30" stroke="#020B0C" stroke-width="16" fill="none" opacity="0.8" stroke-linecap="round" />
+  </g>
+
+  <!-- Soot ghosting / thermal tracking patterns on drywall -->
+  <g opacity="0.6">
+    <line x1="140" y1="90" x2="140" y2="420" stroke="#020B0C" stroke-width="12" />
+    <line x1="260" y1="90" x2="260" y2="420" stroke="#020B0C" stroke-width="12" />
+    <line x1="380" y1="90" x2="380" y2="420" stroke="#020B0C" stroke-width="12" />
+    <line x1="500" y1="90" x2="500" y2="420" stroke="#020B0C" stroke-width="12" />
+  </g>
+
+  <!-- Discolored framed picture hanging with soot outline around it -->
+  <g transform="translate(220, 180)">
+    <!-- Shadow / soot border showing where picture blocked soot -->
+    <rect x="-10" y="-10" width="160" height="180" rx="2" fill="#020B0C" opacity="0.9" />
+    <!-- Tilted frame -->
+    <g transform="rotate(3 70 80)">
+      <rect width="140" height="160" rx="2" fill="#0B2B26" stroke="#8EB69B" stroke-width="2" />
+      <rect x="15" y="15" width="110" height="130" fill="#163832" />
+      <!-- Black soot stained over half the artwork -->
+      <path d="M15 15 L125 15 L125 70 L15 120 Z" fill="#020B0C" opacity="0.8" />
+    </g>
+  </g>
+
+  <!-- Callout label: Origine fum - apartament vecin -->
+  <g transform="translate(560, 240)">
+    <rect width="190" height="50" rx="8" fill="#051F20" stroke="#DE1110" stroke-width="1.5" />
+    <text x="95" y="22" fill="#DAF1DE" font-family="sans-serif" font-size="10" font-weight="700" text-anchor="middle">INCENDIU LA VECIN</text>
+    <text x="95" y="38" fill="#DE1110" font-family="sans-serif" font-size="9" text-anchor="middle">INFILTRAȚIE FUM &amp; FUNINGINE</text>
+  </g>
+
+  <!-- Editorial Alert Badge (Top-Left) -->
+  <g transform="translate(40, 40)">
+    <rect width="250" height="38" rx="19" fill="#051F20" stroke="#DE1110" stroke-width="2" />
+    <circle cx="22" cy="19" r="6" fill="#DE1110" />
+    <text x="38" y="24" fill="#DAF1DE" font-family="sans-serif" font-size="12" font-weight="700" letter-spacing="0.5">DAUNE DE FUM &amp; AFUMARE</text>
+  </g>
+</svg>

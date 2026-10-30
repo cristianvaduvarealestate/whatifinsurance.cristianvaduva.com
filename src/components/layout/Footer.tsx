@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-sm text-slate-600 leading-relaxed max-w-sm">
-              Descoperă ce se poate întâmpla. Află ce te poate proteja. O platformă educațională interactivă care transformă riscurile cotidiene în experiențe clare, logice și orientate pe fapte reale.
+              Platformă editorială de inteligență a riscurilor. Înțelege diferența critică dintre ce presupui că acoperă o poliță și ce se întâmplă la deschiderea dosarului de daună. 121 de cazuri documentate pe contracte reale.
             </p>
 
             {/* Founder details */}
@@ -111,7 +111,7 @@ export const Footer: React.FC = () => {
                   className="flex items-center gap-1.5 hover:text-[#06141B] transition-colors"
                 >
                   <HelpCircle className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Testează intuiția</span>
+                  <span>Quiz intuiție</span>
                 </Link>
               </li>
               <li>
@@ -120,7 +120,7 @@ export const Footer: React.FC = () => {
                   className="flex items-center gap-1.5 hover:text-[#06141B] transition-colors"
                 >
                   <CheckSquare className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Checklist poliță</span>
+                  <span>Checklist clauze</span>
                 </Link>
               </li>
               <li>
@@ -129,7 +129,16 @@ export const Footer: React.FC = () => {
                   className="flex items-center gap-1.5 text-[#E10600] font-semibold hover:text-[#06141B] transition-colors"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Surprinde-ți prietenii</span>
+                  <span>Studio de share</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ghid-generali"
+                  className="flex items-center gap-1.5 hover:text-[#06141B] transition-colors font-medium text-slate-800"
+                >
+                  <Shield className="w-3.5 h-3.5 text-[#E10600]" />
+                  <span>Ghid Generali România</span>
                 </Link>
               </li>
               <li>

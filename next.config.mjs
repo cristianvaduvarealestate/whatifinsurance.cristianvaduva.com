@@ -30,7 +30,15 @@ const nextConfig = {
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
+            value: 'camera=(), microphone=(), geolocation=(), payment=()',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin-allow-popups',
+          },
+          {
+            key: 'Cross-Origin-Resource-Policy',
+            value: 'same-site',
           },
           {
             key: 'Strict-Transport-Security',
@@ -40,15 +48,61 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              process.env.NODE_ENV === 'production'
+                ? "script-src 'self' 'unsafe-inline'"
+                : "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://images.unsplash.com",
               "font-src 'self' data:",
-              "connect-src 'self'",
+              process.env.NODE_ENV === 'production'
+                ? "connect-src 'self'"
+                : "connect-src 'self' ws: wss:",
               "frame-ancestors 'self'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
             ].join('; '),
           },
         ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: '/privacy',
+        destination: '/confidentialitate',
+        permanent: true,
+      },
+      {
+        source: '/privacy-policy',
+        destination: '/confidentialitate',
+        permanent: true,
+      },
+      {
+        source: '/gdpr',
+        destination: '/confidentialitate',
+        permanent: true,
+      },
+      {
+        source: '/terms',
+        destination: '/termeni',
+        permanent: true,
+      },
+      {
+        source: '/legal',
+        destination: '/declinare-responsabilitate',
+        permanent: true,
+      },
+      {
+        source: '/apple-touch-icon.png',
+        destination: '/favicon.svg',
+        permanent: true,
+      },
+      {
+        source: '/apple-touch-icon-precomposed.png',
+        destination: '/favicon.svg',
+        permanent: true,
       },
     ];
   },
