@@ -58,6 +58,7 @@ const nextConfig = {
                 ? "connect-src 'self'"
                 : "connect-src 'self' ws: wss:",
               "frame-ancestors 'self'",
+              "frame-src 'none'",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
