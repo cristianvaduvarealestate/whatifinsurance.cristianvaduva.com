@@ -96,18 +96,6 @@ export default function RootLayout({
         <Footer />
         <PersistentQuoteCTA />
         <MobileBottomNav />
-
-        {/* Pre-empt Netlify edge-injected HUD badge script */}
-        <div
-          id="nl-badge-frame"
-          style={{ display: 'none', position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}
-          aria-hidden="true"
-        />
-        <div
-          id="nl-hud-frame"
-          style={{ display: 'none', position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}
-          aria-hidden="true"
-        />
       </body>
     </html>
   );
