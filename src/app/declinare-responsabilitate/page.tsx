@@ -32,7 +32,7 @@ export default function DeclinareResponsabilitatePage() {
             Declinare a Responsabilității &amp; Caracter Educațional
           </h1>
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            Platforma WHAT IF INSURANCE este un instrument independent de conștientizare a riscurilor cotidiene și explorare educativă a noțiunilor din domeniul asigurărilor. Această pagină explică clar limitele informațiilor prezentate.
+            Platforma WHAT IF INSURANCE este un instrument educațional de conștientizare a riscurilor cotidiene și explorare didactică a noțiunilor din domeniul asigurărilor, dezvoltat în calitate de partener Generali de către Cristian Văduva. Această pagină explică clar limitele informațiilor prezentate.
           </p>
           <div className="mt-4 text-xs font-mono text-slate-400">
             Ultima actualizare și revizuire metodologică: 28 Octombrie 2026
@@ -139,7 +139,7 @@ export default function DeclinareResponsabilitatePage() {
                       <CheckCircle className="w-4 h-4 text-[#E10600]" /> Consultați un Specialist
                     </div>
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      Discutați cu un consultant sau broker autorizat pentru o analiză personalizată a nevoilor specifice ale familiei sau afacerii dvs.
+                      Discutați cu un consultant sau intermediar autorizat pentru o analiză personalizată a nevoilor specifice ale familiei sau afacerii dvs.
                     </p>
                   </div>
                 </div>

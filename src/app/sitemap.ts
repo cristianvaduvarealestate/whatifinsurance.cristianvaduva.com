@@ -57,6 +57,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: `${baseUrl}/ghid-generali`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/confidentialitate`,
       lastModified: currentDate,
       changeFrequency: 'yearly',
@@ -74,7 +80,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/accesibilitate`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
   ];
+
+  // Clean category routes
+  const categoryRoutes: MetadataRoute.Sitemap = CATEGORIES.map((category) => ({
+    url: `${baseUrl}/scenarii/${category.id}`,
+    lastModified: currentDate,
+    changeFrequency: 'daily',
+    priority: 0.9,
+  }));
 
   // Dynamic scenario routes (all 121 scenarios)
   const scenarioRoutes: MetadataRoute.Sitemap = SCENARIOS.map((scenario) => ({
@@ -84,5 +104,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: scenario.featured ? 0.9 : 0.8,
   }));
 
-  return [...staticRoutes, ...scenarioRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...scenarioRoutes];
 }

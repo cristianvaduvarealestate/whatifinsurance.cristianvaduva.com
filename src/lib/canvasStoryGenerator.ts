@@ -169,7 +169,7 @@ export function drawBrandedEditorialFooter(
   if (isStory || isFeed) {
     ctx.fillStyle = BRAND_COLORS.textMuted;
     ctx.font = '500 11px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillText(extraNote ? extraNote.slice(0, 50) : 'Educație independentă despre riscuri cotidiene', paddingX, footerY + 68);
+    ctx.fillText(extraNote ? extraNote.slice(0, 50) : 'Educație despre riscuri cotidiene · Partener Generali', paddingX, footerY + 68);
   }
   ctx.restore();
 
@@ -855,7 +855,7 @@ export async function renderChallengeResultToCanvas(
 
   ctx.fillStyle = BRAND_COLORS.textMuted;
   ctx.font = '500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('Educație independentă despre riscuri cotidiene', paddingX, footerY + 52);
+  ctx.fillText('Educație despre riscuri cotidiene · Partener Generali', paddingX, footerY + 52);
 
   ctx.save();
   ctx.textAlign = 'right';

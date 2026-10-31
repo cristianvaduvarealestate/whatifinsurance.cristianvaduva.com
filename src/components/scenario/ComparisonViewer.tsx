@@ -88,10 +88,11 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
                 </h4>
               </div>
               <div className="text-left sm:text-right">
-                <span className="text-xs uppercase font-mono text-slate-500 block">Impact Financiar Estimativ</span>
+                <span className="text-xs uppercase font-mono text-slate-500 block">Impact Financiar (Estimare orientativă)</span>
                 <span className="text-xl font-black text-[#E10600]">
                   {scenario.withoutInsurance.financialImpact}
                 </span>
+                <span className="text-[10px] text-slate-400 block mt-0.5">* Costurile reale variază în funcție de circumstanțe și deviz.</span>
               </div>
             </div>
 
@@ -134,10 +135,11 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
                 </h4>
               </div>
               <div className="text-left sm:text-right">
-                <span className="text-xs uppercase font-mono text-slate-500 block">Acoperire prin Poliță</span>
+                <span className="text-xs uppercase font-mono text-slate-500 block">Acoperire prin Poliță (Estimare orientativă)</span>
                 <span className="text-xl font-black text-[#06141B]">
                   {scenario.withInsurance.financialImpact}
                 </span>
+                <span className="text-[10px] text-slate-400 block mt-0.5">* Conform condițiilor contractuale și franșizelor alese.</span>
               </div>
             </div>
 

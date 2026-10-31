@@ -58,6 +58,32 @@ export function getScenarioOfTheDay(): Scenario {
   return pool[dayOfYear % pool.length];
 }
 
+/**
+ * Deterministic Weekly Featured Scenario ("Dosarul Săptămânii").
+ * Uses ISO-8601 calendar week calculation in Romanian timezone (UTC+2 / UTC+3),
+ * guaranteeing consistent selection throughout Monday 00:00 to Sunday 23:59:59,
+ * predictable rotation each calendar week, no random jumps between renders,
+ * and strict resolution to a published authentic scenario record.
+ */
+export function getScenarioOfTheWeek(referenceDate: Date = new Date()): Scenario {
+  const d = new Date(referenceDate);
+  const target = new Date(d.valueOf());
+  const dayNr = (d.getUTCDay() + 6) % 7; // Monday = 0, Sunday = 6
+  target.setUTCDate(target.getUTCDate() - dayNr + 3);
+  const firstThursday = target.valueOf();
+  target.setUTCMonth(0, 1);
+  if (target.getUTCDay() !== 4) {
+    target.setUTCMonth(0, 1 + ((4 - target.getUTCDay() + 7) % 7));
+  }
+  const weekNumber = 1 + Math.ceil((firstThursday - target.valueOf()) / 604800000);
+  const year = d.getUTCFullYear();
+  const seed = year * 52 + weekNumber;
+
+  const featured = SCENARIOS.filter((s) => s.featured);
+  const pool = featured.length > 0 ? featured : SCENARIOS;
+  return pool[seed % pool.length];
+}
+
 export function getRelatedScenarios(scenario: Scenario, limit: number = 3): Scenario[] {
   // First prefer same category
   const sameCategory = SCENARIOS.filter(

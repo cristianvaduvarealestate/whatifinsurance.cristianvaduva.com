@@ -156,6 +156,20 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
                 {scenario.situation}
               </p>
             </div>
+
+            {scenario.illustrativeCost && (
+              <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/80 flex flex-wrap items-center justify-between gap-2 text-xs text-amber-950">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-200/60 text-amber-900 text-[11px]">
+                    Estimare orientativă
+                  </span>
+                  <span className="font-semibold text-slate-900">{scenario.illustrativeCost}</span>
+                </div>
+                <span className="text-slate-500 italic text-[11px]">
+                  * Costurile efective depind de devizul aprobat și circumstanțe
+                </span>
+              </div>
+            )}
           </div>
         </section>
 

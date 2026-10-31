@@ -34,8 +34,8 @@ export default function TermeniPage() {
             1. Caracterul educațional și informativ al platformei
           </h2>
           <p>
-            Platforma <strong>WHAT IF INSURANCE</strong> este un proiect digital independent de simulare și educație în domeniul
-            riscurilor cotidiene și al contractelor de asigurare.
+            Platforma <strong>WHAT IF INSURANCE</strong> este un proiect digital de simulare și conștientizare educațională în domeniul
+            riscurilor cotidiene și al contractelor de asigurare, dezvoltat în calitate de partener Generali de către Cristian Văduva.
           </p>
           <p className="p-4 rounded-xl bg-brand-surface border-l-4 border-brand-red text-brand-light">
             <strong>AVERTISMENT EXPLICIT:</strong> Scenariile, calculele financiare estimative, quiz-urile și analizele comparative

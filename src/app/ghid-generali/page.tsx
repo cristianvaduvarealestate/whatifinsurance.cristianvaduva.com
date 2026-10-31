@@ -46,7 +46,7 @@ export default function GhidGeneraliPage() {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-mono font-semibold tracking-wider text-red-300 mb-6 border border-white/10">
             <span className="w-2 h-2 rounded-full bg-[#E10600] animate-pulse" />
-            PARTENERIAT EXCLUSIV · GENERALI ROMÂNIA
+            PARTENER GENERALI ROMÂNIA
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight max-w-3xl text-white">
@@ -66,7 +66,7 @@ export default function GhidGeneraliPage() {
               </div>
               <div>
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-400 block">
-                  Ghid Independent &amp; Asistență
+                  Partener Generali · Consultanță &amp; Asistență
                 </span>
                 <span className="text-sm font-bold text-white">
                   Cristian Văduva · Powered by CristianVaduva.com
@@ -84,7 +84,7 @@ export default function GhidGeneraliPage() {
               </a>
 
               <a
-                href="tel:0767110439"
+                href="tel:+40767110439"
                 className="py-2.5 px-4 rounded-xl bg-[#E10600] hover:bg-[#c20500] text-white text-xs font-bold flex items-center gap-2 transition-all shadow-md"
               >
                 <Phone className="w-3.5 h-3.5 text-white" />
@@ -95,8 +95,8 @@ export default function GhidGeneraliPage() {
         </div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="sticky top-14 z-30 bg-white border-b border-slate-200 shadow-xs">
+      {/* Navigation Tabs (in-flow to avoid viewport sticky collision or bottom pinning) */}
+      <div className="bg-white border-b border-slate-200 shadow-xs">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 sm:space-x-8 overflow-x-auto py-2.5 no-scrollbar text-xs sm:text-sm font-semibold">
             <button
@@ -163,7 +163,7 @@ export default function GhidGeneraliPage() {
       </div>
 
       {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
         {/* =========================================================================
             PRODUCT VIEW (Casa / Auto / Călătorii / Business)
@@ -601,7 +601,7 @@ export default function GhidGeneraliPage() {
 
               <div className="flex flex-col sm:flex-row gap-3 shrink-0">
                 <a
-                  href="tel:0767110439"
+                  href="tel:+40767110439"
                   className="py-3 px-6 rounded-full bg-[#E10600] hover:bg-[#c20500] text-white text-xs font-bold text-center transition-all shadow-md flex items-center justify-center gap-2"
                 >
                   <Phone className="w-3.5 h-3.5 text-white" />
@@ -619,7 +619,7 @@ export default function GhidGeneraliPage() {
           </div>
         )}
 
-      </main>
+      </div>
 
     </div>
   );

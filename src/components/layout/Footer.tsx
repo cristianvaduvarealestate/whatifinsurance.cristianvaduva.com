@@ -44,11 +44,11 @@ export const Footer: React.FC = () => {
               
               <div className="flex flex-col space-y-1.5 text-xs text-slate-600 pt-1">
                 <a
-                  href="tel:0767110439"
+                  href="tel:+40767110439"
                   className="flex items-center gap-2 hover:text-[#06141B] transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 text-slate-400" />
-                  <span>0767110439</span>
+                  <span>+40 767 110 439</span>
                 </a>
                 <a
                   href="https://wa.me/436509536345"
@@ -88,7 +88,7 @@ export const Footer: React.FC = () => {
               {CATEGORIES.map((cat) => (
                 <li key={cat.id}>
                   <Link
-                    href={`/scenarii?categorie=${cat.id}`}
+                    href={`/scenarii/${cat.id}`}
                     className="text-slate-600 hover:text-[#06141B] transition-colors flex items-center gap-1.5 group"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-[#E10600] transition-colors" />
@@ -188,6 +188,11 @@ export const Footer: React.FC = () => {
                   Setări Cookies
                 </Link>
               </li>
+              <li>
+                <Link href="/accesibilitate" className="hover:text-[#06141B] transition-colors">
+                  Accesibilitate Web
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -197,7 +202,7 @@ export const Footer: React.FC = () => {
           <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-3 text-xs text-slate-600">
             <AlertCircle className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
             <div className="leading-relaxed">
-              <strong className="text-slate-900">Cadru metodologic și educativ:</strong> WHAT IF INSURANCE este o platformă independentă de conștientizare a riscurilor. Niciun conținut sau chestionar nu constituie o garanție fermă de plată din partea unui asigurător. Fiecare dosar de daună depinde de termenii contractuali, franșizele și excluderile poliței dumneavoastră.{' '}
+              <strong className="text-slate-900">Cadru metodologic și educativ:</strong> WHAT IF INSURANCE este o platformă educațională de conștientizare a riscurilor, realizată în parteneriat cu Generali de către Cristian Văduva. Niciun conținut sau chestionar nu constituie o garanție fermă de plată din partea unui asigurător. Fiecare dosar de daună depinde de termenii contractuali, franșizele și excluderile poliței dumneavoastră.{' '}
               <Link href="/declinare-responsabilitate" className="text-[#06141B] font-semibold underline hover:text-[#E10600]">
                 Citiți declarația completă de responsabilitate.
               </Link>

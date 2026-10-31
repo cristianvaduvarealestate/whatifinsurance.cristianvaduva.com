@@ -35,8 +35,8 @@ export default function ConfidentialitatePage() {
           </h2>
           <p>
             Platforma online <strong>WHAT IF INSURANCE</strong> (accesibilă la adresa{' '}
-            <code>whatifinsurance.cristianvaduva.com</code>) este o inițiativă digitală independentă de simulare și educație în domeniul riscurilor asigurate, administrată și dezvoltată de către{' '}
-            <strong>Cristian Văduva</strong>, în calitate de inițiator și administrator al platformei.
+            <code>whatifinsurance.cristianvaduva.com</code>) este o inițiativă digitală educațională de simulare și informare în domeniul riscurilor asigurate, administrată și dezvoltată de către{' '}
+            <strong>Cristian Văduva</strong>, în calitate de inițiator al platformei și partener Generali.
           </p>
           <p>
             Pentru orice întrebări, solicitări de acces sau exercitarea drepturilor privind datele dumneavoastră personale, ne puteți contacta direct prin canalele dedicate:
@@ -50,13 +50,13 @@ export default function ConfidentialitatePage() {
             </li>
             <li>
               <strong>Contact telefonic:</strong>{' '}
-              <a href="tel:0767110439" className="text-brand-silver underline">
-                0767110439
+              <a href="tel:+40767110439" className="text-brand-silver underline">
+                +40 767 110 439
               </a>
             </li>
           </ul>
           <p className="text-xs text-brand-muted/80 pt-2 border-t border-brand-border/40">
-            <strong>Notă de transparență:</strong> Această platformă este un proiect educațional independent. Website-ul nu este deținut, operat sau administrat de Generali România Asigurare Reasigurare S.A. Toate mărcile, denumirile comerciale și produsele menționate aparțin titularilor de drept și sunt utilizate strict în scop informativ și metodologic.
+            <strong>Notă de transparență:</strong> Cristian Văduva acționează în calitate de partener Generali. Website-ul este un instrument educațional și de analiză a riscurilor și nu este deținut sau operat direct de Generali România Asigurare Reasigurare S.A. Toate mărcile și denumirile comerciale menționate aparțin titularilor de drept.
           </p>
         </section>
 

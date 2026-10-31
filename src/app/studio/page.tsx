@@ -797,7 +797,7 @@ function ShareStudioContent() {
                       <span className="font-semibold text-slate-800">Bază factuală verificată: </span>
                       {activeScenarioPreset.sourceReference}.
                       <p className="text-[11px] text-slate-500 mt-0.5">
-                        Simulator educațional independent · Termenii contractuali ai asigurătorului tău prevalează întotdeauna.
+                        Simulator educațional · Partener Generali · Termenii contractuali ai poliței tale prevalează întotdeauna.
                       </p>
                     </div>
                   </div>

@@ -587,7 +587,7 @@ export const raspundereScenarios: Scenario[] = [
       "Apelează 112 pentru stingerea operativă a focului și folosește furtunul de grădină pentru a proteja casele de locuit.",
       "Colaborează deschis cu echipajul de pompieri ISU pentru redactarea Procesului-Verbal de intervenție.",
       "Asigură-ți vecinul că deții o poliță completă de asigurare care îi va reconstrui foișorul.",
-      "Avizează evenimentul la asigurătorul tău conform termenului contractual (maxim 3 zile lucrătoare la Eurocasa)."
+      "Avizează evenimentul la asigurătorul tău în termenul contractual aplicabil (termen specificat uzual de 3 zile lucrătoare conform condițiilor Generali Eurocasa Mod. E18; verificați termenul stipulat în polița proprie)."
     ],
     "usefulDocuments": [
       "Procesul-Verbal de stingere emis de Pompieri (ISU) cu indicarea cauzei probabile",
@@ -832,7 +832,7 @@ export const raspundereScenarios: Scenario[] = [
     "mainQuestion": "Ce răspundere ai dacă o neglijență în boxa de depozitare distruge bunurile depozitate de vecini?",
     "shortDescription": "Un furtun lăsat sub presiune cedează în weekend, inundând 8 boxe de la subsolul blocului.",
     "situation": "Ai montat un robinet și un furtun de spălat în boxa privată de la subsolul blocului. Vineri uiți robinetul deschis sub presiune. În timpul nopții, racordul flexibil cedează. Apa curge continuu timp de 48 de ore, acumulându-se până la 30 cm în întreg subsolul. Opt boxe de depozitare ale vecinilor sunt inundate: cărți, haine depozitate în cutii de carton, arhive contabile de firme și scule electrice sunt complet distruse de mâl și apă.",
-    "heroImage": "/images/scenarios/pipe-burst.jpg",
+    "heroImage": "/images/scenarios/basement-storage-flood.jpg",
     "imageCaption": "Avariile produse în spațiile anexe și boxe de subsol generează pretenții cumulative din partea mai multor proprietari afectați simultan.",
     "severityLabel": "Pretenții Multiple de Vecinătate",
     "featured": false,

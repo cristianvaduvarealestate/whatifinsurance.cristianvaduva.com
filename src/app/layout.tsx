@@ -71,7 +71,7 @@ export default function RootLayout({
     alternateName: 'Ce Se Întâmplă Dacă...?',
     url: 'https://whatifinsurance.cristianvaduva.com',
     description:
-      'Platformă editorială independentă de conștientizare și simulare a riscurilor cotidiene, daune patrimoniale și clauze contractuale de asigurare.',
+      'Platformă educațională de conștientizare și simulare a riscurilor cotidiene, realizată în parteneriat cu Generali de către Cristian Văduva.',
     publisher: {
       '@type': 'Person',
       name: 'Cristian Văduva',

@@ -47,10 +47,10 @@ export default function HomePage() {
     const slugs = [
       'masina-spalat-furtun',
       'baterie-vehicul-electric-avarie',
-      'urgenta-medicala-strainatate',
-      'copil-dauna-tv-rude',
-      'ransomware-criptare-fisiere',
-      'parbriz-fisurat-autostrada',
+      'urgenta-medicala-spitalizare-strainatate',
+      'copil-sparge-televizor-magazin',
+      'atac-ransomware-blocare-servere',
+      'parbriz-crapat-autostrada',
     ];
     const found = slugs.map((slug) => SCENARIOS.find((s) => s.slug === slug)).filter(Boolean) as Scenario[];
     return found.length >= 6 ? found : SCENARIOS.slice(0, 6);
@@ -58,21 +58,25 @@ export default function HomePage() {
 
   // Debate-worthy scenarios for Section C ("Trimite asta unui prieten")
   const debateScenarios = useMemo(() => {
+    const s1 = SCENARIOS.find((s) => s.slug === 'teava-inghetata-iarna') || SCENARIOS[0];
+    const s2 = SCENARIOS.find((s) => s.slug === 'baterie-vehicul-electric-avarie') || SCENARIOS[1];
+    const s3 = SCENARIOS.find((s) => s.slug === 'copil-sparge-televizor-magazin') || SCENARIOS[2];
+
     const list = [
       {
-        scenario: SCENARIOS.find((s) => s.slug === 'teava-inghetata-absenta') || SCENARIOS[0],
+        scenario: s1,
         question: 'Tu ai fi acoperit?',
-        angle: 'Dacă o țeavă îngheață cât ești plecat 10 zile de acasă, plătește asigurarea sau se consideră neglijență?',
+        angle: 'Dacă o țeavă îngheață cât ești plecat de acasă în timpul unui val de ger, plătește asigurarea sau se consideră neglijență?',
       },
       {
-        scenario: SCENARIOS.find((s) => s.slug === 'baterie-vehicul-electric-avarie') || SCENARIOS[1],
+        scenario: s2,
         question: 'Crezi că asigurarea plătește?',
-        angle: 'O simplă deformare sub mașina electrică poate atrage daună totală economică de 25.000 EUR.',
+        angle: 'O simplă deformare a carcasei bateriei la o mașină electrică poate atrage daună totală economică de peste 20.000 EUR.',
       },
       {
-        scenario: SCENARIOS.find((s) => s.slug === 'copil-dauna-tv-rude') || SCENARIOS[2],
+        scenario: s3,
         question: 'Cine suportă costul?',
-        angle: 'Copilul tău sparge accidental un ecran OLED scump în vizită la prieteni. Ce poliță poate acoperi dauna?',
+        angle: 'Copilul tău trage de pe stand și sparge un televizor de 15.000 RON într-un showroom. Ce poliță poate acoperi dauna părinților?',
       },
     ];
     return list;
@@ -223,7 +227,7 @@ export default function HomePage() {
                       Cu poliță relevantă:
                     </span>
                     <span className="text-slate-700 font-mono">
-                      Despăgubit conform deviz
+                      Acoperire conform poliței
                     </span>
                   </div>
                 </div>
@@ -438,10 +442,12 @@ export default function HomePage() {
             
             {/* Left Photographic Preview (5 cols) */}
             <div className="lg:col-span-5 relative h-64 lg:h-full min-h-[260px] bg-slate-900 overflow-hidden">
-              <img
+              <Image
                 src="/images/scenarios/vacant-freeze-damage.jpg"
                 alt="Avarie de conductă spartă de ger într-un imobil neocupat"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 opacity-90"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover hover:scale-105 transition-transform duration-500 opacity-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
@@ -526,10 +532,12 @@ export default function HomePage() {
                 <div>
                   {/* Photo Header */}
                   <div className="relative w-full h-44 overflow-hidden bg-slate-200">
-                    <img
+                    <Image
                       src={item.scenario.heroImage || '/images/scenarios/pipe-burst.jpg'}
                       alt={item.scenario.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/70 text-white text-[10px] font-mono font-bold uppercase tracking-wider backdrop-blur-xs">
                       {item.question}
@@ -769,7 +777,7 @@ export default function HomePage() {
           </h2>
 
           <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto mt-4 leading-relaxed">
-            Fiecare contract are detalii particulare. Dacă vrei o privire independentă asupra poliței tale actuale — fără discursuri de vânzare și fără niciun angajament financiar — solicită o analiză de clauze.
+            Fiecare contract are detalii particulare. Dacă vrei o analiză obiectivă asupra poliței tale actuale — fără discursuri de vânzare și fără niciun angajament financiar — solicită o verificare de clauze.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
@@ -790,7 +798,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 text-xs font-mono text-slate-500">
-            Inițiativă de Cristian Văduva · Consultanță independentă și audit de clauze
+            Inițiativă de Cristian Văduva · Consultanță prin partener Generali și audit de clauze
           </div>
         </div>
       </section>
@@ -860,14 +868,14 @@ export default function HomePage() {
                   03
                 </span>
                 <h3 className="font-bold text-base text-[#06141B] leading-snug">
-                  Parteneriat Oficial Generali
+                  Partener Generali România
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Acces la portofoliul unuia dintre cei mai stabili asigurători mondiali: All-Risks locuință, CASCO fără dispute, sănătate și călătorii internaționale.
+                  Acces la portofoliul unuia dintre cei mai stabili asigurători mondiali: All-Risks locuință, CASCO complet, sănătate și călătorii internaționale.
                 </p>
               </div>
               <span className="text-[11px] font-mono text-[#C21B17] font-bold mt-4 pt-3 border-t border-slate-100">
-                Subscriere autorizată
+                Consultanță prin partener Generali
               </span>
             </div>
 
@@ -895,7 +903,7 @@ export default function HomePage() {
             <div className="space-y-2 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-slate-300">
                 <span className="w-2 h-2 rounded-full bg-[#E10600]" />
-                <span>PLATFORMA DE BROKERAJ &amp; CONSULTANȚĂ</span>
+                <span>SERVICII &amp; CONSULTANȚĂ PRIN PARTENER GENERALI</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black tracking-tight">
                 Treci de la presupuneri la certitudini contractuale.

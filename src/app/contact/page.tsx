@@ -477,13 +477,13 @@ function ContactFormContent() {
 
             <div className="space-y-2.5 pt-2 border-t border-slate-200 text-xs">
               <a
-                href="tel:0767110439"
+                href="tel:+40767110439"
                 className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 hover:border-slate-400 text-slate-800 transition-all shadow-sm"
               >
                 <Phone className="w-4 h-4 text-slate-500 shrink-0" />
                 <div>
                   <span className="text-[10px] text-slate-400 block font-mono">TELEFON ASIGURĂRI</span>
-                  <span className="font-bold text-[#06141B]">0767110439</span>
+                  <span className="font-bold text-[#06141B]">+40 767 110 439</span>
                 </div>
               </a>
 
@@ -554,8 +554,7 @@ function ContactFormContent() {
               NOTĂ PRIVIND INTERMEDIEREA
             </span>
             <p className="leading-relaxed">
-              Consultanța oferită prin această platformă este strict independentă și educațională. Orice emitere formală
-              de poliță se derulează exclusiv prin intermediari autorizați conform legislației ASF în vigoare.
+              Consultanța educațională oferită prin această platformă este realizată în calitate de partener Generali de către Cristian Văduva. Orice emitere formală de poliță se derulează prin canalele autorizate ale asigurătorului, conform legislației în vigoare.
             </p>
           </div>
         </div>

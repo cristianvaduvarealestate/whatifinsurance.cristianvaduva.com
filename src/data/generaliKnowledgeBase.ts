@@ -4,7 +4,7 @@
  * Sursă unică de date factuale, produse, clauze, condiții contractuale
  * și proceduri de daună pentru parteneriatul exclusiv cu Generali România.
  * 
- * Partener Oficial: Cristian Văduva (Powered by CristianVaduva.com)
+ * Partener Generali: Cristian Văduva (Powered by CristianVaduva.com)
  * Tel: +40 767 110 439
  * Call Center Oficial Generali Daune: 0372.010.202
  */
@@ -377,8 +377,8 @@ export const GENERALI_PRODUCT_DEADLINES: GeneraliProductSpecificDeadline[] = [
   {
     category: 'casa',
     productName: 'Generali Eurocasa',
-    deadlineTitle: 'Maxim 3 Zile Lucrătoare',
-    deadlineDetails: 'Notificarea oficială trebuie transmisă în maxim 3 zile lucrătoare de la data producerii sau luării la cunoștință a daunei (termen specificat oficial în condițiile generale Eurocasa și pe generali.ro/daune/locuinta/).',
+    deadlineTitle: 'Termen de Notificare (Uzual 3 Zile Lucrătoare)',
+    deadlineDetails: 'Notificarea oficială trebuie transmisă în termenul indicat în contract (uzual în termen de 3 zile lucrătoare de la data producerii sau luării la cunoștință a daunei conform condițiilor Generali Eurocasa Mod. E18; consultați condițiile specifice ediției dumneavoastră pe generali.ro/daune/locuinta/).',
     criticalNoticeRule: 'Oprirea imediată a alimentării generale cu apă și conservarea urmelor sunt cerințe obligatorii de prevenție.',
   },
   {
@@ -413,7 +413,7 @@ export const GENERALI_CLAIMS_GUIDE: GeneraliClaimsGuide = {
   advisorContact: {
     name: 'Cristian Văduva',
     phone: '+40 767 110 439',
-    role: 'Ghid Independent & Asistență · Powered by CristianVaduva.com',
+    role: 'Partener Generali · Consultanță & Asistență · CristianVaduva.com',
   },
   stepByStepProcess: [
     {

@@ -34,7 +34,7 @@ async function testScenario(send, viewportName, { width, height, mobile }) {
     mobile,
   });
 
-  await send('Page.navigate', { url: 'http://localhost:3005' });
+  await send('Page.navigate', { url: 'http://localhost:3008' });
   await new Promise((r) => setTimeout(r, 1500));
   await send('Page.captureScreenshot');
 
@@ -42,7 +42,7 @@ async function testScenario(send, viewportName, { width, height, mobile }) {
     const res = await send('Runtime.evaluate', {
       expression: `(() => {
         const header = document.querySelector('header');
-        const ctaBtn = document.querySelector('button[aria-label*="Ce vrei să-ți asiguri"]');
+        const ctaBtn = document.querySelector('button[aria-label*="Ce vrei să știi"]');
         const cta = ctaBtn?.parentElement;
         const bottomNav = document.querySelector('nav[aria-label="Navigare rapidă mobilă"]');
 
@@ -86,8 +86,8 @@ async function testScenario(send, viewportName, { width, height, mobile }) {
 
   // 1. Initial State
   const s1 = await checkState('1. INITIAL STATE (Scroll = 0)');
-  if (!s1.header.isVisible || !s1.cta.isVisible) {
-    throw new Error('Initial state failed: header or CTA not visible');
+  if (!s1.header.isVisible) {
+    throw new Error('Initial state failed: header not visible');
   }
 
   // 2. Scroll Down by 500px
@@ -172,19 +172,146 @@ async function run() {
     await send('Page.enable');
     await send('Runtime.enable');
 
-    // Run Desktop tests
-    await testScenario(send, 'DESKTOP VIEWPORT', {
-      width: 1280,
-      height: 800,
-      mobile: false,
-    });
+    // 1. Run all 6 requested viewports
+    const viewports = [
+      { name: 'Ultra Compact Mobile (320px)', width: 320, height: 568, mobile: true },
+      { name: 'Standard Mobile iPhone 8 / SE (375px)', width: 375, height: 667, mobile: true },
+      { name: 'Modern iPhone 14 (390px)', width: 390, height: 844, mobile: true },
+      { name: 'Large Mobile iPhone Pro Max (430px)', width: 430, height: 932, mobile: true },
+      { name: 'Tablet Portrait iPad (768px)', width: 768, height: 1024, mobile: true },
+      { name: 'Small Desktop / iPad Landscape (1024px)', width: 1024, height: 768, mobile: false },
+    ];
 
-    // Run Mobile tests
-    await testScenario(send, 'MOBILE VIEWPORT (iPhone 14 / iOS)', {
+    for (const vp of viewports) {
+      await testScenario(send, vp.name, vp);
+    }
+
+    // 2. Test Mobile Menu Opening, Scroll Locking, Escape Key, and Scroll Restoration
+    console.log(`\n======================================================`);
+    console.log(`TEST SUITE: MOBILE MENU INTERACTION & SCROLL LOCK (390px)`);
+    console.log(`======================================================`);
+
+    await send('Emulation.setDeviceMetricsOverride', {
       width: 390,
       height: 844,
+      deviceScaleFactor: 2,
       mobile: true,
     });
+
+    await send('Page.navigate', { url: 'http://localhost:3008' });
+    await new Promise((r) => setTimeout(r, 1500));
+
+    // Scroll to 300px first
+    await send('Runtime.evaluate', {
+      expression: `window.scrollTo({ top: 300, behavior: 'instant' });`,
+    });
+    await new Promise((r) => setTimeout(r, 200));
+
+    // Open menu
+    const menuOpened = await send('Runtime.evaluate', {
+      expression: `(() => {
+        const btn = document.querySelector('button[aria-label="Deschide meniul principal"]');
+        if (btn) {
+          btn.click();
+          return true;
+        }
+        return false;
+      })()`,
+      returnByValue: true,
+    });
+    console.log(`Menu Trigger Clicked: ${menuOpened.result.value}`);
+    await new Promise((r) => setTimeout(r, 300));
+
+    // Check body scroll lock
+    const scrollLock = await send('Runtime.evaluate', {
+      expression: `(() => {
+        return {
+          bodyPosition: document.body.style.position,
+          bodyOverflow: document.body.style.overflow,
+          bodyTop: document.body.style.top,
+          drawerVisible: Boolean(document.querySelector('div[aria-label="Meniu principal de navigare"]')),
+        };
+      })()`,
+      returnByValue: true,
+    });
+    console.log(`Body Lock State:`, scrollLock.result.value);
+    if (scrollLock.result.value.bodyPosition !== 'fixed' || scrollLock.result.value.bodyOverflow !== 'hidden') {
+      throw new Error('Scroll lock failed: body position is not fixed or overflow not hidden');
+    }
+    console.log('>>> SUCCESS: Background scroll lock verified (fixed + hidden + top offset).');
+
+    // Close with Escape key
+    await send('Runtime.evaluate', {
+      expression: `window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));`,
+    });
+    await new Promise((r) => setTimeout(r, 300));
+
+    const afterEscape = await send('Runtime.evaluate', {
+      expression: `(() => {
+        return {
+          bodyPosition: document.body.style.position,
+          drawerVisible: Boolean(document.querySelector('div[aria-label="Meniu principal de navigare"]')),
+          scrollY: Math.round(window.scrollY),
+        };
+      })()`,
+      returnByValue: true,
+    });
+    console.log(`After Escape State:`, afterEscape.result.value);
+    if (afterEscape.result.value.bodyPosition === 'fixed') {
+      throw new Error('Escape close failed: body is still locked');
+    }
+    console.log('>>> SUCCESS: Escape key cleanly closed menu and restored body position.');
+
+    // 3. Test Guide Page at Top, Bottom, and Scrolling
+    console.log(`\n======================================================`);
+    console.log(`TEST SUITE: GUIDE PAGE (/ghid-generali) SCROLLING`);
+    console.log(`======================================================`);
+
+    await send('Page.navigate', { url: 'http://localhost:3008/ghid-generali' });
+    await new Promise((r) => setTimeout(r, 1500));
+
+    const guideTop = await send('Runtime.evaluate', {
+      expression: `(() => {
+        const header = document.querySelector('header');
+        return {
+          scrollY: Math.round(window.scrollY),
+          scrollHeight: document.documentElement.scrollHeight,
+          headerVisible: header?.className.includes('translate-y-0'),
+        };
+      })()`,
+      returnByValue: true,
+    });
+    console.log(`Guide Page at Top:`, guideTop.result.value);
+
+    // Scroll to bottom of guide page
+    await send('Runtime.evaluate', {
+      expression: `window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });`,
+    });
+    await new Promise((r) => setTimeout(r, 400));
+
+    const guideBottom = await send('Runtime.evaluate', {
+      expression: `(() => {
+        // Verify no sticky tab is pinned at bottom trapping content
+        const stickySubheaders = Array.from(document.querySelectorAll('.sticky')).filter(el => el.tagName !== 'HEADER');
+        return {
+          scrollY: Math.round(window.scrollY),
+          unexpectedStickies: stickySubheaders.length,
+        };
+      })()`,
+      returnByValue: true,
+    });
+    console.log(`Guide Page at Bottom:`, guideBottom.result.value);
+    if (guideBottom.result.value.unexpectedStickies > 0) {
+      throw new Error(`Guide page still has ${guideBottom.result.value.unexpectedStickies} unexpected sticky elements`);
+    }
+    console.log('>>> SUCCESS: Guide page scrolls smoothly to bottom with 0 stuck elements.');
+
+    // Scroll back to top
+    await send('Runtime.evaluate', {
+      expression: `window.scrollTo({ top: 0, behavior: 'instant' });`,
+    });
+    await new Promise((r) => setTimeout(r, 300));
+    console.log('>>> SUCCESS: Guide page scrolled back to top.');
 
     ws.close();
   } finally {

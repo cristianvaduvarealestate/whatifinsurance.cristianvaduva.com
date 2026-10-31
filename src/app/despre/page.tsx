@@ -18,7 +18,7 @@ import {
 export const metadata = {
   title: 'Despre Proiect & Fondator Cristian Văduva | WHAT IF INSURANCE',
   description:
-    'Viziunea din spatele WHAT IF INSURANCE: inteligență aplicată în riscuri reale, educație independentă și transparență contractuală. Inițiat de Cristian Văduva.',
+    'Viziunea din spatele WHAT IF INSURANCE: inteligență aplicată în riscuri reale, educație contractuală și analiză transparentă de clauze, ca partener Generali. Inițiat de Cristian Văduva.',
 };
 
 export default function DesprePage() {
@@ -26,7 +26,7 @@ export default function DesprePage() {
     {
       name: 'Insurance',
       url: 'https://insurance.cristianvaduva.com',
-      description: 'Platforma dedicată serviciilor de brokeraj și consultanță în asigurări.',
+      description: 'Platforma parteneră dedicată consultanței și ofertării de asigurări.',
     },
     {
       name: 'HomeFind',
@@ -158,13 +158,13 @@ export default function DesprePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
             <a
-              href="tel:0767110439"
+              href="tel:+40767110439"
               className="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-slate-400 text-xs text-slate-800 transition-colors flex items-center gap-2.5 shadow-sm"
             >
               <Phone className="w-4 h-4 text-slate-500" />
               <div>
                 <span className="text-[10px] text-slate-400 block font-mono">TELEFON</span>
-                <span className="font-bold text-[#06141B]">0767110439</span>
+                <span className="font-bold text-[#06141B]">+40 767 110 439</span>
               </div>
             </a>
 
@@ -241,7 +241,7 @@ export default function DesprePage() {
               Ai o poliță. Ai și răspunsul la clauza care contează?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300">
-              Testează-ți intuiția în quiz sau solicită o a doua opinie independentă pe contractul tău.
+              Testează-ți intuiția în quiz sau solicită o verificare obiectivă pe contractul tău.
             </p>
           </div>
 

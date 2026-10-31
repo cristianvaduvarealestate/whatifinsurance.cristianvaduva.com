@@ -356,7 +356,7 @@ export const proprietariScenarios: Scenario[] = [
     "immediateSteps": [
       "Obține Raportul de intervenție de la Pompieri (ISU) cu indicarea cauzei incendiului.",
       "Fotografiază detaliat toate corpurile de mobilier arse și aparatele electrocasnice distruse.",
-      "Avizează asigurătorul conform termenului contractual (maxim 3 zile lucrătoare la Eurocasa).",
+      "Avizează asigurătorul conform termenului contractual (termen indicat uzual de 3 zile lucrătoare conform condițiilor Generali Eurocasa Mod. E18; verificați termenul din contractul dumneavoastră).",
       "Semnează cu chiriașul un proces-verbal de constatare a incidentului."
     ],
     "usefulDocuments": [
