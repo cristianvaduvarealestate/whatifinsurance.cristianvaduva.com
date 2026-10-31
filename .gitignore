@@ -1,6 +1,8 @@
 # Dependencies and generated output
 node_modules/
 .next/
+.open-next/
+.wrangler/
 out/
 dist/
 coverage/
