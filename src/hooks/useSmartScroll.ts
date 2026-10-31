@@ -51,11 +51,19 @@ export function useSmartScroll({
       : 0;
   }, [pathname]);
 
-  // Keep visible whenever a menu or dialog is open
+  // Keep visible whenever a menu or dialog is open, and synchronize anchor position
   useEffect(() => {
-    if (disableWhen && !isVisibleRef.current) {
-      setIsVisible(true);
-      isVisibleRef.current = true;
+    if (disableWhen) {
+      if (!isVisibleRef.current) {
+        setIsVisible(true);
+        isVisibleRef.current = true;
+      }
+    }
+    if (typeof window !== 'undefined') {
+      lastScrollY.current = Math.max(
+        0,
+        window.scrollY || document.documentElement.scrollTop || 0
+      );
     }
   }, [disableWhen]);
 

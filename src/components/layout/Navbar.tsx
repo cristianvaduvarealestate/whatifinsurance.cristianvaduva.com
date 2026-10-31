@@ -16,9 +16,24 @@ export const Navbar: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const scrollPosRef = useRef(0);
+  const mobileMenuOpenRef = useRef(false);
+  const menuHistoryPushedRef = useRef(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
+
+  // Snapshot of original styles for precise restoration without breaking other components
+  const originalStylesRef = useRef<{
+    htmlOverflow: string;
+    bodyOverflow: string;
+    bodyOverscroll: string;
+    bodyTouchAction: string;
+    bodyPaddingRight: string;
+  } | null>(null);
+
+  // Sync ref with state
+  useEffect(() => {
+    mobileMenuOpenRef.current = mobileMenuOpen;
+  }, [mobileMenuOpen]);
 
   const isHeaderVisible = useSmartScroll({
     threshold: 8,
@@ -26,56 +41,196 @@ export const Navbar: React.FC = () => {
     disableWhen: mobileMenuOpen || isPolicyModalOpen || hasFocus,
   });
 
-  // Automatically close mobile menu on route changes
+  // Purge any leftover history flag on initial load or refresh
   useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
+    if (typeof window !== 'undefined' && window.history.state?.whatifMobileMenu) {
+      window.history.replaceState(null, '', window.location.href);
+    }
+  }, []);
 
-  // Lock background scroll when mobile menu is open (handles iOS Safari cleanly)
+  // Lock background scroll when mobile menu is open, restoring exact previous styles on close
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     if (mobileMenuOpen) {
-      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-      scrollPosRef.current = scrollY;
+      // 1. Snapshot original inline styles before applying lock
+      originalStylesRef.current = {
+        htmlOverflow: document.documentElement.style.overflow,
+        bodyOverflow: document.body.style.overflow,
+        bodyOverscroll: document.body.style.overscrollBehavior,
+        bodyTouchAction: document.body.style.touchAction,
+        bodyPaddingRight: document.body.style.paddingRight,
+      };
 
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
+      // 2. Prevent scrollbar layout shift on devices with visible scrollbars
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+      // 3. Lock background scroll cleanly without moving or resetting window.scrollY
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+      document.body.style.overscrollBehavior = 'contain';
     } else {
-      const scrollY = scrollPosRef.current;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-      if (scrollY) {
-        window.scrollTo(0, scrollY);
+      // Restore previous styles cleanly
+      const original = originalStylesRef.current;
+      if (original) {
+        document.documentElement.style.overflow = original.htmlOverflow;
+        document.body.style.overflow = original.bodyOverflow;
+        document.body.style.overscrollBehavior = original.bodyOverscroll;
+        document.body.style.touchAction = original.bodyTouchAction;
+        document.body.style.paddingRight = original.bodyPaddingRight;
+        originalStylesRef.current = null;
       }
     }
 
     return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
+      // Guaranteed cleanup on unmount
+      const original = originalStylesRef.current;
+      if (original) {
+        document.documentElement.style.overflow = original.htmlOverflow;
+        document.body.style.overflow = original.bodyOverflow;
+        document.body.style.overscrollBehavior = original.bodyOverscroll;
+        document.body.style.touchAction = original.bodyTouchAction;
+        document.body.style.paddingRight = original.bodyPaddingRight;
+        originalStylesRef.current = null;
+      }
     };
   }, [mobileMenuOpen]);
 
-  // Escape key closes mobile menu & restores focus to menu button
+  // Handlers with browser history synchronization
+  const handleOpenMenu = () => {
+    if (mobileMenuOpenRef.current) return;
+    setMobileMenuOpen(true);
+
+    if (typeof window !== 'undefined' && !menuHistoryPushedRef.current) {
+      try {
+        window.history.pushState({ whatifMobileMenu: true }, '', window.location.href);
+        menuHistoryPushedRef.current = true;
+      } catch (err) {
+        // Fallback for sandboxed environments
+      }
+    }
+  };
+
+  const handleCloseMenu = () => {
+    if (!mobileMenuOpenRef.current) return;
+
+    if (menuHistoryPushedRef.current) {
+      menuHistoryPushedRef.current = false;
+      if (typeof window !== 'undefined' && window.history.state?.whatifMobileMenu) {
+        window.history.back();
+      }
+    }
+
+    setMobileMenuOpen(false);
+    menuButtonRef.current?.focus();
+  };
+
+  const handleToggleMenu = () => {
+    if (mobileMenuOpenRef.current) {
+      handleCloseMenu();
+    } else {
+      handleOpenMenu();
+    }
+  };
+
+  const handleNavLinkClick = () => {
+    // When navigating via link, cleanly clear the menu state from history without navigating back
+    if (menuHistoryPushedRef.current) {
+      menuHistoryPushedRef.current = false;
+      if (typeof window !== 'undefined' && window.history.state?.whatifMobileMenu) {
+        window.history.replaceState(null, '', window.location.href);
+      }
+    }
+    setMobileMenuOpen(false);
+  };
+
+  // Automatically close mobile menu on route changes
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && mobileMenuOpen) {
+    if (mobileMenuOpenRef.current) {
+      menuHistoryPushedRef.current = false;
+      setMobileMenuOpen(false);
+    }
+  }, [pathname]);
+
+  // Popstate listener: mobile browser Back button closes menu smoothly
+  useEffect(() => {
+    const handlePopState = () => {
+      if (mobileMenuOpenRef.current) {
+        menuHistoryPushedRef.current = false;
         setMobileMenuOpen(false);
         menuButtonRef.current?.focus();
       }
     };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Escape key closes mobile menu & restores focus to menu button
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpenRef.current) {
+        handleCloseMenu();
+      }
+    };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Automatically close mobile menu on resize to desktop (min-width: 1024px) or orientation change
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mql = window.matchMedia('(min-width: 1024px)');
+    const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      if (e.matches && mobileMenuOpenRef.current) {
+        handleCloseMenu();
+      }
+    };
+
+    mql.addEventListener('change', handleMediaChange);
+    return () => mql.removeEventListener('change', handleMediaChange);
+  }, []);
+
+  // Focus management and keyboard navigation inside the drawer
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+
+    // Focus the drawer on open for screen readers
+    drawer.focus();
+
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      const focusableElements = drawer.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement || document.activeElement === drawer) {
+          e.preventDefault();
+          menuButtonRef.current?.focus();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          menuButtonRef.current?.focus();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleTabKey);
+    return () => window.removeEventListener('keydown', handleTabKey);
   }, [mobileMenuOpen]);
 
   const handleRandomScenario = () => {
@@ -95,7 +250,9 @@ export const Navbar: React.FC = () => {
             setHasFocus(false);
           }
         }}
-        className={`sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transform transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+        className={`sticky top-0 ${
+          mobileMenuOpen ? 'z-50' : 'z-40'
+        } w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transform transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
           isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
@@ -152,9 +309,6 @@ export const Navbar: React.FC = () => {
                     GENERALI
                   </span>
                 </div>
-                <span className="text-[10px] font-medium text-slate-400 tracking-normal">
-                  Condiții &amp; Clauze Contractuale
-                </span>
               </div>
 
               <div className="p-1.5 rounded-lg bg-slate-50/80 border border-slate-200/60 flex items-center justify-center shrink-0">
@@ -199,7 +353,7 @@ export const Navbar: React.FC = () => {
           {/* Desktop Navigation Links (>= lg) */}
           <nav className="hidden lg:flex items-center gap-6 text-[13px] font-medium text-slate-600">
             <Link
-              href="/#exploreaza"
+              href="/scenarii"
               className={`hover:text-[#06141B] transition-colors py-1 ${
                 pathname === '/scenarii' ? 'text-[#06141B] font-bold' : ''
               }`}
@@ -264,8 +418,8 @@ export const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={handleRandomScenario}
-                aria-label="Surprinde-mă — Descoperă un scenariu real de risc și află ce ar acoperi polița ta"
-                title="Un scenariu real ales la întâmplare. Vezi ce plătește asigurătorul și ce plătești tu."
+                aria-label="Surprinde-mă — Descoperă un scenariu ilustrativ de risc și află ce ar acoperi polița ta"
+                title="Un scenariu ilustrativ ales la întâmplare. Vezi diferența dintre presupuneri și condițiile contractuale."
                 className="py-2 px-3.5 rounded-full bg-slate-50 hover:bg-slate-100 border border-slate-300 hover:border-[#06141B] text-[#06141B] text-xs font-bold flex items-center gap-2 transition-all shadow-xs"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E10600] group-hover:scale-125 transition-transform" />
@@ -275,7 +429,7 @@ export const Navbar: React.FC = () => {
 
               <div className="absolute right-0 top-full mt-2 hidden group-hover:block w-64 p-2.5 rounded-xl bg-[#06141B] text-white text-[11px] leading-relaxed shadow-xl pointer-events-none z-50 animate-fadeIn">
                 <span className="font-bold text-red-400 block mb-0.5">Scenariu Aleatoriu:</span>
-                Un caz real ales la întâmplare. Vezi diferența dintre ce crezi și ce spune contractul.
+                Un scenariu ilustrativ ales la întâmplare. Vezi diferența dintre presupuneri și condițiile contractuale.
               </div>
             </div>
 
@@ -305,7 +459,7 @@ export const Navbar: React.FC = () => {
             <button
               ref={menuButtonRef}
               type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={handleToggleMenu}
               className="p-2 rounded-xl text-slate-700 hover:text-[#06141B] hover:bg-slate-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center border border-slate-200/80 active:scale-95"
               aria-label={mobileMenuOpen ? 'Închide meniul principal' : 'Deschide meniul principal'}
               aria-expanded={mobileMenuOpen}
@@ -326,7 +480,9 @@ export const Navbar: React.FC = () => {
             role="dialog"
             aria-modal="true"
             aria-label="Meniu principal de navigație"
-            className="lg:hidden px-4 pt-3 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] bg-white border-b border-slate-200 space-y-1 animate-fadeIn overflow-y-auto max-h-[calc(100dvh-3.5rem)] overscroll-contain shadow-2xl"
+            tabIndex={-1}
+            className="relative z-50 lg:hidden px-4 pt-3 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] bg-white border-b border-slate-200 space-y-1 animate-fadeIn overflow-y-auto max-h-[calc(100dvh-3.5rem)] overscroll-contain shadow-2xl focus:outline-none"
+            style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
           >
             {/* Quick Status / Partner Notice */}
             <div className="px-2.5 py-2 mb-2 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs">
@@ -339,29 +495,29 @@ export const Navbar: React.FC = () => {
 
             {/* Navigation links with comfortable 44px touch targets */}
             <Link
-              href="/#exploreaza"
-              onClick={() => setMobileMenuOpen(false)}
+              href="/scenarii"
+              onClick={handleNavLinkClick}
               className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
             >
-              Scenarii de risc (121 cazuri)
+              Scenarii de risc (121 de cazuri)
             </Link>
             <Link
               href="/quiz"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={handleNavLinkClick}
               className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
             >
               Quiz intuiție (8 întrebări)
             </Link>
             <Link
               href="/verificare-polita"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={handleNavLinkClick}
               className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
             >
               Checklist clauze contractuale
             </Link>
             <Link
               href="/studio"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={handleNavLinkClick}
               className="flex items-center gap-2 min-h-[44px] px-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
             >
               <Sparkles className="w-4 h-4 text-[#E10600]" />
@@ -369,21 +525,21 @@ export const Navbar: React.FC = () => {
             </Link>
             <Link
               href="/ghid-generali"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={handleNavLinkClick}
               className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
             >
               Ghid Generali România &amp; Daune
             </Link>
             <Link
               href="/despre"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={handleNavLinkClick}
               className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
             >
               Despre proiect &amp; Cristian Văduva
             </Link>
             <Link
               href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={handleNavLinkClick}
               className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
             >
               Contact direct &amp; Solicitare audit
@@ -394,7 +550,7 @@ export const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => {
-                  setMobileMenuOpen(false);
+                  handleNavLinkClick();
                   handleRandomScenario();
                 }}
                 className="w-full py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-[#06141B] text-xs font-bold flex flex-col items-center justify-center gap-0.5 text-center transition-colors min-h-[44px]"
@@ -404,14 +560,14 @@ export const Navbar: React.FC = () => {
                   <span>Surprinde-mă (Scenariu aleatoriu)</span>
                 </div>
                 <span className="text-[10px] text-slate-500 font-normal">
-                  Descoperă un caz real și vezi ce spune contractul.
+                  Descoperă un scenariu ilustrativ bazat pe condiții contractuale.
                 </span>
               </button>
 
               <button
                 type="button"
                 onClick={() => {
-                  setMobileMenuOpen(false);
+                  handleNavLinkClick();
                   setIsPolicyModalOpen(true);
                 }}
                 className="w-full py-3 px-4 rounded-xl bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold text-center block transition-colors min-h-[44px] shadow-sm"
@@ -424,6 +580,7 @@ export const Navbar: React.FC = () => {
             <div className="pt-3 mt-2 border-t border-slate-100 flex items-center justify-between gap-2 text-xs">
               <a
                 href="tel:+40767110439"
+                onClick={handleNavLinkClick}
                 className="flex-1 py-2 px-3 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-200"
               >
                 <Phone className="w-3.5 h-3.5 text-[#E10600]" />
@@ -432,6 +589,7 @@ export const Navbar: React.FC = () => {
 
               <a
                 href="mailto:cristianvaduva@duck.com"
+                onClick={handleNavLinkClick}
                 className="flex-1 py-2 px-3 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-200"
               >
                 <Mail className="w-3.5 h-3.5 text-slate-600" />
@@ -441,6 +599,17 @@ export const Navbar: React.FC = () => {
           </div>
         )}
       </header>
+
+      {/* Mobile Navigation Backdrop (tapping backdrop closes menu) */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 top-14 bg-slate-900/40 backdrop-blur-xs z-40 lg:hidden animate-fadeIn"
+          onClick={handleCloseMenu}
+          onTouchMove={(e) => e.preventDefault()}
+          style={{ touchAction: 'none' }}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Policy Check Modal Instance */}
       <PolicyCheckModal
