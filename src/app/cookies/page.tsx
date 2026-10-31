@@ -159,7 +159,7 @@ export default function CookiesPage() {
           </h2>
           <p>
             Puteți șterge sau bloca oricând stocarea modulelor cookie direct din setările browserului dumneavoastră (Chrome, Safari, Firefox, Edge).
-            Blocarea cookie-urilor strict necesare poate afecta afișarea corectă a filtrelor sau a Share Studio.
+            Blocarea cookie-urilor strict necesare poate afecta afișarea corectă a filtrelor sau a secțiunii Trimite prietenilor.
           </p>
         </section>
       </div>

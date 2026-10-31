@@ -66,13 +66,13 @@ function ScenariiContent() {
         <div className="border-b border-slate-200 pb-8 mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-mono font-semibold uppercase tracking-wider mb-3">
             <Compass className="w-3.5 h-3.5 text-[#E10600]" />
-            Dosare Reale de Risc · 121 de Cazuri Documentate
+            Scenarii Ilustrative de Risc · 121 de Situații Documentate
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-[#06141B]">
             Casa ta arată perfect. Riscul nu se vede în poze.
           </h1>
           <p className="text-slate-600 text-base sm:text-lg max-w-2xl mt-3 leading-relaxed">
-            121 de situații din viața reală documentate pe contracte reale. Vezi clauzele pe care le semnezi fără să le citești, înainte să devină costisitoare.
+            121 de scenarii ilustrative bazate pe condiții contractuale. Vezi clauzele pe care le semnezi fără să le citești, înainte să devină costisitoare.
           </p>
         </div>
 

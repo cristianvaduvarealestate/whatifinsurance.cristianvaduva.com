@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { CATEGORIES } from '@/data/categories';
-import { SCENARIOS, getScenarioOfTheDay, getRandomScenario } from '@/data/scenarios';
+import { SCENARIOS, getScenarioOfTheDay, getScenarioOfTheWeek, getRandomScenario } from '@/data/scenarios';
 import { ScenarioCard } from '@/components/scenario/ScenarioCard';
 import { Scenario } from '@/types/scenario';
 import {
@@ -32,14 +32,9 @@ export default function HomePage() {
   const [activeShareScenario, setActiveShareScenario] = useState<Scenario | null>(null);
   const [isPolicyModalOpen, setIsPolicyModalOpen] = useState(false);
 
-  // Curated hero spotlight scenario
+  // Curated hero spotlight scenario (deterministic ISO-8601 weekly rotation)
   const heroScenario = useMemo(() => {
-    return SCENARIOS.find((s) => s.slug === 'daune-vecini') || SCENARIOS[0];
-  }, []);
-
-  // Scenario of the Day (deterministic for 24h)
-  const scenarioOfTheDay = useMemo(() => {
-    return getScenarioOfTheDay();
+    return getScenarioOfTheWeek();
   }, []);
 
   // Curated 6-8 scenarios for Section D (editorial selection)
@@ -179,7 +174,7 @@ export default function HomePage() {
               <div className="relative rounded-3xl bg-white border border-slate-200/90 p-5 sm:p-6 shadow-2xl shadow-slate-200/80 transition-all">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                   <span className="text-[11px] font-mono uppercase tracking-wider text-[#E10600] font-bold">
-                    DOSARUL SĂPTĂMÂNII
+                    SCENARIUL SĂPTĂMÂNII
                   </span>
                   <span className="text-[11px] font-mono text-slate-500 font-semibold">
                     {heroScenario.categoryName}
@@ -189,7 +184,7 @@ export default function HomePage() {
                 <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 mb-4 border border-slate-200">
                   <Image
                     src={heroScenario.heroImage}
-                    alt={heroScenario.title}
+                    alt={`Ilustrație: ${heroScenario.title}`}
                     fill
                     priority
                     sizes="(max-width: 768px) 100vw, 40vw"
@@ -203,9 +198,9 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-bold text-[#06141B] leading-tight">
+                <h2 className="text-lg sm:text-xl font-bold text-[#06141B] leading-tight">
                   {heroScenario.title}
-                </h3>
+                </h2>
                 <p className="text-xs sm:text-sm text-slate-600 mt-2 line-clamp-2">
                   „{heroScenario.mainQuestion}”
                 </p>
@@ -238,7 +233,7 @@ export default function HomePage() {
                     href={`/scenarii/${heroScenario.categoryId}/${heroScenario.slug}`}
                     className="flex-1 py-3 px-4 rounded-xl bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors text-center shadow-sm"
                   >
-                    <span>Deschide dosarul de caz</span>
+                    <span>Deschide scenariul ilustrativ</span>
                     <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
                   </Link>
 
@@ -246,7 +241,8 @@ export default function HomePage() {
                     type="button"
                     onClick={() => setActiveShareScenario(heroScenario)}
                     className="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-[#06141B] transition-colors"
-                    title="Trimite acest caz"
+                    title="Distribuie acest scenariu"
+                    aria-label="Distribuie acest scenariu"
                   >
                     <Share2 className="w-4 h-4" />
                   </button>
@@ -273,7 +269,7 @@ export default function HomePage() {
             </div>
 
             <h2 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight leading-tight">
-              Învață din situații reale. <br className="hidden sm:inline" />
+              Scenarii ilustrative bazate pe condiții contractuale. <br className="hidden sm:inline" />
               <span className="text-[#051F20]">Fii mai pregătit pentru ce urmează.</span>
             </h2>
 
@@ -310,7 +306,7 @@ export default function HomePage() {
                   href="/scenarii"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#051F20] hover:text-[#DE1110] transition-colors"
                 >
-                  <span>Explorează 121 de cazuri</span>
+                  <span>Explorează cele 121 de scenarii</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -331,7 +327,7 @@ export default function HomePage() {
                     Provoacă un prieten
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    Deschide o discuție utilă despre situații reale: de la ecrane sparte la vecini inundați. Comparați intuiția fără discursuri plictisitoare de vânzare.
+                    Deschide o discuție utilă despre situații frecvente: de la ecrane sparte la vecini inundați. Comparați intuiția pe baza condițiilor contractuale concrete.
                   </p>
                 </div>
               </div>
@@ -418,7 +414,7 @@ export default function HomePage() {
                 <CheckCircle2 className="w-5 h-5 text-emerald-600" />
               </div>
               <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
-                <strong className="text-[#06141B]">Schimb onest de valoare:</strong> Investești puțină atenție și câștigi pregătire reală, întrebări mai bune la semnare și claritate financiară. Fără cont obligatoriu, acces liber și anonim la scenarii și quiz.
+                <strong className="text-[#06141B]">Schimb onest de valoare:</strong> Investești puțină atenție și câștigi pregătire reală, întrebări mai bune la semnare și claritate financiară. Fără cont obligatoriu, acces direct la scenarii și quiz educațional.
               </p>
             </div>
 
@@ -426,7 +422,7 @@ export default function HomePage() {
               href="/studio"
               className="py-2.5 px-5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#06141B] font-bold text-xs shrink-0 transition-colors"
             >
-              Deschide Studio Share
+              Trimite prietenilor
             </Link>
           </div>
 
@@ -519,7 +515,7 @@ export default function HomePage() {
               Trimite-i asta persoanei care spune «mie nu mi se poate întâmpla»
             </h2>
             <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
-              Trei situații în care aproape toată lumea pariază pe răspunsul greșit — până când deschid contractul:
+              Trei situații cu prevederi contractuale surprinzătoare: ai identifica răspunsul corect în această situație?
             </p>
           </div>
 
@@ -534,7 +530,7 @@ export default function HomePage() {
                   <div className="relative w-full h-44 overflow-hidden bg-slate-200">
                     <Image
                       src={item.scenario.heroImage || '/images/scenarios/pipe-burst.jpg'}
-                      alt={item.scenario.title}
+                      alt={`Ilustrație: ${item.scenario.title}`}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -562,20 +558,22 @@ export default function HomePage() {
                 <div className="p-6 pt-0 border-t border-slate-200/60 mt-4 flex items-center justify-between gap-3">
                   <Link
                     href={`/scenarii/${item.scenario.categoryId}/${item.scenario.slug}`}
+                    aria-label={`Vezi analiza clauzei: ${item.scenario.title}`}
                     className="text-xs font-bold text-[#06141B] hover:text-[#E10600] flex items-center gap-1 transition-colors"
                   >
-                    <span>Află ce spune clauza</span>
+                    <span>Vezi analiza clauzei</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
 
                   <button
                     type="button"
                     onClick={() => setActiveShareScenario(item.scenario)}
+                    aria-label={`Distribuie dilema: ${item.scenario.title}`}
                     className="py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-[#06141B] text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-colors"
-                    title="Trimite dilema"
+                    title="Distribuie dilema"
                   >
                     <Send className="w-3 h-3 text-[#E10600]" />
-                    <span>Trimite</span>
+                    <span>Distribuie dilema</span>
                   </button>
                 </div>
               </div>
@@ -622,7 +620,7 @@ export default function HomePage() {
           <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div>
               <h3 className="text-base font-bold text-[#06141B]">
-                Ai o întrebare despre o situație anume? Avem 121 de dosare documentate.
+                Ai o întrebare despre o situație anume? Avem 121 de scenarii ilustrative analizate pe baza clauzelor contractuale.
               </h3>
               <p className="text-xs text-slate-600 mt-1">
                 Casă, baterii EV, spitale peste hotare, răspundere pentru copii, riscuri cyber și bunuri de colecție.
@@ -691,7 +689,7 @@ export default function HomePage() {
             
             <div className="lg:col-span-6 space-y-4">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 block">
-                Practic &amp; Imediat · Fără Date Personale
+                Practic &amp; Imediat · Fără Înregistrare Obligatorie
               </span>
 
               <h2 className="text-2xl sm:text-4xl font-black text-[#06141B] tracking-tight">

@@ -167,7 +167,7 @@ export default function QuizPage() {
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
             Majoritatea oamenilor citesc contractul abia după producerea daunei.
-            Testează-ți intuiția pe {totalCount} situații reale și descoperă nuanțele care decid dacă primești despăgubirea.
+            Testează-ți intuiția pe {totalCount} scenarii ilustrative și descoperă nuanțele care decid acoperirea contractuală.
           </p>
         </div>
       </div>

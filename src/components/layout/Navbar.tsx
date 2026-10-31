@@ -383,7 +383,7 @@ export const Navbar: React.FC = () => {
               }`}
             >
               <Sparkles className="w-3.5 h-3.5 text-[#E10600]" />
-              <span>Studio share</span>
+              <span>Trimite prietenilor</span>
             </Link>
             <Link
               href="/ghid-generali"
@@ -521,7 +521,7 @@ export const Navbar: React.FC = () => {
               className="flex items-center gap-2 min-h-[44px] px-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
             >
               <Sparkles className="w-4 h-4 text-[#E10600]" />
-              <span>Studio de share</span>
+              <span>Trimite prietenilor</span>
             </Link>
             <Link
               href="/ghid-generali"

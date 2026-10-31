@@ -236,7 +236,7 @@ export const luxuryScenarios: Scenario[] = [
     "mainQuestion": "Cât costă revopsirea unui Ferrari sau Lamborghini cu vopsea mată perlată dacă doar reprezentanța oficială o poate aplica?",
     "shortDescription": "O vopsea specială pe bază de pulbere perlată impune revopsirea completă a mașinii în fabrică în Italia.",
     "situation": "Deții un supercar (Ferrari sau McLaren) cu o vopsea rară cu finisaj mat perlat (opțiune de catalog de 25.000 EUR). În timpul unui weekend la munte, mașina parcată în spațiul rezervat al hotelului este zgâriată adânc cu un obiect ascuțit pe ambele portiere și pe aripa spate din fibră de carbon. Reprezentanța oficială comunică că tehnologia de vopsire multistrat nu permite retușuri locale și impune trimiterea mașinii la fabrica producătorului sau demontarea completă a elementelor.",
-    "heroImage": "/images/scenarios/supercar-damage.jpg",
+    "heroImage": "/images/scenarios/keyed-luxury-supercar.jpg",
     "imageCaption": "Caroseriile exotice din compozite și vopselele artizanale personalizate ale mașinilor de lux impun expertiză tehnică dedicată și ateliere omologate de fabrică.",
     "severityLabel": "Deviz de Reparație Exorbitant",
     "featured": false,
@@ -310,7 +310,7 @@ export const luxuryScenarios: Scenario[] = [
     "mainQuestion": "Ce poliță acoperă pierderea accidentală (Mysterious Disappearance) a unei bijuterii de mare valoare?",
     "shortDescription": "Un clips de siguranță cedează la o recepție, iar colierul dispare fără urmă de efracție.",
     "situation": "Participi la o gală caritabilă internațională purtând un colier din platină cu diamante în valoare de 45.000 EUR și un inel de logodnă cu diamant de 3 carate evaluat la 50.000 EUR. La finalul serii, constați cu groază că sistemul de închidere al colierului s-a desfăcut, iar piesa a căzut și nu mai poate fi găsită în sala de evenimente. Căutările administrației și verificarea camerelor nu duc la recuperarea bijuteriei.",
-    "heroImage": "/images/scenarios/luxury-watch-theft.jpg",
+    "heroImage": "/images/scenarios/diamond-jewelry-gala.jpg",
     "imageCaption": "Dispariția inexplicabilă (Mysterious Disappearance) este un risc exclus din 99% dintre polițele standard, necesitând o clauză specială pentru bijuterii de înaltă clasă.",
     "severityLabel": "Pierdere Totală Inexplicabilă",
     "featured": false,
@@ -384,7 +384,7 @@ export const luxuryScenarios: Scenario[] = [
     "mainQuestion": "Ce poliță maritimă acoperă fisurarea corpului din compozit și distrugerea turbinei hidrojet?",
     "shortDescription": "O manevră la viteză mare într-un golf necunoscut avariază grav carena și admisia de apă.",
     "situation": "Conduci un jet ski Sea-Doo de 300 CP în timpul unei vacanțe în Grecia. La virajul într-un golf retras, lovești o formațiune de stânci aflată la 20 cm sub suprafața apei. Impactul smulge grila de admisie a turbinei, sparge carena din fibră de sticlă pe 40 cm și îndoaie axul elicei hidrojet. Motorul se inundă cu apă sărată înainte ca ambarcațiunea să poată fi tractată la țărm. Devizul de reparație la dealerul maritim este de 12.000 EUR.",
-    "heroImage": "/images/scenarios/yacht-storm.jpg",
+    "heroImage": "/images/scenarios/jet-ski-rock-damage.jpg",
     "imageCaption": "Ambarcațiunile rapide de agrement necesită polițe maritime complete care acoperă atât avariile la corpul de navă, cât și riscul de aspirație a apei în motor.",
     "severityLabel": "Daună Marină Costisitoare",
     "featured": false,
@@ -458,7 +458,7 @@ export const luxuryScenarios: Scenario[] = [
     "mainQuestion": "Ce poliță plătește dacă o pană de răcire în pivniță degradează termic sute de sticle Grand Cru?",
     "shortDescription": "Temperatura urcă la 38°C timp de 4 zile în mijlocul verii, alterând gustul și proprietățile vinurilor de patrimoniu.",
     "situation": "Ai investit o avere într-o cramă privată cu temperatură și umiditate controlată, adăpostind peste 300 de sticle de vin de colecție (Bordeaux Grand Cru Classé, Domaine de la Romanée-Conti) în valoare totală de 320.000 RON. În timp ce ești plecat în concediu, unitatea de climatizare dedicată suferă o avarie a compresorului. Temperatura din pivniță crește la 38°C timp de 96 de ore. Dopurile de plută sunt împinse afară, iar vinurile suferă degradare termică ireversibilă (madeirizare), devenind nevendabile.",
-    "heroImage": "/images/scenarios/art-damage.jpg",
+    "heroImage": "/images/scenarios/fine-wine-cellar.jpg",
     "imageCaption": "Colecțiile de vinuri fine și băuturi rare necesită asigurări All-Risks specializate cu clauză de alterare a temperaturii (Temperature Variation Cover).",
     "severityLabel": "Pierdere Totală de Colecție Fină",
     "featured": false,
@@ -490,7 +490,7 @@ export const luxuryScenarios: Scenario[] = [
         "Suma asigurată este stabilită pe baza indicelui bursier internațional de vinuri (Liv-ex) sau a facturilor de achiziție de la case de licitații.",
         "Colecționarul își recuperează capitalul de investiție."
       ],
-      "summary": "Pasiunea ta pentru oenologie este garantată de o asigurare de lux pe măsură."
+      "summary": "Colecția ta de vinuri beneficiază de o protecție patrimonială dedicată, adaptată valorii reale."
     },
     "whatToCheck": {
       "title": "Ce trebuie să verifici în contractul tău",
@@ -532,7 +532,7 @@ export const luxuryScenarios: Scenario[] = [
     "mainQuestion": "Ce poliță aeronautică acoperă distrugerea aripii și a elicei unui avion de agrement la sol?",
     "shortDescription": "O grindină violentă sparge luminatoarele hangarului și perforează suprafețele de comandă ale aparatului de zbor.",
     "situation": "Deții un avion de agrement (Cirrus SR22 sau Diamond DA42) parcat într-un hangar la un aerodrom privat. O furtună extremă smulge o parte din acoperișul metalic al hangarului. Bucăți grele de tablă și grinzi cad direct peste aripa stângă și elicea din compozit a aeronavei, deformând profund lonjeronul principal și spărgând parbrizul cabinei. Avionul este imobilizat la sol, necesitând inspecție structurală și reparație autorizată de Agenția Europeană de Siguranță a Aviației (EASA).",
-    "heroImage": "/images/scenarios/storm-roof.jpg",
+    "heroImage": "/images/scenarios/private-aircraft-hangar.jpg",
     "imageCaption": "Asigurarea aeronautică (Aviation Hull & Liability) acoperă riscurile atât în zbor (In-Flight), cât și pe durata staționării la sol (Ground Risks).",
     "severityLabel": "Daună Aeronautică Majoră",
     "featured": false,

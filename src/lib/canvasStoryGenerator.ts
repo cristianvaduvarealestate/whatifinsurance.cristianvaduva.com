@@ -145,7 +145,8 @@ export function drawBrandedEditorialFooter(
   isSquare: boolean,
   extraNote?: string
 ) {
-  const footerH = isStory ? 104 : isFeed ? 88 : 78;
+  // Elevate footer coordinates to guarantee safe margins on social formats (Feed & Story)
+  const footerH = isStory ? 210 : isFeed ? 140 : 88;
   const footerY = height - footerH;
 
   // Thin hairline divider
@@ -159,17 +160,27 @@ export function drawBrandedEditorialFooter(
   // Footer Left: Brand & Phone
   ctx.save();
   ctx.fillStyle = BRAND_COLORS.textPrimary;
-  ctx.font = '800 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('WHAT IF INSURANCE', paddingX, footerY + 28);
+  ctx.font = isStory
+    ? '800 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    : '800 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('WHAT IF INSURANCE', paddingX, footerY + (isStory ? 38 : isFeed ? 28 : 24));
 
   ctx.fillStyle = '#06141B';
-  ctx.font = '700 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('Tel: +40 767 110 439', paddingX, footerY + 48);
+  ctx.font = isStory
+    ? '700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    : '700 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('Tel: +40 767 110 439', paddingX, footerY + (isStory ? 70 : isFeed ? 54 : 46));
 
   if (isStory || isFeed) {
     ctx.fillStyle = BRAND_COLORS.textMuted;
-    ctx.font = '500 11px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillText(extraNote ? extraNote.slice(0, 50) : 'Educație despre riscuri cotidiene · Partener Generali', paddingX, footerY + 68);
+    ctx.font = isStory
+      ? '500 12px -apple-system, BlinkMacSystemFont, sans-serif'
+      : '500 11px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText(
+      extraNote ? extraNote.slice(0, 50) : 'Educație despre riscuri cotidiene · Partener Generali',
+      paddingX,
+      footerY + (isStory ? 102 : isFeed ? 78 : 66)
+    );
   }
   ctx.restore();
 
@@ -177,17 +188,23 @@ export function drawBrandedEditorialFooter(
   ctx.save();
   ctx.textAlign = 'right';
   ctx.fillStyle = BRAND_COLORS.textPrimary;
-  ctx.font = '700 12.5px -apple-system, BlinkMacSystemFont, monospace';
-  ctx.fillText('whatifinsurance.cristianvaduva.com', width - paddingX, footerY + 28);
+  ctx.font = isStory
+    ? '700 14px -apple-system, BlinkMacSystemFont, monospace'
+    : '700 12.5px -apple-system, BlinkMacSystemFont, monospace';
+  ctx.fillText('whatifinsurance.cristianvaduva.com', width - paddingX, footerY + (isStory ? 38 : isFeed ? 28 : 24));
 
   ctx.fillStyle = '#0D9488';
-  ctx.font = '700 12px -apple-system, BlinkMacSystemFont, monospace';
-  ctx.fillText('insurance.cristianvaduva.com', width - paddingX, footerY + 48);
+  ctx.font = isStory
+    ? '700 13.5px -apple-system, BlinkMacSystemFont, monospace'
+    : '700 12px -apple-system, BlinkMacSystemFont, monospace';
+  ctx.fillText('insurance.cristianvaduva.com', width - paddingX, footerY + (isStory ? 70 : isFeed ? 54 : 46));
 
   if (isStory || isFeed) {
     ctx.fillStyle = BRAND_COLORS.textSubtle;
-    ctx.font = '400 10.5px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillText('Verifică clauzele specifice din contractul tău', width - paddingX, footerY + 68);
+    ctx.font = isStory
+      ? '400 11.5px -apple-system, BlinkMacSystemFont, sans-serif'
+      : '400 10.5px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText('Verifică clauzele specifice din contractul tău', width - paddingX, footerY + (isStory ? 102 : isFeed ? 78 : 66));
   }
   ctx.restore();
 }
@@ -434,10 +451,10 @@ export async function renderScenarioToCanvas(
   const colW = (contentWidth - colGap) / 2;
 
   // Calculate available height for comparison
-  const footerH = isStory ? 104 : isFeed ? 88 : 78;
-  const caveatH = isStory ? 70 : isFeed ? 48 : 34;
+  const footerH = isStory ? 210 : isFeed ? 140 : 88;
+  const caveatH = isStory ? 54 : isFeed ? 40 : 32;
   const availableH = height - compStartY - footerH - caveatH - (isStory ? 24 : 16);
-  const compH = Math.max(isStory ? 540 : isFeed ? 440 : 390, Math.min(availableH, isStory ? 660 : isFeed ? 510 : 430));
+  const compH = Math.max(isStory ? 500 : isFeed ? 400 : 360, Math.min(availableH, isStory ? 600 : isFeed ? 470 : 410));
 
   // Extract scenario-specific points
   const withPoints = scenario.withInsurance?.points || [];
@@ -839,34 +856,16 @@ export async function renderChallengeResultToCanvas(
   }
 
   // 8. ELEGANT EDITORIAL FOOTER
-  const footerH = isStory ? 84 : isFeed ? 74 : 64;
-  const footerY = height - footerH;
-
-  ctx.strokeStyle = BRAND_COLORS.divider;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(paddingX, footerY);
-  ctx.lineTo(width - paddingX, footerY);
-  ctx.stroke();
-
-  ctx.fillStyle = BRAND_COLORS.textPrimary;
-  ctx.font = '800 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('WHAT IF INSURANCE', paddingX, footerY + 32);
-
-  ctx.fillStyle = BRAND_COLORS.textMuted;
-  ctx.font = '500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('Educație despre riscuri cotidiene · Partener Generali', paddingX, footerY + 52);
-
-  ctx.save();
-  ctx.textAlign = 'right';
-  ctx.fillStyle = BRAND_COLORS.textPrimary;
-  ctx.font = '700 13px -apple-system, BlinkMacSystemFont, monospace';
-  ctx.fillText('whatifinsurance.cristianvaduva.com', width - paddingX, footerY + 32);
-
-  ctx.fillStyle = BRAND_COLORS.textSubtle;
-  ctx.font = '400 11px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillText('Verifică clauzele specifice din contractul tău', width - paddingX, footerY + 52);
-  ctx.restore();
+  drawBrandedEditorialFooter(
+    ctx,
+    width,
+    height,
+    paddingX,
+    isStory,
+    isFeed,
+    format === 'square',
+    'Provocare educativă · What If Insurance'
+  );
 }
 
 /**
@@ -1587,7 +1586,8 @@ export async function renderEditorialCardToCanvas(
   // 5. CALLOUT BOX (WHAT IF INVITATION)
   if (isStory || isFeed) {
     const ctaBoxH = isStory ? 120 : 90;
-    const ctaBoxY = height - (isStory ? 84 : 74) - ctaBoxH - 24;
+    const footerH = isStory ? 210 : isFeed ? 140 : 88;
+    const ctaBoxY = height - footerH - ctaBoxH - (isStory ? 24 : 16);
 
     ctx.save();
     ctx.fillStyle = BRAND_COLORS.bg;
@@ -1818,9 +1818,9 @@ export async function renderCustomScenarioToCanvas(
   const colInnerW = colW - colInnerPad * 2;
   const sectionGap = isStory ? 24 : isFeed ? 18 : 14;
 
-  const footerH = isStory ? 104 : isFeed ? 88 : 78;
-  const caveatH = isStory ? 65 : isFeed ? 45 : 32;
-  const compH = Math.max(isStory ? 540 : isFeed ? 440 : 380, height - compStartY - footerH - caveatH - 24);
+  const footerH = isStory ? 210 : isFeed ? 140 : 88;
+  const caveatH = isStory ? 54 : isFeed ? 40 : 32;
+  const compH = Math.max(isStory ? 500 : isFeed ? 400 : 360, height - compStartY - footerH - caveatH - 24);
 
   // --- COLUMN 1: CU ASIGURARE ---
   const col1X = paddingX;

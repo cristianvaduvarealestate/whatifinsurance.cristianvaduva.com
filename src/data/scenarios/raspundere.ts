@@ -314,7 +314,7 @@ export const raspundereScenarios: Scenario[] = [
     "mainQuestion": "Ce poliță plătește dacă deteriorezi ireversibil un echipament electronic scump împrumutat pe încredere?",
     "shortDescription": "Un aparat mirrorless full-frame cu obiectiv de 4.000 EUR cade pe pietre într-o drumeție montană.",
     "situation": "Împrumuți de la un prieten fotograf o cameră mirrorless profesională Sony Alpha cu un obiectiv G-Master în valoare totală de 20.000 RON pentru un weekend la munte. Pe o potecă stâncoasă, te împiedici, cureaua se desprinde din prindere, iar aparatul se izbește violent de stânci. Montura obiectivului este smulsă, senzorul este fisurat, iar carcasa de magneziu este zdrobită. Aparatul este declarat daună totală economică de către service-ul autorizat.",
-    "heroImage": "/images/scenarios/broken-camera.svg",
+    "heroImage": "/images/scenarios/shattered-camera-lens.jpg",
     "imageCaption": "Bunurile împrumutate (comodat) au un statut special în asigurări și sunt frecvent excluse dacă nu există o clauză dedicată pentru bunuri încredințate.",
     "severityLabel": "Risc Financiar și Moral Personal",
     "featured": false,
@@ -388,7 +388,7 @@ export const raspundereScenarios: Scenario[] = [
     "mainQuestion": "Ce obligații ai dacă o persoană invitată la tine acasă se accidentează din cauza unei neglijențe casnice?",
     "shortDescription": "O podea proaspăt spălată fără covoraș antiderapant provoacă o căzătură urâtă cu fractură deschisă.",
     "situation": "Organizezi o cină cu prietenii acasă. Unul dintre musafiri merge la baie, unde tocmai se spălase pe jos și gresia lucioasă era încă udă, fără covoraș cauciucat. Alunecă violent, încearcă să se sprijine și își fracturează ambele oase ale antebrațului stâng (radius și ulna). Necesită intervenție chirurgicală cu plăci și șuruburi de titan, 5 zile de spitalizare și incapacitate de muncă de 2 luni.",
-    "heroImage": "/images/scenarios/guest-injury-home.jpg",
+    "heroImage": "/images/scenarios/slippery-bathroom-fall.jpg",
     "imageCaption": "Proprietarul unei locuințe are o obligație generală de diligență pentru asigurarea siguranței persoanelor invitate în spațiul său privat.",
     "severityLabel": "Vătămare Corporală în Spațiu Privat",
     "featured": false,
@@ -462,7 +462,7 @@ export const raspundereScenarios: Scenario[] = [
     "mainQuestion": "Ce se întâmplă dacă o persoană angajată pentru curățenie cade de pe scară în timp ce spală geamurile?",
     "shortDescription": "O cădere de la 2 metri înălțime provoacă o fractură de vertebră și incapacitate de muncă pe viață.",
     "situation": "Ai angajat o doamnă pentru curățenie săptămânală în casă. În timp ce stă pe o scară de aluminiu pentru a curăța geamurile înalte, scara alunecă pe parchetul ceruit. Femeia cade pe spate pe marginea mobilierului și suferă o tasare de vertebră lombară cu afectare neurologică. Incidentul se soldează cu spitalizare prelungită și pierderea capacității de muncă.",
-    "heroImage": "/images/scenarios/guest-injury-home.jpg",
+    "heroImage": "/images/scenarios/worker-injury-home.jpg",
     "imageCaption": "Accidentele suferite de personalul casnic ridică probleme complexe de drept al muncii și răspundere civilă delictuală a beneficiarului.",
     "severityLabel": "Răspundere Juridică și Umană Gravă",
     "featured": false,
@@ -494,7 +494,7 @@ export const raspundereScenarios: Scenario[] = [
         "Sunt achitate intervențiile medicale, dispozitivele de susținere și compensația de invaliditate în limita contractului.",
         "Beneficiezi de asistență juridică de specialitate pentru gestionarea relației cu autoritățile de muncă."
       ],
-      "summary": "Atât integritatea persoanei accidentate este susținută financiar, cât și stabilitatea ta patrimonială este garantată."
+      "summary": "Atât persoana vătămată primește despăgubirea legală, cât și patrimoniul tău este protejat în limita plafonului de răspundere civilă."
     },
     "whatToCheck": {
       "title": "Ce trebuie să verifici în contractul tău",
@@ -610,7 +610,7 @@ export const raspundereScenarios: Scenario[] = [
     "mainQuestion": "Cine plătește dacă jocurile pirotehnice de sărbători provoacă un incendiu la o casă din apropiere?",
     "shortDescription": "O baterie de artificii se dezechilibrează, iar o ghiulea incendiază termoizolația și podul vecin.",
     "situation": "În noaptea de Revelion, aprinzi o baterie de artificii cumpărată legal din magazin. Din cauza reculului, cutia se răstoarnă pe alee, iar următoarea salvă pleacă pe orizontală și lovește mansarda casei vecine. Focul aprinde asteriala din lemn și vata minerală a acoperișului. Intervenția promptă a pompierilor limitează focul, dar apa de stingere și flăcările distrug acoperișul și etajul superior al vecinului. Devizul de reparații depășește 65.000 RON.",
-    "heroImage": "/images/scenarios/burn-neighbor.jpg",
+    "heroImage": "/images/scenarios/fireworks-roof-spark.jpg",
     "imageCaption": "Utilizarea materialelor pirotehnice în zone rezidențiale atrage răspunderea delictuală directă a persoanei care a inițiat focul.",
     "severityLabel": "Răspundere Civilă și Penală Pirotehnică",
     "featured": false,
@@ -758,7 +758,7 @@ export const raspundereScenarios: Scenario[] = [
     "mainQuestion": "Ce faci dacă jocul copiilor în fața blocului se soldează cu o zgârietură adâncă pe mașina unui vecin?",
     "shortDescription": "Un viraj greșit pe aleea dintre blocuri lasă o dungă metalică de 1.5 metri pe vopseaua metalizată.",
     "situation": "Copilul tău de 7 ani se plimbă cu trotineta nemotorizată pe aripa pietonală a parcării rezidențiale. Se dezechilibrează și atinge cu manșonul metalic al ghidonului două portiere consecutive ale unui autoturism nou parcat pe margine. Zgârietura adâncă trece de stratul de lac și grund până la tablă. Vecinul constată dauna și cere plata vopsirii ambelor elemente la reprezentanță (cost 3.800 RON).",
-    "heroImage": "/images/scenarios/car-vandalism.jpg",
+    "heroImage": "/images/scenarios/kid-scooter-car-scratch.jpg",
     "imageCaption": "Micile incidente de joacă ale copiilor în parcările rezidențiale sunt cauza a mii de dispute de vecinătate în fiecare an.",
     "severityLabel": "Răspundere Părintească Cotidiană",
     "featured": false,

@@ -102,7 +102,7 @@ export default function DesprePage() {
           <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed">
             Asigurările sunt adesea semnate din obligație și citite abia după producerea daunei.
             WHAT IF INSURANCE a fost creat ca un laborator editorial de inteligență a riscurilor:
-            121 de dosare documentate pe contracte reale, fără limbaj corporatist și fără iluzii de acoperire universală.
+            121 de scenarii ilustrative bazate pe condiții contractuale, fără limbaj corporatist și fără promisiuni nerealiste.
           </p>
         </div>
       </div>

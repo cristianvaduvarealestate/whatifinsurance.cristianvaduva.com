@@ -45,11 +45,21 @@ export const metadata: Metadata = {
     description:
       'Descoperă riscurile reale ale vieții cotidiene la care nu te-ai gândit niciodată. Înțelege diferența critică dintre ce presupui că acoperă o poliță și ce plătești din propriul buzunar.',
     siteName: 'WHAT IF INSURANCE',
+    images: [
+      {
+        url: 'https://whatifinsurance.cristianvaduva.com/images/hero/hero-villa.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'WHAT IF INSURANCE — Inteligență de Risc & Clauze Contractuale',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'WHAT IF INSURANCE — Inteligență de Risc & Clauze Contractuale',
-    description: 'Vezi diferența reală dintre ce presupui că acoperă o poliță și ce plătești din propriul buzunar.',
+    title: 'WHAT IF INSURANCE — Ai fi acoperit dacă s-ar întâmpla mâine?',
+    description:
+      'Descoperă riscurile reale ale vieții cotidiene la care nu te-ai gândit niciodată. Înțelege diferența critică dintre ce presupui că acoperă o poliță și ce plătești din propriul buzunar.',
+    images: ['https://whatifinsurance.cristianvaduva.com/images/hero/hero-villa.jpg'],
   },
 };
 

@@ -453,9 +453,11 @@ function ContactFormContent() {
                   </button>
                 </div>
 
-                <div className="flex items-center gap-2 text-[11px] text-slate-400 pt-2 border-t border-slate-100">
-                  <Lock className="w-3.5 h-3.5 text-slate-500" />
-                  <span>Nu solicităm niciodată parole, coduri PIN, date de card bancar sau documente medicale confidențiale prin formular.</span>
+                <div className="flex items-start gap-2 text-[11px] text-slate-500 pt-2 border-t border-slate-100">
+                  <Lock className="w-3.5 h-3.5 text-slate-500 mt-0.5 shrink-0" />
+                  <span>
+                    <strong>Avertisment de confidențialitate:</strong> Vă rugăm să nu introduceți CNP-uri, date bancare, diagnostice medicale sau numere integrale de poliță. Colectăm exclusiv informațiile strict necesare pentru a analiza clauzele sau situația indicată.
+                  </span>
                 </div>
               </form>
             )}

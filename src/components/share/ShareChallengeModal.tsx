@@ -25,7 +25,6 @@ import {
   Check,
   X,
   Smartphone,
-  Square,
   Layout,
   MessageCircle,
   ExternalLink,
@@ -38,6 +37,7 @@ import {
   Scale,
   Lightbulb,
   CheckSquare,
+  Maximize2,
 } from 'lucide-react';
 
 interface ShareChallengeModalProps {
@@ -61,11 +61,28 @@ export const ShareChallengeModal: React.FC<ShareChallengeModalProps> = ({
   const recommendedCard = getRecommendedEditorialCardForQuiz(questionIds, score);
   const [selectedCardId, setSelectedCardId] = useState<string>(initialConceptId || recommendedCard.id);
   const [activeTab, setActiveTab] = useState<'editorial' | 'quiz_score'>('editorial');
-  const [format, setFormat] = useState<StoryFormat>('story');
+  const [format, setFormat] = useState<StoryFormat>('feed');
   const [isRendering, setIsRendering] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
   const [shareSuccess, setShareSuccess] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
+  const [lightboxImageUrl, setLightboxImageUrl] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsLightboxOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isLightboxOpen]);
 
   const selectedCard = EDITORIAL_CARDS.find((c) => c.id === selectedCardId) || recommendedCard;
 
@@ -120,6 +137,17 @@ export const ShareChallengeModal: React.FC<ShareChallengeModalProps> = ({
       ? `Am obținut ${score} din ${totalQuestions} puncte la testul de intuiție WHAT IF INSURANCE. Tu ai fi știut ce acoperă de fapt o poliță? Testează-te aici: ${shareableUrl}`
       : `Am dat peste clauza asta pe care nu o verifică aproape nimeni: „${selectedCard.headline}”. Tu ai fi acoperit? Verifică aici: ${shareableUrl}`;
 
+  const handleOpenLightbox = () => {
+    if (!canvasRef.current) return;
+    try {
+      const dataUrl = canvasRef.current.toDataURL('image/png');
+      setLightboxImageUrl(dataUrl);
+      setIsLightboxOpen(true);
+    } catch (err) {
+      console.error('Error opening lightbox', err);
+    }
+  };
+
   const handleDownload = () => {
     if (!canvasRef.current) return;
     const filename =
@@ -136,6 +164,54 @@ export const ShareChallengeModal: React.FC<ShareChallengeModalProps> = ({
       format,
       context: activeTab === 'quiz_score' ? 'challenge_result' : 'scenario',
     });
+  };
+
+  const handleSaveToGallery = async () => {
+    if (!canvasRef.current) return;
+    setIsSaving(true);
+    const filename =
+      activeTab === 'quiz_score'
+        ? `WHATIF-rezultat-provocare-${score}-${totalQuestions}-${format}.png`
+        : `WHATIF-editorial-${selectedCard.conceptId}-${format}.png`;
+
+    canvasRef.current.toBlob(async (blob) => {
+      if (!blob) {
+        setIsSaving(false);
+        return;
+      }
+      const file = new File([blob], filename, { type: 'image/png' });
+      let sharedViaNative = false;
+
+      if (
+        typeof navigator !== 'undefined' &&
+        navigator.canShare &&
+        navigator.canShare({ files: [file] }) &&
+        navigator.share
+      ) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: activeTab === 'quiz_score' ? 'WHAT IF INSURANCE — Provocare Educațională' : `WHAT IF: ${selectedCard.headline}`,
+            text: shareText,
+          });
+          sharedViaNative = true;
+          setShareSuccess('Imagine trimisă către galerie / share!');
+        } catch (err: any) {
+          if (err?.name === 'AbortError') {
+            setIsSaving(false);
+            return;
+          }
+        }
+      }
+
+      if (!sharedViaNative) {
+        downloadCanvasAsImage(canvasRef.current!, filename);
+        setShareSuccess('Imagine descărcată! Disponibilă în Galeria foto / Descărcări.');
+      }
+
+      setIsSaving(false);
+      setTimeout(() => setShareSuccess(null), 4000);
+    }, 'image/png');
   };
 
   const handleCopyLink = async () => {
@@ -263,20 +339,8 @@ export const ShareChallengeModal: React.FC<ShareChallengeModalProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4 items-start overflow-y-auto flex-1 pr-1">
           {/* Left Column: Format Switcher & Live Canvas Preview */}
           <div className="lg:col-span-7 flex flex-col items-center">
-            {/* Format Selector */}
-            <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-2xl mb-3 border border-slate-200 w-full max-w-sm justify-between">
-              <button
-                type="button"
-                onClick={() => setFormat('story')}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl text-xs font-bold transition-all ${
-                  format === 'story'
-                    ? 'bg-white text-[#06141B] shadow-sm'
-                    : 'text-slate-600 hover:text-[#06141B]'
-                }`}
-              >
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>Story (9:16)</span>
-              </button>
+            {/* Format Selector: FEED & STORY ONLY */}
+            <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-2xl mb-3 border border-slate-200 w-full max-w-xs justify-between">
               <button
                 type="button"
                 onClick={() => setFormat('feed')}
@@ -291,20 +355,25 @@ export const ShareChallengeModal: React.FC<ShareChallengeModalProps> = ({
               </button>
               <button
                 type="button"
-                onClick={() => setFormat('square')}
+                onClick={() => setFormat('story')}
                 className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl text-xs font-bold transition-all ${
-                  format === 'square'
+                  format === 'story'
                     ? 'bg-white text-[#06141B] shadow-sm'
                     : 'text-slate-600 hover:text-[#06141B]'
                 }`}
               >
-                <Square className="w-3.5 h-3.5" />
-                <span>Pătrat (1:1)</span>
+                <Smartphone className="w-3.5 h-3.5" />
+                <span>Story (9:16)</span>
               </button>
             </div>
 
-            {/* Canvas Preview Container */}
-            <div className="relative w-full flex items-center justify-center p-4 bg-slate-50 border border-slate-200 rounded-3xl min-h-[360px] max-h-[480px] overflow-hidden">
+            {/* Clickable Canvas Preview Container */}
+            <button
+              type="button"
+              onClick={handleOpenLightbox}
+              className="relative w-full flex items-center justify-center p-4 bg-slate-50 border border-slate-200 rounded-3xl min-h-[360px] max-h-[480px] overflow-hidden group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#E10600]"
+              title="Apasă pentru previzualizare mare"
+            >
               {isRendering && (
                 <div className="absolute inset-0 bg-white/80 backdrop-blur-xs flex items-center justify-center z-10">
                   <div className="w-8 h-8 border-2 border-[#06141B] border-t-transparent rounded-full animate-spin" />
@@ -312,9 +381,13 @@ export const ShareChallengeModal: React.FC<ShareChallengeModalProps> = ({
               )}
               <canvas
                 ref={canvasRef}
-                className="max-h-[440px] max-w-full w-auto h-auto rounded-2xl shadow-xl border border-slate-200 bg-white object-contain"
+                className="max-h-[440px] max-w-full w-auto h-auto rounded-2xl shadow-xl border border-slate-200 bg-white object-contain transition-transform group-hover:scale-[1.01]"
               />
-            </div>
+              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 text-white text-xs font-bold pointer-events-none rounded-3xl">
+                <Maximize2 className="w-4 h-4" />
+                <span>Previzualizează mare</span>
+              </div>
+            </button>
           </div>
 
           {/* Right Column: Concept Details & Distribution */}
@@ -349,24 +422,34 @@ export const ShareChallengeModal: React.FC<ShareChallengeModalProps> = ({
               </div>
             )}
 
-            {/* Primary Action Buttons */}
+            {/* Primary Action Buttons: Salvează în galerie, Download, Share */}
             <div className="space-y-2.5">
               <button
                 type="button"
+                onClick={handleSaveToGallery}
+                disabled={isSaving || isRendering}
+                className="w-full py-3.5 px-5 rounded-2xl bg-[#E10600] hover:bg-[#c20500] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2.5 disabled:opacity-50"
+              >
+                <Smartphone className="w-4 h-4" />
+                <span>{isSaving ? 'Se generează...' : 'Salvează în galerie'}</span>
+              </button>
+
+              <button
+                type="button"
                 onClick={handleDownload}
-                className="w-full py-3 px-5 rounded-2xl bg-[#06141B] hover:bg-slate-900 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2.5"
+                className="w-full py-2.5 px-5 rounded-2xl bg-[#06141B] hover:bg-slate-900 text-white font-bold text-xs shadow-sm transition-all flex items-center justify-center gap-2.5"
               >
                 <Download className="w-4 h-4" />
-                <span>Descarcă Imaginea ({FORMAT_CONFIGS[format].label.split(' ')[0]})</span>
+                <span>Descarcă PNG ({FORMAT_CONFIGS[format].label.split(' ')[0]})</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleNativeShare}
-                className="w-full py-2.5 px-5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 text-[#06141B] font-bold text-sm transition-all flex items-center justify-center gap-2.5"
+                className="w-full py-2.5 px-5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 text-[#06141B] font-bold text-xs transition-all flex items-center justify-center gap-2.5"
               >
                 <Share2 className="w-4 h-4" />
-                <span>Distribuie prin Aplicațiile Tale</span>
+                <span>Distribuie nativ</span>
               </button>
             </div>
 
@@ -375,7 +458,7 @@ export const ShareChallengeModal: React.FC<ShareChallengeModalProps> = ({
               <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-500">
                 <span>LINK DIRECT DE DISTRIBUIRE</span>
                 <span className="text-emerald-700 font-sans font-semibold text-[11px]">
-                  Fără date personale
+                  Fără cont obligatoriu
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -456,6 +539,77 @@ export const ShareChallengeModal: React.FC<ShareChallengeModalProps> = ({
           </div>
         </div>
       </div>
+
+      {/* FULLSCREEN LIGHTBOX MODAL */}
+      {isLightboxOpen && lightboxImageUrl && (
+        <div
+          className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-6 animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          {/* Lightbox Controls Bar */}
+          <div
+            className="w-full max-w-4xl flex items-center justify-between pb-3 text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                Previzualizare HD · {FORMAT_CONFIGS[format].label}
+              </span>
+              <span className="text-[11px] font-mono text-slate-400">
+                ({FORMAT_CONFIGS[format].width} × {FORMAT_CONFIGS[format].height} px)
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsLightboxOpen(false)}
+              className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              aria-label="Închide previzualizarea"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Lightbox Image Preview */}
+          <div
+            className="relative flex items-center justify-center flex-1 max-h-[82vh] max-w-full overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={lightboxImageUrl}
+              alt="Previzualizare HD"
+              className="max-h-[82vh] max-w-[92vw] w-auto h-auto object-contain rounded-2xl shadow-2xl border border-white/10"
+            />
+          </div>
+
+          {/* Lightbox Footer Actions */}
+          <div
+            className="mt-4 flex flex-wrap items-center justify-center gap-3 w-full max-w-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={handleSaveToGallery}
+              className="py-3 px-6 rounded-full bg-[#E10600] hover:bg-[#c20500] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all"
+            >
+              <Smartphone className="w-4 h-4" />
+              <span>Salvează în galerie</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleDownload}
+              className="py-3 px-5 rounded-full bg-white/15 hover:bg-white/25 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all border border-white/20"
+            >
+              <Download className="w-4 h-4" />
+              <span>Descarcă PNG</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -42,9 +42,15 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
 
-  const title = `${category.name} — Dosare de Risc și Clauze de Asigurare | WHAT IF INSURANCE`;
-  const description = `${category.shortDescription} Descoperă dosare reale de daună și analize comparative de clauze pentru ${category.name.toLowerCase()}.`;
+  const title = `${category.name} — Scenarii de Risc și Clauze de Asigurare | WHAT IF INSURANCE`;
+  const description = `${category.shortDescription} Descoperă scenarii ilustrative bazate pe condiții contractuale și analize comparative de clauze pentru ${category.name.toLowerCase()}.`;
   const canonicalUrl = `https://whatifinsurance.cristianvaduva.com/scenarii/${canonicalId}`;
+
+  const categoryScenarios = SCENARIOS.filter((s) => s.categoryId === canonicalId);
+  const featuredImage = categoryScenarios[0]?.heroImage || '/images/hero/hero-villa.jpg';
+  const absoluteImageUrl = featuredImage.startsWith('http')
+    ? featuredImage
+    : `https://whatifinsurance.cristianvaduva.com${featuredImage}`;
 
   return {
     title,
@@ -61,7 +67,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       type: 'website',
       images: [
         {
-          url: 'https://whatifinsurance.cristianvaduva.com/images/og-share.png',
+          url: absoluteImageUrl,
           width: 1200,
           height: 630,
           alt: `${category.name} — WHAT IF INSURANCE`,
@@ -72,7 +78,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       card: 'summary_large_image',
       title,
       description,
-      images: ['https://whatifinsurance.cristianvaduva.com/images/og-share.png'],
+      images: [absoluteImageUrl],
     },
   };
 }

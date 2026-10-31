@@ -40,7 +40,21 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Server-side validation
-    const { name, email, phone, formType, message, category, scenarioTitle, scenarioSlug, consent, referralToken, referralLandingPath } = body;
+    const {
+      name,
+      email,
+      phone,
+      formType,
+      message,
+      category,
+      scenarioTitle,
+      scenarioSlug,
+      sourceName,
+      sourcePage,
+      consent,
+      referralToken,
+      referralLandingPath,
+    } = body;
 
     // Name validation with upper boundary limit
     if (!name || typeof name !== 'string' || name.trim().length < 2) {
@@ -73,25 +87,32 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Reasonable phone validation: required for quote & consultation forms
-    const isQuoteForm =
-      formType === 'oferta' ||
-      formType === 'quote_request' ||
-      formType === 'asigurare_intrebare' ||
-      formType === 'ce_vrei_sa_asiguri';
+    // Reasonable phone validation: required for quotes, consultations and claim assistance
+    const quoteAndAssistanceForms = [
+      'oferta',
+      'quote_request',
+      'asigurare_intrebare',
+      'ce_vrei_sa_asiguri',
+      'oferta_noua',
+      'audit_clauza',
+      'asistenta_polita',
+      'asistenta_dauna',
+      'intrebare_generala',
+    ];
 
+    const isQuoteOrDirectForm = quoteAndAssistanceForms.includes(formType);
     const phoneClean = typeof phone === 'string' ? phone.trim().replace(/[^0-9+]/g, '') : '';
 
-    if (isQuoteForm) {
-      if (!phoneClean || phoneClean.length < 8 || phoneClean.length > 20) {
+    if (isQuoteOrDirectForm) {
+      if (!phoneClean || phoneClean.length < 6 || phoneClean.length > 20) {
         return NextResponse.json(
-          { error: 'Numărul de telefon este obligatoriu pentru prezentarea opțiunilor (între 8 și 20 de caractere).' },
+          { error: 'Numărul de telefon este obligatoriu (între 6 și 20 de caractere).' },
           { status: 400 }
         );
       }
-    } else if (phoneClean && (phoneClean.length < 8 || phoneClean.length > 20)) {
+    } else if (phoneClean && (phoneClean.length < 6 || phoneClean.length > 20)) {
       return NextResponse.json(
-        { error: 'Numărul de telefon introdus este invalid (trebuie să aibă între 8 și 20 de caractere).' },
+        { error: 'Numărul de telefon introdus este invalid (trebuie să aibă între 6 și 20 de caractere).' },
         { status: 400 }
       );
     }
@@ -121,7 +142,11 @@ export async function POST(req: NextRequest) {
       category: sanitize(category, 80),
       scenarioTitle: sanitize(scenarioTitle, 200),
       scenarioSlug: sanitize(scenarioSlug, 100),
-      sourcePage: cleanReferralLanding || sanitize(scenarioSlug ? `/scenarii/${category}/${scenarioSlug}` : req.headers.get('referer') || '/contact', 120),
+      sourceName: sanitize(sourceName, 100) || 'Asistentul „Cu ce te putem ajuta?”',
+      sourcePage:
+        sanitize(sourcePage, 200) ||
+        cleanReferralLanding ||
+        sanitize(scenarioSlug ? `/scenarii/${category}/${scenarioSlug}` : req.headers.get('referer') || '/', 200),
       message: sanitize(message, 2500),
       referralToken: cleanReferralToken,
       referralLandingPath: cleanReferralLanding,

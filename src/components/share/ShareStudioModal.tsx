@@ -15,13 +15,14 @@ import {
   Check,
   X,
   Smartphone,
-  Square,
   Layout,
   MessageCircle,
   ExternalLink,
   ShieldCheck,
   Sparkles,
   Send,
+  Eye,
+  Maximize2,
 } from 'lucide-react';
 
 interface ShareStudioModalProps {
@@ -35,10 +36,13 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [format, setFormat] = useState<StoryFormat>('story');
+  const [format, setFormat] = useState<StoryFormat>('feed');
   const [isRendering, setIsRendering] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
   const [shareSuccess, setShareSuccess] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
+  const [lightboxImageUrl, setLightboxImageUrl] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -61,6 +65,20 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
     };
   }, [isOpen, format, scenario]);
 
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsLightboxOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isLightboxOpen]);
+
   if (!isOpen) return null;
 
   const currentUrl = typeof window !== 'undefined'
@@ -78,12 +96,68 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
     `Vezi analiza completă pe: ${currentUrl}`,
   ].join('\n');
 
+  const handleOpenLightbox = () => {
+    if (!canvasRef.current) return;
+    try {
+      const dataUrl = canvasRef.current.toDataURL('image/png');
+      setLightboxImageUrl(dataUrl);
+      setIsLightboxOpen(true);
+    } catch (err) {
+      console.error('Error opening lightbox', err);
+    }
+  };
+
   const handleDownload = () => {
     if (!canvasRef.current) return;
     const filename = `WHATIF-${scenario.slug}-${format}.png`;
     downloadCanvasAsImage(canvasRef.current, filename);
     setShareSuccess('Imaginea a fost salvată pe dispozitiv!');
     setTimeout(() => setShareSuccess(null), 4000);
+  };
+
+  const handleSaveToGallery = async () => {
+    if (!canvasRef.current) return;
+    setIsSaving(true);
+    const filename = `WHATIF-${scenario.slug}-${format}.png`;
+
+    canvasRef.current.toBlob(async (blob) => {
+      if (!blob) {
+        setIsSaving(false);
+        return;
+      }
+      const file = new File([blob], filename, { type: 'image/png' });
+      let sharedViaNative = false;
+
+      if (
+        typeof navigator !== 'undefined' &&
+        navigator.canShare &&
+        navigator.canShare({ files: [file] }) &&
+        navigator.share
+      ) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: `WHAT IF: ${scenario.title}`,
+            text: challengeText,
+          });
+          sharedViaNative = true;
+          setShareSuccess('Imagine trimisă către galerie / share!');
+        } catch (err: any) {
+          if (err?.name === 'AbortError') {
+            setIsSaving(false);
+            return;
+          }
+        }
+      }
+
+      if (!sharedViaNative) {
+        downloadCanvasAsImage(canvasRef.current!, filename);
+        setShareSuccess('Imagine descărcată! Disponibilă în Galeria foto / Descărcări.');
+      }
+
+      setIsSaving(false);
+      setTimeout(() => setShareSuccess(null), 4000);
+    }, 'image/png');
   };
 
   const handleCopyLink = async () => {
@@ -130,13 +204,13 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-[#E10600] text-xs font-mono font-bold uppercase tracking-wider mb-1">
               <Sparkles className="w-3.5 h-3.5" />
-              Provocare de Risc · Export &amp; Distribuire
+              Trimite prietenilor · Export &amp; Distribuire
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-[#06141B]">
               Trimite dilema: Tu ce crezi că se întâmplă?
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-1">
-              O situație reală, o întrebare precisă. Trimite-o cuiva care este convins că lui nu i se poate întâmpla.
+              Un scenariu ilustrativ, o întrebare precisă. Trimite-l cuiva care este convins că lui nu i se poate întâmpla.
             </p>
           </div>
           <button
@@ -154,26 +228,12 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
           {/* Left Column: Format selector & Actions (7 cols) */}
           <div className="lg:col-span-7 flex flex-col justify-between space-y-5 order-2 lg:order-1">
             
-            {/* Format Selector */}
+            {/* Format Selector: FEED and STORY ONLY */}
             <div>
               <label className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-2.5 block">
                 1. Alege formatul imaginii
               </label>
-              <div className="grid grid-cols-3 gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => setFormat('story')}
-                  className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
-                    format === 'story'
-                      ? 'bg-[#06141B] border-[#06141B] text-white shadow-md'
-                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-400'
-                  }`}
-                >
-                  <Smartphone className="w-5 h-5 mb-1" />
-                  <span className="text-xs font-bold block">Story (9:16)</span>
-                  <span className={`text-[10px] font-mono ${format === 'story' ? 'text-slate-300' : 'text-slate-500'}`}>1080 × 1920</span>
-                </button>
-
+              <div className="grid grid-cols-2 gap-2.5">
                 <button
                   type="button"
                   onClick={() => setFormat('feed')}
@@ -185,21 +245,21 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
                 >
                   <Layout className="w-5 h-5 mb-1" />
                   <span className="text-xs font-bold block">Feed (4:5)</span>
-                  <span className={`text-[10px] font-mono ${format === 'feed' ? 'text-slate-300' : 'text-slate-500'}`}>1080 × 1350</span>
+                  <span className={`text-[10px] font-mono ${format === 'feed' ? 'text-slate-300' : 'text-slate-500'}`}>1080 × 1350 px</span>
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => setFormat('square')}
+                  onClick={() => setFormat('story')}
                   className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
-                    format === 'square'
+                    format === 'story'
                       ? 'bg-[#06141B] border-[#06141B] text-white shadow-md'
                       : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-400'
                   }`}
                 >
-                  <Square className="w-5 h-5 mb-1" />
-                  <span className="text-xs font-bold block">Pătrat (1:1)</span>
-                  <span className={`text-[10px] font-mono ${format === 'square' ? 'text-slate-300' : 'text-slate-500'}`}>1080 × 1080</span>
+                  <Smartphone className="w-5 h-5 mb-1" />
+                  <span className="text-xs font-bold block">Story (9:16)</span>
+                  <span className={`text-[10px] font-mono ${format === 'story' ? 'text-slate-300' : 'text-slate-500'}`}>1080 × 1920 px</span>
                 </button>
               </div>
             </div>
@@ -220,20 +280,31 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
               </div>
             )}
 
-            {/* Actions: Download & Share */}
+            {/* Actions: Save to Gallery & Download */}
             <div className="space-y-3 pt-1">
               <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
-                2. Trimite provocarea sau descarcă imaginea
+                2. Trimite provocarea sau salvează imaginea
               </label>
 
-              {/* Primary Download Button */}
+              {/* Primary Action: Salvează în galerie */}
+              <button
+                type="button"
+                onClick={handleSaveToGallery}
+                disabled={isSaving || isRendering}
+                className="w-full py-3.5 px-5 rounded-full bg-[#E10600] hover:bg-[#c20500] text-white font-bold flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all text-xs sm:text-sm disabled:opacity-50"
+              >
+                <Smartphone className="w-4 h-4" />
+                <span>{isSaving ? 'Se generează...' : 'Salvează în galerie'}</span>
+              </button>
+
+              {/* Secondary Download Button */}
               <button
                 type="button"
                 onClick={handleDownload}
-                className="w-full py-3.5 px-5 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold flex items-center justify-center gap-2.5 shadow-sm transition-all text-xs sm:text-sm"
+                className="w-full py-3 px-5 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold flex items-center justify-center gap-2.5 shadow-sm transition-all text-xs sm:text-sm"
               >
                 <Download className="w-4 h-4 text-slate-300" />
-                <span>Descarcă Imaginea ({FORMAT_CONFIGS[format].label})</span>
+                <span>Descarcă PNG ({FORMAT_CONFIGS[format].label})</span>
               </button>
 
               {/* Native & Copy Link */}
@@ -313,17 +384,26 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
 
           {/* Right Column: Canvas Live Preview (5 cols) */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2 bg-slate-900 rounded-3xl p-4 border border-slate-800">
-            <span className="text-[10px] font-mono uppercase text-slate-400 mb-2 font-bold tracking-wider">
-              Previzualizare · {FORMAT_CONFIGS[format].label}
-            </span>
+            <div className="flex items-center justify-between w-full mb-2 px-1">
+              <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+                {FORMAT_CONFIGS[format].label}
+              </span>
+              <span className="text-[10px] text-slate-400 flex items-center gap-1">
+                <Maximize2 className="w-3 h-3" />
+                Apasă pentru zoom
+              </span>
+            </div>
 
-            <div
-              className="relative max-w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700 flex items-center justify-center bg-black"
+            {/* Clickable preview container */}
+            <button
+              type="button"
+              onClick={handleOpenLightbox}
+              className="relative max-w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700 flex items-center justify-center bg-black group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#E10600] transition-transform hover:scale-[1.02]"
               style={{
-                width: format === 'story' ? '210px' : format === 'feed' ? '240px' : '250px',
-                aspectRatio:
-                  format === 'story' ? '9/16' : format === 'feed' ? '4/5' : '1/1',
+                width: format === 'story' ? '210px' : '240px',
+                aspectRatio: format === 'story' ? '9/16' : '4/5',
               }}
+              title="Apasă pentru previzualizare mare"
             >
               {isRendering && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/80">
@@ -334,10 +414,85 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
                 ref={canvasRef}
                 className="w-full h-full object-contain block"
               />
-            </div>
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 text-white text-xs font-bold pointer-events-none">
+                <Eye className="w-4 h-4" />
+                <span>Previzualizează mare</span>
+              </div>
+            </button>
           </div>
         </div>
       </div>
+
+      {/* FULLSCREEN LIGHTBOX MODAL */}
+      {isLightboxOpen && lightboxImageUrl && (
+        <div
+          className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-6 animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          {/* Lightbox Controls Bar */}
+          <div
+            className="w-full max-w-4xl flex items-center justify-between pb-3 text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                Previzualizare HD · {FORMAT_CONFIGS[format].label}
+              </span>
+              <span className="text-[11px] font-mono text-slate-400">
+                ({FORMAT_CONFIGS[format].width} × {FORMAT_CONFIGS[format].height} px)
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsLightboxOpen(false)}
+              className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              aria-label="Închide previzualizarea"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Lightbox Image Preview */}
+          <div
+            className="relative flex items-center justify-center flex-1 max-h-[82vh] max-w-full overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={lightboxImageUrl}
+              alt={scenario.title}
+              className="max-h-[82vh] max-w-[92vw] w-auto h-auto object-contain rounded-2xl shadow-2xl border border-white/10"
+            />
+          </div>
+
+          {/* Lightbox Footer Actions */}
+          <div
+            className="mt-4 flex flex-wrap items-center justify-center gap-3 w-full max-w-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={handleSaveToGallery}
+              className="py-3 px-6 rounded-full bg-[#E10600] hover:bg-[#c20500] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all"
+            >
+              <Smartphone className="w-4 h-4" />
+              <span>Salvează în galerie</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleDownload}
+              className="py-3 px-5 rounded-full bg-white/15 hover:bg-white/25 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all border border-white/20"
+            >
+              <Download className="w-4 h-4" />
+              <span>Descarcă PNG</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

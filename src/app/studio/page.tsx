@@ -12,7 +12,6 @@ import {
   Check,
   Smartphone,
   Layout,
-  Square,
   MessageCircle,
   ExternalLink,
   ShieldCheck,
@@ -37,6 +36,8 @@ import {
   Eye,
   Compass,
   FileText,
+  Maximize2,
+  X,
 } from 'lucide-react';
 
 import {
@@ -265,14 +266,32 @@ function ShareStudioContent() {
   // ==========================================
   // SHARED CANVAS & EXPORT STATE
   // ==========================================
-  const [format, setFormat] = useState<StoryFormat>('story');
+  const [format, setFormat] = useState<StoryFormat>('feed');
   const [isRendering, setIsRendering] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
   const [customCaption, setCustomCaption] = useState<string>('');
   const [isEditingCaption, setIsEditingCaption] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
+  const [lightboxImageUrl, setLightboxImageUrl] = useState<string | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  // Lock body scroll and handle Escape key for Lightbox
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsLightboxOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isLightboxOpen]);
 
   // Compute shareable link
   const currentUrl = (() => {
@@ -387,6 +406,17 @@ function ShareStudioContent() {
   ]);
 
   // Actions
+  const handleOpenLightbox = () => {
+    if (!canvasRef.current) return;
+    try {
+      const dataUrl = canvasRef.current.toDataURL('image/png');
+      setLightboxImageUrl(dataUrl);
+      setIsLightboxOpen(true);
+    } catch (err) {
+      console.error('Error opening lightbox', err);
+    }
+  };
+
   const handleDownload = () => {
     if (!canvasRef.current) return;
     const prefix =
@@ -405,6 +435,64 @@ function ShareStudioContent() {
       context: 'scenario',
     });
     setTimeout(() => setDownloadSuccess(null), 4000);
+  };
+
+  const handleSaveToGallery = async () => {
+    if (!canvasRef.current) return;
+    setIsSaving(true);
+    const prefix =
+      studioMode === 'builder'
+        ? `WHATIF-builder-${activeAssetType.id}-${activeScenarioPreset.id}`
+        : studioMode === 'gallery'
+        ? `WHATIF-scenario-${activeGalleryScenario.id}`
+        : `WHATIF-editorial-${activeEditorialCard.conceptId}`;
+
+    const filename = `${prefix}-${format}.png`;
+    const shareTitle =
+      studioMode === 'builder'
+        ? `WHAT IF: ${customHeadline}`
+        : studioMode === 'gallery'
+        ? `WHAT IF: ${activeGalleryScenario.headline}`
+        : `WHAT IF: ${activeEditorialCard.headline}`;
+
+    canvasRef.current.toBlob(async (blob) => {
+      if (!blob) {
+        setIsSaving(false);
+        return;
+      }
+      const file = new File([blob], filename, { type: 'image/png' });
+      let sharedViaNative = false;
+
+      if (
+        typeof navigator !== 'undefined' &&
+        navigator.canShare &&
+        navigator.canShare({ files: [file] }) &&
+        navigator.share
+      ) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: shareTitle,
+            text: fullShareText,
+          });
+          sharedViaNative = true;
+          setDownloadSuccess('Imagine trimisă către galerie / share!');
+        } catch (err: any) {
+          if (err?.name === 'AbortError') {
+            setIsSaving(false);
+            return;
+          }
+        }
+      }
+
+      if (!sharedViaNative) {
+        downloadCanvasAsImage(canvasRef.current!, filename);
+        setDownloadSuccess('Imagine descărcată! Disponibilă în Galeria foto / Descărcări.');
+      }
+
+      setIsSaving(false);
+      setTimeout(() => setDownloadSuccess(null), 4000);
+    }, 'image/png');
   };
 
   const handleCopyLink = async () => {
@@ -471,7 +559,7 @@ function ShareStudioContent() {
 
           <span className="text-xs font-mono text-slate-600 bg-white px-3.5 py-1.5 rounded-full border border-slate-200 shadow-sm flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Studio 3.0 · HD Export Engine
+            Trimite prietenilor · Export Vizual HD
           </span>
         </div>
 
@@ -479,13 +567,13 @@ function ShareStudioContent() {
         <div className="border-b border-slate-200 pb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-50 border border-red-100 text-xs font-mono font-bold text-[#E10600] uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            Visual Scenario Builder &amp; Share Studio 3.0
+            Trimite Prietenilor · Simulator Vizual de Risc
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight">
-            Simulator Vizual de Risc &amp; Studio Editorial
+            Trimite Prietenilor: Dileme Reale de Risc
           </h1>
           <p className="text-base text-slate-600 max-w-3xl mt-3 leading-relaxed">
-            Personalizează scenarii realiste de daună pentru vehiculul sau locuința ta, explorează galeria curată de dileme contractuale și descarcă materiale vizuale de share cu fotografie de înaltă calitate, fără aglomerație de text.
+            Personalizează scenarii de daună pentru vehiculul sau locuința ta, explorează galeria de dileme contractuale și salvează materiale vizuale de impact direct în galeria telefonului pentru WhatsApp, Instagram sau Facebook.
           </p>
         </div>
 
@@ -1006,14 +1094,16 @@ function ShareStudioContent() {
                 </span>
               </div>
 
-              {/* Scaled Canvas Frame */}
-              <div
-                className="relative max-w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700 flex items-center justify-center bg-black transition-all"
+              {/* Scaled Canvas Frame (Click to open Lightbox) */}
+              <button
+                type="button"
+                onClick={handleOpenLightbox}
+                className="relative max-w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700 flex items-center justify-center bg-black transition-transform group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#E10600] hover:scale-[1.01]"
                 style={{
-                  width: format === 'story' ? '240px' : format === 'feed' ? '280px' : '300px',
-                  aspectRatio:
-                    format === 'story' ? '9/16' : format === 'feed' ? '4/5' : '1/1',
+                  width: format === 'story' ? '240px' : '280px',
+                  aspectRatio: format === 'story' ? '9/16' : '4/5',
                 }}
+                title="Apasă pentru previzualizare mare"
               >
                 {isRendering && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/80">
@@ -1024,24 +1114,27 @@ function ShareStudioContent() {
                   ref={canvasRef}
                   className="w-full h-full object-contain block"
                 />
-              </div>
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 text-white text-xs font-bold pointer-events-none rounded-2xl">
+                  <Maximize2 className="w-4 h-4" />
+                  <span>Previzualizează mare</span>
+                </div>
+              </button>
 
-              {/* Format Switcher Pills */}
+              {/* Format Switcher Pills: FEED & STORY ONLY */}
               <div className="flex items-center justify-center gap-2 mt-6 p-1.5 bg-slate-900 rounded-2xl border border-slate-800 w-full max-w-xs">
-                {(['story', 'feed', 'square'] as StoryFormat[]).map((f) => (
+                {(['feed', 'story'] as StoryFormat[]).map((f) => (
                   <button
                     key={f}
                     type="button"
                     onClick={() => setFormat(f)}
-                    className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-medium transition-colors flex items-center justify-center gap-1.5 ${
+                    className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-medium transition-colors flex items-center justify-center gap-1.5 ${
                       format === f
                         ? 'bg-white text-slate-900 shadow-sm font-bold'
                         : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    {f === 'story' && <Smartphone className="w-3.5 h-3.5" />}
                     {f === 'feed' && <Layout className="w-3.5 h-3.5" />}
-                    {f === 'square' && <Square className="w-3.5 h-3.5" />}
+                    {f === 'story' && <Smartphone className="w-3.5 h-3.5" />}
                     <span>{FORMAT_CONFIGS[f].label}</span>
                   </button>
                 ))}
@@ -1059,7 +1152,18 @@ function ShareStudioContent() {
                 </div>
               )}
 
-              {/* Primary Download & Native Share Buttons */}
+              {/* Primary Action: Salvează în galerie */}
+              <button
+                type="button"
+                onClick={handleSaveToGallery}
+                disabled={isSaving || isRendering}
+                className="w-full py-3.5 px-5 rounded-2xl bg-[#E10600] hover:bg-[#c20500] text-white text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all disabled:opacity-50"
+              >
+                <Smartphone className="w-4 h-4" />
+                <span>{isSaving ? 'Se generează...' : 'Salvează în galerie'}</span>
+              </button>
+
+              {/* Secondary Download & Native Share Buttons */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
                   type="button"
@@ -1236,6 +1340,77 @@ function ShareStudioContent() {
           </div>
         </div>
       </div>
+
+      {/* FULLSCREEN LIGHTBOX MODAL */}
+      {isLightboxOpen && lightboxImageUrl && (
+        <div
+          className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-6 animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          {/* Lightbox Controls Bar */}
+          <div
+            className="w-full max-w-4xl flex items-center justify-between pb-3 text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                Previzualizare HD · {FORMAT_CONFIGS[format].label}
+              </span>
+              <span className="text-[11px] font-mono text-slate-400">
+                ({FORMAT_CONFIGS[format].width} × {FORMAT_CONFIGS[format].height} px)
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsLightboxOpen(false)}
+              className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              aria-label="Închide previzualizarea"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Lightbox Image Preview */}
+          <div
+            className="relative flex items-center justify-center flex-1 max-h-[82vh] max-w-full overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={lightboxImageUrl}
+              alt="Previzualizare HD"
+              className="max-h-[82vh] max-w-[92vw] w-auto h-auto object-contain rounded-2xl shadow-2xl border border-white/10"
+            />
+          </div>
+
+          {/* Lightbox Footer Actions */}
+          <div
+            className="mt-4 flex flex-wrap items-center justify-center gap-3 w-full max-w-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={handleSaveToGallery}
+              className="py-3 px-6 rounded-full bg-[#E10600] hover:bg-[#c20500] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all"
+            >
+              <Smartphone className="w-4 h-4" />
+              <span>Salvează în galerie</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleDownload}
+              className="py-3 px-5 rounded-full bg-white/15 hover:bg-white/25 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all border border-white/20"
+            >
+              <Download className="w-4 h-4" />
+              <span>Descarcă PNG</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

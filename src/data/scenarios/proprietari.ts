@@ -10,7 +10,7 @@ export const proprietariScenarios: Scenario[] = [
     "mainQuestion": "Ce faci dacă garanția de o lună nu acoperă nici 10% din distrugerile lăsate în urmă de chiriaș?",
     "shortDescription": "Mobilier zgâriat, pereți desenați, electrocasnice arse și cheltuieli de întreținere neplătite de 6 luni.",
     "situation": "Ai investit într-un apartament cu 2 camere pentru închiriere pe termen lung, mobilat modern. Chiriașul încetează să mai răspundă la telefon. Când mergi să verifici apartamentul, găsești ușa încuiată cu cheia lăsată pe masă. Interiorul este ruinat: canapeaua este ruptă, parchetul este pătat și umflat, plita prin inducție este spartă, iar la asociație există restanțe de 4.500 RON. Garanția de 400 EUR este complet insuficientă în fața pagubelor de peste 18.000 RON.",
-    "heroImage": "/images/scenarios/tenant-damage.jpg",
+    "heroImage": "/images/scenarios/damaged-rental-room.jpg",
     "imageCaption": "Asigurarea pentru proprietari care închiriază protejează investițiile imobiliare împotriva actelor de vandalism ale chiriașilor și a neplății chiriei.",
     "severityLabel": "Risc Financiar pentru Investiția Imobiliară",
     "featured": true,
@@ -84,7 +84,7 @@ export const proprietariScenarios: Scenario[] = [
     "mainQuestion": "Ce se întâmplă dacă platforma de rezervare refuză compensarea completă a daunelor provocate de turiști?",
     "shortDescription": "O noapte de petrecere ilegală se soldează cu uși sparte, pereți afumați și plângeri penale de la vecini.",
     "situation": "Închiriezi un studio în regim hotelier prin Airbnb sau Booking. Oaspetele rezervă pentru 2 persoane, dar aduce 15 oameni pentru o petrecere clandestină cu alcool și substanțe interzise. Dimineața, vecinii cheamă poliția pentru tulburarea liniștii. Ușa de la intrare a fost forțată, parchetul este ars cu mucuri de țigară, chiuveta din baie este smulsă din perete, iar televizorul lipsește. Cererea de despăgubire depusă la suportul platformei online este amânată și respinsă parțial.",
-    "heroImage": "/images/scenarios/short-term-rental.jpg",
+    "heroImage": "/images/scenarios/airbnb-party-damage.jpg",
     "imageCaption": "Închirierea în regim hotelier de scurtă durată este considerată activitate comercială și este exclusă din polițele standard de locuință dacă nu există clauză specifică.",
     "severityLabel": "Risc Financiar Comercial și Relație cu Asociația",
     "featured": true,
@@ -158,7 +158,7 @@ export const proprietariScenarios: Scenario[] = [
     "mainQuestion": "De ce refuză asigurătorii despăgubirea dacă o casă sau un apartament stă gol mai mult de 30-60 de zile?",
     "shortDescription": "Clauza de neocupare (Unoccupancy Clause) anulează acoperirea dacă proprietarul nu a notificat absența îndelungată.",
     "situation": "Ai cumpărat o casă sau un apartament ca investiție și îl lași nelocuit pe timpul iernii în așteptarea unui chiriaș potrivit. Nu oprești alimentarea generală cu apă și lași căldura pe minim. În timpul unui ger de -15°C, centrala intră în avarie, apa îngheață în calorifere și conductele plesnesc. Câteva săptămâni mai târziu, hoții observă casa nelocuită, forțează ușa din spate și fură centrala termică și cablurile de cupru. Asigurătorul respinge dosarul invocând clauza de nelocuire mai mare de 30 de zile.",
-    "heroImage": "/images/scenarios/vacant-frozen-pipe.svg",
+    "heroImage": "/images/scenarios/vacant-burst-pipe-frozen.jpg",
     "imageCaption": "Condițiile de asigurare impun măsuri preventive obligatorii (oprirea apei și golirea instalației iarna) și pot condiționa acoperirea dacă imobilul rămâne nelocuit pe perioade îndelungate.",
     "severityLabel": "Risc Major de Excludere Contractuală",
     "featured": true,
@@ -232,7 +232,7 @@ export const proprietariScenarios: Scenario[] = [
     "mainQuestion": "Cine este responsabil dacă o coloană comună se rupe în ghena de instalații a imobilului închiriat?",
     "shortDescription": "Zeci de metri cubi de apă distrug parchetul chiriașului și tavanul a 3 apartamente de dedesubt.",
     "situation": "Deții un apartament dat în chirie. Într-o noapte, coloana comună de alimentare cu apă rece din ghena tehnică fisurează la nivelul etajului tău. Deși avaria este pe partea comună a blocului, apa se revarsă prin apartamentul tău și se scurge la etajele inferioare, afectând trei vecini. Chiriașul cere rezilierea contractului și restituirea chiriei plătite în avans, iar asociația de locatari refuză să își asume rapid reparațiile.",
-    "heroImage": "/images/scenarios/neighbor-flood.jpg",
+    "heroImage": "/images/scenarios/apartment-pipe-flood.jpg",
     "imageCaption": "Avariile pe rețelele comune de apă ale blocurilor creează dispute complexe de răspundere între asociațiile de proprietari și proprietarii individuali.",
     "severityLabel": "Conflict Juridic și Daună Imobiliară",
     "featured": false,
@@ -306,7 +306,7 @@ export const proprietariScenarios: Scenario[] = [
     "mainQuestion": "Ce poliță intervine dacă chiriașul tău provoacă un incendiu grav din neglijență casnică?",
     "shortDescription": "Flăcările cuprind hota, mobila de bucătărie din MDF și afumă întregul apartament de închiriat.",
     "situation": "Chiriașul pune o tigaie cu ulei pe aragaz și adoarme în sufragerie. Uleiul se aprinde, flăcările cuprind hota din plastic și corpurile superioare de mobilier. Pompierii sparg ușa și sting focul înainte de propagarea la vecini, dar bucătăria este complet carbonizată, iar fumul negru a distrus zugrăvelile și mobilierul din toate camerele. Paguba este evaluată la 42.000 RON.",
-    "heroImage": "/images/scenarios/short-circuit-fire.jpg",
+    "heroImage": "/images/scenarios/smoke-damage.jpg",
     "imageCaption": "Răspunderea locativă a chiriașului (Risque Locatif) este un concept fundamental care separă bunul imobil al proprietarului de fapta culpabilă a chiriașului.",
     "severityLabel": "Incendiu Casnic și Risc Locativ",
     "featured": false,
@@ -406,9 +406,9 @@ export const proprietariScenarios: Scenario[] = [
     "withInsurance": {
       "title": "Cu poliță de Protecție Juridică a Proprietarului & Asigurare de Chirie (Rent Guarantee)",
       "statusLabel": "Finanțarea completă a evacuării legale + plata chiriei restante de către asigurător",
-      "financialImpact": "Recuperarea chiriei lunare garantate + costuri judiciare plătite de asigurător",
+      "financialImpact": "Recuperarea chiriei contractuale neachitate + costuri judiciare suportate de asigurător",
       "points": [
-        "Polița plătește lunar chiria garantată direct în contul proprietarului pe durata litigiului (până la 6-12 luni).",
+        "Polița achită lunar echivalentul chiriei contractuale pe durata litigiului (până la 6-12 luni conform contractului).",
         "Asigurătorul pune la dispoziție avocați specializați și acoperă onorariul executorului judecătoresc pentru punerea în executare.",
         "Investiția imobiliară își păstrează randamentul fără stresul proceselor."
       ],
@@ -422,7 +422,7 @@ export const proprietariScenarios: Scenario[] = [
           "detail": "Recomandare legală: contractul înregistrat la ANAF sau autentificat la notar constituie titlu executoriu pentru chirie, accelerând evacuarea."
         },
         {
-          "label": "Numărul de luni de chirie garantată",
+          "label": "Numărul de luni de acoperire a chiriei",
           "detail": "Verifică dacă asigurarea plătește 6, 9 sau 12 luni de chirie restantă pe durata evacuării."
         }
       ]
@@ -454,7 +454,7 @@ export const proprietariScenarios: Scenario[] = [
     "mainQuestion": "Ce obligații urgente ai ca proprietar când chiriașii rămân fără căldură și apă caldă de Crăciun?",
     "shortDescription": "Schimbătorul de căldură se fisurează, lăsând familia cu bebeluș în frig în zile de sărbătoare.",
     "situation": "Este 28 decembrie, iar afară sunt -12°C. Chiriașii din apartamentul tău de investiții te sună disperați: centrala termică murală pe gaz are cod de eroare de blocaj total, curge apă sub ea, iar apartamentul s-a răcit la 14°C. În casă locuiește o familie cu un bebeluș de 4 luni. Niciun service tehnic nu are piese pe stoc în perioada sărbătorilor, iar înlocuirea de urgență cu o centrală nouă în condensare costă 8.500 RON cu tot cu montaj autorizat ISCIR.",
-    "heroImage": "/images/scenarios/frozen-pipe-burst.svg",
+    "heroImage": "/images/scenarios/winter-boiler-failure.jpg",
     "imageCaption": "Avariile sistemelor de încălzire în plină iarnă impun intervenții tehnice de urgență 24/7 pentru a preveni înghețul instalațiilor și rezilierea contractelor.",
     "severityLabel": "Urgență Termică și Confort Locativ",
     "featured": false,
@@ -528,7 +528,7 @@ export const proprietariScenarios: Scenario[] = [
     "mainQuestion": "Ce faci dacă un chiriaș modifică structura apartamentului fără autorizație de construire?",
     "shortDescription": "Un perete din cărămidă este demolat ilegal, atrăgând amenzi de la Inspectoratul de Stat în Construcții.",
     "situation": "Închiriezi un apartament generos pe termen lung unei firme sau unui locatar. După 6 luni, la o vizită convenită, descoperi că locatarul a demolat peretele dintre bucătărie și hol pentru a crea un spațiu deschis, fără autorizație de construire și fără acordul tău scris. Vecinii au sesizat Poliția Locală (Disciplina în Construcții) și Inspectoratul de Stat în Construcții (ISC), care emit o amendă de 10.000 RON și dispoziție de aducere la starea inițială pe numele proprietarului.",
-    "heroImage": "/images/scenarios/renovation-leak.jpg",
+    "heroImage": "/images/scenarios/demolished-wall-interior.jpg",
     "imageCaption": "Modificările neautorizate ale compartimentărilor interioare încalcă Legea 50/1991 privind autorizarea construcțiilor, atrăgând sancțiuni dure pentru proprietar.",
     "severityLabel": "Sancțiune Administrativă și Viciu Structural",
     "featured": false,

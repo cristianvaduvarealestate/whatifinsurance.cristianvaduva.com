@@ -25,6 +25,17 @@ import { GENERALI_PRODUCTS, GENERALI_CLAIMS_GUIDE } from '@/data/generaliKnowled
 export default function GhidGeneraliPage() {
   const [activeTab, setActiveTab] = useState<'casa' | 'auto' | 'calatorii' | 'business' | 'daune'>('casa');
 
+  // Support direct URL deep linking via ?tab=daune
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get('tab');
+      if (tabParam && ['casa', 'auto', 'calatorii', 'business', 'daune'].includes(tabParam)) {
+        setActiveTab(tabParam as any);
+      }
+    }
+  }, []);
+
   const productKeyMap: Record<string, string> = {
     casa: 'eurocasa',
     auto: 'casco',
@@ -347,10 +358,10 @@ export default function GhidGeneraliPage() {
                   Studio Social Media &amp; Educație Vizuală
                 </span>
                 <h4 className="text-lg font-bold">
-                  Vezi scenariile practice create în Social Content Studio
+                  Vezi scenariile pe care le poți trimite prietenilor
                 </h4>
                 <p className="text-xs text-slate-300 max-w-xl">
-                  Am transformat aceste condiții contractuale în grafice editoriale clare pentru Instagram, Facebook și LinkedIn.
+                  Am transformat aceste condiții contractuale în grafice vizuale clare pentru Instagram, Facebook și WhatsApp.
                 </p>
               </div>
               <Link
@@ -358,7 +369,7 @@ export default function GhidGeneraliPage() {
                 className="py-3 px-6 rounded-full bg-[#E10600] hover:bg-[#c20500] text-white text-xs font-bold whitespace-nowrap transition-all shadow-md shrink-0 flex items-center gap-2"
               >
                 <Sparkles className="w-4 h-4 text-white" />
-                <span>Deschide Studio Share</span>
+                <span>Trimite prietenilor</span>
               </Link>
             </div>
           </div>

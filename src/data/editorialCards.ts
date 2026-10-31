@@ -30,7 +30,7 @@ export const EDITORIAL_CONCEPTS: Record<EditorialConceptId, EditorialConceptMeta
     englishTitle: 'THE HIDDEN DETAIL',
     romanianBadge: 'DETALIUL ASCUNS',
     roBadge: 'DETALIUL ASCUNS',
-    tagline: 'O clauză contractuală pe care 9 din 10 oameni o ignoră până la dauna reală.',
+    tagline: 'O clauză contractuală frecvent trecută cu vederea până la apariția unei daune.',
     iconName: 'Eye',
   },
   myth_vs_fact: {

@@ -71,7 +71,7 @@ export default function TermeniPage() {
             de autor.
           </p>
           <p>
-            Utilizatorii au permisiunea de a genera și partaja imagini vizuale create prin intermediul <em>Share Studio</em> pe rețelele
+            Utilizatorii au permisiunea de a genera și partaja imagini vizuale create prin intermediul secțiunii <em>Trimite prietenilor</em> pe rețelele
             sociale, cu condiția păstrării nemodificate a elementelor de atribuire și a watermark-ului original.
           </p>
         </section>

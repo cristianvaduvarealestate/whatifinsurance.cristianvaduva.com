@@ -169,7 +169,7 @@ export default function PolicyChecklistPage() {
 
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-mono font-bold uppercase tracking-wider">
             <FileCheck2 className="w-3.5 h-3.5 text-[#E10600]" />
-            <span>Audit Practic · Fără Înregistrare · Fără Date Personale</span>
+            <span>Audit Practic · Fără Înregistrare Obligatorie</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight">

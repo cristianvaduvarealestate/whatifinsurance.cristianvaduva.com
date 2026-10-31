@@ -166,7 +166,7 @@ export const businessScenarios: Scenario[] = [
     "mainQuestion": "Ce se întâmplă dacă o hală comercială este distrusă de flăcări împreună cu toate produsele gata de livrare?",
     "shortDescription": "Un scurtcircuit la un motostivuitor lăsat la încărcat aprinde paleții de lemn și marfa stivuită.",
     "situation": "Un depozit comercial de 1.200 mp adăpostește stocuri de electrocasnice, ambalaje și textile în valoare de peste 2.500.000 RON. În timpul nopții, un acumulator de motostivuitor explodează la stația de încărcare. Focul cuprinde stivele de paleți în câteva minute. Structura metalică a halei se prăbușește parțial sub căldură, iar marfa este carbonizată integral.",
-    "heroImage": "/images/scenarios/short-circuit-fire.jpg",
+    "heroImage": "/images/scenarios/warehouse-fire-damage.jpg",
     "imageCaption": "Incendiile din spațiile industriale provoacă daune majore la trei nivele: clădire, echipamente fixe și stocuri circulante de marfă.",
     "severityLabel": "Daună Industrială Catastrofală",
     "featured": true,
@@ -195,7 +195,7 @@ export const businessScenarios: Scenario[] = [
       "financialImpact": "Plată de milioane de lei direct în contul companiei",
       "points": [
         "Stocurile de marfă sunt despăgubite la prețul de achiziție din facturile furnizorilor conform evidenței contabile din ziua anterioară incendiului.",
-        "Hala metalică este reconstruită integral conform devizelor aprobate.",
+        "Hala metalică este refăcută în baza evaluării de daună și a devizelor avizate de asigurător.",
         "Dacă polița include clauza de Pierdere de Profit (Business Interruption), sunt acoperite salariile angajaților și cheltuielile fixe pe perioada refacerii halei."
       ],
       "summary": "Compania își reface stocurile și își onorează datoriile fără a-și suspenda definitiv existența."
@@ -244,7 +244,7 @@ export const businessScenarios: Scenario[] = [
     "mainQuestion": "Ce răspundere civilă și penală are antreprenorul general când un muncitor este rănit grav?",
     "shortDescription": "O schelă neancorată conform normelor se balansează, iar un lucrător suferă traumatisme multiple.",
     "situation": "Pe un șantier de construcții rezidențiale, un muncitor dulgher cade de pe o schelă de la etajul 2 din cauza lipsei balustradei de protecție și a neutilizării hamului de siguranță. Victima suferă politraumatisme majore, fracturi costale și contuzii cerebrale, rămânând cu o invaliditate permanentă de gradul II. Inspectoratul Teritorial de Muncă (ITM) și Parchetul deschid anchetă pentru nerespectarea normelor SSM (Securitate și Sănătate în Muncă). Familia solicită despăgubiri civile de 100.000 EUR.",
-    "heroImage": "/images/scenarios/worksite-theft.jpg",
+    "heroImage": "/images/scenarios/construction-scaffold-fall.jpg",
     "imageCaption": "Răspunderea Civilă a Angajatorului față de propriii salariați protejează compania împotriva pretențiilor civile formulate în urma accidentelor de muncă.",
     "severityLabel": "Risc Penal și Despăgubiri Civile Majore",
     "featured": false,
@@ -318,7 +318,7 @@ export const businessScenarios: Scenario[] = [
     "mainQuestion": "Ce se întâmplă dacă ești acționat personal în instanță pentru o presupusă eroare de decizie strategică în firmă?",
     "shortDescription": "Acționarii minoritari cer 200.000 EUR despăgubiri de la CEO din averea sa personală.",
     "situation": "În calitate de director general sau administrator al unei societăți pe acțiuni, semnezi un contract important de achiziție a unui furnizor. Din cauza unei schimbări bruște de piață, tranzacția se dovedește neprofitabilă. Acționarii minoritari invocă încălcarea obligației de diligență și loialitate conform Legii 31/1990 și formulează o acțiune în răspundere împotriva administratorului, solicitând poprirea averii personale (case, conturi, mașini).",
-    "heroImage": "/images/scenarios/professional-error.jpg",
+    "heroImage": "/images/scenarios/director-legal-dispute.jpg",
     "imageCaption": "Polița D&O (Directors and Officers Liability) protejează patrimoniul personal al liderilor de companie împotriva litigiilor de management.",
     "severityLabel": "Risc Personal asupra Patrimoniului Propriu",
     "featured": true,
@@ -540,7 +540,7 @@ export const businessScenarios: Scenario[] = [
     "mainQuestion": "Ce asigurare acoperă onorariile de avocați și taxele de timbru într-un proces la Curtea de Arbitraj?",
     "shortDescription": "O livrare defectuoasă oprește linia de producție a fabricii, generând un conflict juridic transfrontalier.",
     "situation": "Compania ta de producție importă un lot masiv de granule de polimeri de la un furnizor din Germania în valoare de 80.000 EUR. În producție, lotul se dovedește neconform chimic, generând rebuturi de 100%. Furnizorul refuză restituirea banilor și contestă analizele de laborator. Clauza din contract prevede soluționarea litigiului la Curtea de Arbitraj Comercial Internațional de la Viena. Taxele arbitrale și onorariile casei de avocatură depășesc 25.000 EUR înainte de prima audiere.",
-    "heroImage": "/images/scenarios/professional-error.jpg",
+    "heroImage": "/images/scenarios/cargo-container-dispute.jpg",
     "imageCaption": "Protecția juridică comercială (Commercial Legal Expenses Insurance) preia costurile litigiilor complexe cu furnizorii și partenerii contractuali.",
     "severityLabel": "Blocaj Juridic și Costuri de Arbitraj",
     "featured": false,
@@ -572,7 +572,7 @@ export const businessScenarios: Scenario[] = [
         "Sunt decontate expertizele tehnice independente de laborator și taxele judiciare de arbitraj.",
         "Firma ta își poate susține drepturile cu fermitate împotriva oricărui partener incorect."
       ],
-      "summary": "Accesul la justiție de calitate superioară este garantat fără a-ți decapitaliza compania."
+      "summary": "Costurile de asistență juridică și expertiză sunt preluate în limita sumei asigurate, protejând lichiditatea companiei."
     },
     "whatToCheck": {
       "title": "Ce trebuie să verifici în contractul tău",

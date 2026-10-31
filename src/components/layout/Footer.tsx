@@ -129,7 +129,7 @@ export const Footer: React.FC = () => {
                   className="flex items-center gap-1.5 text-[#E10600] font-semibold hover:text-[#06141B] transition-colors"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Studio de share</span>
+                  <span>Trimite prietenilor</span>
                 </Link>
               </li>
               <li>

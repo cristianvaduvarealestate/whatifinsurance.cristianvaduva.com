@@ -35,10 +35,10 @@ export const calatoriiScenarios: Scenario[] = [
     },
     "withInsurance": {
       "title": "Cu asigurare completă de călătorie (Întârziere / Conexiune ratată)",
-      "statusLabel": "Indemnizație fixă garantată + decontare cazare independentă",
+      "statusLabel": "Indemnizație fixă forfetară + decontare cazare conform contractului",
       "financialImpact": "Plată forfetară per oră de întârziere (ex. 200 – 600 EUR) direct în cont",
       "points": [
-        "Polițele moderne de călătorie oferă clauza Smart Delay / Întârziere garantată: primești automat acces gratuit în lounge VIP după 60-120 minute de întârziere.",
+        "Polițele moderne de călătorie oferă opțional clauza Smart Delay: primești automat acces gratuit în lounge VIP după 60-120 minute de întârziere confirmată a zborului.",
         "Asigurătorul decontează cazarea la orice hotel decent din proximitate și mesele, indiferent dacă motivul companiei a fost meteo sau tehnic.",
         "Polița compensează nopțile de cazare deja plătite la destinație (New York) pe care nu le-ai mai putut folosi din cauza întârzierii."
       ],
@@ -397,7 +397,7 @@ export const calatoriiScenarios: Scenario[] = [
     "mainQuestion": "Ce se întâmplă dacă un copil sau un părinte se îmbolnăvește brusc și nu mai puteți pleca în concediu?",
     "shortDescription": "Biletele de avion sunt nerambursabile, iar hotelul reține 100% din tarif pentru anulări sub 7 zile.",
     "situation": "Ai achitat integral un pachet de vacanță de vis în Maldive în valoare de 28.000 RON (circa 5.600 EUR) pentru toată familia. Cu 3 zile înainte de zbor, copilul mic face pneumonie acută cu febră 40°C și necesită spitalizare obligatorie. Agenția de turism și compania aeriană invocă termenii biletelor nerambursabile și refuză restituirea banilor.",
-    "heroImage": "/images/scenarios/serious-diagnosis.jpg",
+    "heroImage": "/images/scenarios/trip-cancellation-illness.jpg",
     "imageCaption": "Asigurarea storno (anularea călătoriei) este singurul instrument financiar care protejează avansurile plătite pentru concedii.",
     "severityLabel": "Pierdere Totală de Avans",
     "featured": true,
@@ -549,7 +549,7 @@ export const calatoriiScenarios: Scenario[] = [
     "mainQuestion": "Cât costă transportul de urgență cu hidroavion sau elicopter până la cel mai apropiat spital chirurgical?",
     "shortDescription": "Un atol fără spital necesită transfer aerian de urgență pe timp de furtună către capitala Male.",
     "situation": "Te afli pe un atol izolat în Maldive sau într-o rezervație naturală de safari în Tanzania. O căzătură la piscina resortului provoacă un traumatism cranian sever cu pierderea cunoștinței. Medicul de pe insulă constată că pacientul are nevoie de tomografie computerizată și neurochirurgie urgentă. Singura modalitate de transport este un hidroavion privat charter sau un elicopter sanitar.",
-    "heroImage": "/images/scenarios/medical-transport.jpg",
+    "heroImage": "/images/scenarios/island-medical-evacuation.jpg",
     "imageCaption": "Evacuarea de urgență din zone maritime izolate sau rezervații naturale necesită logistică aeriană privată cu costuri pe oră de zbor foarte mari.",
     "severityLabel": "Urgență Vitală și Cost Masiv",
     "featured": false,
@@ -581,7 +581,7 @@ export const calatoriiScenarios: Scenario[] = [
         "Zborul cu hidroavionul sau elicopterul este achitat integral, iar echipa medicală preia pacientul de pe debarcader.",
         "La aterizare în capitală, o ambulanță specializată așteaptă pe pistă pentru transferul la spitalul chirurgical de referință."
       ],
-      "summary": "Salvarea vieții primează, toate cheltuielile de mii de dolari fiind garantate instant de asigurător."
+      "summary": "Salvarea vieții primează, costurile de evacuare medicală fiind preluate de asigurător în limita sumei asigurate agregate."
     },
     "whatToCheck": {
       "title": "Ce trebuie să verifici în contractul tău",
@@ -697,7 +697,7 @@ export const calatoriiScenarios: Scenario[] = [
     "mainQuestion": "Ce se întâmplă dacă ai nevoie de terapie intensivă la bordul unui vas de croazieră în mijlocul oceanului?",
     "shortDescription": "Centrul medical de la bord tarifează la minut, iar evacuarea cu elicopterul Gărzii de Coastă costă zeci de mii de euro.",
     "situation": "În timp ce te afli într-o croazieră în Marea Mediterană sau Caraibe, suferi un sindrom coronarian acut (infarct miocardic). Ești stabilizat în spitalul de la bordul navei. Medicii de bord solicită intervenția elicopterului naval de salvare pentru a te transporta de urgență la o clinică de cardiologie intervențională de pe țărm. Factura spitalului navei este de 8.500 USD, la care se adaugă costul transferului naval.",
-    "heroImage": "/images/scenarios/travel-medical.jpg",
+    "heroImage": "/images/scenarios/cruise-ship-medical.jpg",
     "imageCaption": "Centrele medicale de pe vasele de croazieră operează ca spitale private în regim comercial cu tarife extrem de mari facturate direct în contul cabinei.",
     "severityLabel": "Cost Medical și Maritim Extrem",
     "featured": false,
@@ -771,7 +771,7 @@ export const calatoriiScenarios: Scenario[] = [
     "mainQuestion": "Ce drepturi ai dacă te prezinți la timp la poartă și linia aeriană îți spune că nu mai sunt locuri în avion?",
     "shortDescription": "Compania aeriană a vândut mai multe bilete decât capacitatea aeronavei și refuză îmbarcarea.",
     "situation": "Ajungi la poarta de îmbarcare la aeroportul din Viena pentru un zbor spre casă. Agentul de poartă te anunță că zborul a fost suprarezervat (overbooking) și că nu mai există niciun loc disponibil în cabină pentru tine. Ți se propune un zbor peste 26 de ore sau o redirecționare complicată prin alt continent.",
-    "heroImage": "/images/scenarios/flight-cancelled.jpg",
+    "heroImage": "/images/scenarios/airport-boarding-gate.jpg",
     "imageCaption": "Suprarezervarea este o practică comercială legală a companiilor aeriene, însă atrage obligații financiare stricte de despăgubire imediată.",
     "severityLabel": "Disconfort și Drept Legal la Compensație",
     "featured": false,
@@ -845,7 +845,7 @@ export const calatoriiScenarios: Scenario[] = [
     "mainQuestion": "Ce se întâmplă dacă vântul de gradul 9 oprește toate vapoarele și ratezi zborul de avion de la Atena?",
     "shortDescription": "Valurile uriașe țin navele la ancoră 3 zile, provocând ratarea zborurilor internaționale de legătură.",
     "situation": "Te afli în vacanță pe o insulă grecească (Santorini sau Milos). Cu 24 de ore înainte de zborul tău de retur din Atena, autoritatea portuară declară interdicție de navigație (Sea Ban) din cauza vântului Meltemi de 50 de noduri. Niciun feribot nu mai pleacă din port. Ratezi cursa aeriană de Atena - București și trebuie să plătești 3 nopți în plus pe insulă.",
-    "heroImage": "/images/scenarios/missed-connection.jpg",
+    "heroImage": "/images/scenarios/island-ferry-storm.jpg",
     "imageCaption": "Interdicțiile meteo maritime instituite de căpităniile de port sunt clasificate ca forță majoră, scutind companiile navale de compensații directe.",
     "severityLabel": "Risc Logistic și Financiar Mediu",
     "featured": false,
@@ -919,7 +919,7 @@ export const calatoriiScenarios: Scenario[] = [
     "mainQuestion": "Ce se întâmplă dacă ești victima unei agresiuni fizice pe stradă și ai nevoie de îngrijiri medicale de urgență?",
     "shortDescription": "Un atac armat pentru deposedare de bunuri lasă victima cu traumatisme craniene și fără telefon sau bani.",
     "situation": "În timp ce te plimbi pe o stradă turistică în Rio de Janeiro sau Buenos Aires, ești atacat de două persoane înarmate. În urma tentativei de a proteja rucsacul, ești lovit, suferi o fractură de mandibulă și contuzii serioase. Agresorii fug cu telefonul, ceasul și rucsacul. Ești transportat de urgență la o clinică privată pentru suturi și investigații imagistice.",
-    "heroImage": "/images/scenarios/travel-medical.jpg",
+    "heroImage": "/images/scenarios/tourist-street-robbery.jpg",
     "imageCaption": "Tâlhăriile violente în destinații internaționale impun asistență medicală chirurgicală imediată, suport consular și consiliere juridică.",
     "severityLabel": "Traumă Medicală și Pierdere Materială",
     "featured": false,
@@ -945,9 +945,9 @@ export const calatoriiScenarios: Scenario[] = [
     "withInsurance": {
       "title": "Cu asigurare de călătorie cu acoperire medicală extinsă și clauză de jaf armat / agresiune",
       "statusLabel": "Spitalizare acoperită integral prin decontare directă + despăgubire bunuri sustrase",
-      "financialImpact": "Tratament medical de elită garantat fără costuri proprii",
+      "financialImpact": "Decontare directă a spitalizării în limita plafonului contractual",
       "points": [
-        "Dispeceratul de asigurări garantează plata tuturor intervențiilor chirurgicale și a investigațiilor CT/RMN în clinica privată.",
+        "Dispeceratul de asigurări emite garanție de plată pentru intervențiile chirurgicale și investigațiile CT/RMN în clinica parteneră.",
         "Polița compensează valoarea bunurilor sustrase prin violență (jaf confirmat prin proces-verbal de poliție).",
         "Este asigurat un psiholog sau un reprezentant de asistență pentru sprijin moral și logistic."
       ],

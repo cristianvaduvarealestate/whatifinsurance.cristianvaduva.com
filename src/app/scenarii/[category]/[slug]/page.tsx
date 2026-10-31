@@ -59,7 +59,9 @@ export async function generateMetadata({
       type: 'article',
       images: [
         {
-          url: scenario.heroImage,
+          url: scenario.heroImage.startsWith('http')
+            ? scenario.heroImage
+            : `https://whatifinsurance.cristianvaduva.com${scenario.heroImage}`,
           width: 1200,
           height: 800,
           alt: scenario.title,
@@ -70,7 +72,11 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: `WHAT IF: ${scenario.mainQuestion}`,
       description: scenario.socialHook,
-      images: [scenario.heroImage],
+      images: [
+        scenario.heroImage.startsWith('http')
+          ? scenario.heroImage
+          : `https://whatifinsurance.cristianvaduva.com${scenario.heroImage}`,
+      ],
     },
   };
 }
@@ -150,7 +156,7 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
             {/* Situation Detailed Narrative */}
             <div className="space-y-3 pt-6 border-t border-slate-100">
               <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
-                Descrierea Situației Reale
+                Descrierea Scenariului Ilustrativ
               </h2>
               <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
                 {scenario.situation}
@@ -307,11 +313,9 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
             ))}
           </ul>
 
-          {scenario.disclaimer && (
-            <p className="pt-2 text-[11px] text-slate-500 italic border-t border-slate-200">
-              * {scenario.disclaimer}
-            </p>
-          )}
+          <p className="pt-2 text-[11px] text-slate-500 italic border-t border-slate-200">
+            * Notă educațională: Acest scenariu este ilustrativ și se bazează pe condiții generale uzuale de asigurare și legislația aplicabilă din România. Conținutul nu constituie consultanță juridică, confirmare prealabilă a unei despăgubiri sau angajament ferm din partea unui asigurător. Rezultatul oricărui dosar de daună depinde exclusiv de textul contractului încheiat, clauzele atașate, excluderile aplicabile și evaluarea individuală a asigurătorului.{scenario.disclaimer ? ` ${scenario.disclaimer}` : ''}
+          </p>
         </section>
 
         {/* Related Scenarios in Category */}
@@ -322,12 +326,12 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
                 <span className="text-xs font-mono uppercase text-slate-500 font-bold">
                   Din aceeași categorie
                 </span>
-                <h3 className="text-xl sm:text-2xl font-black text-[#06141B] mt-0.5">
+                <h2 className="text-xl sm:text-2xl font-black text-[#06141B] mt-0.5">
                   Alte scenarii din {scenario.categoryName}
-                </h3>
+                </h2>
               </div>
               <Link
-                href={`/scenarii?categorie=${scenario.categoryId}`}
+                href={`/scenarii/${scenario.categoryId}`}
                 className="text-xs font-bold text-[#06141B] hover:text-[#E10600] flex items-center gap-1 transition-colors"
               >
                 <span>Vezi toate</span>

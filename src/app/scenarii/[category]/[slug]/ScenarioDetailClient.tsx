@@ -67,10 +67,10 @@ export const ScenarioDetailClient: React.FC<ScenarioDetailClientProps> = ({ scen
             type="button"
             onClick={handleNextRandom}
             className="py-3 px-4 rounded-full bg-white hover:bg-slate-100 border border-slate-300 text-[#06141B] font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
-            title="Deschide alt caz documentat la întâmplare"
+            title="Deschide alt scenariu ilustrativ la întâmplare"
           >
             <Shuffle className="w-3.5 h-3.5 text-[#E10600]" />
-            <span>Alt caz real</span>
+            <span>Alt scenariu ilustrativ</span>
           </button>
 
           {/* 3. Află ce ai de verificat / Audit poliță */}

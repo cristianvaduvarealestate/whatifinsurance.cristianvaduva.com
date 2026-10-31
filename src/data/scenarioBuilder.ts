@@ -263,7 +263,7 @@ const RAW_BUILDER_SCENARIOS: any[] = [
     takeaway: 'Normele multor producători impun înlocuirea completă a bateriei dacă structura de protecție este deformată, costul pachetului putând depăși pragul economic de daună totală CASCO.',
     heroImage: '/images/scenarios/ev-battery-damage.jpg',
     imageCaption: 'Impact dedesubtul caroseriei pe pachetul de acumulatori',
-    insuranceConcept: 'Subscriere dedicată Vehicule Electrice & Hibride',
+    insuranceConcept: 'Clauză dedicată Vehicule Electrice & Hibride',
     applicablePolicy: 'CASCO',
     sourceNote: 'Norme tehnice producător & Condiții CASCO EV',
     detailedContext: 'Pachetul de baterii reprezintă adesea 40–55% din valoarea de nou a vehiculului. Dacă polița nu este la valoare reală actualizată, reparația poate depăși pragul de daună totală.',

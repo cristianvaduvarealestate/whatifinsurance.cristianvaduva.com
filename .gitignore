@@ -17,6 +17,7 @@ coverage/
 # Client leads and local data
 data/leads.json
 public/share-exports-test/
+scratch/
 *.tsbuildinfo
 
 # macOS

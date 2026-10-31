@@ -121,6 +121,16 @@ export const PolicyCheckModal: React.FC<PolicyCheckModalProps> = ({
               />
             </div>
 
+            {/* Privacy & Sensitivity Warning */}
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-500 space-y-1">
+              <p className="font-semibold text-slate-700">
+                🛡️ Notă de confidențialitate:
+              </p>
+              <p>
+                Te rugăm să <strong>nu introduci</strong> CNP-uri, date de card sau cont bancar, diagnostice medicale sau numere integrale de poliță. Colectăm exclusiv noțiuni contractuale generale pentru clarificare educațională.
+              </p>
+            </div>
+
             {/* Quick Link to full form */}
             <div className="pt-1 flex items-center justify-between text-xs text-slate-500">
               <span>Pentru o analiză aplicată cu date de contact:</span>

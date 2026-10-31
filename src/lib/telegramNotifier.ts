@@ -19,6 +19,7 @@ export interface LeadNotificationPayload {
   category?: string;
   scenarioTitle?: string;
   scenarioSlug?: string;
+  sourceName?: string;
   sourcePage?: string;
   message?: string;
   referralToken?: string;
@@ -58,26 +59,55 @@ function escapeTelegramHtml(str: string): string {
 }
 
 const FORM_TYPE_LABELS: Record<string, string> = {
+  intrebare_generala: 'Am o întrebare',
+  oferta_noua: 'Vreau o asigurare (Ofertă nouă)',
+  asistenta_polita: 'Am deja o poliță (Asistență / Optimizare)',
+  audit_clauza: 'Vreau să înțeleg o clauză (Audit clauze)',
+  asistenta_dauna: 'Am nevoie de ajutor pentru o daună (Asistență daună)',
   oferta: 'Solicitare Consultanță / Ofertă',
-  asigurare_intrebare: 'Ce vrei să-ți asiguri? (Chestionar Interactiv)',
-  ce_vrei_sa_asiguri: 'Ce vrei să-ți asiguri?',
+  asigurare_intrebare: 'Am o întrebare',
+  ce_vrei_sa_asiguri: 'Vreau o asigurare',
   quote_request: 'Cerere Ofertă Asigurare',
   'review-polita': 'Verificare / Audit Poliță',
-  general: 'Mesaj General de Contact',
-  intrebare: 'Întrebare Specifică Scenariu',
-  audit: 'Audit Poliță Personală',
+  general: 'Întrebare Generală',
+  intrebare: 'Întrebare Generală',
+  audit: 'Audit Clauze',
 };
+
+/**
+ * Safely resolves Telegram Bot credentials from process.env (Node.js/local/OpenNext)
+ * or Cloudflare Worker runtime bindings via @opennextjs/cloudflare without leaking values.
+ */
+async function getTelegramConfig(): Promise<{ botToken?: string; chatId?: string }> {
+  let botToken = process.env.TELEGRAM_BOT_TOKEN?.trim();
+  let chatId = process.env.TELEGRAM_CHAT_ID?.trim();
+
+  if (!botToken || !chatId) {
+    try {
+      const { getCloudflareContext } = await import('@opennextjs/cloudflare');
+      const ctx = getCloudflareContext();
+      if (ctx && ctx.env) {
+        const cfEnv = ctx.env as Record<string, any>;
+        botToken = botToken || cfEnv.TELEGRAM_BOT_TOKEN?.trim();
+        chatId = chatId || cfEnv.TELEGRAM_CHAT_ID?.trim();
+      }
+    } catch {
+      // Running in standard Node.js or build runtime
+    }
+  }
+
+  return { botToken, chatId };
+}
 
 export async function sendTelegramLeadNotification(
   lead: LeadNotificationPayload
 ): Promise<{ success: boolean; reason?: string }> {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN?.trim();
-  const chatId = process.env.TELEGRAM_CHAT_ID?.trim();
+  const { botToken, chatId } = await getTelegramConfig();
 
-  // If credentials are absent, log safe diagnostic and gracefully exit
+  // If credentials are absent, log safe diagnostic without leaking any secrets
   if (!botToken || !chatId) {
     console.info(
-      `[TelegramNotifier] Notifications not configured (missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID). Lead ${lead.id} safely stored locally.`
+      `[TelegramNotifier] Credentials not configured in current environment. Lead ${lead.id} processed safely.`
     );
     return { success: false, reason: 'credentials_not_configured' };
   }
@@ -90,47 +120,60 @@ export async function sendTelegramLeadNotification(
 
   const formLabel = FORM_TYPE_LABELS[lead.formType] || lead.formType || 'Solicitare Nouă';
 
-  // Format message using Telegram HTML parse mode
-  const messageLines = [
-    `<b>🔔 LEAD NOU — WHAT IF INSURANCE</b>`,
+  const formattedDate = new Date(lead.timestamp).toLocaleString('ro-RO', {
+    timeZone: 'Europe/Bucharest',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  // Strict format matching user specifications
+  const lines: string[] = [
+    `📩 <b>SOLICITARE NOUĂ — WHATIF INSURANCE</b>`,
     ``,
-    `<b>ID:</b> <code>${escapeTelegramHtml(lead.id)}</code>`,
-    `<b>Tip Formular:</b> ${escapeTelegramHtml(formLabel)}`,
-    `<b>Data:</b> ${escapeTelegramHtml(new Date(lead.timestamp).toLocaleString('ro-RO', { timeZone: 'Europe/Bucharest' }))}`,
-    ``,
-    `<b>👤 Nume:</b> ${escapeTelegramHtml(lead.name)}`,
-    `<b>📞 Telefon:</b> ${escapeTelegramHtml(lead.phone || 'Nespecificat')}`,
-    `<b>✉️ Email:</b> ${escapeTelegramHtml(lead.email)}`,
+    `<b>Tip solicitare:</b> ${escapeTelegramHtml(formLabel)}`,
+    `<b>Nume:</b> ${escapeTelegramHtml(lead.name)}`,
   ];
 
-  if (lead.category) {
-    messageLines.push(`<b>🏷️ Categorie / Bun:</b> ${escapeTelegramHtml(lead.category)}`);
+  if (lead.phone && lead.phone.trim().length > 0) {
+    lines.push(`<b>Telefon:</b> ${escapeTelegramHtml(lead.phone.trim())}`);
   }
 
-  if (lead.scenarioTitle) {
-    messageLines.push(`<b>📖 Scenariu:</b> ${escapeTelegramHtml(lead.scenarioTitle)}`);
+  if (lead.email && lead.email.trim().length > 0) {
+    lines.push(`<b>Email:</b> ${escapeTelegramHtml(lead.email.trim())}`);
   }
 
-  if (lead.sourcePage) {
-    messageLines.push(`<b>📍 Pagină Sursă:</b> <code>${escapeTelegramHtml(lead.sourcePage)}</code>`);
+  if (lead.category && lead.category.trim().length > 0) {
+    lines.push(`<b>Categorie / Risc:</b> ${escapeTelegramHtml(lead.category.trim())}`);
   }
 
-  if (lead.referralToken) {
-    messageLines.push(`<b>🔗 Recomandare:</b> <code>${escapeTelegramHtml(lead.referralToken)}</code>`);
+  if (lead.scenarioTitle && lead.scenarioTitle.trim().length > 0) {
+    lines.push(`<b>Scenariu:</b> ${escapeTelegramHtml(lead.scenarioTitle.trim())}`);
   }
 
   if (lead.message && lead.message.trim().length > 0) {
-    messageLines.push(``);
-    messageLines.push(`<b>💬 Detalii / Mesaj:</b>`);
-    messageLines.push(`<i>${escapeTelegramHtml(lead.message.trim())}</i>`);
+    lines.push(``);
+    lines.push(`<b>Mesaj:</b>`);
+    lines.push(`${escapeTelegramHtml(lead.message.trim())}`);
   }
 
-  messageLines.push(``);
-  messageLines.push(`<i>Trimis de pe WHAT IF INSURANCE (whatifinsurance.cristianvaduva.com)</i>`);
+  lines.push(``);
+  lines.push(`<b>Sursă:</b> ${escapeTelegramHtml(lead.sourceName || 'Asistentul „Cu ce te putem ajuta?”')}`);
+  lines.push(`<b>Data:</b> ${escapeTelegramHtml(formattedDate)}`);
+
+  if (lead.sourcePage && lead.sourcePage.trim().length > 0) {
+    lines.push(`<b>Pagina:</b> ${escapeTelegramHtml(lead.sourcePage.trim())}`);
+  }
+
+  if (lead.referralToken && lead.referralToken.trim().length > 0) {
+    lines.push(`<b>Recomandare:</b> <code>${escapeTelegramHtml(lead.referralToken.trim())}</code>`);
+  }
 
   const telegramPayload = {
     chat_id: chatId,
-    text: messageLines.join('\n'),
+    text: lines.join('\n'),
     parse_mode: 'HTML',
     disable_web_page_preview: true,
   };
@@ -151,7 +194,6 @@ export async function sendTelegramLeadNotification(
 
     if (!response.ok) {
       const errorText = await response.text();
-      // Log safely without bot token or PII
       console.warn(
         `[TelegramNotifier] Telegram API returned HTTP ${response.status} for lead ${lead.id}. Details: ${errorText.substring(0, 150)}`
       );

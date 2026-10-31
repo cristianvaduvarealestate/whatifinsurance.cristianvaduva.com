@@ -54,7 +54,7 @@ export const CATEGORIES: Category[] = [
     id: 'luxury-bunuri',
     name: 'BUNURI DE LUX & VALORI',
     shortDescription: 'Ceasuri de colecție, bijuterii, opere de artă, supercar-uri și iahturi private.',
-    tagline: 'Subscriere dedicată la valoare agreată, dincolo de limitele modeste ale polițelor standard.',
+    tagline: 'Evaluare și acoperire la valoare agreată, dincolo de limitele modeste ale polițelor standard.',
     iconName: 'Gem',
   },
   {
