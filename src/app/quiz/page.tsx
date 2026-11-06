@@ -488,7 +488,7 @@ export default function QuizPage() {
                         </p>
                       </div>
                       <Link
-                        href="/scenarii/auto/casco-parcare-autor-necunoscut"
+                        href="/scenarii/auto/parcare-lovit-autor-necunoscut"
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors pt-2 border-t border-white/10"
                       >
                         <span>Vezi scenariul complet</span>
@@ -510,7 +510,7 @@ export default function QuizPage() {
                         </p>
                       </div>
                       <Link
-                        href="/scenarii/casa/inundatie-vecin-subsol"
+                        href="/scenarii/casa/daune-vecini"
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors pt-2 border-t border-white/10"
                       >
                         <span>Vezi scenariul complet</span>
