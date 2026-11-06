@@ -33,7 +33,6 @@ import {
   ChevronLeft,
   ChevronRight,
   MessageSquare,
-  Edit3,
   Send,
 } from 'lucide-react';
 
@@ -308,8 +307,6 @@ function ShareStudioContent() {
   const [isRendering, setIsRendering] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
-  const [customCaption, setCustomCaption] = useState<string>('');
-  const [isEditingCaption, setIsEditingCaption] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
   const [lightboxImageUrl, setLightboxImageUrl] = useState<string | null>(null);
@@ -357,19 +354,7 @@ function ShareStudioContent() {
     }
   })();
 
-  // Keep customCaption in sync with active scenario recommendations
-  useEffect(() => {
-    setCustomCaption(richStory.formattedShareText);
-  }, [
-    studioMode,
-    selectedScenarioPresetId,
-    selectedGalleryScenarioId,
-    selectedEditorialId,
-    customHeadline,
-    richStory.formattedShareText,
-  ]);
-
-  const fullShareText = customCaption || richStory.formattedShareText;
+  const fullShareText = richStory.formattedShareText;
 
   // Canvas Render Loop
   useEffect(() => {
@@ -575,8 +560,71 @@ function ShareStudioContent() {
 
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(fullShareText)}`;
   const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(fullShareText)}`;
-  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+  const threadsUrl = `https://threads.net/intent/post?text=${encodeURIComponent(fullShareText)}`;
+  const xUrl = `https://x.com/intent/post?text=${encodeURIComponent(fullShareText)}`;
+  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
+
+  const handleInstagramShare = async () => {
+    if (!canvasRef.current) return;
+
+    const prefix =
+      studioMode === 'builder'
+        ? `WHATIF-builder-${activeAssetType.id}-${activeScenarioPreset.id}`
+        : studioMode === 'gallery'
+        ? `WHATIF-scenario-${activeGalleryScenario.id}`
+        : `WHATIF-editorial-${activeEditorialCard.conceptId}`;
+    const filename = `${prefix}-${format}.png`;
+    const shareTitle =
+      studioMode === 'builder'
+        ? `WHAT IF: ${customHeadline}`
+        : studioMode === 'gallery'
+        ? `WHAT IF: ${activeGalleryScenario.headline}`
+        : `WHAT IF: ${activeEditorialCard.headline}`;
+
+    // Try Web Share API with image file if supported (mobile Safari / Chrome)
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        const blob = await new Promise<Blob | null>((resolve) =>
+          canvasRef.current!.toBlob(resolve, 'image/png')
+        );
+        if (blob) {
+          const file = new File([blob], filename, { type: 'image/png' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: shareTitle,
+              text: fullShareText,
+            });
+            trackEvent('share_initiated', {
+              shareType: 'instagram_native',
+              format,
+              context: 'scenario',
+            });
+            return;
+          }
+        }
+      } catch (err: any) {
+        if (err?.name === 'AbortError') return;
+      }
+    }
+
+    // Practical fallback: copy caption + download visual + open Instagram
+    try {
+      await navigator.clipboard.writeText(fullShareText);
+    } catch {}
+
+    downloadCanvasAsImage(canvasRef.current, filename);
+    setDownloadSuccess('Imagine descărcată și text copiat! Deschide Instagram pentru a adăuga imaginea și textul.');
+    setTimeout(() => setDownloadSuccess(null), 6000);
+
+    window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
+    trackEvent('share_initiated', {
+      shareType: 'instagram_fallback',
+      format,
+      context: 'scenario',
+    });
+  };
 
   // Active item metadata resolution
   const activeBadge =
@@ -888,51 +936,20 @@ function ShareStudioContent() {
                     <MessageSquare className="w-3.5 h-3.5 text-[#E10600]" />
                     Mesaj pentru prieteni:
                   </span>
-                  <button
-                    type="button"
-                    onClick={() => setIsEditingCaption(!isEditingCaption)}
-                    className="text-xs font-bold text-slate-500 hover:text-[#06141B] underline transition-colors flex items-center gap-1"
-                  >
-                    <Edit3 className="w-3 h-3" />
-                    <span>{isEditingCaption ? 'Vezi mesajul' : 'Editează textul'}</span>
-                  </button>
                 </div>
 
-                {!isEditingCaption ? (
-                  /* Natural Clean Message Preview (No internal tags) */
-                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 space-y-2 leading-relaxed">
-                    <p className="font-bold text-[#06141B]">„{richStory.headline}”</p>
-                    <p className="text-slate-600">{richStory.situation}</p>
-                    <p className="text-slate-700 font-medium">⚖️ {richStory.insuranceDistinction}</p>
-                    {richStory.practicalTakeaway && (
-                      <p className="text-slate-600 text-[11px]">🔍 {richStory.practicalTakeaway}</p>
-                    )}
-                    <p className="text-[#E10600] font-semibold text-[11px] pt-1 border-t border-slate-200/80">
-                      {richStory.sharingPrompt}
-                    </p>
-                  </div>
-                ) : (
-                  /* Raw Editable Textarea */
-                  <div className="space-y-1.5">
-                    <textarea
-                      value={customCaption}
-                      onChange={(e) => setCustomCaption(e.target.value)}
-                      rows={6}
-                      className="w-full p-3 rounded-2xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-slate-50 leading-relaxed font-sans"
-                      placeholder="Personalizează textul care însoțește imaginea..."
-                    />
-                    <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono">
-                      <span>{customCaption.length} caractere</span>
-                      <button
-                        type="button"
-                        onClick={() => setCustomCaption(richStory.formattedShareText)}
-                        className="text-[#E10600] hover:underline font-bold"
-                      >
-                        Resetează la textul recomandat
-                      </button>
-                    </div>
-                  </div>
-                )}
+                {/* Natural Clean Message Preview (No internal tags) */}
+                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 space-y-2 leading-relaxed">
+                  <p className="font-bold text-[#06141B]">„{richStory.headline}”</p>
+                  <p className="text-slate-600">{richStory.situation}</p>
+                  <p className="text-slate-700 font-medium">⚖️ {richStory.insuranceDistinction}</p>
+                  {richStory.practicalTakeaway && (
+                    <p className="text-slate-600 text-[11px]">🔍 {richStory.practicalTakeaway}</p>
+                  )}
+                  <p className="text-[#E10600] font-semibold text-[11px] pt-1 border-t border-slate-200/80">
+                    {richStory.sharingPrompt}
+                  </p>
+                </div>
 
                 {/* Copy Text & Link Button */}
                 <button
@@ -954,49 +971,106 @@ function ShareStudioContent() {
                 </button>
 
                 {/* Direct Social Shortcuts Grid */}
-                <div className="grid grid-cols-4 gap-2 pt-2 border-t border-slate-100">
+                <div className="grid grid-cols-4 sm:grid-cols-7 gap-1.5 sm:gap-2 pt-2 border-t border-slate-100">
+                  {/* WhatsApp */}
                   <a
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors"
+                    className="py-2.5 px-1 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
                     title="Trimite pe WhatsApp"
                   >
-                    <MessageCircle className="w-4 h-4 text-emerald-600" />
-                    <span className="text-[10px]">WhatsApp</span>
+                    <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span className="text-[10px] leading-tight truncate max-w-full">WhatsApp</span>
                   </a>
 
+                  {/* Telegram */}
                   <a
                     href={telegramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors"
+                    className="py-2.5 px-1 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
                     title="Trimite pe Telegram"
                   >
-                    <Send className="w-4 h-4 text-sky-500" />
-                    <span className="text-[10px]">Telegram</span>
+                    <Send className="w-4 h-4 text-sky-500 shrink-0" />
+                    <span className="text-[10px] leading-tight truncate max-w-full">Telegram</span>
                   </a>
 
+                  {/* Instagram */}
+                  <button
+                    type="button"
+                    onClick={handleInstagramShare}
+                    className="py-2.5 px-1 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center cursor-pointer"
+                    title="Distribuie pe Instagram"
+                  >
+                    <svg className="w-4 h-4 text-pink-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                    </svg>
+                    <span className="text-[10px] leading-tight truncate max-w-full">Instagram</span>
+                  </button>
+
+                  {/* Facebook */}
                   <a
                     href={facebookUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors"
+                    className="py-2.5 px-1 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
                     title="Distribuie pe Facebook"
                   >
-                    <Share2 className="w-4 h-4 text-blue-600" />
-                    <span className="text-[10px]">Facebook</span>
+                    <Share2 className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span className="text-[10px] leading-tight truncate max-w-full">Facebook</span>
                   </a>
 
+                  {/* Threads */}
+                  <a
+                    href={threadsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      setDownloadSuccess('Textul a fost pregătit pentru Threads! Imaginea o poți atașa din descărcări.');
+                      setTimeout(() => setDownloadSuccess(null), 5000);
+                      trackEvent('share_initiated', { shareType: 'threads', format, context: 'scenario' });
+                    }}
+                    className="py-2.5 px-1 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
+                    title="Distribuie pe Threads"
+                  >
+                    <svg className="w-4 h-4 text-slate-900 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12.186 24C5.438 24 0 18.636 0 12.002 0 5.367 5.438.004 12.186.004c6.643 0 11.797 5.163 11.797 11.786 0 1.157-.14 2.155-.386 2.946l-2.07-.638c.196-.632.298-1.436.298-2.308 0-5.35-4.14-9.617-9.639-9.617-5.58 0-9.98 4.349-9.98 9.829 0 5.48 4.4 9.829 9.98 9.829 3.513 0 6.64-1.748 8.161-4.448l1.794 1.127C20.088 21.84 16.388 24 12.186 24zm4.01-12.023c0-2.31-1.636-4.004-3.957-4.004-2.32 0-4.086 1.764-4.086 4.074 0 2.31 1.766 4.074 4.086 4.074 1.488 0 2.705-.67 3.39-1.777l1.785 1.053c-1.077 1.766-2.99 2.894-5.175 2.894-3.618 0-6.257-2.673-6.257-6.244 0-3.571 2.639-6.244 6.257-6.244 3.528 0 6.128 2.607 6.128 6.174 0 2.62-1.393 4.25-3.327 4.25-1.037 0-1.85-.56-2.062-1.417h-.07c-.49.957-1.572 1.558-2.83 1.558-1.922 0-3.337-1.44-3.337-3.376 0-1.936 1.415-3.376 3.337-3.376 1.258 0 2.34.6 2.83 1.558h.07v-1.417h2.171v5.184c0 .878.502 1.348 1.258 1.348.97 0 1.79-.89 1.79-2.736v-.02zm-3.957 2.05c1.19 0 2.063-.89 2.063-2.074 0-1.184-.873-2.074-2.063-2.074-1.19 0-2.063.89-2.063 2.074 0 1.184.873 2.074 2.063 2.074z"/>
+                    </svg>
+                    <span className="text-[10px] leading-tight truncate max-w-full">Threads</span>
+                  </a>
+
+                  {/* X */}
+                  <a
+                    href={xUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      setDownloadSuccess('Textul a fost pregătit pentru X! Imaginea o poți atașa din descărcări.');
+                      setTimeout(() => setDownloadSuccess(null), 5000);
+                      trackEvent('share_initiated', { shareType: 'x_twitter', format, context: 'scenario' });
+                    }}
+                    className="py-2.5 px-1 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
+                    title="Distribuie pe X"
+                  >
+                    <svg className="w-4 h-4 text-slate-900 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    <span className="text-[10px] leading-tight truncate max-w-full">X</span>
+                  </a>
+
+                  {/* LinkedIn */}
                   <a
                     href={linkedinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors"
+                    className="py-2.5 px-1 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
                     title="Distribuie pe LinkedIn"
                   >
-                    <ExternalLink className="w-4 h-4 text-blue-700" />
-                    <span className="text-[10px]">LinkedIn</span>
+                    <ExternalLink className="w-4 h-4 text-blue-700 shrink-0" />
+                    <span className="text-[10px] leading-tight truncate max-w-full">LinkedIn</span>
                   </a>
                 </div>
               </div>
@@ -1083,14 +1157,11 @@ function ShareStudioContent() {
 
                 {/* Legal Provenance Card */}
                 <div className="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                      Certitudine Juridică & Proveniență Contractuală
-                    </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
-                      {activeEditorialCard.factualProvenance.editorialStatus}
-                    </span>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <h5 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-700">
+                      Certitudine Juridică &amp; Proveniență Contractuală
+                    </h5>
                   </div>
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs">

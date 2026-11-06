@@ -200,8 +200,50 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
 
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(challengeText)}`;
   const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(challengeText)}`;
-  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+  const threadsUrl = `https://threads.net/intent/post?text=${encodeURIComponent(challengeText + '\n\n' + currentUrl)}`;
+  const xUrl = `https://x.com/intent/post?text=${encodeURIComponent(challengeText + '\n\n' + currentUrl)}`;
+  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
+
+  const handleInstagramShare = async () => {
+    if (!canvasRef.current) return;
+    const filename = `WHATIF-${scenario.id}-${format}.png`;
+
+    if (
+      typeof navigator !== 'undefined' &&
+      navigator.canShare &&
+      navigator.share
+    ) {
+      try {
+        const blob = await new Promise<Blob | null>((resolve) =>
+          canvasRef.current!.toBlob(resolve, 'image/png')
+        );
+        if (blob) {
+          const file = new File([blob], filename, { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: `WHAT IF: ${scenario.title}`,
+              text: `${challengeText}\n\n${currentUrl}`,
+            });
+            return;
+          }
+        }
+      } catch (err: any) {
+        if (err?.name === 'AbortError') return;
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(`${challengeText}\n\n${currentUrl}`);
+    } catch {}
+
+    downloadCanvasAsImage(canvasRef.current, filename);
+    setShareSuccess('Imagine descărcată și text copiat! Deschide Instagram pentru a adăuga postarea.');
+    setTimeout(() => setShareSuccess(null), 5000);
+
+    window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div
@@ -349,46 +391,98 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
                 </button>
               </div>
 
-              {/* Social Channels: WhatsApp, Telegram, LinkedIn, Facebook */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+              {/* Social Channels: WhatsApp, Telegram, Instagram, Facebook, Threads, X, LinkedIn */}
+              <div className="grid grid-cols-4 sm:grid-cols-7 gap-1.5 sm:gap-2 pt-1">
                 <a
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
+                  className="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
+                  title="Trimite pe WhatsApp"
                 >
-                  <MessageCircle className="w-3.5 h-3.5 text-[#E10600]" />
-                  <span>WhatsApp</span>
+                  <MessageCircle className="w-3.5 h-3.5 text-[#E10600] shrink-0" />
+                  <span className="text-[10px] leading-tight truncate max-w-full">WhatsApp</span>
                 </a>
 
                 <a
                   href={telegramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
+                  className="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
+                  title="Trimite pe Telegram"
                 >
-                  <Send className="w-3.5 h-3.5 text-[#E10600]" />
-                  <span>Telegram</span>
+                  <Send className="w-3.5 h-3.5 text-sky-500 shrink-0" />
+                  <span className="text-[10px] leading-tight truncate max-w-full">Telegram</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleInstagramShare}
+                  className="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center cursor-pointer"
+                  title="Distribuie pe Instagram"
+                >
+                  <svg className="w-3.5 h-3.5 text-pink-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                  </svg>
+                  <span className="text-[10px] leading-tight truncate max-w-full">Instagram</span>
+                </button>
+
+                <a
+                  href={facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
+                  title="Distribuie pe Facebook"
+                >
+                  <Share2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                  <span className="text-[10px] leading-tight truncate max-w-full">Facebook</span>
+                </a>
+
+                <a
+                  href={threadsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    setShareSuccess('Text pregătit pentru Threads! Imaginea o poți atașa din descărcări.');
+                    setTimeout(() => setShareSuccess(null), 5000);
+                  }}
+                  className="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
+                  title="Distribuie pe Threads"
+                >
+                  <svg className="w-3.5 h-3.5 text-slate-900 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12.186 24C5.438 24 0 18.636 0 12.002 0 5.367 5.438.004 12.186.004c6.643 0 11.797 5.163 11.797 11.786 0 1.157-.14 2.155-.386 2.946l-2.07-.638c.196-.632.298-1.436.298-2.308 0-5.35-4.14-9.617-9.639-9.617-5.58 0-9.98 4.349-9.98 9.829 0 5.48 4.4 9.829 9.98 9.829 3.513 0 6.64-1.748 8.161-4.448l1.794 1.127C20.088 21.84 16.388 24 12.186 24zm4.01-12.023c0-2.31-1.636-4.004-3.957-4.004-2.32 0-4.086 1.764-4.086 4.074 0 2.31 1.766 4.074 4.086 4.074 1.488 0 2.705-.67 3.39-1.777l1.785 1.053c-1.077 1.766-2.99 2.894-5.175 2.894-3.618 0-6.257-2.673-6.257-6.244 0-3.571 2.639-6.244 6.257-6.244 3.528 0 6.128 2.607 6.128 6.174 0 2.62-1.393 4.25-3.327 4.25-1.037 0-1.85-.56-2.062-1.417h-.07c-.49.957-1.572 1.558-2.83 1.558-1.922 0-3.337-1.44-3.337-3.376 0-1.936 1.415-3.376 3.337-3.376 1.258 0 2.34.6 2.83 1.558h.07v-1.417h2.171v5.184c0 .878.502 1.348 1.258 1.348.97 0 1.79-.89 1.79-2.736v-.02zm-3.957 2.05c1.19 0 2.063-.89 2.063-2.074 0-1.184-.873-2.074-2.063-2.074-1.19 0-2.063.89-2.063 2.074 0 1.184.873 2.074 2.063 2.074z"/>
+                  </svg>
+                  <span className="text-[10px] leading-tight truncate max-w-full">Threads</span>
+                </a>
+
+                <a
+                  href={xUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    setShareSuccess('Text pregătit pentru X! Imaginea o poți atașa din descărcări.');
+                    setTimeout(() => setShareSuccess(null), 5000);
+                  }}
+                  className="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
+                  title="Distribuie pe X"
+                >
+                  <svg className="w-3.5 h-3.5 text-slate-900 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                  <span className="text-[10px] leading-tight truncate max-w-full">X</span>
                 </a>
 
                 <a
                   href={linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
+                  className="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex flex-col items-center justify-center gap-1 transition-colors text-center"
+                  title="Distribuie pe LinkedIn"
                 >
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-600" />
-                  <span>LinkedIn</span>
-                </a>
-
-                <a
-                  href={facebookUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="py-2 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-600" />
-                  <span>Facebook</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-blue-700 shrink-0" />
+                  <span className="text-[10px] leading-tight truncate max-w-full">LinkedIn</span>
                 </a>
               </div>
             </div>

@@ -94,7 +94,7 @@ export interface ChallengeCompletedProps extends BaseEventProperties {
 }
 
 export interface ShareInitiatedProps extends BaseEventProperties {
-  shareType: 'native_sheet' | 'copy_link' | 'download_image' | 'whatsapp' | 'telegram' | 'linkedin';
+  shareType: 'native_sheet' | 'copy_link' | 'download_image' | 'whatsapp' | 'telegram' | 'linkedin' | 'facebook' | 'instagram' | 'instagram_native' | 'instagram_fallback' | 'threads' | 'x_twitter';
   format?: 'story' | 'feed' | 'square';
   context: 'scenario' | 'challenge_result';
 }
