@@ -24,6 +24,7 @@ import {
   Eye,
   Maximize2,
 } from 'lucide-react';
+import { trackEvent } from '@/lib/analytics';
 
 interface ShareStudioModalProps {
   scenario: Scenario;
@@ -113,12 +114,23 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
     downloadCanvasAsImage(canvasRef.current, filename);
     setShareSuccess('Imaginea a fost salvată pe dispozitiv!');
     setTimeout(() => setShareSuccess(null), 4000);
+    trackEvent('share_studio_export', {
+      format,
+      scenario_id: scenario.id,
+      category: scenario.categoryId,
+    });
   };
 
   const handleSaveToGallery = async () => {
     if (!canvasRef.current) return;
     setIsSaving(true);
     const filename = `WHATIF-${scenario.slug}-${format}.png`;
+
+    trackEvent('share_studio_export', {
+      format,
+      scenario_id: scenario.id,
+      category: scenario.categoryId,
+    });
 
     canvasRef.current.toBlob(async (blob) => {
       if (!blob) {
@@ -430,10 +442,6 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
                 <span className="text-[10px] text-slate-300 font-normal">Vezi imaginea la dimensiune reală</span>
               </div>
             </button>
-
-            <p className="text-[11px] text-slate-400 mt-2.5 text-center">
-              Text mare și contrast optimizat pentru feed și story pe telefon.
-            </p>
           </div>
         </div>
       </div>

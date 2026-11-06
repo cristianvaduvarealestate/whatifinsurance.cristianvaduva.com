@@ -1,163 +1,150 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import {
   FileCheck2,
   ShieldCheck,
   CheckCircle2,
   ArrowRight,
-  Download,
   ArrowLeft,
-  Building2,
+  RotateCcw,
+  Sparkles,
+  Info,
+  HelpCircle,
+  ExternalLink,
+  SlidersHorizontal,
+  Home,
   Car,
   Plane,
+  Users,
   HeartPulse,
   Briefcase,
+  Gem,
+  Key,
 } from 'lucide-react';
+import {
+  CHECKLIST_CATEGORIES,
+  CHECKLIST_CONTEXTS,
+  ChecklistCategory,
+  ChecklistContext,
+  ChecklistClause,
+  getPersonalizedChecklist,
+} from '@/data/personalizedChecklist';
+import { trackEvent } from '@/lib/analytics';
 
-interface ChecklistItem {
-  id: string;
-  category: string;
-  title: string;
-  question: string;
-  importance: 'Critic' | 'Recomandat' | 'Opțional';
-  reason: string;
-}
-
-const CHECKLIST_ITEMS: Record<string, ChecklistItem[]> = {
-  casa: [
-    {
-      id: 'c1',
-      category: 'Locuință & Casă',
-      title: 'Avarii la instalațiile interioare de apă (apă de conductă)',
-      question: 'Este acoperită spargerea țevilor interioare și căutarea/localizarea avariei în perete?',
-      importance: 'Critic',
-      reason: 'Avariile de apă reprezintă principala cauză de daună pe locuințe și sunt complet excluse de polița obligatorie PAD.',
-    },
-    {
-      id: 'c2',
-      category: 'Locuință & Casă',
-      title: 'Răspundere civilă față de vecini (Inundație / Incendiu)',
-      question: 'Care este limita maximă de despăgubire dacă apa sau focul afectează apartamentele din jur?',
-      importance: 'Critic',
-      reason: 'Dacă inunzi vecinii, costurile de zugrăveală, parchet și bunuri avariate pot depăși zeci de mii de lei.',
-    },
-    {
-      id: 'c3',
-      category: 'Locuință & Casă',
-      title: 'Clauza de neocupare (Locuință vacantă)',
-      question: 'Câte zile consecutive poate sta casa nelocuită fără suspendarea acoperirii la furt sau îngheț?',
-      importance: 'Recomandat',
-      reason: 'Multe polițe suspendă acoperirea la 30 sau 60 de zile de nelocuire dacă nu oprești apa și nu notifici asigurătorul.',
-    },
-  ],
-  auto: [
-    {
-      id: 'a1',
-      category: 'Auto CASCO',
-      title: 'Franșiza la avarii produse cu autor necunoscut / parcare',
-      question: 'Ai franșiză fixă sau procentuală dacă găsești mașina zgâriată sau lovită în parcare?',
-      importance: 'Critic',
-      reason: 'Unele contracte aplică franșize mai mari dacă nu există un șofer vinovat identificat de Poliție.',
-    },
-    {
-      id: 'a2',
-      category: 'Auto CASCO',
-      title: 'Reparație în reprezentanța oficială a mărcii',
-      question: 'Contractul impune ateliere independente generice sau permite reprezentanța autorizată cu piese OE?',
-      importance: 'Recomandat',
-      reason: 'Păstrarea garanției de producător și calibrarea senzorilor ADAS necesită service omologat de marcă.',
-    },
-    {
-      id: 'a3',
-      category: 'Auto CASCO',
-      title: 'Excluderea forțării apelor stătătoare (Hidrolock)',
-      question: 'Este exclusă aspirarea apei la motor la traversarea unor zone cu bălți sau pasaje inundate?',
-      importance: 'Critic',
-      reason: 'Aspirarea apei în motorul termic atrage daune totale de mii de euro și este frecvent exclusă sub prezumția de neglijență.',
-    },
-  ],
-  calatorii: [
-    {
-      id: 't1',
-      category: 'Călătorii Internaționale',
-      title: 'Plafonul de asistență medicală de urgență',
-      question: 'Plafonul este de minim 30.000 EUR pentru Europa sau 100.000 EUR pentru SUA/Asia?',
-      importance: 'Critic',
-      reason: 'O zi de spitalizare la terapie intensivă în America de Nord poate depăși 15.000 USD fără acoperire.',
-    },
-    {
-      id: 't2',
-      category: 'Călătorii Internaționale',
-      title: 'Apelarea obligatorie a centralei de alarmă',
-      question: 'Ești obligat să suni la asistență ÎNAINTE de a merge la spital?',
-      importance: 'Critic',
-      reason: 'Nerespectarea procedurii de notificare prealabilă a asistenței poate atrage o franșiză suplimentară sau decontarea doar parțială a cheltuielilor.',
-    },
-  ],
-  viata: [
-    {
-      id: 'v1',
-      category: 'Viață & Sănătate',
-      title: 'Perioada de grație și carantină medicală (Waiting Period)',
-      question: 'Există un termen de 30-90 de zile de la emitere în care bolile nu sunt despăgubite?',
-      importance: 'Critic',
-      reason: 'Pentru a preveni subscrierea oportunistă, afecțiunile acute apărute în primele luni sunt adesea excluse.',
-    },
-    {
-      id: 'v2',
-      category: 'Viață & Sănătate',
-      title: 'Definiția incapacității de muncă',
-      question: 'Polița acoperă imposibilitatea de a profesa meseria ta specifică sau orice muncă?',
-      importance: 'Recomandat',
-      reason: 'Clauza de incapacitate specifică profesiei oferă o protecție superioară celei generale.',
-    },
-  ],
-  business: [
-    {
-      id: 'b1',
-      category: 'Business & Cyber',
-      title: 'Perioada de indemnizare la întreruperea activității (BI)',
-      question: 'Acoperirea de pierdere a profitului brut este pentru 6, 12 sau 24 de luni?',
-      importance: 'Critic',
-      reason: 'Reconstrucția unui spațiu comercial și livrarea utilajelor specializate durează frecvent peste 9 luni.',
-    },
-    {
-      id: 'b2',
-      category: 'Business & Cyber',
-      title: 'Ingineria socială și frauda de plată (Phishing)',
-      question: 'Polița Cyber include transferurile frauduloase autorizate prin manipulare umană?',
-      importance: 'Critic',
-      reason: 'Multe polițe cyber acoperă doar breșele tehnice directe, excluzând plățile efectuate prin înșelăciune.',
-    },
-  ],
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  Home,
+  Car,
+  Plane,
+  Users,
+  HeartPulse,
+  Briefcase,
+  Gem,
+  Key,
 };
 
 export default function PolicyChecklistPage() {
-  const [selectedPillars, setSelectedPillars] = useState<string[]>(['casa', 'auto', 'calatorii']);
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-white flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <PolicyChecklistContent />
+    </Suspense>
+  );
+}
 
-  const togglePillar = (pillar: string) => {
-    setSelectedPillars((prev) =>
-      prev.includes(pillar) ? prev.filter((p) => p !== pillar) : [...prev, pillar]
+function PolicyChecklistContent() {
+  const searchParams = useSearchParams();
+  const paramCategory = searchParams.get('category') as ChecklistCategory | null;
+
+  // Selected Categories
+  const [selectedCategories, setSelectedCategories] = useState<ChecklistCategory[]>(() => {
+    if (paramCategory && CHECKLIST_CATEGORIES.some((c) => c.id === paramCategory)) {
+      return [paramCategory];
+    }
+    return ['locuinta', 'auto', 'calatorii'];
+  });
+
+  // Selected Contexts
+  const [selectedContexts, setSelectedContexts] = useState<ChecklistContext[]>([]);
+
+  // Checked state for progress tracking (safely persisted in localStorage)
+  const [checkedClauseIds, setCheckedClauseIds] = useState<Record<string, boolean>>({});
+  const [isConfiguring, setIsConfiguring] = useState(false);
+
+  // Restore checked items from localStorage on mount & track checklist_open
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('whatif_checklist_checked');
+      if (saved) {
+        setCheckedClauseIds(JSON.parse(saved));
+      }
+    } catch {
+      // Ignore localStorage errors
+    }
+
+    trackEvent('checklist_open', {
+      category: paramCategory || 'general',
+      source_page: '/verificare-polita',
+    });
+  }, [paramCategory]);
+
+  // Sync checked items to localStorage
+  const handleToggleCheck = (clauseId: string) => {
+    setCheckedClauseIds((prev) => {
+      const next = { ...prev, [clauseId]: !prev[clauseId] };
+      try {
+        localStorage.setItem('whatif_checklist_checked', JSON.stringify(next));
+      } catch {
+        // Ignore
+      }
+      return next;
+    });
+  };
+
+  const handleToggleCategory = (cat: ChecklistCategory) => {
+    setSelectedCategories((prev) => {
+      if (prev.includes(cat)) {
+        if (prev.length === 1) return prev; // Keep at least one
+        return prev.filter((c) => c !== cat);
+      }
+      return [...prev, cat];
+    });
+  };
+
+  const handleToggleContext = (ctx: ChecklistContext) => {
+    setSelectedContexts((prev) =>
+      prev.includes(ctx) ? prev.filter((c) => c !== ctx) : [...prev, ctx]
     );
   };
 
-  const toggleCheck = (id: string) => {
-    setCheckedItems((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
+  // Generate personalized 5–8 clauses
+  const activeClauses = useMemo(() => {
+    return getPersonalizedChecklist(selectedCategories, selectedContexts);
+  }, [selectedCategories, selectedContexts]);
 
-  const activeChecklist = selectedPillars.flatMap((p) => CHECKLIST_ITEMS[p] || []);
-  const verifiedCount = Object.values(checkedItems).filter(Boolean).length;
+  const verifiedCount = activeClauses.filter((c) => checkedClauseIds[c.id]).length;
+  const progressPercent = activeClauses.length > 0 ? Math.round((verifiedCount / activeClauses.length) * 100) : 0;
+
+  const handleResetChecklist = () => {
+    setCheckedClauseIds({});
+    try {
+      localStorage.removeItem('whatif_checklist_checked');
+    } catch {
+      // Ignore
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white text-[#06141B] pb-24">
       {/* Header */}
-      <div className="border-b border-slate-200 bg-slate-50/70 py-14 px-4 sm:px-6 lg:px-8">
+      <div className="border-b border-slate-200 bg-slate-50/70 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto space-y-4">
           <Link
             href="/"
@@ -169,165 +156,288 @@ export default function PolicyChecklistPage() {
 
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-mono font-bold uppercase tracking-wider">
             <FileCheck2 className="w-3.5 h-3.5 text-[#E10600]" />
-            <span>Audit Practic · Fără Înregistrare Obligatorie</span>
+            <span>Instrument Personalizat de Audit · 5–8 Clauze Relevante</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight">
-            Nu ghici. Verifică ce ai semnat.
+            Ce verifici concret în polița ta înainte de o daună?
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-            11 clauze contractuale care decid dosarul de daună: excluderi la țeavă spartă, franșize ascunse în parcare, carantină medicală și termenul critic de notificare.
+            Selectează ce te interesează și situația ta de viață. Sistemul selectează cele mai importante 5–8 clauze din contractele din România, îți arată unde se găsesc și ce întrebare să adresezi consultantului tău.
           </p>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
         
-        {/* Step 1: Select Pillars */}
-        <div className="space-y-4">
-          <span className="text-xs font-mono uppercase text-slate-500 font-bold block">
-            PASUL 1: ALEGE DOMENIILE TALE DE ASIGURARE
-          </span>
+        {/* Personalization Setup Panel */}
+        <section className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">Pasul 1</span>
+              <h2 className="text-lg sm:text-xl font-bold text-[#06141B]">
+                Alege categoriile de interes pentru tine
+              </h2>
+            </div>
+            <span className="text-xs font-mono text-slate-500 font-bold bg-slate-100 px-3 py-1 rounded-full w-fit">
+              {selectedCategories.length} selectate
+            </span>
+          </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-            {[
-              { id: 'casa', label: 'Casă & Locuință', icon: Building2 },
-              { id: 'auto', label: 'Auto & CASCO', icon: Car },
-              { id: 'calatorii', label: 'Călătorii', icon: Plane },
-              { id: 'viata', label: 'Viață & Sănătate', icon: HeartPulse },
-              { id: 'business', label: 'Business & Cyber', icon: Briefcase },
-            ].map((pillar) => {
-              const active = selectedPillars.includes(pillar.id);
-              const Icon = pillar.icon;
+          {/* Category Chips Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            {CHECKLIST_CATEGORIES.map((cat) => {
+              const isSelected = selectedCategories.includes(cat.id);
+              const IconComp = ICON_MAP[cat.iconName] || Home;
               return (
                 <button
-                  key={pillar.id}
-                  onClick={() => togglePillar(pillar.id)}
-                  className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between gap-3 ${
-                    active
-                      ? 'border-[#06141B] bg-[#06141B] text-white shadow-sm'
-                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
+                  key={cat.id}
+                  type="button"
+                  onClick={() => handleToggleCategory(cat.id)}
+                  className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between min-h-[78px] active:scale-95 ${
+                    isSelected
+                      ? 'bg-[#06141B] text-white border-[#06141B] shadow-sm'
+                      : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${active ? 'text-white' : 'text-slate-500'}`} />
-                  <span className="text-xs font-bold leading-snug">{pillar.label}</span>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <IconComp className={`w-4 h-4 ${isSelected ? 'text-[#E10600]' : 'text-slate-500'}`} />
+                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
+                  </div>
+                  <span className="text-xs font-bold leading-tight">{cat.label}</span>
                 </button>
               );
             })}
           </div>
-        </div>
 
-        {/* Step 2: The Generated Checklist */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
-            <div>
-              <span className="text-xs font-mono uppercase text-slate-500 font-bold block">
-                PASUL 2: CLAUZE CONTRACTUALE CU IMPACT FINANCIAR DIRECT
-              </span>
-              <p className="text-xs text-slate-600 mt-0.5">
-                Bifează fiecare clauză pe măsură ce o identifici în contractul tău sau în condițiile generale.
-              </p>
+          {/* Contextual Toggles */}
+          <div className="pt-2 border-t border-slate-100 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">Pasul 2</span>
+              <span className="text-xs text-slate-400">·</span>
+              <span className="text-xs font-semibold text-slate-700">Situații contextuale relevante (opțional)</span>
             </div>
-            <div className="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono text-slate-700 font-bold">
-              Verificate: <span className="text-[#06141B]">{verifiedCount}</span> din {activeChecklist.length}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {CHECKLIST_CONTEXTS.map((ctx) => {
+                const isSelected = selectedContexts.includes(ctx.id);
+                return (
+                  <button
+                    key={ctx.id}
+                    type="button"
+                    onClick={() => handleToggleContext(ctx.id)}
+                    className={`p-3 rounded-xl border text-left transition-all flex items-start gap-2.5 active:scale-98 ${
+                      isSelected
+                        ? 'bg-red-50/70 border-red-300 text-slate-900'
+                        : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      readOnly
+                      className="mt-0.5 rounded border-slate-300 text-[#06141B] pointer-events-none"
+                    />
+                    <div>
+                      <div className="text-xs font-bold leading-snug">{ctx.label}</div>
+                      <div className="text-[11px] text-slate-500 leading-tight mt-0.5">{ctx.hint}</div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Generated Checklist Status & Progress */}
+        <section className="space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-xs font-mono text-slate-400 font-bold uppercase">
+                <Sparkles className="w-3.5 h-3.5 text-[#E10600]" />
+                <span>Progres Audit Personal: {verifiedCount} din {activeClauses.length} clauze verificate</span>
+              </div>
+              <div className="w-full sm:w-64 h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700 mt-2">
+                <div
+                  className="h-full bg-emerald-400 transition-all duration-300"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              {verifiedCount > 0 && (
+                <button
+                  type="button"
+                  onClick={handleResetChecklist}
+                  className="py-1.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 text-xs font-mono flex items-center gap-1.5 transition-colors"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  <span>Resetează bifările</span>
+                </button>
+              )}
+              <Link
+                href={`/contact?formType=audit_clauza&topic=review-polita&reason=${encodeURIComponent(
+                  `Doresc asistență pentru cele ${activeClauses.length} clauze generate în checklist-ul meu personal.`
+                )}`}
+                className="py-2 px-4 rounded-xl bg-white text-[#06141B] hover:bg-slate-100 text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
+              >
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>Solicită audit complet</span>
+              </Link>
             </div>
           </div>
 
-          <div className="space-y-3.5">
-            {activeChecklist.map((item) => {
-              const isChecked = !!checkedItems[item.id];
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => toggleCheck(item.id)}
-                  className={`p-5 rounded-2xl border cursor-pointer transition-all ${
-                    isChecked
-                      ? 'border-emerald-300 bg-emerald-50/60'
-                      : 'border-slate-200 bg-white hover:border-slate-300 shadow-sm'
-                  }`}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="mt-1 shrink-0">
-                      {isChecked ? (
-                        <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                      ) : (
-                        <div className="w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center bg-white" />
-                      )}
-                    </div>
+          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-2.5">
+            <Info className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
+            <p className="leading-relaxed">
+              <strong className="text-slate-800 font-semibold">Notă de certitudine:</strong> Bifarea unei opțiuni nu înseamnă că ești automat acoperit. Checklist-ul îți oferă ghidul exact de întrebări pentru a verifica clauzele din contractul tău înainte de o daună.
+            </p>
+          </div>
+        </section>
 
-                    <div className="space-y-1.5 flex-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-700 font-bold px-2 py-0.5 rounded bg-slate-100">
-                          {item.category}
+        {/* 5 to 8 Tailored Clause Cards */}
+        <section className="space-y-4">
+          {activeClauses.map((clause, index) => {
+            const isChecked = Boolean(checkedClauseIds[clause.id]);
+
+            const auditClauseHref = `/contact?formType=audit_clauza&category=${encodeURIComponent(
+              clause.scenarioCategory || 'casa'
+            )}&scenario=${encodeURIComponent(clause.scenarioSlug || '')}&title=${encodeURIComponent(
+              clause.clauseName
+            )}&reason=${encodeURIComponent(
+              `Doresc să verific în contractul meu clauza: «${clause.clauseName}». Întrebare cheie: «${clause.advisorQuestion}»`
+            )}`;
+
+            return (
+              <div
+                key={clause.id}
+                className={`p-5 sm:p-7 rounded-3xl border transition-all space-y-4 ${
+                  isChecked
+                    ? 'bg-slate-50/60 border-emerald-200'
+                    : 'bg-white border-slate-200 shadow-sm hover:border-slate-300'
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleToggleCheck(clause.id)}
+                      className={`w-6 h-6 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                        isChecked
+                          ? 'bg-emerald-600 border-emerald-600 text-white'
+                          : 'bg-white border-slate-300 hover:border-slate-500 text-transparent'
+                      }`}
+                      aria-label={`Bifează clauza ${clause.clauseName}`}
+                    >
+                      <CheckCircle2 className="w-4 h-4" />
+                    </button>
+
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+                          {clause.categoryLabel || clause.category.toUpperCase()}
                         </span>
-                        <span
-                          className={`text-[10px] font-mono uppercase tracking-wider font-bold px-2 py-0.5 rounded ${
-                            item.importance === 'Critic'
-                              ? 'bg-red-50 text-[#E10600] border border-red-200'
-                              : 'bg-slate-100 text-slate-700'
-                          }`}
-                        >
-                          {item.importance}
+                        <span className="text-[11px] font-mono font-bold text-slate-400">
+                          #{index + 1}
                         </span>
                       </div>
-
                       <h3
-                        className={`text-sm sm:text-base font-bold ${
-                          isChecked ? 'line-through text-slate-400' : 'text-[#06141B]'
+                        className={`text-base sm:text-lg font-black text-[#06141B] leading-snug cursor-pointer ${
+                          isChecked ? 'line-through text-slate-400' : ''
                         }`}
+                        onClick={() => handleToggleCheck(clause.id)}
                       >
-                        {item.title}
+                        {clause.clauseName}
                       </h3>
-
-                      <p className="text-xs sm:text-sm text-slate-700 font-medium">
-                        Întrebare: „{item.question}”
-                      </p>
-
-                      <p className="text-xs text-slate-500 pt-1 leading-relaxed">
-                        De ce contează: {item.reason}
-                      </p>
                     </div>
                   </div>
                 </div>
-              );
-            })}
+
+                {/* 4 Pillars of Information per clause */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs">
+                  {/* De ce este important */}
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
+                    <span className="font-mono font-bold uppercase tracking-wider text-slate-500 text-[10px] block">
+                      De ce este critic:
+                    </span>
+                    <p className="text-slate-700 leading-relaxed font-normal">
+                      {clause.whyItMatters}
+                    </p>
+                  </div>
+
+                  {/* Unde se găsește în document */}
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
+                    <span className="font-mono font-bold uppercase tracking-wider text-slate-500 text-[10px] block">
+                      Unde cauți în contract:
+                    </span>
+                    <p className="text-slate-700 leading-relaxed font-medium">
+                      {clause.whereToFind}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Întrebarea concretă pentru consultant */}
+                <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/70 space-y-1 text-xs">
+                  <span className="font-mono font-bold uppercase tracking-wider text-amber-900 text-[10px] flex items-center gap-1.5">
+                    <HelpCircle className="w-3.5 h-3.5 text-amber-800" />
+                    Ce întrebi concret consultantul:
+                  </span>
+                  <p className="text-slate-900 font-semibold italic leading-relaxed">
+                    „{clause.advisorQuestion}”
+                  </p>
+                </div>
+
+                {/* Actions per clause */}
+                <div className="flex flex-wrap items-center justify-between gap-2.5 pt-2 border-t border-slate-100">
+                  {clause.scenarioSlug ? (
+                    <Link
+                      href={`/scenarii/${clause.scenarioCategory || 'casa'}/${clause.scenarioSlug}`}
+                      className="text-xs font-bold text-slate-600 hover:text-[#06141B] inline-flex items-center gap-1 transition-colors"
+                    >
+                      <span>Vezi scenariul complet asociat</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
+                    </Link>
+                  ) : <span />}
+
+                  <Link
+                    href={auditClauseHref}
+                    className="py-2 px-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs inline-flex items-center gap-1.5 transition-colors"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5 text-slate-700" />
+                    <span>Solicită audit pentru această clauză</span>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </section>
+
+        {/* Bottom Educational Conversion Block */}
+        <section className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 text-center space-y-5">
+          <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center mx-auto text-[#06141B] shadow-2xs">
+            <ShieldCheck className="w-6 h-6 text-[#E10600]" />
           </div>
-        </div>
 
-        {/* CTA to get professional review */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase text-[#E10600] font-bold">
-            <ShieldCheck className="w-4 h-4" />
-            <span>Vrei o a doua privire pe contractul tău?</span>
+          <div className="space-y-2 max-w-xl mx-auto">
+            <h3 className="text-2xl font-black text-[#06141B]">
+              Vrei o privire profesionistă asupra contractului tău?
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Dacă nu ai timpul necesar să citești 40 de pagini de condiții generale și franșize, trimite-ne o solicitare de audit de clauză. Analizăm textul exact și îți spunem unde te situezi.
+            </p>
           </div>
 
-          <h2 className="text-xl sm:text-2xl font-black text-[#06141B]">
-            Trimiți contractul, primești o analiză fără filtre comerciale
-          </h2>
+          <Link
+            href="/contact?formType=audit_clauza&topic=review-polita"
+            className="py-3.5 px-7 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-xs sm:text-sm inline-flex items-center gap-2 shadow-sm transition-all"
+          >
+            <span>Solicită audit de clauză</span>
+            <ArrowRight className="w-4 h-4 text-slate-300" />
+          </Link>
+        </section>
 
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
-            Literele mici și definițiile juridice pot schimba complet soarta unui dosar de daună. Solicită o revizuire aplicată a polițelor tale — fără presiune de vânzare, doar o analiză clară a clauzelor.
-          </p>
-
-          <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
-            <Link
-              href="/contact?topic=review-polita"
-              className="w-full sm:w-auto px-6 py-3.5 min-h-[44px] rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 shadow-sm"
-            >
-              <span>Cere o analiză dedicată de clauze</span>
-              <ArrowRight className="w-4 h-4 text-slate-300" />
-            </Link>
-
-            <button
-              onClick={() => window.print()}
-              className="w-full sm:w-auto px-6 py-3.5 min-h-[44px] rounded-full border border-slate-300 hover:bg-slate-100 text-[#06141B] text-xs sm:text-sm font-bold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2"
-            >
-              <Download className="w-4 h-4 text-slate-600" />
-              <span>Imprimă / Salvează PDF</span>
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );

@@ -49,14 +49,14 @@ const nextConfig = {
             value: [
               "default-src 'self'",
               process.env.NODE_ENV === 'production'
-                ? "script-src 'self' 'unsafe-inline'"
-                : "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+                ? "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com"
+                : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https://images.unsplash.com",
+              "img-src 'self' data: blob: https://images.unsplash.com https://*.google-analytics.com https://www.googletagmanager.com",
               "font-src 'self' data:",
               process.env.NODE_ENV === 'production'
-                ? "connect-src 'self'"
-                : "connect-src 'self' ws: wss:",
+                ? "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com"
+                : "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com",
               "frame-ancestors 'self'",
               "object-src 'none'",
               "base-uri 'self'",

@@ -18,12 +18,69 @@ export type AnalyticsEventType =
   | 'quote_cta_clicked'
   | 'editorial_concept_selected'
   | 'lead_submitted'
-  | 'lead_submission_failed';
+  | 'lead_submission_failed'
+  // Master Transformation conversion events
+  | 'scenario_open'
+  | 'quiz_complete'
+  | 'checklist_open'
+  | 'checklist_complete'
+  | 'contact_audit'
+  | 'scenario_proposal_submit'
+  | 'share_studio_export'
+  | 'quiz_email_optin';
 
 export interface BaseEventProperties {
   path?: string;
   source?: string;
   category?: string;
+  source_page?: string;
+}
+
+export interface ScenarioOpenProps extends BaseEventProperties {
+  scenario_id: string;
+  category: string;
+  source_page?: string;
+}
+
+export interface QuizCompleteProps extends BaseEventProperties {
+  score: number;
+  questionCount: number;
+  percentageScore: number;
+}
+
+export interface ChecklistOpenProps extends BaseEventProperties {
+  category?: string;
+  source_page?: string;
+}
+
+export interface ChecklistCompleteProps extends BaseEventProperties {
+  category?: string;
+  completedCount: number;
+  totalCount: number;
+}
+
+export interface ContactAuditProps extends BaseEventProperties {
+  scenario_id?: string;
+  category?: string;
+  action_type: string;
+  source_page?: string;
+}
+
+export interface ScenarioProposalSubmitProps extends BaseEventProperties {
+  category: string;
+  hasQuestion: boolean;
+  source_page?: string;
+}
+
+export interface ShareStudioExportProps extends BaseEventProperties {
+  format: 'story' | 'feed' | 'square';
+  scenario_id?: string;
+  category?: string;
+}
+
+export interface QuizEmailOptinProps extends BaseEventProperties {
+  score: number;
+  questionCount: number;
 }
 
 export interface ChallengeStartedProps extends BaseEventProperties {
@@ -94,6 +151,15 @@ export type EventPayloadMap = {
   editorial_concept_selected: EditorialConceptSelectedProps;
   lead_submitted: LeadSubmittedProps;
   lead_submission_failed: LeadSubmissionFailedProps;
+  // Master Transformation
+  scenario_open: ScenarioOpenProps;
+  quiz_complete: QuizCompleteProps;
+  checklist_open: ChecklistOpenProps;
+  checklist_complete: ChecklistCompleteProps;
+  contact_audit: ContactAuditProps;
+  scenario_proposal_submit: ScenarioProposalSubmitProps;
+  share_studio_export: ShareStudioExportProps;
+  quiz_email_optin: QuizEmailOptinProps;
 };
 
 /**

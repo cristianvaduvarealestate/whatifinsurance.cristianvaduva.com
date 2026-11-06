@@ -44,27 +44,16 @@ function ContactFormContent() {
   // Form type: 'general' | 'review' | 'scenario' | 'business'
   const [formType, setFormType] = useState<'general' | 'review' | 'scenario' | 'business'>('general');
 
-  useEffect(() => {
-    if (initialScenario) {
-      setFormType('scenario');
-    } else if (initialTopic === 'review-polita') {
-      setFormType('review');
-    } else if (initialTopic === 'business') {
-      setFormType('business');
-    } else if (initialTopic === 'sugestie-scenariu' || initialTopic === 'sugestie') {
-      setFormType('scenario');
-    }
-  }, [initialTopic, initialScenario]);
-
   // Form state
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [category, setCategory] = useState('casa');
-  const [scenarioTitle, setScenarioTitle] = useState(initialScenario ? `Scenariu: ${initialScenario}` : '');
+  const [scenarioTitle, setScenarioTitle] = useState('');
   const [message, setMessage] = useState('');
   const [preferredContact, setPreferredContact] = useState('email');
   const [consent, setConsent] = useState(false);
+  const [optionalMarketingConsent, setOptionalMarketingConsent] = useState(false);
   const [honeypot, setHoneypot] = useState('');
 
   // Status
@@ -72,6 +61,37 @@ function ContactFormContent() {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [confirmedLeadId, setConfirmedLeadId] = useState('');
+
+  useEffect(() => {
+    const rawFormType = searchParams.get('formType');
+    const rawCategory = searchParams.get('category');
+    const rawTitle = searchParams.get('title') || searchParams.get('scenarioTitle');
+    const rawScenario = searchParams.get('scenario');
+    const rawReason = searchParams.get('reason') || searchParams.get('message');
+    const initialTopic = searchParams.get('topic');
+
+    if (rawFormType === 'audit_clauza' || initialTopic === 'review-polita' || initialTopic === 'audit-polita') {
+      setFormType('review');
+    } else if (rawFormType === 'oferta_noua' || initialTopic === 'oferta') {
+      setFormType('general');
+    } else if (rawScenario || initialTopic === 'sugestie-scenariu' || initialTopic === 'sugestie') {
+      setFormType('scenario');
+    } else if (initialTopic === 'business') {
+      setFormType('business');
+    }
+
+    if (rawCategory) {
+      setCategory(rawCategory);
+    }
+    if (rawTitle) {
+      setScenarioTitle(rawTitle);
+    } else if (rawScenario) {
+      setScenarioTitle(`Scenariu: ${rawScenario}`);
+    }
+    if (rawReason) {
+      setMessage(rawReason);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,18 +116,27 @@ function ContactFormContent() {
     try {
       const attribution = getStoredAttribution();
 
+      const apiFormType =
+        formType === 'review'
+          ? 'audit_clauza'
+          : formType === 'business'
+          ? 'oferta_noua'
+          : formType === 'scenario'
+          ? 'intrebare_generala'
+          : 'intrebare_generala';
+
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          formType,
+          formType: apiFormType,
           name,
           email,
           phone,
           category,
           scenarioTitle,
-          scenarioSlug: initialScenario || '',
-          message,
+          scenarioSlug: searchParams.get('scenario') || '',
+          message: `${message}${optionalMarketingConsent ? '\n\n[Consimțământ opțional acordat pentru newsletter educațional]' : ''}`,
           preferredContact,
           consent,
           website_honeypot: honeypot,
@@ -126,7 +155,16 @@ function ContactFormContent() {
       setSuccess(true);
       setConfirmedLeadId(assignedLeadId);
 
-      // Track lead submission
+      // Track lead submission & audit
+      if (apiFormType === 'audit_clauza') {
+        trackEvent('contact_audit', {
+          scenario_id: searchParams.get('scenario') || undefined,
+          category,
+          action_type: 'submit_audit_form',
+          source_page: '/contact',
+        });
+      }
+
       trackEvent('lead_submitted', {
         leadId: assignedLeadId || 'lead_contact_page',
         category,
@@ -416,11 +454,12 @@ function ContactFormContent() {
                   />
                 </div>
 
-                {/* Consent Checkbox */}
+                {/* Mandatory Consent Checkbox */}
                 <div className="pt-2">
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input
                       type="checkbox"
+                      required
                       checked={consent}
                       onChange={(e) => setConsent(e.target.checked)}
                       className="mt-0.5 w-4 h-4 rounded border-slate-300 text-[#06141B] focus:ring-0"
@@ -430,7 +469,22 @@ function ContactFormContent() {
                       <Link href="/confidentialitate" className="text-slate-900 font-semibold underline hover:text-[#E10600]">
                         Politica de Confidențialitate
                       </Link>
-                      , exclusiv în scopul transmiterii unui răspuns la această solicitare. Datele nu sunt înstrăinate terților.
+                      , exclusiv în scopul transmiterii unui răspuns la această solicitare. Datele nu sunt înstrăinate terților. <span className="text-[#E10600] font-bold">*</span>
+                    </span>
+                  </label>
+                </div>
+
+                {/* Separate Optional Marketing Consent Checkbox */}
+                <div className="pt-1">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={optionalMarketingConsent}
+                      onChange={(e) => setOptionalMarketingConsent(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded border-slate-300 text-[#06141B] focus:ring-0"
+                    />
+                    <span className="text-xs text-slate-500 leading-relaxed">
+                      (Opțional) Sunt de acord să primesc ocazional analize educaționale despre clauze contractuale noi și actualizări legislative relevante. Mă pot dezabona oricând.
                     </span>
                   </label>
                 </div>

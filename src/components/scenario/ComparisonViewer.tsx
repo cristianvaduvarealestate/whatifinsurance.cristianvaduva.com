@@ -185,8 +185,8 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
               }`}
             >
               <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
-              <span className="hidden sm:inline">Fără Asigurare</span>
-              <span className="sm:hidden">Fără</span>
+              <span className="hidden sm:inline">FĂRĂ POLIȚĂ RELEVANTĂ</span>
+              <span className="sm:hidden">Fără Poliță</span>
             </button>
 
             <button
@@ -199,8 +199,8 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
               }`}
             >
               <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-              <span className="hidden sm:inline">Cu Asigurare</span>
-              <span className="sm:hidden">Cu Asig.</span>
+              <span className="hidden sm:inline">CU POLIȚĂ RELEVANTĂ</span>
+              <span className="sm:hidden">Cu Poliță</span>
             </button>
 
             <button
@@ -213,8 +213,8 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
               }`}
             >
               <HelpCircle className="w-3.5 h-3.5 shrink-0" />
-              <span className="hidden sm:inline">Ce Verifici</span>
-              <span className="sm:hidden">Verifică</span>
+              <span className="hidden sm:inline">CE VERIFICI ÎN POLIȚĂ</span>
+              <span className="sm:hidden">Ce Verifici</span>
             </button>
           </div>
         </div>
@@ -286,7 +286,7 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
                   <span className="text-xl font-black text-[#06141B]">
                     {scenario.withInsurance.financialImpact}
                   </span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">* Conform condițiilor contractuale și franșizelor alese.</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">* Poate fi acoperit în condițiile prevăzute de contract și în limita sumei asigurate.</span>
                 </div>
               </div>
 

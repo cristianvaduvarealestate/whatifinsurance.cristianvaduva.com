@@ -26,11 +26,14 @@ import {
 } from 'lucide-react';
 import { ShareStudioModal } from '@/components/share/ShareStudioModal';
 import { PolicyCheckModal } from '@/components/lead/PolicyCheckModal';
+import { ProposeScenarioModal } from '@/components/scenario/ProposeScenarioModal';
+import { APPROVED_READER_SCENARIOS } from '@/data/readerScenarios';
 
 export default function HomePage() {
   const router = useRouter();
   const [activeShareScenario, setActiveShareScenario] = useState<Scenario | null>(null);
   const [isPolicyModalOpen, setIsPolicyModalOpen] = useState(false);
+  const [isProposeModalOpen, setIsProposeModalOpen] = useState(false);
 
   // Curated hero spotlight scenario (deterministic ISO-8601 weekly rotation)
   const heroScenario = useMemo(() => {
@@ -364,13 +367,14 @@ export default function HomePage() {
               </div>
 
               <div className="pt-6 mt-6 border-t border-slate-100">
-                <Link
-                  href="/contact?topic=sugestie-scenariu"
+                <button
+                  type="button"
+                  onClick={() => setIsProposeModalOpen(true)}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#051F20] hover:text-[#DE1110] transition-colors"
                 >
                   <span>Trimite o situație</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                </button>
               </div>
             </div>
 
@@ -632,6 +636,89 @@ export default function HomePage() {
             >
               Deschide Catalogul Complet (121)
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================
+          SECȚIUNEA — „DE LA CITITORI” (FLUX EDITORIAL MODERAT)
+         ======================================================== */}
+      <section className="py-20 bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-mono font-bold uppercase tracking-wider">
+                <ShieldAlert className="w-3.5 h-3.5 text-slate-600" />
+                <span>Flux Editorial Moderat · Exemple Ilustrative</span>
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-black text-[#06141B] tracking-tight">
+                Exemple ilustrative de analiză a situațiilor primite
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+                Modele metodologice care arată cum sunt descompuse situațiile transmise de cititori. Situațiile autentice din comunitate vor fi publicate exclusiv după verificarea provenienței și obținerea acordului explicit de publicare anonimizată.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsProposeModalOpen(true)}
+              className="py-3 px-6 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition-all inline-flex items-center gap-2 shrink-0 shadow-sm"
+            >
+              <Send className="w-3.5 h-3.5" />
+              <span>Propune o situație</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {APPROVED_READER_SCENARIOS.map((scenario) => (
+              <div
+                key={scenario.id}
+                className="p-6 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-4 hover:border-slate-300 transition-all shadow-2xs"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 bg-white px-2.5 py-1 rounded-full border border-slate-200">
+                      {scenario.categoryName}
+                    </span>
+                    <span className="text-[10px] font-mono font-bold uppercase text-slate-700 bg-slate-200/80 px-2 py-0.5 rounded border border-slate-300">
+                      Exemplu Ilustrativ
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-[#06141B] leading-snug">
+                    {scenario.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed italic bg-white p-3 rounded-xl border border-slate-200">
+                    „{scenario.situation}”
+                  </p>
+                  <div className="space-y-1">
+                    <span className="text-[11px] font-mono font-bold uppercase text-[#E10600] block">
+                      Întrebare de clarificat:
+                    </span>
+                    <p className="text-xs font-semibold text-slate-800">
+                      {scenario.keyQuestion}
+                    </p>
+                  </div>
+                  <div className="pt-2 border-t border-slate-200/80 space-y-1">
+                    <span className="text-[11px] font-mono font-bold uppercase text-slate-500 block">
+                      Mecanismul contractual aplicabil:
+                    </span>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      {scenario.editorialAnalysis}
+                    </p>
+                  </div>
+                </div>
+
+                {scenario.relatedScenarioUrl && (
+                  <Link
+                    href={scenario.relatedScenarioUrl}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#06141B] hover:text-[#E10600] transition-colors pt-3 border-t border-slate-200"
+                  >
+                    <span>Explorează clauza similară</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -947,6 +1034,12 @@ export default function HomePage() {
       <PolicyCheckModal
         isOpen={isPolicyModalOpen}
         onClose={() => setIsPolicyModalOpen(false)}
+      />
+
+      {/* Reader Scenario Proposal Modal */}
+      <ProposeScenarioModal
+        isOpen={isProposeModalOpen}
+        onClose={() => setIsProposeModalOpen(false)}
       />
     </div>
   );

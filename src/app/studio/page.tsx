@@ -302,7 +302,7 @@ function ShareStudioContent() {
     } else {
       return getShareableReferralLink(
         activeEditorialCard.relatedScenarioSlug
-          ? `/scenarii/casa/${activeEditorialCard.relatedScenarioSlug}`
+          ? `/scenarii/${activeEditorialCard.category}/${activeEditorialCard.relatedScenarioSlug}`
           : `/studio?mode=editorial&concept=${activeEditorialCard.conceptId}`
       );
     }

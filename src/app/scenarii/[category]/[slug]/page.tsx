@@ -14,7 +14,12 @@ import {
   HelpCircle,
   ArrowRight,
   BookOpen,
+  Clock,
+  Info,
+  CheckCircle2,
+  FileCheck2,
 } from 'lucide-react';
+import { calculateReadingTime } from '@/lib/readingTime';
 
 interface ScenarioPageProps {
   params: {
@@ -97,25 +102,41 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
     <div className="w-full bg-white text-[#06141B] min-h-screen py-10">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
-        {/* Back Navigation Bar */}
-        <div className="flex items-center justify-between gap-4">
+        {/* Breadcrumb Navigation Bar */}
+        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+          <ol className="flex items-center gap-2 flex-wrap">
+            <li>
+              <Link href="/" className="hover:text-[#06141B] transition-colors">Acasă</Link>
+            </li>
+            <li className="text-slate-300">/</li>
+            <li>
+              <Link href="/scenarii" className="hover:text-[#06141B] transition-colors">Scenarii</Link>
+            </li>
+            <li className="text-slate-300">/</li>
+            <li>
+              <Link href={`/scenarii/${scenario.categoryId}`} className="hover:text-[#06141B] transition-colors">
+                {scenario.categoryName}
+              </Link>
+            </li>
+          </ol>
+
           <Link
             href="/scenarii"
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-[#06141B] transition-colors py-2"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-[#06141B] transition-colors py-1"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-3.5 h-3.5" />
             <span>Toate cele 121 de cazuri</span>
           </Link>
-
-          <span className="text-xs font-mono text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 font-bold uppercase">
-            {scenario.categoryName}
-          </span>
-        </div>
+        </nav>
 
         {/* Scenario Header & Hero Card */}
         <section className="relative rounded-3xl bg-white border border-slate-200 p-5 sm:p-10 shadow-sm overflow-hidden">
           <div className="space-y-5 sm:space-y-6">
             <div className="flex flex-wrap items-center gap-2">
+              <span className="py-1 px-3 rounded-full text-xs font-mono font-bold uppercase bg-slate-900 text-white">
+                EDUCAȚIONAL
+              </span>
+
               <span className="py-1 px-3 rounded-full text-xs font-mono font-bold uppercase bg-slate-100 text-slate-800 border border-slate-200">
                 {scenario.categoryName}
               </span>
@@ -123,6 +144,11 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
               <span className="py-1 px-3 rounded-full text-xs font-bold uppercase bg-red-50 text-[#E10600] border border-red-200 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E10600]" />
                 {scenario.severityLabel || 'Risc Critic'}
+              </span>
+
+              <span className="py-1 px-3 rounded-full text-xs font-medium text-slate-600 bg-slate-50 border border-slate-200 flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-slate-400" />
+                <span>{calculateReadingTime(scenario.situation + ' ' + scenario.mainQuestion + ' ' + scenario.withInsurance.points.join(' '))} min citire</span>
               </span>
             </div>
 
@@ -133,6 +159,14 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
             <p className="text-base sm:text-2xl text-slate-800 font-medium italic border-l-4 border-[#06141B] pl-3 sm:pl-4 py-1 leading-snug">
               „{scenario.mainQuestion}”
             </p>
+
+            {/* Context Notice - Explicit Educational Disclaimer */}
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-600 flex items-start gap-2.5">
+              <Info className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
+              <p className="leading-relaxed">
+                <strong className="text-slate-800 font-semibold">Context:</strong> Situație de risc posibilă în viața reală, explicată pe baza mecanismelor uzuale de asigurare. Acoperirea efectivă depinde de condițiile poliței, excluderi, franșize și limitele contractuale.
+              </p>
+            </div>
 
             {/* Visual Hero Photographic Image */}
             <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 my-4 sm:my-6 shadow-md">
