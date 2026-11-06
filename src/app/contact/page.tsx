@@ -303,7 +303,7 @@ function ContactFormContent() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Ex: Ion Popescu"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-sm focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
                     />
                   </div>
 
@@ -321,7 +321,7 @@ function ContactFormContent() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="nume@exemplu.ro"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-sm focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
                     />
                   </div>
                 </div>
@@ -340,7 +340,7 @@ function ContactFormContent() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="07xxxxxxxx"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-sm focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
                     />
                   </div>
 
@@ -353,7 +353,7 @@ function ContactFormContent() {
                       name="preferredContact"
                       value={preferredContact}
                       onChange={(e) => setPreferredContact(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-sm focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
                     >
                       <option value="email">Răspuns pe E-mail</option>
                       <option value="whatsapp">Mesaj pe WhatsApp</option>
@@ -371,7 +371,7 @@ function ContactFormContent() {
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-sm focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
                     >
                       <option value="casa">Casă &amp; Locuință</option>
                       <option value="auto">Auto &amp; CASCO</option>
@@ -394,7 +394,7 @@ function ContactFormContent() {
                       value={scenarioTitle}
                       onChange={(e) => setScenarioTitle(e.target.value)}
                       placeholder="Ex: Se sparge o țeavă în apartament"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-sm focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors"
                     />
                   </div>
                 )}
@@ -412,7 +412,7 @@ function ContactFormContent() {
                         ? 'Ex: Dețin o poliță facultativă la compania X și doresc să aflu dacă acoperă inundațiile provocate vecinilor...'
                         : 'Scrie-ne detalii despre situația ta...'
                     }
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-sm focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-base sm:text-sm focus:outline-none focus:border-[#06141B] focus:bg-white transition-colors resize-none"
                   />
                 </div>
 
@@ -440,7 +440,7 @@ function ContactFormContent() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 shadow-sm disabled:opacity-50"
+                    className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 shadow-sm min-h-[44px] disabled:opacity-50"
                   >
                     {loading ? (
                       <span>Se transmite...</span>

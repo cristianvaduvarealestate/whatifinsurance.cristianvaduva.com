@@ -1127,7 +1127,7 @@ function ShareStudioContent() {
                     key={f}
                     type="button"
                     onClick={() => setFormat(f)}
-                    className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-medium transition-colors flex items-center justify-center gap-1.5 ${
+                    className={`flex-1 py-2 px-3 min-h-[40px] rounded-xl text-xs font-medium transition-colors flex items-center justify-center gap-1.5 ${
                       format === f
                         ? 'bg-white text-slate-900 shadow-sm font-bold'
                         : 'text-slate-400 hover:text-white'
@@ -1157,7 +1157,7 @@ function ShareStudioContent() {
                 type="button"
                 onClick={handleSaveToGallery}
                 disabled={isSaving || isRendering}
-                className="w-full py-3.5 px-5 rounded-2xl bg-[#E10600] hover:bg-[#c20500] text-white text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all disabled:opacity-50"
+                className="w-full py-3.5 px-5 min-h-[44px] rounded-2xl bg-[#E10600] hover:bg-[#c20500] text-white text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all disabled:opacity-50"
               >
                 <Smartphone className="w-4 h-4" />
                 <span>{isSaving ? 'Se generează...' : 'Salvează în galerie'}</span>
@@ -1168,7 +1168,7 @@ function ShareStudioContent() {
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="py-3 px-4 rounded-2xl bg-slate-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all"
+                  className="py-3 px-4 min-h-[44px] rounded-2xl bg-slate-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all"
                 >
                   <Download className="w-4 h-4" />
                   <span>Descarcă PNG</span>
@@ -1177,7 +1177,7 @@ function ShareStudioContent() {
                 <button
                   type="button"
                   onClick={handleNativeShare}
-                  className="py-3 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all border border-slate-200"
+                  className="py-3 px-4 min-h-[44px] rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all border border-slate-200"
                 >
                   <Share2 className="w-4 h-4 text-slate-700" />
                   <span>Distribuie Nativ</span>

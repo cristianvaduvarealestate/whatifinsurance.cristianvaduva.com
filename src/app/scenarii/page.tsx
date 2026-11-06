@@ -87,16 +87,16 @@ function ScenariiContent() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Caută: țeavă, grindină, vecin, baterie, laptop, avion..."
-                className="w-full py-2.5 pl-10 pr-4 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none placeholder:text-slate-400 transition-all"
+                className="w-full py-2.5 pl-10 pr-10 rounded-xl bg-slate-50 border border-slate-200 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none placeholder:text-slate-400 transition-all"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
                   aria-label="Șterge căutarea"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-800"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-slate-800"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <X className="w-4 h-4" />
                 </button>
               )}
             </div>
@@ -111,7 +111,7 @@ function ScenariiContent() {
             <button
               type="button"
               onClick={() => setSelectedCategory('all')}
-              className={`py-2 px-4 rounded-full text-xs font-bold shrink-0 transition-all ${
+              className={`py-2 px-4 min-h-[40px] flex items-center rounded-full text-xs font-bold shrink-0 transition-all active:scale-95 ${
                 selectedCategory === 'all'
                   ? 'bg-[#06141B] text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
@@ -129,7 +129,7 @@ function ScenariiContent() {
                   key={cat.id}
                   type="button"
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`py-2 px-4 rounded-full text-xs font-bold shrink-0 transition-all ${
+                  className={`py-2 px-4 min-h-[40px] flex items-center rounded-full text-xs font-bold shrink-0 transition-all active:scale-95 ${
                     selectedCategory === cat.id
                       ? 'bg-[#06141B] text-white shadow-sm'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
@@ -162,7 +162,7 @@ function ScenariiContent() {
                 setSearchQuery('');
                 setSelectedCategory('all');
               }}
-              className="mt-5 py-2 px-5 rounded-full bg-[#06141B] text-white text-xs font-bold hover:bg-slate-800 transition-colors"
+              className="mt-5 py-2.5 px-6 min-h-[44px] inline-flex items-center justify-center rounded-full bg-[#06141B] text-white text-xs font-bold hover:bg-slate-800 transition-colors active:scale-95"
             >
               Resetează căutarea
             </button>

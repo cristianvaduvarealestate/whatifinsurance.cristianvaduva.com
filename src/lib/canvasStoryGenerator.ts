@@ -146,40 +146,41 @@ export function drawBrandedEditorialFooter(
   extraNote?: string
 ) {
   // Elevate footer coordinates to guarantee safe margins on social formats (Feed & Story)
-  const footerH = isStory ? 210 : isFeed ? 140 : 88;
+  // Story safe margin from bottom: 160px; Feed safe margin: 120px
+  const footerH = isStory ? 170 : isFeed ? 130 : 90;
   const footerY = height - footerH;
 
   // Thin hairline divider
   ctx.strokeStyle = BRAND_COLORS.divider;
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 1.5;
   ctx.beginPath();
   ctx.moveTo(paddingX, footerY);
   ctx.lineTo(width - paddingX, footerY);
   ctx.stroke();
 
-  // Footer Left: Brand & Phone
+  // Footer Left: Brand & Phone (Generous legible typography for mobile screens)
   ctx.save();
   ctx.fillStyle = BRAND_COLORS.textPrimary;
   ctx.font = isStory
-    ? '800 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-    : '800 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('WHAT IF INSURANCE', paddingX, footerY + (isStory ? 38 : isFeed ? 28 : 24));
+    ? '800 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    : '800 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('WHAT IF INSURANCE', paddingX, footerY + (isStory ? 44 : 36));
 
   ctx.fillStyle = '#06141B';
   ctx.font = isStory
-    ? '700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-    : '700 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('Tel: +40 767 110 439', paddingX, footerY + (isStory ? 70 : isFeed ? 54 : 46));
+    ? '700 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    : '700 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('Tel: +40 767 110 439', paddingX, footerY + (isStory ? 78 : 64));
 
   if (isStory || isFeed) {
     ctx.fillStyle = BRAND_COLORS.textMuted;
     ctx.font = isStory
-      ? '500 12px -apple-system, BlinkMacSystemFont, sans-serif'
-      : '500 11px -apple-system, BlinkMacSystemFont, sans-serif';
+      ? '500 16px -apple-system, BlinkMacSystemFont, sans-serif'
+      : '500 13.5px -apple-system, BlinkMacSystemFont, sans-serif';
     ctx.fillText(
-      extraNote ? extraNote.slice(0, 50) : 'Educație despre riscuri cotidiene · Partener Generali',
+      extraNote ? extraNote.slice(0, 52) : 'Educație despre riscuri cotidiene · Partener Generali',
       paddingX,
-      footerY + (isStory ? 102 : isFeed ? 78 : 66)
+      footerY + (isStory ? 112 : 92)
     );
   }
   ctx.restore();
@@ -189,28 +190,289 @@ export function drawBrandedEditorialFooter(
   ctx.textAlign = 'right';
   ctx.fillStyle = BRAND_COLORS.textPrimary;
   ctx.font = isStory
-    ? '700 14px -apple-system, BlinkMacSystemFont, monospace'
-    : '700 12.5px -apple-system, BlinkMacSystemFont, monospace';
-  ctx.fillText('whatifinsurance.cristianvaduva.com', width - paddingX, footerY + (isStory ? 38 : isFeed ? 28 : 24));
+    ? '700 20px -apple-system, BlinkMacSystemFont, monospace'
+    : '700 17px -apple-system, BlinkMacSystemFont, monospace';
+  ctx.fillText('whatifinsurance.cristianvaduva.com', width - paddingX, footerY + (isStory ? 44 : 36));
 
   ctx.fillStyle = '#0D9488';
   ctx.font = isStory
-    ? '700 13.5px -apple-system, BlinkMacSystemFont, monospace'
-    : '700 12px -apple-system, BlinkMacSystemFont, monospace';
-  ctx.fillText('insurance.cristianvaduva.com', width - paddingX, footerY + (isStory ? 70 : isFeed ? 54 : 46));
+    ? '700 18px -apple-system, BlinkMacSystemFont, monospace'
+    : '700 15px -apple-system, BlinkMacSystemFont, monospace';
+  ctx.fillText('insurance.cristianvaduva.com', width - paddingX, footerY + (isStory ? 78 : 64));
 
   if (isStory || isFeed) {
     ctx.fillStyle = BRAND_COLORS.textSubtle;
     ctx.font = isStory
-      ? '400 11.5px -apple-system, BlinkMacSystemFont, sans-serif'
-      : '400 10.5px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillText('Verifică clauzele specifice din contractul tău', width - paddingX, footerY + (isStory ? 102 : isFeed ? 78 : 66));
+      ? '400 15px -apple-system, BlinkMacSystemFont, sans-serif'
+      : '400 13px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText('Verifică clauzele specifice din contractul tău', width - paddingX, footerY + (isStory ? 112 : 92));
   }
   ctx.restore();
 }
 
 /**
- * Main rendering function producing a professionally art-directed editorial infographic canvas
+ * Robust image loader with multi-stage fallback, CORS retry, and generous timeout
+ */
+const imageCache = new Map<string, HTMLImageElement>();
+
+export async function loadCanvasImage(
+  src: string,
+  fallbackSrc?: string,
+  timeoutMs: number = 3500
+): Promise<HTMLImageElement | null> {
+  if (typeof Image === 'undefined' || !src) {
+    return null;
+  }
+
+  // Check cache first
+  if (imageCache.has(src)) {
+    const cached = imageCache.get(src)!;
+    if (cached.complete && cached.naturalWidth > 0) {
+      return cached;
+    }
+  }
+
+  const tryLoadUrl = (url: string, withCrossOrigin: boolean, ms: number): Promise<HTMLImageElement | null> => {
+    return new Promise((resolve) => {
+      try {
+        const img = new Image();
+        if (withCrossOrigin) {
+          img.crossOrigin = 'anonymous';
+        }
+        let settled = false;
+
+        const timer = setTimeout(() => {
+          if (!settled) {
+            settled = true;
+            if (img.complete && img.naturalWidth > 0) {
+              resolve(img);
+            } else {
+              resolve(null);
+            }
+          }
+        }, ms);
+
+        if (img.complete && img.naturalWidth > 0) {
+          clearTimeout(timer);
+          settled = true;
+          return resolve(img);
+        }
+
+        img.onload = () => {
+          if (!settled) {
+            settled = true;
+            clearTimeout(timer);
+            resolve(img);
+          }
+        };
+
+        img.onerror = () => {
+          if (!settled) {
+            settled = true;
+            clearTimeout(timer);
+            resolve(null);
+          }
+        };
+
+        img.src = url;
+      } catch {
+        resolve(null);
+      }
+    });
+  };
+
+  // 1. Try with crossOrigin anonymous for clean toDataURL export
+  let loadedImg = await tryLoadUrl(src, true, timeoutMs);
+
+  // 2. If failed, retry same URL without crossOrigin (in case same-origin lacked CORS headers)
+  if (!loadedImg || loadedImg.naturalWidth === 0) {
+    loadedImg = await tryLoadUrl(src, false, 1500);
+  }
+
+  // 3. Fallback to fallbackSrc if provided
+  if ((!loadedImg || loadedImg.naturalWidth === 0) && fallbackSrc && fallbackSrc !== src) {
+    loadedImg = await tryLoadUrl(fallbackSrc, true, 2000);
+    if (!loadedImg || loadedImg.naturalWidth === 0) {
+      loadedImg = await tryLoadUrl(fallbackSrc, false, 1000);
+    }
+  }
+
+  // 4. Cache and return if valid; otherwise return null to trigger editorial dark fallback (never a misleading unrelated photo)
+  if (loadedImg && loadedImg.naturalWidth > 0) {
+    imageCache.set(src, loadedImg);
+    return loadedImg;
+  }
+
+  return null;
+}
+
+/**
+ * Category-specific authentic fallback photographs
+ * Strictly prevents misleading photos across distinct risk categories (e.g. villa for auto/cyber).
+ */
+export const CATEGORY_FALLBACK_IMAGES: Record<string, string> = {
+  casa: '/images/scenarios/pipe-burst.jpg',
+  auto: '/images/scenarios/car-crash.jpg',
+  calatorii: '/images/scenarios/flight-cancelled.jpg',
+  'raspundere-civila': '/images/scenarios/family-tv-broken.jpg',
+  'viata-sanatate': '/images/scenarios/inability-work.jpg',
+  business: '/images/scenarios/ransomware-server.jpg',
+  'digital-tech': '/images/scenarios/cafe-laptop-unattended.jpg',
+  'luxury-bunuri': '/images/scenarios/luxury-watch-theft.jpg',
+  'proprietari-chiriasi': '/images/scenarios/damaged-rental-room.jpg',
+  'familie-lifestyle': '/images/scenarios/cracked-designer-suitcase.jpg',
+};
+
+export function getCategoryFallbackImage(categoryId?: string): string | undefined {
+  if (!categoryId) return undefined;
+  return CATEGORY_FALLBACK_IMAGES[categoryId];
+}
+
+/**
+ * Renders the hero photographic slot or a breathtaking dark-mode editorial fallback
+ * Layout height NEVER collapses, ensuring 100% stable proportions across all formats.
+ */
+export function drawEditorialHeroImageSlot(
+  ctx: CanvasRenderingContext2D,
+  options: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    radius: number;
+    img: HTMLImageElement | null;
+    tagLabel?: string;
+    tagVariant?: 'risk' | 'safe' | 'editorial';
+    fallbackTitle?: string;
+    isStory: boolean;
+    isFeed: boolean;
+  }
+) {
+  const { x, y, width, height, radius, img, tagLabel, tagVariant = 'risk', fallbackTitle, isStory, isFeed } = options;
+
+  if (img && img.naturalWidth > 0 && typeof (ctx as any).drawImage === 'function') {
+    // 1. High-Resolution Photographic Rendering with Aspect-Fill
+    ctx.save();
+    drawRoundedRect(ctx, x, y, width, height, radius);
+    ctx.clip();
+
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+    const targetRatio = width / height;
+    let sWidth = img.naturalWidth;
+    let sHeight = img.naturalHeight;
+    let sx = 0;
+    let sy = 0;
+
+    if (imgRatio > targetRatio) {
+      sWidth = img.naturalHeight * targetRatio;
+      sx = (img.naturalWidth - sWidth) / 2;
+    } else {
+      sHeight = img.naturalWidth / targetRatio;
+      sy = (img.naturalHeight - sHeight) / 2;
+    }
+
+    ctx.drawImage(img, sx, sy, sWidth, sHeight, x, y, width, height);
+    ctx.restore();
+
+    // Hairline border around photo
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
+    ctx.lineWidth = 1.5;
+    drawRoundedRect(ctx, x, y, width, height, radius);
+    ctx.stroke();
+
+    // Floating Category / Severity Badge
+    if (tagLabel) {
+      ctx.save();
+      const cleanTag = tagLabel.toUpperCase();
+      ctx.font = `800 ${isStory ? 14 : 12}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+      const textW = ctx.measureText(cleanTag).width;
+      const bH = isStory ? 36 : 30;
+      const bW = textW + (isStory ? 44 : 36);
+      const bX = x + (isStory ? 20 : 16);
+      const bY = y + height - bH - (isStory ? 20 : 16);
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.12)';
+      ctx.lineWidth = 1;
+      drawRoundedRect(ctx, bX, bY, bW, bH, bH / 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Dot accent
+      const dotColor =
+        tagVariant === 'risk'
+          ? BRAND_COLORS.risk
+          : tagVariant === 'safe'
+          ? BRAND_COLORS.safeBadgeText
+          : '#0284C7';
+      ctx.fillStyle = dotColor;
+      ctx.beginPath();
+      ctx.arc(bX + (isStory ? 18 : 14), bY + bH / 2, isStory ? 4.5 : 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = BRAND_COLORS.textPrimary;
+      ctx.fillText(cleanTag, bX + (isStory ? 30 : 24), bY + bH / 2 + (isStory ? 5 : 4.5));
+      ctx.restore();
+    }
+  } else {
+    // 2. ULTRA-PREMIUM EDITORIAL DARK CANVAS FALLBACK (Never an empty/ugly box!)
+    ctx.save();
+    drawRoundedRect(ctx, x, y, width, height, radius);
+    ctx.clip();
+
+    // Sleek Apple-inspired dark obsidian gradient
+    const grad = ctx.createLinearGradient(x, y, x + width, y + height);
+    grad.addColorStop(0, '#0B132B');
+    grad.addColorStop(0.5, '#1C2541');
+    grad.addColorStop(1, '#0F172A');
+    ctx.fillStyle = grad;
+    ctx.fillRect(x, y, width, height);
+
+    // Subtle decorative grid lines
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.lineWidth = 1;
+    for (let gy = y + 40; gy < y + height; gy += 40) {
+      ctx.beginPath();
+      ctx.moveTo(x, gy);
+      ctx.lineTo(x + width, gy);
+      ctx.stroke();
+    }
+
+    // Discrete watermark emblem in center
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.font = `900 ${isStory ? 60 : 44}px -apple-system, BlinkMacSystemFont, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('WHAT IF', x + width / 2, y + height / 2 - 10);
+
+    // Discrete tag
+    ctx.fillStyle = '#E10600';
+    ctx.font = `800 ${isStory ? 14 : 12}px -apple-system, BlinkMacSystemFont, sans-serif`;
+    ctx.letterSpacing = '1.5px';
+    ctx.fillText('● STUDIU VIZUAL DE ASIGURĂRI', x + width / 2, y + height / 2 + (isStory ? 30 : 24));
+
+    // Fallback title / context
+    if (fallbackTitle) {
+      ctx.fillStyle = '#F8FAFC';
+      ctx.font = `700 ${isStory ? 20 : 16}px -apple-system, BlinkMacSystemFont, sans-serif`;
+      const titleLines = wrapText(ctx, fallbackTitle, width - 60, 2);
+      titleLines.forEach((tl, ti) => {
+        ctx.fillText(tl, x + width / 2, y + height / 2 + (isStory ? 65 : 52) + ti * 24);
+      });
+    }
+
+    ctx.restore();
+
+    // Crisp subtle border
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.lineWidth = 1.5;
+    drawRoundedRect(ctx, x, y, width, height, radius);
+    ctx.stroke();
+  }
+}
+
+/**
+ * Main rendering function producing a high-legibility, spacious editorial infographic canvas
+ * Specially designed for mobile screens: large fonts, commanding headlines, read in 2-3 seconds.
  */
 export async function renderScenarioToCanvas(
   canvas: HTMLCanvasElement,
@@ -239,23 +501,24 @@ export async function renderScenarioToCanvas(
   const isFeed = format === 'feed';
   const isSquare = format === 'square';
 
-  const paddingX = isStory ? 72 : isFeed ? 64 : 54;
+  // Safe padding: Story accounts for Instagram top safe zone (100px+) and bottom (160px+)
+  const paddingX = isStory ? 76 : isFeed ? 64 : 54;
   const contentWidth = width - paddingX * 2;
-  const topY = isStory ? 68 : isFeed ? 52 : 44;
+  const topY = isStory ? 92 : isFeed ? 52 : 44;
 
   // 2. DISCRETE EDITORIAL HEADER BAR
-  const pillHeight = isSquare ? 34 : 38;
+  const pillHeight = isStory ? 44 : isFeed ? 40 : 36;
   const pillY = topY;
-  const categoryLabel = (scenario.categoryName || 'RISK ANALYSIS').toUpperCase();
+  const categoryLabel = (scenario.categoryName || 'STUDIU DE CAZ').toUpperCase();
 
   ctx.save();
-  ctx.font = '700 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.font = `700 ${isStory ? 16 : 14}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
   const catWidth = ctx.measureText(categoryLabel).width;
-  const pillWidth = Math.max(300, 195 + catWidth);
+  const pillWidth = Math.max(isStory ? 340 : 300, (isStory ? 220 : 190) + catWidth);
 
   ctx.fillStyle = BRAND_COLORS.pillBg;
   ctx.strokeStyle = BRAND_COLORS.border;
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 1.2;
   drawRoundedRect(ctx, paddingX, pillY, pillWidth, pillHeight, pillHeight / 2);
   ctx.fill();
   ctx.stroke();
@@ -263,371 +526,384 @@ export async function renderScenarioToCanvas(
   // Red signature indicator dot
   ctx.fillStyle = BRAND_COLORS.risk;
   ctx.beginPath();
-  ctx.arc(paddingX + 18, pillY + pillHeight / 2, 4, 0, Math.PI * 2);
+  ctx.arc(paddingX + 20, pillY + pillHeight / 2, isStory ? 5 : 4.5, 0, Math.PI * 2);
   ctx.fill();
 
   // Branding text
   ctx.fillStyle = BRAND_COLORS.textPrimary;
-  ctx.font = '800 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('WHAT IF INSURANCE', paddingX + 32, pillY + pillHeight / 2 + 4);
+  ctx.font = `800 ${isStory ? 15 : 13}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+  ctx.fillText('WHAT IF INSURANCE', paddingX + 36, pillY + pillHeight / 2 + (isStory ? 5 : 4.5));
 
   ctx.fillStyle = BRAND_COLORS.textSubtle;
-  ctx.font = '400 12px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillText('·', paddingX + 168, pillY + pillHeight / 2 + 3.5);
+  ctx.font = `400 ${isStory ? 15 : 13}px -apple-system, BlinkMacSystemFont, sans-serif`;
+  ctx.fillText('·', paddingX + (isStory ? 204 : 176), pillY + pillHeight / 2 + (isStory ? 4.5 : 4));
 
   // Category in uppercase
   ctx.fillStyle = BRAND_COLORS.textMuted;
-  ctx.font = '700 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText(categoryLabel, paddingX + 180, pillY + pillHeight / 2 + 4);
+  ctx.font = `700 ${isStory ? 14 : 12}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+  ctx.fillText(categoryLabel, paddingX + (isStory ? 218 : 188), pillY + pillHeight / 2 + (isStory ? 5 : 4.5));
   ctx.restore();
 
-  // Right: Minimalist Wordmark [ WHAT IF INSURANCE ]
+  // Right Header Wordmark
   ctx.save();
   ctx.textAlign = 'right';
-  ctx.font = '400 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  const insWidth = ctx.measureText('INSURANCE').width;
+  ctx.font = `700 ${isStory ? 16 : 14}px -apple-system, BlinkMacSystemFont, monospace`;
   ctx.fillStyle = BRAND_COLORS.textMuted;
-  ctx.fillText('INSURANCE', width - paddingX, pillY + pillHeight / 2 + 5);
-
-  ctx.font = '900 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillStyle = BRAND_COLORS.textPrimary;
-  ctx.fillText('WHAT IF', width - paddingX - insWidth - 5, pillY + pillHeight / 2 + 5);
+  ctx.fillText('whatifinsurance.cristianvaduva.com', width - paddingX, pillY + pillHeight / 2 + 5);
   ctx.restore();
 
-  // 3. SCENARIO HERO IMAGE (Relevant incident image with deliberate spacing)
-  const imgY = pillY + pillHeight + (isStory ? 20 : isFeed ? 16 : 12);
-  const imgH = isStory ? 680 : isFeed ? 440 : 280;
+  // 3. SCENARIO HERO IMAGE (Large, prominent photo with category-relevant fallback)
+  const imgY = pillY + pillHeight + (isStory ? 24 : isFeed ? 18 : 14);
+  const imgH = isStory ? 560 : isFeed ? 410 : 270;
 
-  let imageLoaded = false;
-  if (scenario.heroImage) {
-    try {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.src = scenario.heroImage;
+  const categoryFallback = getCategoryFallbackImage(scenario.categoryId);
+  const heroImg = await loadCanvasImage(scenario.heroImage, categoryFallback, 3500);
+  const sevLabel = (scenario.severityLabel || scenario.categoryName || 'SITUAȚIE REALĂ').toUpperCase();
 
-      await new Promise((resolve) => {
-        if (img.complete && img.naturalWidth > 0) {
-          imageLoaded = true;
-          return resolve(true);
-        }
-        img.onload = () => {
-          imageLoaded = true;
-          resolve(true);
-        };
-        img.onerror = () => resolve(false);
-        setTimeout(resolve, 1500);
-      });
+  drawEditorialHeroImageSlot(ctx, {
+    x: paddingX,
+    y: imgY,
+    width: contentWidth,
+    height: imgH,
+    radius: isStory ? 24 : 18,
+    img: heroImg,
+    tagLabel: sevLabel,
+    tagVariant: 'risk',
+    fallbackTitle: scenario.categoryName || 'Scenariu de risc cotidian',
+    isStory,
+    isFeed,
+  });
 
-      if (imageLoaded && img.naturalWidth > 0) {
-        ctx.save();
-        drawRoundedRect(ctx, paddingX, imgY, contentWidth, imgH, isStory ? 20 : 16);
-        ctx.clip();
+  // 4. EYEBROW & PROMINENT HEADLINE (Dominant, readable in 2 seconds on mobile)
+  const eyebrowY = imgY + imgH + (isStory ? 34 : isFeed ? 24 : 18);
 
-        // Calculate aspect fill
-        const imgRatio = img.naturalWidth / img.naturalHeight;
-        const targetRatio = contentWidth / imgH;
-        let sWidth = img.naturalWidth;
-        let sHeight = img.naturalHeight;
-        let sx = 0;
-        let sy = 0;
-
-        if (imgRatio > targetRatio) {
-          sWidth = img.naturalHeight * targetRatio;
-          sx = (img.naturalWidth - sWidth) / 2;
-        } else {
-          sHeight = img.naturalWidth / targetRatio;
-          sy = (img.naturalHeight - sHeight) / 2;
-        }
-
-        if (typeof (ctx as any).drawImage === 'function') {
-          ctx.drawImage(img, sx, sy, sWidth, sHeight, paddingX, imgY, contentWidth, imgH);
-        }
-        ctx.restore();
-
-        // Elegant hairline border around photo
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
-        ctx.lineWidth = 1;
-        drawRoundedRect(ctx, paddingX, imgY, contentWidth, imgH, isStory ? 20 : 16);
-        ctx.stroke();
-
-        // Severity / Category badge floating in photo
-        ctx.save();
-        const sevLabel = (scenario.severityLabel || scenario.categoryName || 'AVARIE DOCUMENTATĂ').toUpperCase();
-        ctx.font = '700 10.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        const sevTextW = ctx.measureText(sevLabel).width;
-        const badgeW = sevTextW + 36;
-        const badgeH = 26;
-        const bX = paddingX + 16;
-        const bY = imgY + imgH - badgeH - 14;
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
-        ctx.strokeStyle = BRAND_COLORS.border;
-        ctx.lineWidth = 1;
-        drawRoundedRect(ctx, bX, bY, badgeW, badgeH, badgeH / 2);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = BRAND_COLORS.risk;
-        ctx.beginPath();
-        ctx.arc(bX + 14, bY + badgeH / 2, 3.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = BRAND_COLORS.textPrimary;
-        ctx.fillText(sevLabel, bX + 24, bY + badgeH / 2 + 3.5);
-        ctx.restore();
-      }
-    } catch {
-      imageLoaded = false;
-    }
-  }
-
-  // Fallback box if image is not loaded
-  if (!imageLoaded) {
-    ctx.save();
-    ctx.fillStyle = BRAND_COLORS.bgCard;
-    ctx.strokeStyle = BRAND_COLORS.border;
-    ctx.lineWidth = 1;
-    drawRoundedRect(ctx, paddingX, imgY, contentWidth, imgH, isStory ? 20 : 16);
-    ctx.fill();
-    ctx.stroke();
-
-    ctx.fillStyle = BRAND_COLORS.textMuted;
-    ctx.font = '600 15px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(scenario.categoryName || 'Scenariu de risc', width / 2, imgY + imgH / 2);
-    ctx.restore();
-  }
-
-  // 4. DELIBERATE SPACING, EYEBROW & PROMINENT ROMANIAN HEADLINE
-  // Deliberate breathing room below image: title must NEVER touch or overlap photo
-  const eyebrowY = imgY + imgH + (isStory ? 28 : isFeed ? 20 : 14);
-
+  ctx.save();
   ctx.fillStyle = BRAND_COLORS.risk;
-  ctx.font = '800 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.letterSpacing = '0.8px';
-  ctx.fillText('STUDIU COMPARATIV DE ASIGURABILITATE', paddingX, eyebrowY);
+  ctx.font = `800 ${isStory ? 16 : 14}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+  ctx.letterSpacing = '1.2px';
+  ctx.fillText('CE SE ÎNTÂMPLĂ DACĂ... ?', paddingX, eyebrowY);
+  ctx.restore();
 
-  const headlineY = eyebrowY + (isStory ? 28 : isFeed ? 24 : 18);
+  const headlineY = eyebrowY + (isStory ? 32 : isFeed ? 26 : 20);
   ctx.fillStyle = BRAND_COLORS.textPrimary;
 
   const rawQuestion = scenario.title || scenario.mainQuestion;
   const cleanQuestion = rawQuestion.replace(/^[„"']+|[”"']+$/g, '');
 
-  const hFontSize = isStory ? 48 : isFeed ? 34 : 22;
-  const hLineHeight = isStory ? 56 : isFeed ? 40 : 28;
+  const hFontSize = isStory ? 50 : isFeed ? 42 : 28;
+  const hLineHeight = isStory ? 62 : isFeed ? 52 : 36;
 
-  ctx.font = `800 ${hFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-  ctx.letterSpacing = '-0.3px';
+  ctx.font = `900 ${hFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+  ctx.letterSpacing = '-0.5px';
 
-  const maxHLines = 2;
+  const maxHLines = isStory ? 3 : 2;
   const hLines = wrapText(ctx, cleanQuestion, contentWidth, maxHLines);
   hLines.forEach((line, idx) => {
     ctx.fillText(line, paddingX, headlineY + idx * hLineHeight);
   });
 
-  const headlineBottom = headlineY + hLines.length * hLineHeight;
+  const headlineBottom = headlineY + (hLines.length - 1) * hLineHeight + Math.round(hFontSize * 0.35);
 
-  // 5. SHORT SITUATION DESCRIPTION
-  const situationY = headlineBottom + (isStory ? 16 : isFeed ? 12 : 10);
-  const rawSituation = scenario.situation || scenario.shortDescription || '';
-  const sitFontSize = isStory ? 15 : isFeed ? 13 : 11.5;
-  const sitLineHeight = isStory ? 22 : isFeed ? 18 : 16;
-  const maxSitLines = isStory ? 2 : 1;
+  // Extract key scenario facts
+  const withoutImpact = scenario.withoutInsurance?.financialImpact || 'Cost suportat 100% din fonduri proprii';
+  const withoutSummary = scenario.withoutInsurance?.summary || scenario.withoutInsurance?.points?.[0] || 'Toate pagubele și reparațiile sunt plătite din propriul buzunar.';
+  const withPolicy = scenario.withInsurance?.title || 'Poliță dedicată cu clauze complete';
+  const withSummary = scenario.withInsurance?.summary || scenario.withInsurance?.points?.[0] || 'Asigurarea preia cheltuielile majore în limita sumei asigurate contractate.';
+  const checkTip = scenario.whatToCheck?.items?.[0]?.label || 'clauzele specifice de excludere și franșiza';
 
-  ctx.save();
-  ctx.fillStyle = BRAND_COLORS.textSecondary;
-  ctx.font = `400 ${sitFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-  const sitLines = wrapText(ctx, rawSituation, contentWidth, maxSitLines);
-  sitLines.forEach((line, idx) => {
-    ctx.fillText(line, paddingX, situationY + idx * sitLineHeight);
-  });
-  ctx.restore();
+  // 5. HIGH-CONTRAST CONSEQUENCE & PROTECTION CARDS
+  if (isStory) {
+    // --- STORY FORMAT: TWO STACKED SPACIOUS CARDS (Y: 960 to 1660) ---
+    const cardGap = 24;
+    const cardH = 310;
+    const cardW = contentWidth;
 
-  const situationBottom = situationY + sitLines.length * sitLineHeight;
-
-  // 6. STRUCTURED TWO-COLUMN COMPARISON (CU ASIGURARE vs FĂRĂ ASIGURARE)
-  const compStartY = situationBottom + (isStory ? 24 : isFeed ? 16 : 12);
-  const colGap = isStory ? 20 : isFeed ? 16 : 14;
-  const colW = (contentWidth - colGap) / 2;
-
-  // Calculate available height for comparison
-  const footerH = isStory ? 210 : isFeed ? 140 : 88;
-  const caveatH = isStory ? 54 : isFeed ? 40 : 32;
-  const availableH = height - compStartY - footerH - caveatH - (isStory ? 24 : 16);
-  const compH = Math.max(isStory ? 500 : isFeed ? 400 : 360, Math.min(availableH, isStory ? 600 : isFeed ? 470 : 410));
-
-  // Extract scenario-specific points
-  const withPoints = scenario.withInsurance?.points || [];
-  const withoutPoints = scenario.withoutInsurance?.points || [];
-  const checkItems = scenario.whatToCheck?.items || [];
-
-  // WITH INSURANCE CONTENT
-  const withCoverage = withPoints[0] || scenario.withInsurance?.statusLabel || 'Poate fi despăgubit, în funcție de clauzele poliței contractate';
-  const withConditions = checkItems[0]?.detail || checkItems[0]?.label || withPoints[1] || 'Respectarea normelor de conservare și notificare promptă';
-  const withDeductible = 'Franșiză contractuală (dacă este prevăzută) sau uzură la piese';
-
-  // WITHOUT INSURANCE CONTENT
-  const withoutOutOfPocket = withoutPoints[0] || scenario.withoutInsurance?.financialImpact || 'Costuri suportate integral din economii proprii';
-  const withoutRepairs = withoutPoints[1] || scenario.withoutInsurance?.points[1] || 'Reparații și înlocuiri achitate integral din fonduri personale';
-  const withoutConsequences = scenario.withoutInsurance?.summary || 'Consecințe financiare neprevăzute și efort bugetar direct';
-
-  // --- COLUMN 1: CU ASIGURARE (Clean white editorial surface with calm green accent) ---
-  const col1X = paddingX;
-  ctx.save();
-  ctx.fillStyle = '#FFFFFF';
-  ctx.strokeStyle = '#CBD5E1';
-  ctx.lineWidth = 1;
-  drawRoundedRect(ctx, col1X, compStartY, colW, compH, 16);
-  ctx.fill();
-  ctx.stroke();
-
-  // Top highlight bar (Calm Forest Green)
-  ctx.fillStyle = '#163832';
-  drawRoundedRect(ctx, col1X, compStartY, colW, 5, 2);
-  ctx.fill();
-
-  // Column 1 Header Badge: [ ● CU ASIGURARE ]
-  const badge1W = isStory ? 170 : isFeed ? 150 : 130;
-  const badge1H = isStory ? 32 : 28;
-  const badge1Y = compStartY + (isStory ? 18 : 14);
-  drawRoundedRect(ctx, col1X + 16, badge1Y, badge1W, badge1H, badge1H / 2);
-  ctx.fillStyle = '#F0FDF4';
-  ctx.fill();
-  ctx.strokeStyle = '#BBF7D0';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  ctx.fillStyle = '#15803D';
-  ctx.beginPath();
-  ctx.arc(col1X + 28, badge1Y + badge1H / 2, 4, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = '#15803D';
-  ctx.font = '800 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('CU ASIGURARE', col1X + 38, badge1Y + badge1H / 2 + 4);
-
-  // Column 1 Sections:
-  const colInnerPad = isStory ? 20 : 14;
-  const colInnerW = colW - colInnerPad * 2;
-  const sectionGap = isStory ? 26 : isFeed ? 18 : 14;
-  let curY1 = badge1Y + badge1H + (isStory ? 24 : 16);
-
-  // Function to render a comparison block inside column
-  const renderColBlock = (
-    label: string,
-    body: string,
-    accentColor: string,
-    startY: number
-  ): number => {
+    // CARD 1: FĂRĂ ASIGURARE (Warm subtle wash with crisp red accents)
+    const card1Y = headlineBottom + 36;
     ctx.save();
-    ctx.fillStyle = accentColor;
-    ctx.font = '800 10px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.letterSpacing = '0.6px';
-    ctx.fillText(label.toUpperCase(), col1X + colInnerPad, startY);
+    ctx.fillStyle = '#FFF8F8';
+    ctx.strokeStyle = '#FECACA';
+    ctx.lineWidth = 1.5;
+    drawRoundedRect(ctx, paddingX, card1Y, cardW, cardH, 22);
+    ctx.fill();
+    ctx.stroke();
 
-    const bodyFontSize = isStory ? 13.5 : isFeed ? 12 : 10.5;
-    const bodyLineHeight = isStory ? 19 : isFeed ? 16 : 14;
-    ctx.fillStyle = '#1E293B';
-    ctx.font = `500 ${bodyFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-    ctx.letterSpacing = '0px';
+    // Top indicator accent
+    ctx.fillStyle = '#E10600';
+    drawRoundedRect(ctx, paddingX, card1Y, cardW, 6, 3);
+    ctx.fill();
 
-    const maxLines = isStory ? 3 : 2;
-    const lines = wrapText(ctx, body, colInnerW, maxLines);
-    lines.forEach((l, i) => {
-      ctx.fillText(l, col1X + colInnerPad, startY + (isStory ? 16 : 13) + i * bodyLineHeight);
+    // Badge: [ ● FĂRĂ ASIGURARE ]
+    const b1H = 36;
+    const b1W = 210;
+    const b1X = paddingX + 24;
+    const b1Y = card1Y + 22;
+    drawRoundedRect(ctx, b1X, b1Y, b1W, b1H, b1H / 2);
+    ctx.fillStyle = '#FEF2F2';
+    ctx.fill();
+    ctx.strokeStyle = '#FECACA';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = '#B91C1C';
+    ctx.beginPath();
+    ctx.arc(b1X + 16, b1Y + b1H / 2, 4.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#B91C1C';
+    ctx.font = '800 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('FĂRĂ ASIGURARE', b1X + 28, b1Y + b1H / 2 + 5);
+
+    // Dominant takeaway title
+    ctx.fillStyle = '#06141B';
+    ctx.font = '800 28px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('Paguba poate fi suportată din fonduri proprii', paddingX + 24, card1Y + 86);
+
+    // Impact highlight
+    ctx.fillStyle = '#B91C1C';
+    ctx.font = '700 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const impactText = `Impact estimat: ${withoutImpact}`;
+    ctx.fillText(impactText, paddingX + 24, card1Y + 128);
+
+    // Summary description (Up to 3 lines to preserve full context without truncation)
+    ctx.fillStyle = '#334155';
+    ctx.font = '500 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const sLines = wrapText(ctx, withoutSummary, cardW - 48, 3);
+    sLines.forEach((line, i) => {
+      ctx.fillText(line, paddingX + 24, card1Y + 172 + i * 29);
     });
     ctx.restore();
-    return startY + (isStory ? 16 : 13) + lines.length * bodyLineHeight;
-  };
 
-  curY1 = renderColBlock('Ce ar putea fi despăgubit', withCoverage, '#15803D', curY1) + sectionGap;
-  curY1 = renderColBlock('Ce condiții trebuie îndeplinite', withConditions, '#0284C7', curY1) + sectionGap;
-  curY1 = renderColBlock('Costuri posibile în sarcina ta', withDeductible, '#64748B', curY1);
-  ctx.restore();
-
-  // --- COLUMN 2: FĂRĂ ASIGURARE (Distinct warm tinted surface with restrained red accent) ---
-  const col2X = paddingX + colW + colGap;
-  ctx.save();
-  ctx.fillStyle = '#FFFDFD';
-  ctx.strokeStyle = '#FECACA';
-  ctx.lineWidth = 1;
-  drawRoundedRect(ctx, col2X, compStartY, colW, compH, 16);
-  ctx.fill();
-  ctx.stroke();
-
-  // Top highlight bar (Restrained Crimson Red)
-  ctx.fillStyle = '#DE1110';
-  drawRoundedRect(ctx, col2X, compStartY, colW, 5, 2);
-  ctx.fill();
-
-  // Column 2 Header Badge: [ ● FĂRĂ ASIGURARE ]
-  const badge2W = isStory ? 180 : isFeed ? 160 : 140;
-  const badge2H = isStory ? 32 : 28;
-  const badge2Y = compStartY + (isStory ? 18 : 14);
-  drawRoundedRect(ctx, col2X + 16, badge2Y, badge2W, badge2H, badge2H / 2);
-  ctx.fillStyle = '#FEF2F2';
-  ctx.fill();
-  ctx.strokeStyle = '#FECACA';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  ctx.fillStyle = '#B91C1C';
-  ctx.beginPath();
-  ctx.arc(col2X + 28, badge2Y + badge2H / 2, 4, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = '#B91C1C';
-  ctx.font = '800 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('FĂRĂ ASIGURARE', col2X + 38, badge2Y + badge2H / 2 + 4);
-
-  // Column 2 Sections:
-  let curY2 = badge2Y + badge2H + (isStory ? 24 : 16);
-
-  const renderCol2Block = (
-    label: string,
-    body: string,
-    accentColor: string,
-    startY: number
-  ): number => {
+    // CARD 2: CU ASIGURARE (Calm subtle wash with crisp emerald accents)
+    const card2Y = card1Y + cardH + cardGap;
     ctx.save();
-    ctx.fillStyle = accentColor;
-    ctx.font = '800 10px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.letterSpacing = '0.6px';
-    ctx.fillText(label.toUpperCase(), col2X + colInnerPad, startY);
+    ctx.fillStyle = '#F2FDF5';
+    ctx.strokeStyle = '#BBF7D0';
+    ctx.lineWidth = 1.5;
+    drawRoundedRect(ctx, paddingX, card2Y, cardW, cardH, 22);
+    ctx.fill();
+    ctx.stroke();
 
-    const bodyFontSize = isStory ? 13.5 : isFeed ? 12 : 10.5;
-    const bodyLineHeight = isStory ? 19 : isFeed ? 16 : 14;
-    ctx.fillStyle = '#1E293B';
-    ctx.font = `500 ${bodyFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-    ctx.letterSpacing = '0px';
+    // Top indicator accent
+    ctx.fillStyle = '#15803D';
+    drawRoundedRect(ctx, paddingX, card2Y, cardW, 6, 3);
+    ctx.fill();
 
-    const maxLines = isStory ? 3 : 2;
-    const lines = wrapText(ctx, body, colInnerW, maxLines);
-    lines.forEach((l, i) => {
-      ctx.fillText(l, col2X + colInnerPad, startY + (isStory ? 16 : 13) + i * bodyLineHeight);
+    // Badge: [ ● CU ASIGURARE ]
+    const b2H = 36;
+    const b2W = 240;
+    const b2X = paddingX + 24;
+    const b2Y = card2Y + 22;
+    drawRoundedRect(ctx, b2X, b2Y, b2W, b2H, b2H / 2);
+    ctx.fillStyle = '#F0FDF4';
+    ctx.fill();
+    ctx.strokeStyle = '#BBF7D0';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = '#15803D';
+    ctx.beginPath();
+    ctx.arc(b2X + 16, b2Y + b2H / 2, 4.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#15803D';
+    ctx.font = '800 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('CU ASIGURARE POTRIVITĂ', b2X + 28, b2Y + b2H / 2 + 5);
+
+    // Dominant takeaway title (Accurate conditional phrasing)
+    ctx.fillStyle = '#06141B';
+    ctx.font = '800 28px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('Polița poate prelua riscul financiar major', paddingX + 24, card2Y + 86);
+
+    // Protection highlight
+    ctx.fillStyle = '#15803D';
+    ctx.font = '700 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const protText = `Protecție: ${withPolicy}`;
+    const protLines = wrapText(ctx, protText, cardW - 48, 1);
+    ctx.fillText(protLines[0] || protText, paddingX + 24, card2Y + 128);
+
+    // Summary description (Up to 3 lines to preserve full context without truncation)
+    ctx.fillStyle = '#334155';
+    ctx.font = '500 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const wLines = wrapText(ctx, withSummary, cardW - 48, 3);
+    wLines.forEach((line, i) => {
+      ctx.fillText(line, paddingX + 24, card2Y + 172 + i * 29);
     });
     ctx.restore();
-    return startY + (isStory ? 16 : 13) + lines.length * bodyLineHeight;
-  };
 
-  curY2 = renderCol2Block('Costuri suportate personal', withoutOutOfPocket, '#B91C1C', curY2) + sectionGap;
-  curY2 = renderCol2Block('Reparații din fonduri proprii', withoutRepairs, '#B91C1C', curY2) + sectionGap;
-  curY2 = renderCol2Block('Consecințe financiare', withoutConsequences, '#64748B', curY2);
-  ctx.restore();
+    // Contract Verification Tip line (Clean typographic bullet, safe on all mobile devices)
+    const tipY = card2Y + cardH + 28;
+    ctx.save();
+    ctx.fillStyle = BRAND_COLORS.textSecondary;
+    ctx.font = '700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const tipText = `● RECOMANDARE CONTRACTUALĂ: Verifică ${checkTip}`;
+    const tipLines = wrapText(ctx, tipText, contentWidth, 2);
+    tipLines.forEach((tl, idx) => {
+      ctx.fillText(tl, paddingX, tipY + idx * 26);
+    });
+    ctx.restore();
 
-  // 7. CONCISE CONTRACTUAL CAVEAT (Between comparison and footer)
-  const caveatY = compStartY + compH + (isStory ? 18 : isFeed ? 12 : 10);
-  ctx.save();
-  ctx.fillStyle = BRAND_COLORS.textSubtle;
-  ctx.font = `400 ${isStory ? 11 : isFeed ? 10 : 9.5}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-  const caveatText = 'Analiză comparativă cu rol educațional. Despăgubirea efectivă depinde de termenii poliței, excluderi, franșize și respectarea măsurilor preventive de conservare.';
-  const caveatLines = wrapText(ctx, caveatText, contentWidth, isStory ? 2 : 1);
-  caveatLines.forEach((cl, i) => {
-    ctx.fillText(cl, paddingX, caveatY + i * (isStory ? 16 : 13));
-  });
-  ctx.restore();
+  } else {
+    // --- FEED (4:5) / SQUARE FORMAT: DUAL SIDE-BY-SIDE CARDS ---
+    const cardGap = isFeed ? 24 : 16;
+    const colW = (contentWidth - cardGap) / 2;
+    const cardH = isFeed ? 480 : 330;
+    const cardStartY = headlineBottom + (isFeed ? 28 : 18);
 
-  // 8. CLEAN BRANDED FOOTER (With phone number and both websites)
+    // COLUMN 1: FĂRĂ ASIGURARE (Left)
+    const col1X = paddingX;
+    ctx.save();
+    ctx.fillStyle = '#FFF8F8';
+    ctx.strokeStyle = '#FECACA';
+    ctx.lineWidth = 1.5;
+    drawRoundedRect(ctx, col1X, cardStartY, colW, cardH, 20);
+    ctx.fill();
+    ctx.stroke();
+
+    // Top highlight bar
+    ctx.fillStyle = '#E10600';
+    drawRoundedRect(ctx, col1X, cardStartY, colW, 5, 2);
+    ctx.fill();
+
+    // Badge
+    const b1H = 32;
+    const b1W = 180;
+    const b1X = col1X + 18;
+    const b1Y = cardStartY + 18;
+    drawRoundedRect(ctx, b1X, b1Y, b1W, b1H, b1H / 2);
+    ctx.fillStyle = '#FEF2F2';
+    ctx.fill();
+    ctx.strokeStyle = '#FECACA';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = '#B91C1C';
+    ctx.beginPath();
+    ctx.arc(b1X + 14, b1Y + b1H / 2, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#B91C1C';
+    ctx.font = '800 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('FĂRĂ ASIGURARE', b1X + 24, b1Y + b1H / 2 + 4.5);
+
+    // Main Takeaway
+    ctx.fillStyle = '#06141B';
+    ctx.font = `800 ${isFeed ? 22 : 18}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    const col1TitleLines = wrapText(ctx, 'Paguba o suporți din fonduri proprii', colW - 36, 2);
+    col1TitleLines.forEach((l, i) => {
+      ctx.fillText(l, col1X + 18, cardStartY + (isFeed ? 78 : 68) + i * (isFeed ? 28 : 22));
+    });
+
+    const c1MidY = cardStartY + (isFeed ? 78 : 68) + col1TitleLines.length * (isFeed ? 28 : 22) + (isFeed ? 14 : 10);
+    ctx.fillStyle = '#991B1B';
+    ctx.font = '800 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('IMPACT ESTIMAT:', col1X + 18, c1MidY);
+
+    ctx.fillStyle = '#B91C1C';
+    ctx.font = `700 ${isFeed ? 19 : 16}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    const impactLines = wrapText(ctx, withoutImpact, colW - 36, 2);
+    impactLines.forEach((il, i) => {
+      ctx.fillText(il, col1X + 18, c1MidY + (isFeed ? 24 : 20) + i * (isFeed ? 24 : 20));
+    });
+
+    const c1SumY = c1MidY + (isFeed ? 24 : 20) + impactLines.length * (isFeed ? 24 : 20) + (isFeed ? 16 : 10);
+    ctx.fillStyle = '#64748B';
+    ctx.font = '800 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('CONSECINȚĂ DIRECTĂ:', col1X + 18, c1SumY);
+
+    ctx.fillStyle = '#334155';
+    ctx.font = `500 ${isFeed ? 15.5 : 13.5}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    const sumLines1 = wrapText(ctx, withoutSummary, colW - 36, isFeed ? 4 : 2);
+    sumLines1.forEach((sl, i) => {
+      ctx.fillText(sl, col1X + 18, c1SumY + (isFeed ? 24 : 20) + i * (isFeed ? 23 : 19));
+    });
+    ctx.restore();
+
+    // COLUMN 2: CU ASIGURARE (Right)
+    const col2X = paddingX + colW + cardGap;
+    ctx.save();
+    ctx.fillStyle = '#F2FDF5';
+    ctx.strokeStyle = '#BBF7D0';
+    ctx.lineWidth = 1.5;
+    drawRoundedRect(ctx, col2X, cardStartY, colW, cardH, 20);
+    ctx.fill();
+    ctx.stroke();
+
+    // Top highlight bar
+    ctx.fillStyle = '#15803D';
+    drawRoundedRect(ctx, col2X, cardStartY, colW, 5, 2);
+    ctx.fill();
+
+    // Badge
+    const b2H = 32;
+    const b2W = 195;
+    const b2X = col2X + 18;
+    const b2Y = cardStartY + 18;
+    drawRoundedRect(ctx, b2X, b2Y, b2W, b2H, b2H / 2);
+    ctx.fillStyle = '#F0FDF4';
+    ctx.fill();
+    ctx.strokeStyle = '#BBF7D0';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = '#15803D';
+    ctx.beginPath();
+    ctx.arc(b2X + 14, b2Y + b2H / 2, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#15803D';
+    ctx.font = '800 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('CU ASIGURARE ACTIVĂ', b2X + 24, b2Y + b2H / 2 + 4.5);
+
+    // Main Takeaway
+    ctx.fillStyle = '#06141B';
+    ctx.font = `800 ${isFeed ? 22 : 18}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    const col2TitleLines = wrapText(ctx, 'Polița poate acoperi cheltuielile majore', colW - 36, 2);
+    col2TitleLines.forEach((l, i) => {
+      ctx.fillText(l, col2X + 18, cardStartY + (isFeed ? 78 : 68) + i * (isFeed ? 28 : 22));
+    });
+
+    const c2MidY = cardStartY + (isFeed ? 78 : 68) + col2TitleLines.length * (isFeed ? 28 : 22) + (isFeed ? 14 : 10);
+    ctx.fillStyle = '#166534';
+    ctx.font = '800 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('POLIȚĂ RELEVANTĂ:', col2X + 18, c2MidY);
+
+    ctx.fillStyle = '#15803D';
+    ctx.font = `700 ${isFeed ? 18 : 15}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    const policyLines = wrapText(ctx, withPolicy, colW - 36, 2);
+    policyLines.forEach((pl, i) => {
+      ctx.fillText(pl, col2X + 18, c2MidY + (isFeed ? 24 : 20) + i * (isFeed ? 24 : 20));
+    });
+
+    const c2SumY = c2MidY + (isFeed ? 24 : 20) + policyLines.length * (isFeed ? 24 : 20) + (isFeed ? 16 : 10);
+    ctx.fillStyle = '#64748B';
+    ctx.font = '800 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('BENEFICIU CHEIE:', col2X + 18, c2SumY);
+
+    ctx.fillStyle = '#334155';
+    ctx.font = `500 ${isFeed ? 15.5 : 13.5}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    const sumLines2 = wrapText(ctx, withSummary, colW - 36, isFeed ? 4 : 2);
+    sumLines2.forEach((sl, i) => {
+      ctx.fillText(sl, col2X + 18, c2SumY + (isFeed ? 24 : 20) + i * (isFeed ? 23 : 19));
+    });
+    ctx.restore();
+
+    // Contract Verification Tip line below cards
+    if (isFeed) {
+      const feedTipY = cardStartY + cardH + 16;
+      ctx.save();
+      ctx.fillStyle = BRAND_COLORS.textMuted;
+      ctx.font = '500 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      const feedTipText = `● Ce verifici: ${checkTip} · Despăgubirea depinde de clauzele contractate, franșiză și excluderi.`;
+      const feedTipLines = wrapText(ctx, feedTipText, contentWidth, 2);
+      feedTipLines.forEach((ftl, idx) => {
+        ctx.fillText(ftl, paddingX, feedTipY + idx * 19);
+      });
+      ctx.restore();
+    }
+  }
+
+  // 6. CLEAN BRANDED FOOTER (With phone number and both websites, safe from cutoffs)
   drawBrandedEditorialFooter(ctx, width, height, paddingX, isStory, isFeed, isSquare);
 }
 
@@ -952,92 +1228,48 @@ export async function renderEditorialCardToCanvas(
   ctx.restore();
 
   // 3. CINEMATIC EDITORIAL HERO IMAGE (Tasteful framing with rounded clipping and category tag)
-  let imgH = 0;
-  if (typeof Image !== 'undefined' && card.heroImage) {
-    const desiredImgH = isStory ? 640 : isFeed ? 460 : 320;
-    const imgY = headerY + 46;
-    let imageLoaded = false;
-    try {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.src = card.heroImage;
-      await new Promise<boolean>((resolve) => {
-        if (img.complete && img.naturalWidth > 0) {
-          imageLoaded = true;
-          return resolve(true);
-        }
-        img.onload = () => {
-          imageLoaded = true;
-          resolve(true);
-        };
-        img.onerror = () => resolve(false);
-        setTimeout(() => resolve(false), 1500);
-      });
+  const imgY = headerY + 46;
+  const imgH = isStory ? 620 : isFeed ? 440 : 300;
+  const catLower = (card.category || '').toLowerCase();
+  const editorialCatId =
+    catLower.includes('auto')
+      ? 'auto'
+      : catLower.includes('calator')
+      ? 'calatorii'
+      : catLower.includes('sanat') || catLower.includes('viata')
+      ? 'viata-sanatate'
+      : catLower.includes('rasp')
+      ? 'raspundere-civila'
+      : catLower.includes('cyber') || catLower.includes('digital')
+      ? 'digital-tech'
+      : catLower.includes('lux')
+      ? 'luxury-bunuri'
+      : 'casa';
+  const cardFallback = getCategoryFallbackImage(editorialCatId);
+  const cardImg = await loadCanvasImage(card.heroImage, cardFallback, 3500);
 
-      if (imageLoaded && img.naturalWidth > 0) {
-        imgH = desiredImgH;
-        ctx.save();
-        drawRoundedRect(ctx, paddingX, imgY, contentWidth, imgH, 18);
-        ctx.clip();
-
-        // Calculate aspect fill
-        const imgRatio = img.naturalWidth / img.naturalHeight;
-        const targetRatio = contentWidth / imgH;
-        let sWidth = img.naturalWidth;
-        let sHeight = img.naturalHeight;
-        let sx = 0;
-        let sy = 0;
-
-        if (imgRatio > targetRatio) {
-          sWidth = img.naturalHeight * targetRatio;
-          sx = (img.naturalWidth - sWidth) / 2;
-        } else {
-          sHeight = img.naturalWidth / targetRatio;
-          sy = (img.naturalHeight - sHeight) / 2;
-        }
-
-        if (typeof (ctx as any).drawImage === 'function') {
-          ctx.drawImage(img, sx, sy, sWidth, sHeight, paddingX, imgY, contentWidth, imgH);
-        }
-        ctx.restore();
-
-        // Elegant hairline border around photo
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
-        ctx.lineWidth = 1;
-        drawRoundedRect(ctx, paddingX, imgY, contentWidth, imgH, 18);
-        ctx.stroke();
-
-        // Subtle category badge floating on top-left of image
-        ctx.save();
-        const catLabel = card.category.toUpperCase();
-        ctx.font = '800 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        const catW = ctx.measureText(catLabel).width + 24;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
-        drawRoundedRect(ctx, paddingX + 16, imgY + 16, catW, 26, 6);
-        ctx.fill();
-        ctx.fillStyle = BRAND_COLORS.textPrimary;
-        ctx.fillText(catLabel, paddingX + 28, imgY + 23);
-        ctx.restore();
-      }
-    } catch {
-      imgH = 0;
-    }
-  }
+  drawEditorialHeroImageSlot(ctx, {
+    x: paddingX,
+    y: imgY,
+    width: contentWidth,
+    height: imgH,
+    radius: 18,
+    img: cardImg,
+    tagLabel: card.category.toUpperCase(),
+    tagVariant: 'editorial',
+    fallbackTitle: card.headline,
+    isStory,
+    isFeed,
+  });
 
   // 4. EDITORIAL HEADLINE WITH GENEROUS SPACING BELOW PHOTO
-  const imgBottom = headerY + 46 + imgH;
-  const headlineGap = isStory ? 36 : isFeed ? 28 : 20;
-  const headlineFontSize = isStory
-    ? (imgH > 0 ? 46 : 50)
-    : isFeed
-    ? (imgH > 0 ? 34 : 38)
-    : (imgH > 0 ? 24 : 28);
-  const headlineLineHeight = isStory ? 56 : isFeed ? 42 : 30;
+  const imgBottom = imgY + imgH;
+  const headlineGap = isStory ? 34 : isFeed ? 26 : 18;
+  const headlineFontSize = isStory ? 44 : isFeed ? 32 : 24;
+  const headlineLineHeight = isStory ? 54 : isFeed ? 40 : 30;
 
   // Account for Canvas 2D alphabetic text baseline so letters NEVER touch or overlap image
-  const titleY = imgH > 0
-    ? imgBottom + headlineGap + Math.round(headlineFontSize * 0.85)
-    : headerY + (isStory ? 80 : isFeed ? 65 : 52);
+  const titleY = imgBottom + headlineGap + Math.round(headlineFontSize * 0.85);
 
   ctx.fillStyle = BRAND_COLORS.textPrimary;
   ctx.font = `900 ${headlineFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
@@ -1713,83 +1945,37 @@ export async function renderCustomScenarioToCanvas(
   ctx.fillText('WHAT IF INSURANCE', width - paddingX, headerY + 24);
   ctx.restore();
 
-  // 4. Hero Photograph (Image-First Proportions with deliberate spacing)
+  // 4. Hero Photograph (Guaranteed Image-First Proportions with deliberate spacing)
   const imgY = headerY + 48;
-  const desiredImgH = isStory ? 680 : isFeed ? 440 : 280;
-  let imgH = 0;
+  const imgH = isStory ? 620 : isFeed ? 420 : 280;
 
-  if (typeof Image !== 'undefined' && config.imagePath) {
-    try {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.src = config.imagePath;
-      await new Promise<boolean>((resolve) => {
-        if (img.complete && img.naturalWidth > 0) return resolve(true);
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
-        setTimeout(() => resolve(false), 1500);
-      });
+  const customFallbackCat = config.assetCategory === 'vehicle' ? 'auto' : 'casa';
+  const customFallback = getCategoryFallbackImage(customFallbackCat);
+  const customImg = await loadCanvasImage(config.imagePath, customFallback, 3500);
+  const tagTitle = (config.visualStyleTitle || config.sceneSettingTitle)
+    ? `${config.visualStyleTitle || 'Editorial'} · ${config.sceneSettingTitle || 'Urban'}`
+    : undefined;
 
-      if (img.naturalWidth > 0) {
-        imgH = desiredImgH;
-        ctx.save();
-        drawRoundedRect(ctx, paddingX, imgY, contentWidth, imgH, 20);
-        ctx.clip();
-
-        // Aspect fill
-        const imgRatio = img.naturalWidth / img.naturalHeight;
-        const targetRatio = contentWidth / imgH;
-        let sWidth = img.naturalWidth;
-        let sHeight = img.naturalHeight;
-        let sx = 0;
-        let sy = 0;
-
-        if (imgRatio > targetRatio) {
-          sWidth = img.naturalHeight * targetRatio;
-          sx = (img.naturalWidth - sWidth) / 2;
-        } else {
-          sHeight = img.naturalWidth / targetRatio;
-          sy = (img.naturalHeight - sHeight) / 2;
-        }
-
-        if (typeof (ctx as any).drawImage === 'function') {
-          ctx.drawImage(img, sx, sy, sWidth, sHeight, paddingX, imgY, contentWidth, imgH);
-        }
-        ctx.restore();
-
-        // Border around photo
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
-        ctx.lineWidth = 1;
-        drawRoundedRect(ctx, paddingX, imgY, contentWidth, imgH, 20);
-        ctx.stroke();
-
-        // Floating Style/Setting Pill
-        if (config.visualStyleTitle || config.sceneSettingTitle) {
-          ctx.save();
-          const tag = `${config.visualStyleTitle || 'Editorial'} · ${config.sceneSettingTitle || 'Urban'}`.toUpperCase();
-          ctx.font = '800 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-          const tagW = ctx.measureText(tag).width + 24;
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
-          drawRoundedRect(ctx, paddingX + 16, imgY + 16, tagW, 28, 6);
-          ctx.fill();
-          ctx.fillStyle = BRAND_COLORS.textPrimary;
-          ctx.fillText(tag, paddingX + 28, imgY + 24);
-          ctx.restore();
-        }
-      }
-    } catch {
-      imgH = 0;
-    }
-  }
+  drawEditorialHeroImageSlot(ctx, {
+    x: paddingX,
+    y: imgY,
+    width: contentWidth,
+    height: imgH,
+    radius: 20,
+    img: customImg,
+    tagLabel: tagTitle,
+    tagVariant: 'editorial',
+    fallbackTitle: config.headline || config.scenarioTitle,
+    isStory,
+    isFeed,
+  });
 
   // 5. Short Memorable Headline (with deliberate spacing below image)
   const imgBottomCustom = imgY + imgH;
   const customGap = isStory ? 34 : isFeed ? 26 : 18;
   const customFontSize = isStory ? 44 : isFeed ? 30 : 22;
   const headlineLineHeight = isStory ? 54 : isFeed ? 38 : 28;
-  const titleY = imgH > 0
-    ? imgBottomCustom + customGap + Math.round(customFontSize * 0.85)
-    : headerY + (isStory ? 60 : 45);
+  const titleY = imgBottomCustom + customGap + Math.round(customFontSize * 0.85);
 
   ctx.fillStyle = BRAND_COLORS.textPrimary;
   ctx.font = `900 ${customFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
@@ -1867,35 +2053,35 @@ export async function renderCustomScenarioToCanvas(
   ): number => {
     ctx.save();
     ctx.fillStyle = accentColor;
-    ctx.font = '800 10px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.font = `800 ${isStory ? 14 : 12}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
     ctx.letterSpacing = '0.6px';
     ctx.fillText(label.toUpperCase(), col1X + colInnerPad, startY);
 
-    const bodyFontSize = isStory ? 13.5 : isFeed ? 12 : 10.5;
-    const bodyLineHeight = isStory ? 19 : isFeed ? 16 : 14;
+    const bodyFontSize = isStory ? 18 : isFeed ? 15 : 13;
+    const bodyLineHeight = isStory ? 25 : isFeed ? 21 : 18;
     ctx.fillStyle = '#1E293B';
     ctx.font = `500 ${bodyFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
 
     const maxLines = isStory ? 3 : 2;
     const lines = wrapText(ctx, body, colInnerW, maxLines);
     lines.forEach((l, i) => {
-      ctx.fillText(l, col1X + colInnerPad, startY + (isStory ? 16 : 13) + i * bodyLineHeight);
+      ctx.fillText(l, col1X + colInnerPad, startY + (isStory ? 22 : 18) + i * bodyLineHeight);
     });
     ctx.restore();
-    return startY + (isStory ? 16 : 13) + lines.length * bodyLineHeight;
+    return startY + (isStory ? 22 : 18) + lines.length * bodyLineHeight;
   };
 
   curY1 = renderCustomColBlock('Ce ar putea fi despăgubit', config.takeaway || 'Despăgubire aprobată conform clauzelor aplicabile din poliță', '#15803D', curY1) + sectionGap;
   curY1 = renderCustomColBlock('Ce condiții trebuie îndeplinite', 'Notificarea daunei în termen legal și măsuri de limitare a pagubei', '#0284C7', curY1) + sectionGap;
-  curY1 = renderCustomColBlock('Costuri în sarcina proprietarului', 'Franșiză contractuală (dacă există) sau uzura pieselor înlocuite', '#64748B', curY1);
+  curY1 = renderCustomColBlock('Costuri în sarcina ta', 'Franșiză contractuală (dacă există) sau uzura pieselor înlocuite', '#64748B', curY1);
   ctx.restore();
 
   // --- COLUMN 2: FĂRĂ ASIGURARE ---
   const col2X = paddingX + colW + colGap;
   ctx.save();
-  ctx.fillStyle = '#FFFDFD';
+  ctx.fillStyle = '#FFF8F8';
   ctx.strokeStyle = '#FECACA';
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 1.5;
   drawRoundedRect(ctx, col2X, compStartY, colW, compH, 16);
   ctx.fill();
   ctx.stroke();
@@ -1922,8 +2108,8 @@ export async function renderCustomScenarioToCanvas(
   ctx.fill();
 
   ctx.fillStyle = '#B91C1C';
-  ctx.font = '800 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('FĂRĂ ASIGURARE', col2X + 38, badge2Y + badge2H / 2 + 4);
+  ctx.font = '800 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillText('FĂRĂ ASIGURARE', col2X + 38, badge2Y + badge2H / 2 + 4.5);
 
   let curY2 = badge2Y + badge2H + (isStory ? 24 : 16);
 
@@ -1935,22 +2121,22 @@ export async function renderCustomScenarioToCanvas(
   ): number => {
     ctx.save();
     ctx.fillStyle = accentColor;
-    ctx.font = '800 10px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.font = `800 ${isStory ? 14 : 12}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
     ctx.letterSpacing = '0.6px';
     ctx.fillText(label.toUpperCase(), col2X + colInnerPad, startY);
 
-    const bodyFontSize = isStory ? 13.5 : isFeed ? 12 : 10.5;
-    const bodyLineHeight = isStory ? 19 : isFeed ? 16 : 14;
+    const bodyFontSize = isStory ? 18 : isFeed ? 15 : 13;
+    const bodyLineHeight = isStory ? 25 : isFeed ? 21 : 18;
     ctx.fillStyle = '#1E293B';
     ctx.font = `500 ${bodyFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
 
     const maxLines = isStory ? 3 : 2;
     const lines = wrapText(ctx, body, colInnerW, maxLines);
     lines.forEach((l, i) => {
-      ctx.fillText(l, col2X + colInnerPad, startY + (isStory ? 16 : 13) + i * bodyLineHeight);
+      ctx.fillText(l, col2X + colInnerPad, startY + (isStory ? 22 : 18) + i * bodyLineHeight);
     });
     ctx.restore();
-    return startY + (isStory ? 16 : 13) + lines.length * bodyLineHeight;
+    return startY + (isStory ? 22 : 18) + lines.length * bodyLineHeight;
   };
 
   curY2 = renderCustomCol2Block('Costuri suportate personal', 'Plată integrală a devizului de reparație din economiile curente', '#B91C1C', curY2) + sectionGap;

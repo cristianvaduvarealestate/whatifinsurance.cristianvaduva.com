@@ -383,42 +383,57 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
           </div>
 
           {/* Right Column: Canvas Live Preview (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2 bg-slate-900 rounded-3xl p-4 border border-slate-800">
-            <div className="flex items-center justify-between w-full mb-2 px-1">
-              <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+          <div className="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2 bg-slate-950 rounded-3xl p-4 sm:p-5 border border-slate-800 shadow-inner">
+            <div className="flex items-center justify-between w-full mb-3 px-1">
+              <span className="text-[11px] font-mono uppercase text-slate-300 font-bold tracking-wider flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#E10600] animate-pulse" />
                 {FORMAT_CONFIGS[format].label}
               </span>
-              <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                <Maximize2 className="w-3 h-3" />
-                Apasă pentru zoom
-              </span>
+              <button
+                type="button"
+                onClick={handleOpenLightbox}
+                className="text-[11px] text-slate-400 hover:text-white flex items-center gap-1 py-1 px-2 rounded-lg bg-slate-800/60 hover:bg-slate-800 transition-colors"
+              >
+                <Maximize2 className="w-3.5 h-3.5 text-[#E10600]" />
+                <span>Previzualizare HD</span>
+              </button>
             </div>
 
-            {/* Clickable preview container */}
+            {/* Clickable responsive preview container */}
             <button
               type="button"
               onClick={handleOpenLightbox}
-              className="relative max-w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700 flex items-center justify-center bg-black group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#E10600] transition-transform hover:scale-[1.02]"
+              className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700/80 flex items-center justify-center bg-black group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#E10600] transition-all hover:scale-[1.02] hover:border-slate-500"
               style={{
-                width: format === 'story' ? '210px' : '240px',
+                width: format === 'story' ? '250px' : '280px',
+                maxWidth: '100%',
                 aspectRatio: format === 'story' ? '9/16' : '4/5',
               }}
-              title="Apasă pentru previzualizare mare"
+              title="Apasă pentru previzualizare HD la rezoluție maximă"
+              aria-label="Apasă pentru previzualizare HD la rezoluție maximă"
             >
               {isRendering && (
-                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/80">
-                  <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/80 gap-2">
+                  <div className="w-7 h-7 border-2 border-[#E10600] border-t-transparent rounded-full animate-spin" />
+                  <span className="text-[11px] text-slate-300 font-medium">Se generează...</span>
                 </div>
               )}
               <canvas
                 ref={canvasRef}
                 className="w-full h-full object-contain block"
               />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 text-white text-xs font-bold pointer-events-none">
-                <Eye className="w-4 h-4" />
-                <span>Previzualizează mare</span>
+              <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 text-white text-xs font-bold pointer-events-none p-3 text-center">
+                <div className="p-2 rounded-full bg-white/20 backdrop-blur-sm">
+                  <Eye className="w-5 h-5 text-white" />
+                </div>
+                <span>Apasă pentru previzualizare HD</span>
+                <span className="text-[10px] text-slate-300 font-normal">Vezi imaginea la dimensiune reală</span>
               </div>
             </button>
+
+            <p className="text-[11px] text-slate-400 mt-2.5 text-center">
+              Text mare și contrast optimizat pentru feed și story pe telefon.
+            </p>
           </div>
         </div>
       </div>

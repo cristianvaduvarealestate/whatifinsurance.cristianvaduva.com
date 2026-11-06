@@ -611,7 +611,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder="Ex: Cum funcționează franșiza la CASCO? Este acoperită infiltrația prin terasă la Eurocasa? Ce fac dacă vecinul mă inundă?"
-                            className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
 
@@ -626,7 +626,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                               value={name}
                               onChange={(e) => setName(e.target.value)}
                               placeholder="Ion Popescu"
-                              className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                              className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                             />
                           </div>
                           <div>
@@ -639,7 +639,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                               value={phone}
                               onChange={(e) => setPhone(e.target.value)}
                               placeholder="0767 110 439"
-                              className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                              className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                             />
                           </div>
                         </div>
@@ -654,7 +654,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="ion.popescu@exemplu.ro"
-                            className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
 
@@ -804,7 +804,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder="Ex: Caut CASCO pentru mașină nouă, fără franșiză la furt sau o asigurare completă pentru un apartament în chirie..."
-                            className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
 
@@ -819,7 +819,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                               value={name}
                               onChange={(e) => setName(e.target.value)}
                               placeholder="Ion Popescu"
-                              className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                              className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                             />
                           </div>
                           <div>
@@ -832,7 +832,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                               value={phone}
                               onChange={(e) => setPhone(e.target.value)}
                               placeholder="0767 110 439"
-                              className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                              className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                             />
                           </div>
                         </div>
@@ -847,7 +847,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="ion.popescu@exemplu.ro"
-                            className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
 
@@ -1019,7 +1019,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder="Ex: Am o poliță CASCO la o companie și aș vrea să știu ce franșiză am la daună parțială sau când expiră contractul..."
-                            className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
 
@@ -1034,7 +1034,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                               value={name}
                               onChange={(e) => setName(e.target.value)}
                               placeholder="Ion Popescu"
-                              className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                              className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                             />
                           </div>
                           <div>
@@ -1047,7 +1047,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                               value={phone}
                               onChange={(e) => setPhone(e.target.value)}
                               placeholder="0767 110 439"
-                              className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                              className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                             />
                           </div>
                         </div>
@@ -1062,7 +1062,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="ion.popescu@exemplu.ro"
-                            className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
 
@@ -1170,7 +1170,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                               value={name}
                               onChange={(e) => setName(e.target.value)}
                               placeholder="Numele tău complet *"
-                              className="w-full py-2.5 pl-9 pr-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                              className="w-full py-2.5 pl-9 pr-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                             />
                           </div>
 
@@ -1183,7 +1183,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                                 placeholder="Număr telefon *"
-                                className="w-full py-2.5 pl-9 pr-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                                className="w-full py-2.5 pl-9 pr-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                               />
                             </div>
 
@@ -1195,7 +1195,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Adresă de e-mail *"
-                                className="w-full py-2.5 pl-9 pr-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                                className="w-full py-2.5 pl-9 pr-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                               />
                             </div>
                           </div>
@@ -1389,7 +1389,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                               value={name}
                               onChange={(e) => setName(e.target.value)}
                               placeholder="Ion Popescu"
-                              className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                              className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                             />
                           </div>
                           <div>
@@ -1402,7 +1402,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                               value={phone}
                               onChange={(e) => setPhone(e.target.value)}
                               placeholder="0767 110 439"
-                              className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                              className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                             />
                           </div>
                         </div>
@@ -1417,7 +1417,7 @@ export const PersistentQuoteCTA: React.FC = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="ion.popescu@exemplu.ro"
-                            className="w-full py-2 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-sm focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 text-[#06141B] text-base sm:text-sm min-h-[44px] focus:border-[#06141B] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
 

@@ -113,9 +113,9 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
         </div>
 
         {/* Scenario Header & Hero Card */}
-        <section className="relative rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-sm overflow-hidden">
-          <div className="space-y-6">
-            <div className="flex flex-wrap items-center gap-2.5">
+        <section className="relative rounded-3xl bg-white border border-slate-200 p-5 sm:p-10 shadow-sm overflow-hidden">
+          <div className="space-y-5 sm:space-y-6">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="py-1 px-3 rounded-full text-xs font-mono font-bold uppercase bg-slate-100 text-slate-800 border border-slate-200">
                 {scenario.categoryName}
               </span>
@@ -126,16 +126,16 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight leading-tight">
+            <h1 className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight leading-tight">
               {scenario.title}
             </h1>
 
-            <p className="text-lg sm:text-2xl text-slate-800 font-medium italic border-l-4 border-[#06141B] pl-4 py-1 leading-snug">
+            <p className="text-base sm:text-2xl text-slate-800 font-medium italic border-l-4 border-[#06141B] pl-3 sm:pl-4 py-1 leading-snug">
               „{scenario.mainQuestion}”
             </p>
 
             {/* Visual Hero Photographic Image */}
-            <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 my-6 shadow-md">
+            <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 my-4 sm:my-6 shadow-md">
               <Image
                 src={scenario.heroImage}
                 alt={`Fotografie descriptivă pentru scenariul: ${scenario.title} — ${scenario.categoryName}`}

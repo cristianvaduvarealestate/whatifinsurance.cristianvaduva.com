@@ -36,7 +36,7 @@ export const ScenarioDetailClient: React.FC<ScenarioDetailClientProps> = ({ scen
 
   return (
     <>
-      <section className="p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6">
+      <section className="p-5 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6">
         <div className="space-y-1.5 max-w-md">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#E10600] flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5" />
@@ -50,13 +50,13 @@ export const ScenarioDetailClient: React.FC<ScenarioDetailClientProps> = ({ scen
           </p>
         </div>
 
-        {/* Buttons & Viral Actions */}
+        {/* Buttons & Viral Actions with min 44px touch targets */}
         <div className="flex flex-wrap items-center gap-2.5 shrink-0">
           {/* 1. Surprinde-ți prietenii */}
           <button
             type="button"
             onClick={() => setIsShareOpen(true)}
-            className="py-3 px-4 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
+            className="py-3 px-5 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-sm min-h-[44px] active:scale-95"
           >
             <Send className="w-3.5 h-3.5 text-slate-300" />
             <span>Surprinde-ți prietenii</span>
@@ -66,17 +66,17 @@ export const ScenarioDetailClient: React.FC<ScenarioDetailClientProps> = ({ scen
           <button
             type="button"
             onClick={handleNextRandom}
-            className="py-3 px-4 rounded-full bg-white hover:bg-slate-100 border border-slate-300 text-[#06141B] font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
+            className="py-3 px-4 rounded-full bg-white hover:bg-slate-100 border border-slate-300 text-[#06141B] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-sm min-h-[44px] active:scale-95"
             title="Deschide alt scenariu ilustrativ la întâmplare"
           >
             <Shuffle className="w-3.5 h-3.5 text-[#E10600]" />
-            <span>Alt scenariu ilustrativ</span>
+            <span>Alt scenariu</span>
           </button>
 
           {/* 3. Află ce ai de verificat / Audit poliță */}
           <Link
             href={`/contact?topic=review-polita&scenario=${scenario.slug}`}
-            className="py-3 px-4 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
+            className="py-3 px-4 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-800 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all min-h-[44px] active:scale-95"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-slate-700" />
             <span>Audit clauză</span>
@@ -86,7 +86,7 @@ export const ScenarioDetailClient: React.FC<ScenarioDetailClientProps> = ({ scen
           <button
             type="button"
             onClick={handleCopy}
-            className="p-3 rounded-full bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 hover:text-[#06141B] transition-colors flex items-center justify-center shadow-sm"
+            className="p-3 rounded-full bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 hover:text-[#06141B] transition-colors flex items-center justify-center shadow-sm min-w-[44px] min-h-[44px] active:scale-95"
             aria-label="Copiază linkul scenariului"
             title="Copiază linkul"
           >

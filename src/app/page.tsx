@@ -99,39 +99,39 @@ export default function HomePage() {
                 <span className="uppercase tracking-wider">Ce se întâmplă dacă...?</span>
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-black tracking-tight text-[#06141B] leading-[1.05]">
+              <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-[68px] font-black tracking-tight text-[#06141B] leading-[1.08] break-words">
                 Ai fi acoperit <br />
                 <span className="text-slate-900 underline decoration-[#E10600] decoration-4 underline-offset-8">
                   dacă s-ar întâmpla mâine?
                 </span>
               </h1>
 
-              <p className="text-lg sm:text-xl text-slate-600 max-w-xl font-normal leading-relaxed">
+              <p className="text-base sm:text-xl text-slate-600 max-w-xl font-normal leading-relaxed">
                 Descoperă riscurile reale ale vieții cotidiene la care nu te-ai gândit niciodată. Înțelege diferența critică dintre ce presupui că acoperă o poliță și ce plătești din propriul buzunar.
               </p>
 
               {/* Action Buttons & Self-Explanatory Surprinde-mă */}
               <div className="space-y-3 pt-2">
-                <div className="flex flex-wrap items-center gap-3.5">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   {/* Signature "Surprinde-mă cu un scenariu" */}
                   <button
                     type="button"
                     onClick={handleSurpriseMe}
                     aria-label="Surprinde-mă cu un scenariu — Descoperă situații neașteptate și află ce ai putea să nu știi despre asigurări"
                     title="Surprinde-mă cu un scenariu — Descoperă situații neașteptate și află ce ai putea să nu știi despre asigurări."
-                    className="py-4 px-6 sm:px-7 rounded-full bg-[#06141B] hover:bg-slate-900 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-3 shadow-lg shadow-slate-900/20 hover:shadow-xl transition-all group"
+                    className="py-3.5 px-6 sm:px-7 rounded-full bg-[#06141B] hover:bg-slate-900 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-3 shadow-lg shadow-slate-900/20 hover:shadow-xl transition-all group min-h-[48px] active:scale-95"
                   >
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#E10600] group-hover:scale-125 transition-transform animate-pulse" />
-                    <Shuffle className="w-4 h-4 text-slate-300 group-hover:rotate-45 transition-transform" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#E10600] group-hover:scale-125 transition-transform animate-pulse shrink-0" />
+                    <Shuffle className="w-4 h-4 text-slate-300 group-hover:rotate-45 transition-transform shrink-0" />
                     <span>Surprinde-mă cu un scenariu</span>
                   </button>
 
                   {/* Explore Scenarios */}
                   <Link
                     href="/scenarii"
-                    className="py-4 px-6 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300/80 text-[#06141B] font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all"
+                    className="py-3.5 px-6 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300/80 text-[#06141B] font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all min-h-[48px] active:scale-95 text-center"
                   >
-                    <Compass className="w-4 h-4 text-slate-600" />
+                    <Compass className="w-4 h-4 text-slate-600 shrink-0" />
                     <span>Explorează 121 Scenarii</span>
                   </Link>
 
@@ -139,7 +139,7 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={() => setIsPolicyModalOpen(true)}
-                    className="py-4 px-4 text-slate-600 hover:text-[#06141B] text-sm font-semibold underline underline-offset-4 transition-colors"
+                    className="py-3 px-3 text-slate-600 hover:text-[#06141B] text-xs sm:text-sm font-semibold underline underline-offset-4 transition-colors text-center"
                   >
                     Ai deja o poliță? Verifică clauzele
                   </button>
@@ -147,24 +147,24 @@ export default function HomePage() {
               </div>
 
               {/* Micro-metrics Editorial */}
-              <div className="pt-8 border-t border-slate-200 grid grid-cols-3 gap-6 text-xs">
+              <div className="pt-6 sm:pt-8 border-t border-slate-200 grid grid-cols-3 gap-2 sm:gap-6 text-xs">
                 <div>
-                  <span className="font-mono text-xl font-black text-[#06141B] block">
+                  <span className="font-mono text-lg sm:text-xl font-black text-[#06141B] block">
                     121
                   </span>
-                  <span className="text-slate-500 font-medium">Scenarii Practice</span>
+                  <span className="text-slate-500 font-medium text-[11px] sm:text-xs">Scenarii Practice</span>
                 </div>
                 <div>
-                  <span className="font-mono text-xl font-black text-[#06141B] block">
+                  <span className="font-mono text-lg sm:text-xl font-black text-[#06141B] block">
                     10
                   </span>
-                  <span className="text-slate-500 font-medium">Categorii de Risc</span>
+                  <span className="text-slate-500 font-medium text-[11px] sm:text-xs">Categorii de Risc</span>
                 </div>
                 <div>
-                  <span className="font-mono text-xl font-black text-[#E10600] block">
+                  <span className="font-mono text-lg sm:text-xl font-black text-[#E10600] block">
                     0 Lei
                   </span>
-                  <span className="text-slate-500 font-medium">Acces Liber &amp; Gratuit</span>
+                  <span className="text-slate-500 font-medium text-[11px] sm:text-xs">Acces Gratuit</span>
                 </div>
               </div>
             </div>

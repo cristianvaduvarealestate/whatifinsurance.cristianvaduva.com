@@ -312,7 +312,7 @@ export default function QuizPage() {
                       id="quiz-next-button"
                       data-testid="quiz-next"
                       onClick={handleNext}
-                      className="px-6 py-3 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition-all inline-flex items-center gap-2 shadow-sm"
+                      className="w-full sm:w-auto px-6 py-3.5 min-h-[44px] rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 shadow-sm"
                     >
                       <span>
                         {currentIndex + 1 < questions.length ? 'Următoarea întrebare' : 'Vezi rezultatul final'}

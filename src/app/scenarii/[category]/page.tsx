@@ -169,7 +169,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="mb-10 flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
           <Link
             href="/scenarii"
-            className="py-1.5 px-3 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 whitespace-nowrap transition-colors"
+            className="py-2 px-3.5 min-h-[38px] inline-flex items-center rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 whitespace-nowrap transition-colors"
           >
             Toate (121)
           </Link>
@@ -177,7 +177,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <Link
               key={c.id}
               href={`/scenarii/${c.id}`}
-              className={`py-1.5 px-3 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              className={`py-2 px-3.5 min-h-[38px] inline-flex items-center rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
                 c.id === category.id
                   ? 'bg-[#06141B] text-white shadow-xs'
                   : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
@@ -220,7 +220,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
           <Link
             href={`/contact?topic=review-polita&cat=${category.id}`}
-            className="py-3 px-6 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-sm shrink-0 whitespace-nowrap"
+            className="w-full sm:w-auto py-3 px-6 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 whitespace-nowrap min-h-[44px] flex items-center justify-center text-center"
           >
             Solicită verificare gratuită
           </Link>

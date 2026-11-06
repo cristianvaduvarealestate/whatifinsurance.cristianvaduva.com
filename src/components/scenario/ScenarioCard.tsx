@@ -79,7 +79,7 @@ export const ScenarioCard: React.FC<ScenarioCardProps> = ({ scenario, priority =
           <Link
             href={`/scenarii/${scenario.categoryId}/${scenario.slug}`}
             aria-label={`Deschide scenariul: ${scenario.title}`}
-            className="flex-1 py-2 px-3 rounded-lg bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+            className="flex-1 py-2.5 px-3 rounded-xl bg-[#06141B] hover:bg-slate-800 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-colors shadow-sm min-h-[44px]"
           >
             <span>Deschide scenariul</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-slate-300" />
@@ -89,7 +89,7 @@ export const ScenarioCard: React.FC<ScenarioCardProps> = ({ scenario, priority =
             type="button"
             onClick={() => setIsShareOpen(true)}
             aria-label={`Distribuie ${scenario.title}`}
-            className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-[#06141B] transition-colors"
+            className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-[#06141B] transition-colors active:scale-95"
             title="Distribuie acest scenariu de risc"
           >
             <Share2 className="w-4 h-4" />

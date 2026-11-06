@@ -5,7 +5,7 @@ import { CATEGORIES } from '@/data/categories';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-slate-50 border-t border-slate-200/80 pt-16 pb-12 mt-20">
+    <footer className="w-full bg-slate-50 border-t border-slate-200/80 pt-16 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:pb-12 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Footer Grid */}

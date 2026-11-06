@@ -313,7 +313,7 @@ export default function PolicyChecklistPage() {
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
             <Link
               href="/contact?topic=review-polita"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 shadow-sm"
+              className="w-full sm:w-auto px-6 py-3.5 min-h-[44px] rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 shadow-sm"
             >
               <span>Cere o analiză dedicată de clauze</span>
               <ArrowRight className="w-4 h-4 text-slate-300" />
@@ -321,7 +321,7 @@ export default function PolicyChecklistPage() {
 
             <button
               onClick={() => window.print()}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-full border border-slate-300 hover:bg-slate-100 text-[#06141B] text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 min-h-[44px] rounded-full border border-slate-300 hover:bg-slate-100 text-[#06141B] text-xs sm:text-sm font-bold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2"
             >
               <Download className="w-4 h-4 text-slate-600" />
               <span>Imprimă / Salvează PDF</span>
