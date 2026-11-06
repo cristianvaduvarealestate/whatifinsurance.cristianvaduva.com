@@ -216,7 +216,7 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-[#E10600] text-xs font-mono font-bold uppercase tracking-wider mb-1">
               <Sparkles className="w-3.5 h-3.5" />
-              Trimite prietenilor · Export &amp; Distribuire
+              Trimite prietenilor · Export & Distribuire
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-[#06141B]">
               Trimite dilema: Tu ce crezi că se întâmplă?

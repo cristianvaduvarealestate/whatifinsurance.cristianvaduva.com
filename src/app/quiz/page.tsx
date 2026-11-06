@@ -44,6 +44,7 @@ import {
   CheckSquare,
   Mail,
   Send,
+  Compass,
 } from 'lucide-react';
 
 export default function QuizPage() {
@@ -72,6 +73,47 @@ export default function QuizPage() {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [resultCopied, setResultCopied] = useState(false);
+
+  const getShareMessage = () => {
+    if (score >= Math.round(questions.length * 0.75)) {
+      return `Am verificat ${questions.length} situații și am identificat ${score} lucruri pe care trebuie să le verific în polița mea. Tu câte ai?`;
+    }
+    if (score >= Math.round(questions.length * 0.5)) {
+      return `Scorul meu: ${score}/${questions.length}. Cât de bine îți cunoști asigurările? Am aflat ce clauze decid de fapt despăgubirea.`;
+    }
+    return `Am terminat verificarea. Acum știu ce clauze trebuie să citesc mai atent în poliță (${score}/${questions.length} corecte).`;
+  };
+
+  const handleCopyResult = async () => {
+    const text = `${getShareMessage()}\n\nVerifică-ți și tu polița gratuit: https://whatifinsurance.cristianvaduva.com/quiz`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setResultCopied(true);
+      setTimeout(() => setResultCopied(false), 2500);
+    } catch {
+      // Clipboard fallback
+    }
+  };
+
+  const handleNativeShare = async () => {
+    const text = getShareMessage();
+    const url = 'https://whatifinsurance.cristianvaduva.com/quiz';
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Rezultat Verificare Asigurări — WHATIF Insurance',
+          text,
+          url,
+        });
+        return;
+      } catch {
+        // Fallback to whatsapp if cancelled/failed
+      }
+    }
+    const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n' + url)}`;
+    window.open(waUrl, '_blank');
+  };
 
   // Initialize a fresh randomized quiz session
   const initNewQuiz = (customPreviousIds?: string[]) => {
@@ -436,24 +478,73 @@ export default function QuizPage() {
                       : 'Răspunsurile tale s-au bazat pe logica de zi cu zi. În asigurări, pagina de excluderi și franșize este cea care decide dacă o daună se plătește sau nu.'}
                   </p>
 
+                  {/* Shareable Result Box (Section 12) */}
+                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-4 max-w-xl mx-auto shadow-2xs">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#E10600]" />
+                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-800">
+                          WHATIF INSURANCE · Rezultat Distribuibil
+                        </span>
+                      </div>
+                      <span className="text-xs font-mono font-bold text-slate-500">
+                        Scor: {score}/{questions.length}
+                      </span>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-white border border-slate-200 text-xs sm:text-sm text-slate-800 font-medium italic leading-relaxed">
+                      „{getShareMessage()}”
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                      <button
+                        type="button"
+                        onClick={handleCopyResult}
+                        className="flex-1 min-w-[140px] py-2.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-[#06141B] text-xs font-bold border border-slate-300 transition-colors inline-flex items-center justify-center gap-2"
+                      >
+                        {resultCopied ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            <span className="text-emerald-700">Copiat în clipboard!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5 text-slate-600" />
+                            <span>Copiază rezultatul</span>
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={handleNativeShare}
+                        className="flex-1 min-w-[140px] py-2.5 px-4 rounded-xl bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold transition-colors inline-flex items-center justify-center gap-2 shadow-2xs"
+                      >
+                        <Share2 className="w-3.5 h-3.5 text-slate-300" />
+                        <span>Distribuie (WhatsApp / Social)</span>
+                      </button>
+                    </div>
+
+                    <p className="text-[10px] text-slate-600 italic border-t border-slate-200/60 pt-2 leading-relaxed">
+                      * Notă educațională: Acest scor reflectă familiaritatea cu anumite mecanisme și clauze contractuale uzuale, neconstituind o evaluare oficială a siguranței financiare sau a valorii poliței tale. Fără colectare de date personale.
+                    </p>
+                  </div>
+
                   <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                     <button
                       type="button"
-                      onClick={() => {
-                        setSelectedCardForShare(undefined);
-                        setIsShareModalOpen(true);
-                      }}
+                      onClick={handleRestartQuiz}
                       className="px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#06141B] text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-2 border border-slate-300"
                     >
-                      <Share2 className="w-3.5 h-3.5 text-[#E10600]" />
-                      <span>Distribuie scorul tău</span>
+                      <RotateCcw className="w-3.5 h-3.5 text-slate-600" />
+                      <span>Fă un nou test</span>
                     </button>
                     <Link
-                      href="/verificare-polita"
+                      href="/scenarii"
                       className="px-5 py-2.5 rounded-full bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition-all inline-flex items-center gap-2 shadow-sm"
                     >
-                      <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Checklist Personalizat (5-8 Clauze)</span>
+                      <Compass className="w-3.5 h-3.5 text-slate-300" />
+                      <span>Explorează toate cele 121 de scenarii</span>
                     </Link>
                   </div>
                 </div>

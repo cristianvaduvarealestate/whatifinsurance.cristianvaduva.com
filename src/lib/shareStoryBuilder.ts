@@ -2,10 +2,9 @@
  * Rich Share Story Builder
  * WHAT IF INSURANCE — Studio 3.0 Rich Share Architecture
  * 
- * Implements the deliberate two-layer sharing experience:
- * Layer 1 (Visual Image): Strong relevant photograph, memorable headline, concise central insight.
- * Layer 2 (Accompanying Share Text): Comprehensive self-contained mini-story with situation,
- * contractual distinction, practical checklist, verified source, and natural discussion prompt.
+ * Formats natural, clean, authentic shareable messages for WhatsApp,
+ * Instagram, Facebook, Telegram and native sharing sheets, completely free of
+ * internal debugging jargon, duplicate prefixes, or artificial labels.
  */
 
 import { CuratedGalleryScenario } from '@/data/curatedGallery';
@@ -23,7 +22,7 @@ export interface RichShareStory {
 }
 
 /**
- * Builds a rich share story for Builder Presets
+ * Builds a natural, clean share message for Builder Presets
  */
 export function buildBuilderShareStory(
   preset: ScenarioPreset,
@@ -41,15 +40,17 @@ export function buildBuilderShareStory(
   const formattedShareText = [
     `„${headline}”`,
     ``,
-    `📍 Situația: ${situation}`,
-    `⚖️ Diferența contractuală: ${insuranceDistinction}`,
-    `🔍 Ce ai de verificat: ${practicalTakeaway}`,
-    `📜 Sursă documentară: ${sourceQualification}`,
+    situation,
     ``,
-    `💬 ${sharingPrompt}`,
+    `⚖️ ${insuranceDistinction}`,
+    practicalTakeaway ? `🔍 ${practicalTakeaway}` : '',
+    ``,
+    sharingPrompt,
     ``,
     `Descoperă simularea completă și verifică-ți polița: ${shareUrl}`,
-  ].join('\n');
+  ]
+    .filter(Boolean)
+    .join('\n');
 
   return {
     headline,
@@ -63,7 +64,7 @@ export function buildBuilderShareStory(
 }
 
 /**
- * Builds a rich share story for Curated Gallery Scenarios
+ * Builds a natural, clean share message for Curated Gallery Scenarios
  */
 export function buildCuratedGalleryShareStory(
   scenario: CuratedGalleryScenario,
@@ -79,15 +80,17 @@ export function buildCuratedGalleryShareStory(
   const formattedShareText = [
     `„${headline}”`,
     ``,
-    `📍 Situația: ${situation}`,
-    `⚖️ Ce spune contractul: ${insuranceDistinction}`,
-    `🔍 Ce verifici azi: ${practicalTakeaway}`,
-    `📜 Cadru de reglementare: ${sourceQualification}`,
+    situation,
     ``,
-    `💬 ${sharingPrompt}`,
+    `⚖️ ${insuranceDistinction}`,
+    practicalTakeaway ? `🔍 ${practicalTakeaway}` : '',
+    ``,
+    sharingPrompt,
     ``,
     `Află cum funcționează dosarul de daună pe: ${shareUrl}`,
-  ].join('\n');
+  ]
+    .filter(Boolean)
+    .join('\n');
 
   return {
     headline,
@@ -101,7 +104,7 @@ export function buildCuratedGalleryShareStory(
 }
 
 /**
- * Builds a rich share story for Editorial Concepts
+ * Builds a natural, clean share message for Editorial Concepts
  */
 export function buildEditorialShareStory(
   card: EditorialCard,
@@ -115,61 +118,65 @@ export function buildEditorialShareStory(
   let sharingPrompt = `Tu știai de această diferență contractuală sau ai fi aflat doar la refuzul dosarului de daună?`;
 
   if (card.conceptId === 'hidden_detail') {
-    situation = `Clauză identificată: ${card.clauseName}. ${card.summary}`;
+    situation = card.summary;
     insuranceDistinction = card.realConsequence;
-    practicalTakeaway = `Unde cauți în contract: ${card.whereToFind}`;
+    practicalTakeaway = card.takeaway;
     sharingPrompt = `Ai verificat dacă locuința ta respectă această condiție de siguranță?`;
   } else if (card.conceptId === 'myth_vs_fact') {
-    situation = `${card.mythText} — ${card.mythReason}`;
+    situation = card.summary;
     insuranceDistinction = `${card.factText} ${card.contractualReality}`;
     practicalTakeaway = card.takeaway;
     sharingPrompt = `Tu credeai că ești acoperit în acest caz?`;
   } else if (card.conceptId === 'what_would_you_do') {
     situation = card.scenarioDilemma;
-    insuranceDistinction = `Opțiunea A: ${card.optionA.label} (${card.optionA.explanation}) vs Opțiunea B: ${card.optionB.label} (${card.optionB.explanation}).`;
-    practicalTakeaway = `Verdict legal: ${card.verdictLaw}`;
-    sharingPrompt = `Tu ce ai alege pe loc: Amiabilă sau Poliție?`;
+    insuranceDistinction = card.verdictLaw || card.takeaway;
+    practicalTakeaway = card.takeaway;
+    sharingPrompt = card.id === 'ww-showroom-ecran'
+      ? `Tu ai verificat dacă asigurarea ta de locuință acoperă astfel de incidente produse de cei mici?`
+      : `Tu ce ai alege pe loc: Amiabilă sau Poliție?`;
   } else if (card.conceptId === 'fine_print') {
-    situation = `Suma asigurată declarată pe clădire: ${card.totalInsuredAmount}, dar sublimita pe obiect individual este de doar ${card.sublimitAmount}.`;
-    insuranceDistinction = `Cost suportat din buzunar: ${card.outOfPocketCost}. ${card.clauseExplanation}`;
+    situation = card.summary;
+    insuranceDistinction = card.clauseExplanation;
     practicalTakeaway = card.takeaway;
     sharingPrompt = `Ai verificat dacă obiectele tale de valoare au nevoie de declarare nominală sau seif?`;
   } else if (card.conceptId === 'two_policies') {
-    situation = card.declaredAssumptions;
-    insuranceDistinction = `Polița A (${card.policyA.name}): ${card.policyA.coverage} (Buzunar: ${card.policyA.userOutPocket}) vs Polița B (${card.policyB.name}): ${card.policyB.coverage} (Buzunar: ${card.policyB.userOutPocket}).`;
-    practicalTakeaway = `Diferența de fond: ${card.keyDifferenceReason}`;
+    situation = card.summary;
+    insuranceDistinction = card.keyDifferenceReason;
+    practicalTakeaway = card.takeaway;
     sharingPrompt = `Tu ce tip de poliță ai semnat: standard sau extinsă cu căutare de avarie?`;
   } else if (card.conceptId === 'did_you_know') {
-    situation = card.statHighlight;
-    insuranceDistinction = card.contextExplanation;
-    practicalTakeaway = card.practicalInsight;
+    situation = card.summary;
+    insuranceDistinction = `${card.contextExplanation} ${card.practicalInsight}`;
+    practicalTakeaway = card.takeaway;
     sharingPrompt = `Știai această regulă strictă înainte de următorul zbor de vacanță?`;
   } else if (card.conceptId === 'check_policy') {
-    situation = `Audit rapid: ${card.questionsToCheck.map((q) => q.question).join(' · ')}`;
-    insuranceDistinction = card.questionsToCheck.map((q) => `${q.question}: ${q.reason}`).join(' ');
-    practicalTakeaway = `Unde găsești în contract: ${card.whereToLookInContract}`;
+    situation = card.summary;
+    insuranceDistinction = card.questionsToCheck.map((q) => q.question).join(' · ');
+    practicalTakeaway = card.takeaway;
     sharingPrompt = `Când ai citit ultima oară clauzele din anexa poliței tale CASCO?`;
   } else if (card.conceptId === 'challenge_friend') {
     situation = card.provocation;
-    insuranceDistinction = `Capcana comună: ${card.trapAssumption} | Răspuns contractual real: ${card.realAnswer}`;
+    insuranceDistinction = card.realAnswer;
     practicalTakeaway = card.takeaway;
-    sharingPrompt = `Surprinde-ți prietenii: Trimite-le provocarea și vezi cine ar ști răspunsul contractual corect!`;
+    sharingPrompt = `Surprinde-ți prietenii: Trimite-le această provocare și vezi dacă știu răspunsul contractual corect!`;
   }
 
   const sourceQualification = card.sourceNote || card.factualProvenance.documentTitle;
 
   const formattedShareText = [
-    `[${concept.romanianBadge.toUpperCase()}] „${headline}”`,
+    `„${headline}”`,
     ``,
-    `📍 Situația: ${situation}`,
-    `⚖️ Diferența contractuală: ${insuranceDistinction}`,
-    `🔍 Ce ai de verificat: ${practicalTakeaway}`,
-    `📜 Sursă verificată: ${sourceQualification}`,
+    situation,
     ``,
-    `💬 ${sharingPrompt}`,
+    `⚖️ ${insuranceDistinction}`,
+    practicalTakeaway ? `🔍 ${practicalTakeaway}` : '',
     ``,
-    `Vezi explicația completă și sursele pe: ${shareUrl}`,
-  ].join('\n');
+    sharingPrompt,
+    ``,
+    `Vezi analiza completă pe: ${shareUrl}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
 
   return {
     headline,

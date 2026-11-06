@@ -53,7 +53,7 @@ export const CASA_SCENARIOS: Scenario[] = [
     immediateSteps: [
       'Oprește imediat robinetul general de alimentare cu apă din apartament sau de la branșamentul imobilului.',
       'Fotografiază și filmează nivelul apei, bunurile afectate și punctul de scurgere înainte de a curăța.',
-      'Anunță dispeceratul de daune al asigurătorului pentru deschiderea dosarului în termenul stipulat (uzual 48h).'
+      'Anunță dispeceratul de daune al asigurătorului pentru deschiderea dosarului respectând termenul de notificare prevăzut în poliță.'
     ],
     usefulDocuments: [
       'Proces-verbal de constatare a avariei emis de asociația de proprietari sau instalatorul autorizat.',
@@ -1176,7 +1176,7 @@ export const CASA_SCENARIOS: Scenario[] = [
         'Condițiile de asigurare impun măsuri preventive și pot exclude daunele produse în imobile lăsate neocupate pe perioade îndelungate fără notificare.',
         'Dauna s-a agravat enorm din lipsa unei intervenții prompte.'
       ],
-      summary: 'Nerespectarea clauzei de neocupare lasă proprietarul fără acoperire.'
+      summary: 'Nerespectarea clauzei de neocupare poate duce la respingerea despăgubirii conform condițiilor poliței.'
     },
     withInsurance: {
       title: 'Cu notificare de absență sau clauză specială de neocupare prelungită',

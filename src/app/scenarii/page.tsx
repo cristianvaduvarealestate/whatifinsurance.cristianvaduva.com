@@ -6,8 +6,8 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { CATEGORIES } from '@/data/categories';
 import { SCENARIOS } from '@/data/scenarios';
 import { ScenarioCard } from '@/components/scenario/ScenarioCard';
-import { CategoryId } from '@/types/scenario';
-import { Search, Filter, Shield, Compass, ArrowLeft, X, RotateCcw } from 'lucide-react';
+import { CategoryId, UserProfileId } from '@/types/scenario';
+import { Search, Filter, Shield, Compass, ArrowLeft, X, RotateCcw, UserCheck, Sparkles } from 'lucide-react';
 
 export default function ScenariiExplorerPage() {
   return (
@@ -123,6 +123,31 @@ const matchesRiskLevel = (scenario: typeof SCENARIOS[0], riskLevel: string): boo
   return true;
 };
 
+
+
+const PROFILES_CONFIG: { id: UserProfileId; label: string; description: string }[] = [
+  { id: 'proprietar', label: 'Sunt proprietar', description: 'apă, incendiu, furt, fenomene naturale, răspundere față de vecini' },
+  { id: 'chirias', label: 'Sunt chiriaș', description: 'bunuri personale, avarii, răspundere civilă, daune locuinței' },
+  { id: 'sofer', label: 'Sunt șofer', description: 'CASCO, RCA, parcare, vandalism, fenomene naturale' },
+  { id: 'parinte', label: 'Sunt părinte', description: 'răspundere civilă, accidente, bunuri, situații legate de copii' },
+  { id: 'antreprenor', label: 'Sunt antreprenor', description: 'bunuri comerciale, răspundere profesională, cyber, întreruperea activității' },
+  { id: 'calator', label: 'Călătoresc frecvent', description: 'bagaje, anulări, asistență medicală, întârzieri' },
+];
+
+function normalizeRomanian(str: string): string {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ă/g, 'a')
+    .replace(/â/g, 'a')
+    .replace(/î/g, 'i')
+    .replace(/ș/g, 's')
+    .replace(/ş/g, 's')
+    .replace(/ț/g, 't')
+    .replace(/ţ/g, 't');
+}
+
 function ScenariiContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -138,6 +163,44 @@ function ScenariiContent() {
   const [selectedContext, setSelectedContext] = useState<string>(initialContext);
   const [sortBy, setSortBy] = useState<string>(initialSort);
   const [searchQuery, setSearchQuery] = useState<string>(initialSearch);
+  const [selectedProfiles, setSelectedProfiles] = useState<UserProfileId[]>([]);
+
+  // Load saved personalization preferences locally from localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('whatif_user_profiles');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setSelectedProfiles(parsed);
+        }
+      }
+    } catch {
+      // Local storage not accessible or empty
+    }
+  }, []);
+
+  // Save selected profiles locally without tracking any PII
+  const toggleProfile = (profileId: UserProfileId) => {
+    setSelectedProfiles((prev) => {
+      const next = prev.includes(profileId)
+        ? prev.filter((p) => p !== profileId)
+        : [...prev, profileId];
+      try {
+        localStorage.setItem('whatif_user_profiles', JSON.stringify(next));
+      } catch {
+        // Storage fail-safe
+      }
+      return next;
+    });
+  };
+
+  const clearProfiles = () => {
+    setSelectedProfiles([]);
+    try {
+      localStorage.removeItem('whatif_user_profiles');
+    } catch {}
+  };
 
   // Sync state changes with URL query string cleanly
   useEffect(() => {
@@ -154,22 +217,42 @@ function ScenariiContent() {
   }, [selectedCategory, selectedRisk, selectedContext, sortBy, searchQuery]);
 
   const filteredScenarios = useMemo(() => {
+    const normalizedQuery = normalizeRomanian(searchQuery.trim());
+
     const list = SCENARIOS.filter((scenario) => {
       const matchesCategory =
         selectedCategory === 'all' || scenario.categoryId === selectedCategory;
 
-      const matchesSearch =
-        searchQuery.trim() === '' ||
-        scenario.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        scenario.mainQuestion.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        scenario.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (scenario.tags &&
-          scenario.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase())));
+      let matchesSearch = true;
+      if (normalizedQuery !== '') {
+        const titleNorm = normalizeRomanian(scenario.title);
+        const questionNorm = normalizeRomanian(scenario.mainQuestion);
+        const descNorm = normalizeRomanian(scenario.shortDescription);
+        const sitNorm = normalizeRomanian(scenario.situation);
+        const catNorm = normalizeRomanian(scenario.categoryName);
+        const tagsNorm = (scenario.tags || []).map(normalizeRomanian);
+        const keywordsNorm = (scenario.searchKeywords || []).map(normalizeRomanian);
+
+        matchesSearch =
+          titleNorm.includes(normalizedQuery) ||
+          questionNorm.includes(normalizedQuery) ||
+          descNorm.includes(normalizedQuery) ||
+          sitNorm.includes(normalizedQuery) ||
+          catNorm.includes(normalizedQuery) ||
+          tagsNorm.some((t) => t.includes(normalizedQuery)) ||
+          keywordsNorm.some((k) => k.includes(normalizedQuery));
+      }
 
       const matchesContext = matchesContextSituation(scenario, selectedContext);
       const matchesRisk = matchesRiskLevel(scenario, selectedRisk);
 
-      return matchesCategory && matchesSearch && matchesContext && matchesRisk;
+      // Profile match filter (if user selected one or more profiles)
+      const matchesProfile =
+        selectedProfiles.length === 0 ||
+        (scenario.userProfiles &&
+          selectedProfiles.some((p) => scenario.userProfiles?.includes(p)));
+
+      return matchesCategory && matchesSearch && matchesContext && matchesRisk && matchesProfile;
     });
 
     // Sorting
@@ -185,14 +268,15 @@ function ScenariiContent() {
       return [...list].sort((a, b) => getWeight(b) - getWeight(a));
     }
     return list;
-  }, [selectedCategory, searchQuery, selectedContext, selectedRisk, sortBy]);
+  }, [selectedCategory, searchQuery, selectedContext, selectedRisk, sortBy, selectedProfiles]);
 
   const hasActiveFilters =
     selectedCategory !== 'all' ||
     selectedRisk !== 'all' ||
     selectedContext !== 'all' ||
     sortBy !== 'relevanta' ||
-    searchQuery.trim() !== '';
+    searchQuery.trim() !== '' ||
+    selectedProfiles.length > 0;
 
   const handleResetFilters = () => {
     setSelectedCategory('all');
@@ -200,6 +284,7 @@ function ScenariiContent() {
     setSelectedContext('all');
     setSortBy('relevanta');
     setSearchQuery('');
+    clearProfiles();
   };
 
   return (
@@ -235,33 +320,100 @@ function ScenariiContent() {
           </p>
         </div>
 
+        {/* Personalization Entry: Cum arată viața ta? */}
+        <section className="p-6 rounded-3xl bg-slate-900 text-white space-y-4 mb-8 shadow-md">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="space-y-1">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#E10600] font-bold flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" />
+                Personalizează Catalogul
+              </span>
+              <h2 className="text-xl sm:text-2xl font-black tracking-tight">
+                Cum arată viața ta?
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+                Selectează unul sau mai multe profiluri pentru a prioritiza riscurile care te vizează direct. Selecția este salvată local în browser, fără colectare de date personale.
+              </p>
+            </div>
+            {selectedProfiles.length > 0 && (
+              <button
+                type="button"
+                onClick={clearProfiles}
+                className="text-xs font-semibold text-slate-400 hover:text-white underline underline-offset-4 self-start sm:self-auto shrink-0"
+              >
+                Resetează profilurile ({selectedProfiles.length})
+              </button>
+            )}
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 pt-2">
+            {PROFILES_CONFIG.map((profile) => {
+              const isSelected = selectedProfiles.includes(profile.id);
+              return (
+                <button
+                  key={profile.id}
+                  type="button"
+                  onClick={() => toggleProfile(profile.id)}
+                  title={profile.description}
+                  className={`p-3 rounded-2xl text-left border transition-all flex flex-col justify-between gap-2 min-h-[72px] ${
+                    isSelected
+                      ? 'bg-white text-slate-950 border-white shadow-lg shadow-white/10 ring-2 ring-[#E10600]'
+                      : 'bg-slate-800/80 text-slate-200 border-slate-700/80 hover:bg-slate-800 hover:border-slate-600'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-xs font-bold leading-tight">
+                      {profile.label}
+                    </span>
+                    {isSelected && (
+                      <span className="w-2 h-2 rounded-full bg-[#E10600] shrink-0" />
+                    )}
+                  </div>
+                  <span className={`text-[10px] line-clamp-1 ${isSelected ? 'text-slate-600' : 'text-slate-400'}`}>
+                    {profile.description}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {selectedProfiles.length > 0 && (
+            <div className="pt-2 flex items-center justify-between text-xs text-slate-300 border-t border-slate-800">
+              <span>
+                Filtrare activă după profil: <strong className="text-white">{filteredScenarios.length}</strong> din {SCENARIOS.length} scenarii relevante
+              </span>
+            </div>
+          )}
+        </section>
+
         {/* Filter Toolbar Box */}
         <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-6 mb-8">
           {/* Row 1: Search + Sort + Reset */}
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-            {/* Search Input */}
-            <div className="relative flex-1">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Caută în cele 121 de cazuri (ex: țeavă, franșiză, vecin, furtună, zbor)..."
-                className="w-full py-2.5 pl-10 pr-10 rounded-2xl bg-white border border-slate-300 text-[#06141B] text-xs sm:text-sm min-h-[44px] focus:border-[#06141B] focus:outline-none placeholder:text-slate-400 shadow-2xs"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery('')}
-                  aria-label="Șterge căutarea"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-slate-800"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
+          <div className="space-y-3">
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+              {/* Search Input */}
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Caută în cele 121 de cazuri (ex: țeavă, franșiză, vecin, furtună, zbor)..."
+                  className="w-full py-2.5 pl-10 pr-10 rounded-2xl bg-white border border-slate-300 text-[#06141B] text-xs sm:text-sm min-h-[44px] focus:border-[#06141B] focus:outline-none placeholder:text-slate-400 shadow-2xs"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    aria-label="Șterge căutarea"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-slate-800"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
 
-            {/* Sort & Reset */}
+              {/* Sort & Reset */}
             <div className="flex items-center gap-3 shrink-0">
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-mono font-bold uppercase text-slate-500 hidden sm:inline">
@@ -288,6 +440,30 @@ function ScenariiContent() {
                   <span>Resetează</span>
                 </button>
               )}
+            </div>
+          </div>
+
+            {/* Quick search suggestions */}
+            <div className="flex items-center gap-1.5 flex-wrap text-[11px] text-slate-500 pt-1">
+              <span className="font-semibold text-slate-700">Sugestii rapide:</span>
+              {[
+                'țeavă crăpată de ger',
+                'inundație de la vecin',
+                'copil a spart ceva',
+                'lovit mașina în parcare',
+                'bagaj pierdut',
+                'grindină',
+                'trotinetă electrică'
+              ].map((query) => (
+                <button
+                  key={query}
+                  type="button"
+                  onClick={() => setSearchQuery(query)}
+                  className="px-2.5 py-1 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-800 transition-colors cursor-pointer text-[11px]"
+                >
+                  {query}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -433,6 +609,35 @@ function ScenariiContent() {
                 Încearcă să relaxezi criteriile de căutare sau resetează filtrele active pentru a vedea întregul catalog de 121 de cazuri.
               </p>
             </div>
+
+            <div className="pt-2">
+              <span className="text-[11px] font-mono text-slate-500 block mb-2 font-semibold">Încearcă o căutare frecventă:</span>
+              <div className="flex flex-wrap items-center justify-center gap-1.5">
+                {[
+                  'țeavă crăpată de ger',
+                  'inundație de la vecin',
+                  'copil a spart ceva',
+                  'lovit mașina în parcare',
+                  'bagaj pierdut',
+                  'grindină'
+                ].map((sug) => (
+                  <button
+                    key={sug}
+                    type="button"
+                    onClick={() => {
+                      setSelectedCategory('all');
+                      setSelectedRisk('all');
+                      setSelectedContext('all');
+                      setSearchQuery(sug);
+                    }}
+                    className="px-2.5 py-1 rounded-full bg-white border border-slate-300 text-slate-800 text-xs hover:border-slate-500 transition-colors"
+                  >
+                    {sug}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <button
               type="button"
               onClick={handleResetFilters}

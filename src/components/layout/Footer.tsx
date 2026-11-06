@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
                   WHAT IF INSURANCE
                 </span>
                 <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500">
-                  Real-Life Scenario Intelligence
+                  Scenarii din viața reală &amp; Prevenție
                 </span>
               </div>
             </div>

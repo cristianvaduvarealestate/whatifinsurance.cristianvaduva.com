@@ -280,7 +280,7 @@ export const Navbar: React.FC = () => {
 
                 <div className="flex items-center gap-x-1.5 mt-1 leading-tight">
                   <span className="text-[10px] font-mono font-bold tracking-[0.14em] uppercase text-slate-400 shrink-0">
-                    RISK INTELLIGENCE PLATFORM
+                    PREVENȚIE ȘI INFORMARE ÎN ASIGURĂRI
                   </span>
                   <span className="text-slate-300 text-[10px]">·</span>
                   <span className="text-[11.5px] font-medium text-slate-500 truncate">

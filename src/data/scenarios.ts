@@ -11,8 +11,9 @@ import { luxuryScenarios } from './scenarios/luxury';
 import { proprietariScenarios } from './scenarios/proprietari';
 import { familieScenarios } from './scenarios/familie';
 
-// Complete aggregated scenario library (120+ authentic scenarios)
-export const SCENARIOS: Scenario[] = [
+import { SCENARIO_INTELLIGENCE } from './scenarioIntelligence';
+
+const RAW_SCENARIOS: Scenario[] = [
   ...casaScenarios,
   ...autoScenarios,
   ...calatoriiScenarios,
@@ -24,6 +25,26 @@ export const SCENARIOS: Scenario[] = [
   ...proprietariScenarios,
   ...familieScenarios
 ];
+
+// Complete aggregated scenario library (121 authentic scenarios with enriched verified intelligence)
+export const SCENARIOS: Scenario[] = RAW_SCENARIOS.map((scenario) => {
+  const intel = SCENARIO_INTELLIGENCE[scenario.id];
+  if (!intel) return scenario;
+  return {
+    ...scenario,
+    financialEstimate: intel.financialEstimate,
+    editorialStatus: intel.editorialStatus,
+    editorialReviewDate: intel.editorialReviewDate,
+    contractualReviewDate: intel.contractualReviewDate,
+    contractualProduct: intel.contractualProduct,
+    contractualDocument: intel.contractualDocument,
+    legalReviewDate: intel.legalReviewDate,
+    legalBasis: intel.legalBasis,
+    preventionTips: intel.preventionTips,
+    userProfiles: intel.userProfiles,
+    searchKeywords: intel.searchKeywords
+  };
+});
 
 export function getScenarioBySlug(slug: string): Scenario | undefined {
   return SCENARIOS.find((s) => s.slug === slug);
@@ -58,43 +79,56 @@ export function getScenarioOfTheDay(): Scenario {
   return pool[dayOfYear % pool.length];
 }
 
+import { getSeasonalScenarioOfTheWeek } from '@/lib/seasonalScenarios';
+
 /**
- * Deterministic Weekly Featured Scenario ("Dosarul Săptămânii").
- * Uses ISO-8601 calendar week calculation in Romanian timezone (UTC+2 / UTC+3),
- * guaranteeing consistent selection throughout Monday 00:00 to Sunday 23:59:59,
- * predictable rotation each calendar week, no random jumps between renders,
- * and strict resolution to a published authentic scenario record.
+ * Deterministic Seasonal Featured Scenario ("Scenariul Săptămânii").
+ * Selects an authentic scenario specifically curated for the current season
+ * (Iarnă / Primăvară / Vară / Toamnă) rotating weekly via ISO-8601 calendar weeks.
  */
 export function getScenarioOfTheWeek(referenceDate: Date = new Date()): Scenario {
-  const d = new Date(referenceDate);
-  const target = new Date(d.valueOf());
-  const dayNr = (d.getUTCDay() + 6) % 7; // Monday = 0, Sunday = 6
-  target.setUTCDate(target.getUTCDate() - dayNr + 3);
-  const firstThursday = target.valueOf();
-  target.setUTCMonth(0, 1);
-  if (target.getUTCDay() !== 4) {
-    target.setUTCMonth(0, 1 + ((4 - target.getUTCDay() + 7) % 7));
-  }
-  const weekNumber = 1 + Math.ceil((firstThursday - target.valueOf()) / 604800000);
-  const year = d.getUTCFullYear();
-  const seed = year * 52 + weekNumber;
-
-  const featured = SCENARIOS.filter((s) => s.featured);
-  const pool = featured.length > 0 ? featured : SCENARIOS;
-  return pool[seed % pool.length];
+  return getSeasonalScenarioOfTheWeek(referenceDate).scenario;
 }
 
 export function getRelatedScenarios(scenario: Scenario, limit: number = 3): Scenario[] {
-  // First prefer same category
-  const sameCategory = SCENARIOS.filter(
-    (s) => s.id !== scenario.id && s.categoryId === scenario.categoryId
-  );
-  if (sameCategory.length >= limit) {
-    return sameCategory.slice(0, limit);
-  }
-  // Otherwise fill with featured from other categories
-  const others = SCENARIOS.filter(
-    (s) => s.id !== scenario.id && s.categoryId !== scenario.categoryId
-  );
-  return [...sameCategory, ...others].slice(0, limit);
+  const currentTags = new Set((scenario.tags || []).map((t) => t.toLowerCase()));
+  const currentKeywords = new Set((scenario.searchKeywords || []).map((k) => k.toLowerCase()));
+
+  // Score candidate scenarios
+  const scored = SCENARIOS
+    .filter((s) => s.id !== scenario.id)
+    .map((candidate) => {
+      let score = 0;
+
+      // Same category base score
+      if (candidate.categoryId === scenario.categoryId) score += 3;
+
+      // Shared tags score (high relevance)
+      (candidate.tags || []).forEach((tag) => {
+        if (currentTags.has(tag.toLowerCase())) score += 5;
+      });
+
+      // Shared search keywords
+      (candidate.searchKeywords || []).forEach((kw) => {
+        if (currentKeywords.has(kw.toLowerCase())) score += 2;
+      });
+
+      // Special semantic cross-category links
+      const isWater = currentTags.has('inundație') || currentTags.has('conductă') || currentTags.has('instalații');
+      const isCandidateWater = (candidate.tags || []).some((t) => ['inundație', 'conductă', 'instalații', 'apă'].includes(t.toLowerCase()));
+      if (isWater && isCandidateWater) score += 4;
+
+      const isCar = currentTags.has('parcare') || currentTags.has('casco') || currentTags.has('daună');
+      const isCandidateCar = (candidate.tags || []).some((t) => ['parcare', 'casco', 'vandalism', 'auto'].includes(t.toLowerCase()));
+      if (isCar && isCandidateCar) score += 4;
+
+      const isTravel = currentTags.has('bagaj') || currentTags.has('zbor') || currentTags.has('aeroport');
+      const isCandidateTravel = (candidate.tags || []).some((t) => ['bagaj', 'zbor', 'aeroport', 'călătorie'].includes(t.toLowerCase()));
+      if (isTravel && isCandidateTravel) score += 4;
+
+      return { scenario: candidate, score };
+    })
+    .sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, limit).map((s) => s.scenario);
 }

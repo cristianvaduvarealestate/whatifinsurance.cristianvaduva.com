@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { CATEGORIES } from '@/data/categories';
 import { SCENARIOS, getScenarioOfTheDay, getScenarioOfTheWeek, getRandomScenario } from '@/data/scenarios';
+import { getSeasonalScenarioOfTheWeek } from '@/lib/seasonalScenarios';
 import { ScenarioCard } from '@/components/scenario/ScenarioCard';
 import { Scenario } from '@/types/scenario';
 import {
@@ -35,10 +36,11 @@ export default function HomePage() {
   const [isPolicyModalOpen, setIsPolicyModalOpen] = useState(false);
   const [isProposeModalOpen, setIsProposeModalOpen] = useState(false);
 
-  // Curated hero spotlight scenario (deterministic ISO-8601 weekly rotation)
-  const heroScenario = useMemo(() => {
-    return getScenarioOfTheWeek();
+  // Curated hero spotlight scenario (deterministic seasonal rotation)
+  const seasonalInfo = useMemo(() => {
+    return getSeasonalScenarioOfTheWeek();
   }, []);
+  const heroScenario = seasonalInfo.scenario;
 
   // Curated 6-8 scenarios for Section D (editorial selection)
   const curatedSelection = useMemo(() => {
@@ -175,13 +177,18 @@ export default function HomePage() {
             {/* Right Spotlight Scenario Card (5 cols) */}
             <div className="lg:col-span-5">
               <div className="relative rounded-3xl bg-white border border-slate-200/90 p-5 sm:p-6 shadow-2xl shadow-slate-200/80 transition-all">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#E10600] font-bold">
-                    SCENARIUL SĂPTĂMÂNII
-                  </span>
-                  <span className="text-[11px] font-mono text-slate-500 font-semibold">
-                    {heroScenario.categoryName}
-                  </span>
+                <div className="pb-3 border-b border-slate-100 mb-4 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#E10600] font-bold">
+                      SCENARIUL SĂPTĂMÂNII
+                    </span>
+                    <span className="text-[11px] font-mono text-slate-500 font-semibold">
+                      {heroScenario.categoryName}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 font-medium">
+                    {seasonalInfo.seasonalTagline}
+                  </p>
                 </div>
 
                 <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 mb-4 border border-slate-200">
@@ -213,7 +220,7 @@ export default function HomePage() {
                   <div className="flex items-center justify-between">
                     <span className="text-[#E10600] font-bold flex items-center gap-1.5">
                       <AlertTriangle className="w-3.5 h-3.5" />
-                      Fără acoperire:
+                      Fără poliță relevantă:
                     </span>
                     <span className="text-[#06141B] font-mono font-bold">
                       {heroScenario.withoutInsurance.financialImpact}
@@ -513,7 +520,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#E10600] block mb-2">
-              Clauze cu Plot Twist · Ce ar spune prietenii tăi?
+              Situații la care nu te-ai gândit · Ce ar spune prietenii tăi?
             </span>
             <h2 className="text-2xl sm:text-4xl font-black text-[#06141B] tracking-tight">
               Trimite-i asta persoanei care spune «mie nu mi se poate întâmpla»

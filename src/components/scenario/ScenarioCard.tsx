@@ -69,7 +69,7 @@ export const ScenarioCard: React.FC<ScenarioCardProps> = ({ scenario, priority =
               </span>
             </div>
             <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider shrink-0">
-              fără acoperire
+              fără poliță relevantă
             </span>
           </div>
         </div>
