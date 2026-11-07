@@ -1,49 +1,39 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, Suspense } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import {
   FileCheck2,
   ShieldCheck,
   CheckCircle2,
+  XCircle,
+  HelpCircle,
+  MinusCircle,
+  Printer,
   ArrowRight,
   ArrowLeft,
   RotateCcw,
   Sparkles,
   Info,
-  HelpCircle,
   ExternalLink,
-  SlidersHorizontal,
   Home,
   Car,
   Plane,
-  Users,
-  HeartPulse,
-  Briefcase,
-  Gem,
-  Key,
+  FileText,
+  Phone,
+  AlertCircle,
+  AlertTriangle,
+  ArrowUpRight
 } from 'lucide-react';
 import {
-  CHECKLIST_CATEGORIES,
-  CHECKLIST_CONTEXTS,
-  ChecklistCategory,
-  ChecklistContext,
-  ChecklistClause,
-  getPersonalizedChecklist,
-} from '@/data/personalizedChecklist';
+  GENERALI_AUDIT_PRODUCTS,
+  GeneraliAuditProduct,
+  GeneraliAuditClause,
+  AuditAnswer,
+  evaluateGeneraliPolicyAudit
+} from '@/data/generaliPolicyAuditData';
 import { trackEvent } from '@/lib/analytics';
-
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  Home,
-  Car,
-  Plane,
-  Users,
-  HeartPulse,
-  Briefcase,
-  Gem,
-  Key,
-};
 
 export default function PolicyChecklistPage() {
   return (
@@ -61,384 +51,605 @@ export default function PolicyChecklistPage() {
 
 function PolicyChecklistContent() {
   const searchParams = useSearchParams();
-  const paramCategory = searchParams.get('category') as ChecklistCategory | null;
+  const paramProduct = searchParams.get('product') as 'eurocasa' | 'casco' | 'turist_plus' | null;
 
-  // Selected Categories
-  const [selectedCategories, setSelectedCategories] = useState<ChecklistCategory[]>(() => {
-    if (paramCategory && CHECKLIST_CATEGORIES.some((c) => c.id === paramCategory)) {
-      return [paramCategory];
-    }
-    return ['locuinta', 'auto', 'calatorii'];
-  });
+  // Selected Generali Product (default to eurocasa)
+  const [selectedProductId, setSelectedProductId] = useState<'eurocasa' | 'casco' | 'turist_plus'>(
+    paramProduct && GENERALI_AUDIT_PRODUCTS[paramProduct] ? paramProduct : 'eurocasa'
+  );
 
-  // Selected Contexts
-  const [selectedContexts, setSelectedContexts] = useState<ChecklistContext[]>([]);
+  // User answers per clause: Record<clauseId, AuditAnswer>
+  const [answers, setAnswers] = useState<Record<string, AuditAnswer>>({});
 
-  // Checked state for progress tracking (safely persisted in localStorage)
-  const [checkedClauseIds, setCheckedClauseIds] = useState<Record<string, boolean>>({});
-  const [isConfiguring, setIsConfiguring] = useState(false);
+  // Optional contextual note (non-sensitive: e.g. "Apartament 3 camere București" or "Volkswagen Golf 2021")
+  const [contextNote, setContextNote] = useState<string>('');
 
-  // Restore checked items from localStorage on mount & track checklist_open
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('whatif_checklist_checked');
-      if (saved) {
-        setCheckedClauseIds(JSON.parse(saved));
-      }
-    } catch {
-      // Ignore localStorage errors
-    }
+  const currentProduct: GeneraliAuditProduct = GENERALI_AUDIT_PRODUCTS[selectedProductId] || GENERALI_AUDIT_PRODUCTS.eurocasa;
 
-    trackEvent('checklist_open', {
-      category: paramCategory || 'general',
-      source_page: '/verificare-polita',
-    });
-  }, [paramCategory]);
+  // Answer handler
+  const handleAnswer = (clauseId: string, answer: AuditAnswer) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [clauseId]: answer
+    }));
 
-  // Sync checked items to localStorage
-  const handleToggleCheck = (clauseId: string) => {
-    setCheckedClauseIds((prev) => {
-      const next = { ...prev, [clauseId]: !prev[clauseId] };
-      try {
-        localStorage.setItem('whatif_checklist_checked', JSON.stringify(next));
-      } catch {
-        // Ignore
-      }
-      return next;
+    trackEvent('audit_answer_select', {
+      product: selectedProductId,
+      clauseId,
+      answer
     });
   };
 
-  const handleToggleCategory = (cat: ChecklistCategory) => {
-    setSelectedCategories((prev) => {
-      if (prev.includes(cat)) {
-        if (prev.length === 1) return prev; // Keep at least one
-        return prev.filter((c) => c !== cat);
-      }
-      return [...prev, cat];
+  // Reset answers for current product
+  const handleReset = () => {
+    setAnswers({});
+  };
+
+  // Switch product
+  const handleProductChange = (prodId: 'eurocasa' | 'casco' | 'turist_plus') => {
+    setSelectedProductId(prodId);
+    setAnswers({});
+  };
+
+  // Calculate audit evaluation
+  const evaluation = useMemo(() => {
+    return evaluateGeneraliPolicyAudit(selectedProductId, answers);
+  }, [selectedProductId, answers]);
+
+  // Handle PDF Export / Print via native browser window.print()
+  const handlePrintPDF = () => {
+    trackEvent('audit_pdf_export', {
+      product: selectedProductId,
+      score: evaluation.scoreDisplay,
+      confirmedCount: evaluation.confirmedCount,
+      declaredAbsentCount: evaluation.declaredAbsentCount,
+      unverifiedCount: evaluation.unverifiedCount
     });
+    window.print();
   };
 
-  const handleToggleContext = (ctx: ChecklistContext) => {
-    setSelectedContexts((prev) =>
-      prev.includes(ctx) ? prev.filter((c) => c !== ctx) : [...prev, ctx]
-    );
-  };
-
-  // Generate personalized 5–8 clauses
-  const activeClauses = useMemo(() => {
-    return getPersonalizedChecklist(selectedCategories, selectedContexts);
-  }, [selectedCategories, selectedContexts]);
-
-  const verifiedCount = activeClauses.filter((c) => checkedClauseIds[c.id]).length;
-  const progressPercent = activeClauses.length > 0 ? Math.round((verifiedCount / activeClauses.length) * 100) : 0;
-
-  const handleResetChecklist = () => {
-    setCheckedClauseIds({});
-    try {
-      localStorage.removeItem('whatif_checklist_checked');
-    } catch {
-      // Ignore
-    }
-  };
+  const currentDateFormatted = new Intl.DateTimeFormat('ro-RO', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(new Date());
 
   return (
-    <div className="min-h-screen bg-white text-[#06141B] pb-24">
-      {/* Header */}
-      <div className="border-b border-slate-200 bg-slate-50/70 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto space-y-4">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-[#06141B] transition-colors mb-2"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Înapoi la pagina principală</span>
-          </Link>
+    <div className="min-h-screen bg-slate-50 pt-24 pb-20 print:min-h-0 print:bg-white print:p-0 print:m-0">
+      
+      {/* ========================================================
+          ON-SCREEN INTERFACE (HIDDEN DURING PRINT)
+         ======================================================== */}
+      <div id="mini-audit-screen-interface" data-print-hide="true" className="print:hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header Breadcrumbs */}
+        <div className="flex items-center gap-2 text-xs font-mono text-slate-500 mb-3">
+          <Link href="/" className="hover:text-slate-900 transition-colors">WHAT IF INSURANCE</Link>
+          <span>/</span>
+          <span className="text-slate-900 font-semibold">MINI-AUDIT GENERALI</span>
+        </div>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-mono font-bold uppercase tracking-wider">
-            <FileCheck2 className="w-3.5 h-3.5 text-[#E10600]" />
-            <span>Instrument Personalizat de Audit · 5–8 Clauze Relevante</span>
+        {/* Title & Badge */}
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E10600]/10 border border-[#E10600]/20 text-[#E10600] text-xs font-mono font-bold mb-3">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Mini-Audit Contractual Interactiv · Referință Generali România</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black text-[#06141B] tracking-tight">
-            Ce verifici concret în polița ta înainte de o daună?
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#06141B] tracking-tight">
+            Verificarea Poliței Tale
           </h1>
-
-          <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-            Selectează ce te interesează și situația ta de viață. Sistemul selectează cele mai importante 5–8 clauze din contractele din România, îți arată unde se găsesc și ce întrebare să adresezi consultantului tău.
+          <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed">
+            Evaluează clauzele critice din polița ta înainte de producerea unei daune. Răspunsurile reflectă exclusiv declarația ta și nu constituie o verificare documentară juridică sau decizie de daună. Fără colectare de date personale, fără CNP, fără încărcare de documente.
           </p>
         </div>
-      </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
-        
-        {/* Personalization Setup Panel */}
-        <section className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+        {/* STEP 1: Select Generali Product Tabs */}
+        <div className="mb-8">
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold block mb-3">
+            Pasul 1 · Selectează Tipul Poliței Generali Documentate
+          </span>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {/* Eurocasa */}
+            <button
+              type="button"
+              onClick={() => handleProductChange('eurocasa')}
+              className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between ${
+                selectedProductId === 'eurocasa'
+                  ? 'border-[#06141B] bg-slate-900 text-white shadow-md'
+                  : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-800'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <Home className={`w-5 h-5 ${selectedProductId === 'eurocasa' ? 'text-[#E10600]' : 'text-slate-500'}`} />
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold ${
+                  selectedProductId === 'eurocasa' ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-600'
+                }`}>
+                  Mod. E18 (Complet)
+                </span>
+              </div>
+              <div>
+                <div className="font-bold text-sm sm:text-base">Generali Eurocasa</div>
+                <div className={`text-xs mt-1 ${selectedProductId === 'eurocasa' ? 'text-slate-300' : 'text-slate-500'}`}>
+                  Locuințe & bunuri, conducte, vecini, nelocuire
+                </div>
+              </div>
+            </button>
+
+            {/* CASCO Perfecto */}
+            <button
+              type="button"
+              onClick={() => handleProductChange('casco')}
+              className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between ${
+                selectedProductId === 'casco'
+                  ? 'border-[#06141B] bg-slate-900 text-white shadow-md'
+                  : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-800'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <Car className={`w-5 h-5 ${selectedProductId === 'casco' ? 'text-[#E10600]' : 'text-slate-500'}`} />
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold ${
+                  selectedProductId === 'casco' ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-600'
+                }`}>
+                  Mod. CSC 18 (Complet)
+                </span>
+              </div>
+              <div>
+                <div className="font-bold text-sm sm:text-base">Generali CASCO Perfecto</div>
+                <div className={`text-xs mt-1 ${selectedProductId === 'casco' ? 'text-slate-300' : 'text-slate-500'}`}>
+                  Coliziune, parcare, grindină PDR, reprezentanță
+                </div>
+              </div>
+            </button>
+
+            {/* Turist Plus Premium */}
+            <button
+              type="button"
+              onClick={() => handleProductChange('turist_plus')}
+              className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between ${
+                selectedProductId === 'turist_plus'
+                  ? 'border-[#06141B] bg-slate-900 text-white shadow-md'
+                  : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-800'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <Plane className={`w-5 h-5 ${selectedProductId === 'turist_plus' ? 'text-[#E10600]' : 'text-slate-500'}`} />
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold ${
+                  selectedProductId === 'turist_plus' ? 'bg-amber-400 text-slate-900' : 'bg-amber-100 text-amber-900'
+                }`}>
+                  Doar PID 2025
+                </span>
+              </div>
+              <div>
+                <div className="font-bold text-sm sm:text-base">Turist Plus Premium</div>
+                <div className={`text-xs mt-1 ${selectedProductId === 'turist_plus' ? 'text-slate-300' : 'text-slate-500'}`}>
+                  Urgențe medicale 50k €, repatriere, bagaje (PID)
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Documentation sufficiency banner if PID only */}
+        {currentProduct.documentationSufficiency === 'DOCUMENTATIE_INSUFICIENTA' && (
+          <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-300 text-amber-900 text-xs sm:text-sm flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
             <div>
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">Pasul 1</span>
-              <h2 className="text-lg sm:text-xl font-bold text-[#06141B]">
-                Alege categoriile de interes pentru tine
-              </h2>
+              <span className="font-bold block mb-0.5">Documentație contractuală completă insuficientă în proiect</span>
+              Pentru <strong>{currentProduct.title}</strong> este disponibil exclusiv Documentul de Informare privind Produsul de Asigurare (PID 2025). Condițiile contractuale integrale, definițiile exhaustive și excluderile complete nu sunt prezente în baza locală a proiectului. Întrebările de mai jos reflectă sumarul din PID.
             </div>
-            <span className="text-xs font-mono text-slate-500 font-bold bg-slate-100 px-3 py-1 rounded-full w-fit">
-              {selectedCategories.length} selectate
+          </div>
+        )}
+
+        {/* STEP 2: Optional Context Note */}
+        <div className="mb-8 bg-white rounded-2xl p-4 sm:p-5 border border-slate-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div>
+              <label htmlFor="contextNote" className="text-xs font-mono uppercase text-slate-500 font-bold block">
+                Pasul 2 · Detaliu Contextual pentru Raport (Opțional)
+              </label>
+              <p className="text-xs text-slate-600 mt-0.5">
+                Ex: „Apartament 3 camere bloc 2018” sau „Volkswagen Golf 2022”. Nu introduce CNP, parole sau date sensibile.
+              </p>
+            </div>
+            <input
+              id="contextNote"
+              type="text"
+              placeholder="Ex: Apartament proprietate personală"
+              value={contextNote}
+              onChange={(e) => setContextNote(e.target.value)}
+              className="w-full sm:w-72 px-3 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-slate-900"
+            />
+          </div>
+        </div>
+
+        {/* LIVE SCORECARD BAR */}
+        <div className="sticky top-20 z-20 mb-8 bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#06141B] text-white flex items-center justify-center font-black text-lg font-mono">
+              {evaluation.confirmedCount}
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-base sm:text-lg font-black text-[#06141B]">
+                  {evaluation.scoreDisplay} Clauze Declarate ca Identificate
+                </span>
+                <span className="text-xs font-mono font-bold text-slate-500">
+                  ({evaluation.scoreRatio}%)
+                </span>
+              </div>
+              <div className="flex items-center gap-3 text-xs mt-0.5 font-mono flex-wrap">
+                <span className="text-emerald-700 flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> {evaluation.confirmedCount} confirmate declarativ
+                </span>
+                <span className="text-amber-700 flex items-center gap-1">
+                  <HelpCircle className="w-3.5 h-3.5" /> {evaluation.unverifiedCount} neverificate
+                </span>
+                {evaluation.declaredAbsentCount > 0 && (
+                  <span className="text-red-700 flex items-center gap-1">
+                    <XCircle className="w-3.5 h-3.5" /> {evaluation.declaredAbsentCount} declarate absente
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={handlePrintPDF}
+              className="flex-1 sm:flex-none py-2.5 px-4 rounded-full bg-[#E10600] hover:bg-red-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
+              title="Deschide fereastra nativă de tipărire pentru salvare în format PDF"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              <span>Tipărește / Salvează ca PDF</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleReset}
+              className="py-2.5 px-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-mono flex items-center justify-center transition-colors"
+              title="Resetează răspunsurile"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* STEP 3: Clause Cards List */}
+        <div className="space-y-4 mb-10">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">
+              Pasul 3 · Răspunde la Întrebările Despre Clauze ({currentProduct.clauses.length} elemente)
+            </span>
+            <span className="text-xs text-slate-500">
+              Contract de referință: <strong className="text-slate-800">{currentProduct.officialContractCode}</strong>
             </span>
           </div>
 
-          {/* Category Chips Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-            {CHECKLIST_CATEGORIES.map((cat) => {
-              const isSelected = selectedCategories.includes(cat.id);
-              const IconComp = ICON_MAP[cat.iconName] || Home;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => handleToggleCategory(cat.id)}
-                  className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between min-h-[78px] active:scale-95 ${
-                    isSelected
-                      ? 'bg-[#06141B] text-white border-[#06141B] shadow-sm'
-                      : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <IconComp className={`w-4 h-4 ${isSelected ? 'text-[#E10600]' : 'text-slate-500'}`} />
-                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
-                  </div>
-                  <span className="text-xs font-bold leading-tight">{cat.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Contextual Toggles */}
-          <div className="pt-2 border-t border-slate-100 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">Pasul 2</span>
-              <span className="text-xs text-slate-400">·</span>
-              <span className="text-xs font-semibold text-slate-700">Situații contextuale relevante (opțional)</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {CHECKLIST_CONTEXTS.map((ctx) => {
-                const isSelected = selectedContexts.includes(ctx.id);
-                return (
-                  <button
-                    key={ctx.id}
-                    type="button"
-                    onClick={() => handleToggleContext(ctx.id)}
-                    className={`p-3 rounded-xl border text-left transition-all flex items-start gap-2.5 active:scale-98 ${
-                      isSelected
-                        ? 'bg-red-50/70 border-red-300 text-slate-900'
-                        : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={isSelected}
-                      readOnly
-                      className="mt-0.5 rounded border-slate-300 text-[#06141B] pointer-events-none"
-                    />
-                    <div>
-                      <div className="text-xs font-bold leading-snug">{ctx.label}</div>
-                      <div className="text-[11px] text-slate-500 leading-tight mt-0.5">{ctx.hint}</div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Generated Checklist Status & Progress */}
-        <section className="space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-xs font-mono text-slate-400 font-bold uppercase">
-                <Sparkles className="w-3.5 h-3.5 text-[#E10600]" />
-                <span>Progres Audit Personal: {verifiedCount} din {activeClauses.length} clauze verificate</span>
-              </div>
-              <div className="w-full sm:w-64 h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700 mt-2">
-                <div
-                  className="h-full bg-emerald-400 transition-all duration-300"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 self-start sm:self-auto">
-              {verifiedCount > 0 && (
-                <button
-                  type="button"
-                  onClick={handleResetChecklist}
-                  className="py-1.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 text-xs font-mono flex items-center gap-1.5 transition-colors"
-                >
-                  <RotateCcw className="w-3 h-3" />
-                  <span>Resetează bifările</span>
-                </button>
-              )}
-              <Link
-                href={`/contact?formType=audit_clauza&topic=review-polita&reason=${encodeURIComponent(
-                  `Doresc asistență pentru cele ${activeClauses.length} clauze generate în checklist-ul meu personal.`
-                )}`}
-                className="py-2 px-4 rounded-xl bg-white text-[#06141B] hover:bg-slate-100 text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
-              >
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>Solicită audit complet</span>
-              </Link>
-            </div>
-          </div>
-
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-2.5">
-            <Info className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
-            <p className="leading-relaxed">
-              <strong className="text-slate-800 font-semibold">Notă de certitudine:</strong> Bifarea unei opțiuni nu înseamnă că ești automat acoperit. Checklist-ul îți oferă ghidul exact de întrebări pentru a verifica clauzele din contractul tău înainte de o daună.
-            </p>
-          </div>
-        </section>
-
-        {/* 5 to 8 Tailored Clause Cards */}
-        <section className="space-y-4">
-          {activeClauses.map((clause, index) => {
-            const isChecked = Boolean(checkedClauseIds[clause.id]);
-
-            const auditClauseHref = `/contact?formType=audit_clauza&category=${encodeURIComponent(
-              clause.scenarioCategory || 'casa'
-            )}&scenario=${encodeURIComponent(clause.scenarioSlug || '')}&title=${encodeURIComponent(
-              clause.clauseName
-            )}&reason=${encodeURIComponent(
-              `Doresc să verific în contractul meu clauza: «${clause.clauseName}». Întrebare cheie: «${clause.advisorQuestion}»`
-            )}`;
-
+          {currentProduct.clauses.map((clause, idx) => {
+            const currentAns = answers[clause.id];
             return (
               <div
                 key={clause.id}
-                className={`p-5 sm:p-7 rounded-3xl border transition-all space-y-4 ${
-                  isChecked
-                    ? 'bg-slate-50/60 border-emerald-200'
-                    : 'bg-white border-slate-200 shadow-sm hover:border-slate-300'
+                className={`p-5 sm:p-6 rounded-3xl border transition-all ${
+                  currentAns === 'DA'
+                    ? 'bg-white border-emerald-300 shadow-sm'
+                    : currentAns === 'NU'
+                    ? 'bg-white border-red-300 shadow-sm'
+                    : currentAns === 'NU_SE_APLICA'
+                    ? 'bg-slate-100/60 border-slate-200 opacity-60'
+                    : 'bg-white border-slate-200 shadow-sm'
                 }`}
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3">
-                    <button
-                      type="button"
-                      onClick={() => handleToggleCheck(clause.id)}
-                      className={`w-6 h-6 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
-                        isChecked
-                          ? 'bg-emerald-600 border-emerald-600 text-white'
-                          : 'bg-white border-slate-300 hover:border-slate-500 text-transparent'
-                      }`}
-                      aria-label={`Bifează clauza ${clause.clauseName}`}
-                    >
-                      <CheckCircle2 className="w-4 h-4" />
-                    </button>
-
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700">
-                          {clause.categoryLabel || clause.category.toUpperCase()}
-                        </span>
-                        <span className="text-[11px] font-mono font-bold text-slate-400">
-                          #{index + 1}
-                        </span>
-                      </div>
-                      <h3
-                        className={`text-base sm:text-lg font-black text-[#06141B] leading-snug cursor-pointer ${
-                          isChecked ? 'line-through text-slate-400' : ''
-                        }`}
-                        onClick={() => handleToggleCheck(clause.id)}
-                      >
-                        {clause.clauseName}
-                      </h3>
-                    </div>
+                {/* Clause Title & Reference */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-slate-100 text-slate-700 font-mono text-xs font-bold flex items-center justify-center shrink-0">
+                      {idx + 1}
+                    </span>
+                    <h3 className="font-bold text-base text-[#06141B]">
+                      {clause.clauseName}
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {clause.documentationSufficiency === 'DOCUMENTATIE_INSUFICIENTA' && (
+                      <span className="text-[10px] font-mono text-amber-900 bg-amber-100 px-2 py-0.5 rounded font-bold">
+                        Doar PID
+                      </span>
+                    )}
+                    <span className="text-[11px] font-mono text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+                      {clause.categoryTag}
+                    </span>
                   </div>
                 </div>
 
-                {/* 4 Pillars of Information per clause */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs">
-                  {/* De ce este important */}
-                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
-                    <span className="font-mono font-bold uppercase tracking-wider text-slate-500 text-[10px] block">
-                      De ce este critic:
-                    </span>
-                    <p className="text-slate-700 leading-relaxed font-normal">
-                      {clause.whyItMatters}
-                    </p>
+                {/* Audit Question (Prominent) */}
+                <div className="my-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">
+                    Întrebare de Audit Declarativ
                   </div>
-
-                  {/* Unde se găsește în document */}
-                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
-                    <span className="font-mono font-bold uppercase tracking-wider text-slate-500 text-[10px] block">
-                      Unde cauți în contract:
-                    </span>
-                    <p className="text-slate-700 leading-relaxed font-medium">
-                      {clause.whereToFind}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Întrebarea concretă pentru consultant */}
-                <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/70 space-y-1 text-xs">
-                  <span className="font-mono font-bold uppercase tracking-wider text-amber-900 text-[10px] flex items-center gap-1.5">
-                    <HelpCircle className="w-3.5 h-3.5 text-amber-800" />
-                    Ce întrebi concret consultantul:
-                  </span>
-                  <p className="text-slate-900 font-semibold italic leading-relaxed">
-                    „{clause.advisorQuestion}”
+                  <p className="text-sm font-semibold text-slate-900 leading-snug">
+                    {clause.auditQuestion}
                   </p>
                 </div>
 
-                {/* Actions per clause */}
-                <div className="flex flex-wrap items-center justify-between gap-2.5 pt-2 border-t border-slate-100">
-                  {clause.scenarioSlug ? (
-                    <Link
-                      href={`/scenarii/${clause.scenarioCategory || 'casa'}/${clause.scenarioSlug}`}
-                      className="text-xs font-bold text-slate-600 hover:text-[#06141B] inline-flex items-center gap-1 transition-colors"
-                    >
-                      <span>Vezi scenariul complet asociat</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
-                    </Link>
-                  ) : <span />}
+                {/* Context & Reference Details */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600 mb-3">
+                  <div>
+                    <span className="font-bold text-slate-800 block">De ce este important:</span>
+                    <span>{clause.whyItMatters}</span>
+                  </div>
+                  <div>
+                    <span className="font-bold text-slate-800 block">Unde verifici în poliță:</span>
+                    <span className="font-mono text-[11px] text-slate-500">{clause.whereToCheckInPolicy}</span>
+                  </div>
+                </div>
 
-                  <Link
-                    href={auditClauseHref}
-                    className="py-2 px-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs inline-flex items-center gap-1.5 transition-colors"
+                {/* Relevant conditions & limits */}
+                <div className="mb-4 p-3 rounded-xl bg-slate-100/70 border border-slate-200 text-xs text-slate-600">
+                  <span className="font-bold text-slate-700 block mb-0.5">Condiții contractuale & limite de referință:</span>
+                  <p className="text-[11px] leading-relaxed text-slate-600">{clause.relevantConditionsAndLimits}</p>
+                  <div className="mt-1 text-[10px] font-mono text-slate-500">
+                    Sursă: {clause.exactDocumentName} ({clause.documentVersionDate}) · {clause.exactClauseSection}
+                  </div>
+                </div>
+
+                {/* 4 Interactive Answer Buttons with corrected semantics */}
+                <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleAnswer(clause.id, 'DA')}
+                    className={`py-2 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                      currentAns === 'DA'
+                        ? 'bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-600/30'
+                        : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200'
+                    }`}
+                    title="Confirmat de utilizator / Clauză identificată declarativ"
                   >
-                    <ShieldCheck className="w-3.5 h-3.5 text-slate-700" />
-                    <span>Solicită audit pentru această clauză</span>
-                  </Link>
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>DA (Confirmat declarativ)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleAnswer(clause.id, 'NU')}
+                    className={`py-2 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                      currentAns === 'NU'
+                        ? 'bg-red-600 text-white shadow-sm ring-2 ring-red-600/30'
+                        : 'bg-red-50 text-red-800 hover:bg-red-100 border border-red-200'
+                    }`}
+                    title="Declarat absent de utilizator / Necesită verificare documentară"
+                  >
+                    <XCircle className="w-3.5 h-3.5" />
+                    <span>NU (Declarat absent)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleAnswer(clause.id, 'NU_STIU')}
+                    className={`py-2 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                      currentAns === 'NU_STIU' || !currentAns
+                        ? 'bg-amber-600 text-white shadow-sm ring-2 ring-amber-600/30'
+                        : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200'
+                    }`}
+                    title="Neverificat în poliță"
+                  >
+                    <HelpCircle className="w-3.5 h-3.5" />
+                    <span>NU ȘTIU (Neverificat)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleAnswer(clause.id, 'NU_SE_APLICA')}
+                    className={`py-2 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                      currentAns === 'NU_SE_APLICA'
+                        ? 'bg-slate-700 text-white shadow-sm'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200'
+                    }`}
+                    title="Nerelevant pentru situația declarată"
+                  >
+                    <MinusCircle className="w-3.5 h-3.5" />
+                    <span>NU SE APLICĂ (Nerelevant)</span>
+                  </button>
                 </div>
               </div>
             );
           })}
-        </section>
+        </div>
 
-        {/* Bottom Educational Conversion Block */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 text-center space-y-5">
-          <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center mx-auto text-[#06141B] shadow-2xs">
-            <ShieldCheck className="w-6 h-6 text-[#E10600]" />
+        {/* Mandatory Legal & Methodological Disclaimer */}
+        <div className="p-5 rounded-3xl bg-amber-50/90 border border-amber-200 text-amber-950 text-xs sm:text-sm leading-relaxed flex items-start gap-3.5 mb-10">
+          <AlertCircle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+          <div>
+            <span className="font-bold block mb-1">Notă Legală Obligatorie & Limitările Evaluării</span>
+            {evaluation.mandatoryDisclaimer}
+            <span className="block mt-1 text-xs text-amber-800">
+              Acest instrument educațional nu reprezintă o decizie de daună, o autorizare instituțională sau o confirmare prealabilă a acoperirii din partea Generali România. Interpretarea definitivă a oricărui dosar aparține exclusiv inspectorilor de daună conform contractului original încheiat.
+            </span>
           </div>
+        </div>
 
-          <div className="space-y-2 max-w-xl mx-auto">
-            <h3 className="text-2xl font-black text-[#06141B]">
-              Vrei o privire profesionistă asupra contractului tău?
+        {/* CTA Card for Advisory Consultation */}
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#06141B] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <div className="text-xs font-mono uppercase tracking-wider text-red-400 font-bold mb-1">
+              Consultanță Gratuită Cristian Văduva
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black text-white">
+              Vrei o verificare profesională a poliței tale Generali?
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Dacă nu ai timpul necesar să citești 40 de pagini de condiții generale și franșize, trimite-ne o solicitare de audit de clauză. Analizăm textul exact și îți spunem unde te situezi.
+            <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-xl leading-relaxed">
+              WHAT IF INSURANCE este un instrument educațional declarativ. Pentru auditul documentar contractual, optimizarea franșizelor și consultanță individuală dedicată, accesează platforma de consultanță.
             </p>
           </div>
 
-          <Link
-            href="/contact?formType=audit_clauza&topic=review-polita"
-            className="py-3.5 px-7 rounded-full bg-[#06141B] hover:bg-slate-800 text-white font-bold text-xs sm:text-sm inline-flex items-center gap-2 shadow-sm transition-all"
-          >
-            <span>Solicită audit de clauză</span>
-            <ArrowRight className="w-4 h-4 text-slate-300" />
-          </Link>
-        </section>
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0">
+            <button
+              type="button"
+              onClick={handlePrintPDF}
+              className="py-3 px-5 rounded-full bg-white hover:bg-slate-100 text-[#06141B] font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm shrink-0"
+            >
+              <Printer className="w-4 h-4 text-[#E10600]" />
+              <span>Tipărește / Salvează ca PDF</span>
+            </button>
+            <a
+              href="https://insurance.cristianvaduva.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="py-3 px-5 rounded-full bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all border border-slate-700 shrink-0"
+            >
+              <span>Consultanță: insurance.cristianvaduva.com</span>
+              <ArrowUpRight className="w-4 h-4 text-slate-300" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================
+          PRINTABLE PDF REPORT LAYOUT (VISIBLE ONLY WHEN PRINTING)
+          Styled strictly for A4 print output with Romanian diacritics
+         ======================================================== */}
+      <div className="hidden print:block p-8 max-w-4xl mx-auto bg-white text-slate-900 font-sans leading-normal">
+        
+        {/* Printable Header */}
+        <div className="border-b-2 border-slate-900 pb-5 mb-5 flex justify-between items-start">
+          <div>
+            <div className="text-xs font-mono font-bold tracking-widest text-[#E10600] uppercase">
+              WHAT IF INSURANCE · RISK ADVISORY
+            </div>
+            <h1 className="text-2xl font-black text-slate-900 mt-1">
+              Raport Mini-Audit Clauze Poliță Asigurare
+            </h1>
+            <div className="text-sm font-semibold text-slate-700 mt-0.5">
+              Produs evaluat: {currentProduct.title} ({currentProduct.officialContractCode})
+            </div>
+            {currentProduct.documentationSufficiency === 'DOCUMENTATIE_INSUFICIENTA' && (
+              <div className="text-xs text-amber-800 font-semibold mt-0.5">
+                [Atenție: Bază documentară exclusivă din PID 2025 — Condiții contractuale complete neintegrate în proiect]
+              </div>
+            )}
+            {contextNote && (
+              <div className="text-xs text-slate-600 mt-1">
+                Obiect asigurat / Detaliu contextual: <strong>{contextNote}</strong>
+              </div>
+            )}
+          </div>
+          <div className="text-right text-xs font-mono text-slate-500">
+            <div>Data generării: {currentDateFormatted}</div>
+            <div>Consultant Partener: Cristian Văduva</div>
+            <div>Telefon: +40 767 110 439</div>
+          </div>
+        </div>
+
+        {/* Score Summary Box in Print */}
+        <div className="bg-slate-50 border border-slate-300 rounded-xl p-4 mb-6 flex justify-between items-center break-inside-avoid">
+          <div>
+            <div className="text-xs font-mono font-bold uppercase text-slate-500">
+              Scor Clauze Declarate de Utilizator
+            </div>
+            <div className="text-2xl font-black text-slate-900">
+              {evaluation.scoreDisplay} Clauze Declarate ca Identificate ({evaluation.scoreRatio}%)
+            </div>
+            <div className="text-xs text-slate-600 mt-0.5">
+              {evaluation.confirmedCount} confirmate declarativ · {evaluation.unverifiedCount} neverificate · {evaluation.declaredAbsentCount} declarate absente
+            </div>
+          </div>
+          <div className="text-right max-w-xs text-[10px] text-slate-500 italic">
+            {evaluation.mandatoryDisclaimer}
+          </div>
+        </div>
+
+        {/* Detailed Clauses Table in Print */}
+        <div className="mb-6">
+          <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-slate-700 border-b border-slate-200 pb-1 mb-3">
+            Detaliul Clauzelor Analizate
+          </h2>
+
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-300 text-slate-500 font-mono text-[10px] uppercase">
+                <th className="py-2 pr-2">Nr</th>
+                <th className="py-2 pr-3">Denumire Clauză & Document Oficial</th>
+                <th className="py-2 pr-3">Întrebare & Unde se verifică</th>
+                <th className="py-2 text-right">Răspuns Declarat</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentProduct.clauses.map((clause, i) => {
+                const ans = answers[clause.id] || 'NU_STIU';
+                return (
+                  <tr key={clause.id} className="border-b border-slate-200 py-2 break-inside-avoid">
+                    <td className="py-2 pr-2 font-mono font-bold align-top text-slate-400">{i + 1}</td>
+                    <td className="py-2 pr-3 align-top">
+                      <strong className="block text-slate-900">{clause.clauseName}</strong>
+                      <span className="text-[10px] text-slate-500 font-mono block">{clause.exactDocumentName} ({clause.documentVersionDate})</span>
+                      <span className="text-[10px] text-slate-400 font-mono block">{clause.exactClauseSection}</span>
+                      {clause.documentationSufficiency === 'DOCUMENTATIE_INSUFICIENTA' && (
+                        <span className="text-[9px] text-amber-700 font-mono block font-bold">Documentație contractuală completă insuficientă (PID)</span>
+                      )}
+                    </td>
+                    <td className="py-2.5 pr-3 align-top text-slate-700">
+                      <div className="font-medium text-slate-900">{clause.auditQuestion}</div>
+                      <div className="text-[10px] text-slate-500 font-mono mt-0.5">Unde se verifică: {clause.whereToCheckInPolicy}</div>
+                      {clause.whyItMatters && (
+                        <div className="text-[10px] text-slate-600 mt-1 leading-snug">
+                          <strong className="text-slate-800">Impact practic:</strong> {clause.whyItMatters}
+                        </div>
+                      )}
+                      {clause.relevantConditionsAndLimits && (
+                        <div className="text-[9.5px] text-slate-500 font-mono mt-0.5 leading-tight">
+                          Condiții &amp; limite oficiale: {clause.relevantConditionsAndLimits}
+                        </div>
+                      )}
+                    </td>
+                    <td className="py-2 text-right align-top font-bold font-mono text-[11px] whitespace-nowrap">
+                      {ans === 'DA' ? (
+                        <span className="text-emerald-700">Confirmat declarativ</span>
+                      ) : ans === 'NU' ? (
+                        <span className="text-red-700">Declarat absent</span>
+                      ) : ans === 'NU_SE_APLICA' ? (
+                        <span className="text-slate-400">Nerelevant</span>
+                      ) : (
+                        <span className="text-amber-700">Neverificat</span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Recommendations & Action Plan for Unverified Items */}
+        {evaluation.unverifiedClauses.length > 0 && (
+          <div className="mb-6 p-4 rounded-xl border border-amber-300 bg-amber-50 text-xs text-amber-950 break-inside-avoid">
+            <span className="font-bold block mb-1">
+              Recomandări pentru Clauzele Neverificate ({evaluation.unverifiedCount} elemente):
+            </span>
+            <ul className="list-disc list-inside space-y-0.5 text-[11px]">
+              {evaluation.unverifiedClauses.map((cl) => (
+                <li key={cl.id}>
+                  <strong>{cl.clauseName}:</strong> {cl.recommendedAction}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Legal Disclaimer in Print */}
+        <div className="border-t border-slate-300 pt-4 text-[10px] text-slate-500 leading-relaxed break-inside-avoid">
+          <p>
+            <strong>DECLINARE DE RESPONSABILITATE:</strong> Acest raport are scop strict educativ și orientativ. Datele reflectă exclusiv răspunsurile declarate de utilizator și documentația contractuală de referință a produsului <em>{currentProduct.officialContractCode}</em>. Nu reprezintă o verificare documentară juridică a contractului tău individual, un certificat de asigurare, o ofertă sau o confirmare prealabilă de acordare a despăgubirii în caz de daună din partea Generali România.
+          </p>
+          <div className="mt-3 flex justify-between items-center text-slate-400 font-mono text-[9px]">
+            <span>Generat prin WHAT IF INSURANCE (whatifinsurance.cristianvaduva.com)</span>
+            <span>Cristian Văduva · Risk Advisory · Tel: +40 767 110 439</span>
+          </div>
+        </div>
 
       </div>
+
     </div>
   );
 }

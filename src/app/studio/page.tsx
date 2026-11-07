@@ -1462,6 +1462,26 @@ function ShareStudioContent() {
           </div>
         </div>
 
+        {/* Discreet Advisory Footnote */}
+        <div className="mt-12 pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-slate-700">WHAT IF INSURANCE</span>
+            <span>· Materiale vizuale de conștientizare și analiză de risc.</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>Pentru consultanță individuală în asigurări:</span>
+            <a
+              href="https://insurance.cristianvaduva.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#06141B] font-bold hover:text-[#E10600] transition-colors inline-flex items-center gap-1"
+            >
+              <span>insurance.cristianvaduva.com</span>
+              <ExternalLink className="w-3 h-3 text-slate-400" />
+            </a>
+          </div>
+        </div>
+
         {/* ========================================================================= */}
         {/* LIGHTBOX MODAL FOR FULL-RESOLUTION INSPECTION                            */}
         {/* ========================================================================= */}

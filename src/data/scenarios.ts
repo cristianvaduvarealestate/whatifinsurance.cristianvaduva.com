@@ -68,18 +68,15 @@ export function getRandomScenario(currentSlug?: string): Scenario {
   return pool[randomIndex] || SCENARIOS[0];
 }
 
-export function getScenarioOfTheDay(): Scenario {
-  // Deterministic scenario based on calendar day so it stays consistent for 24h
-  const now = new Date();
-  const dayOfYear = Math.floor(
-    (now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24)
-  );
-  const featured = SCENARIOS.filter((s) => s.featured);
-  const pool = featured.length > 0 ? featured : SCENARIOS;
-  return pool[dayOfYear % pool.length];
-}
+import {
+  getScenarioOfTheDay as getScenarioOfTheDayLib,
+  getScenarioOfTheWeek as getScenarioOfTheWeekLib,
+  getSeasonalScenarioOfTheWeek
+} from '@/lib/seasonalScenarios';
 
-import { getSeasonalScenarioOfTheWeek } from '@/lib/seasonalScenarios';
+export function getScenarioOfTheDay(referenceDate: Date = new Date()): Scenario {
+  return getScenarioOfTheDayLib(referenceDate).scenario;
+}
 
 /**
  * Deterministic Seasonal Featured Scenario ("Scenariul Săptămânii").
@@ -87,7 +84,7 @@ import { getSeasonalScenarioOfTheWeek } from '@/lib/seasonalScenarios';
  * (Iarnă / Primăvară / Vară / Toamnă) rotating weekly via ISO-8601 calendar weeks.
  */
 export function getScenarioOfTheWeek(referenceDate: Date = new Date()): Scenario {
-  return getSeasonalScenarioOfTheWeek(referenceDate).scenario;
+  return getScenarioOfTheWeekLib(referenceDate).scenario;
 }
 
 export function getRelatedScenarios(scenario: Scenario, limit: number = 3): Scenario[] {

@@ -417,7 +417,7 @@ const RAW_BUILDER_SCENARIOS: any[] = [
       'Nelocuire pe timp de iarnă: robinetul oprit face diferența.',
     ],
     takeaway: 'Clauza de neocupare exclude adesea daunele de îngheț dacă locuința stă nelocuită peste termenul contractual (uzual 30–60 de zile) fără oprirea apei și golirea instalației.',
-    heroImage: '/images/scenarios/vacant-frozen-pipe.svg',
+    heroImage: '/images/scenarios/vacant-frozen-pipe.jpg',
     imageCaption: 'Avarie de conductă prin îngheț într-o locuință neocupată',
     insuranceConcept: 'Clauza de Neocupare & Măsuri de Prevenție',
     applicablePolicy: 'Facultativă Locuință',

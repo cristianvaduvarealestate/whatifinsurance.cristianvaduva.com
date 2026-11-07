@@ -248,10 +248,10 @@ export const GENERALI_PRODUCTS: Record<string, GeneraliProduct> = {
     id: 'turist_plus_premium',
     category: 'calatorii',
     commercialName: 'Generali Turist Plus Premium',
-    officialContractCode: 'PID Turist Plus Premium 2025',
-    categoryBadge: 'CĂLĂTORII · STRĂINĂTATE',
+    officialContractCode: 'PID Turist Plus Premium 2025 (Document de Informare Precontractual)',
+    categoryBadge: 'CĂLĂTORII · STRĂINĂTATE (PID)',
     headline: 'Asigurare Medicală și de Asistență de Călătorie de Top',
-    summary: 'Pachetul premium pentru călătorii internaționale cu 50.000 € cheltuieli medicale de urgență cu decontare directă, repatriere, STORNO și asistență pentru bagaje și documente.',
+    summary: 'Pachetul de informare precontractuală (PID) pentru călătorii internaționale cu 50.000 € cheltuieli medicale de urgență, repatriere, STORNO și asistență pentru bagaje. (Condițiile contractuale complete nu sunt integrate în baza locală).',
     officialSourceUrl: 'https://www.generali.ro/asigurari/persoane-fizice/vacante-si-calatorii/turist-plus-premium/',
     pidDocumentDate: '2025',
     keyBaseCoverages: [
@@ -413,7 +413,7 @@ export const GENERALI_CLAIMS_GUIDE: GeneraliClaimsGuide = {
   advisorContact: {
     name: 'Cristian Văduva',
     phone: '+40 767 110 439',
-    role: 'Partener Generali · Consultanță & Asistență · CristianVaduva.com',
+    role: 'Partener Generali · Consultanță · CristianVaduva.com',
   },
   stepByStepProcess: [
     {

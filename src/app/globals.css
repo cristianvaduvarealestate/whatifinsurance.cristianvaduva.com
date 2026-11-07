@@ -70,10 +70,10 @@ body {
   outline-offset: 2px;
 }
 
-/* Typography polish */
+/* Typography polish - inherit container color to prevent dark-mode contrast bugs */
 h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.025em;
-  color: #06141B;
+  color: inherit;
 }
 
 /* Subtle editorial animations */
@@ -122,3 +122,88 @@ h1, h2, h3, h4, h5, h6 {
     min-height: 44px;
   }
 }
+
+/* ========================================================
+   DEDICATED PRINT & PDF GENERATION ENGINE
+   Eliminates overlapping sticky headers, floating widgets,
+   and screenshot artifacts during "Tipărește / Salvează PDF".
+   ======================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+
+  /* Reset body and enforce crisp contrast on A4 paper */
+  html, body {
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide interactive, sticky, and fixed navigation & widget elements */
+  header,
+  nav,
+  footer,
+  aside,
+  #mini-audit-screen-interface,
+  [data-print-hide="true"],
+  .print\:hidden,
+  .print-hidden,
+  [class*="print:hidden"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Disable fixed/sticky positioning and animations that cause ghost overlays */
+  * {
+    position: static !important;
+    transform: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Explicit print block display */
+  .print\:block,
+  .print-block,
+  [class*="print:block"] {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Prevent awkward page breaks across table rows and cards */
+  .break-inside-avoid,
+  tr,
+  blockquote {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Clean table rendering in print */
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  th, td {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  /* Suppress browser print URL annotations */
+  a[href]:after {
+    content: "" !important;
+  }
+}
+

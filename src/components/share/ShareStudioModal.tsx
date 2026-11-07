@@ -485,6 +485,21 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
                   <span className="text-[10px] leading-tight truncate max-w-full">LinkedIn</span>
                 </a>
               </div>
+
+              {/* Discreet Advisory Footnote */}
+              <div className="pt-2.5 text-center border-t border-slate-100">
+                <span className="text-[11px] text-slate-500">
+                  Pentru consultanță individuală:{' '}
+                  <a
+                    href="https://insurance.cristianvaduva.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#06141B] font-bold hover:text-[#E10600] transition-colors underline"
+                  >
+                    insurance.cristianvaduva.com
+                  </a>
+                </span>
+              </div>
             </div>
           </div>
 

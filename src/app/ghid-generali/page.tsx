@@ -77,7 +77,7 @@ export default function GhidGeneraliPage() {
               </div>
               <div>
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-400 block">
-                  Partener Generali · Consultanță &amp; Asistență
+                  Partener Generali · Consultanță
                 </span>
                 <span className="text-sm font-bold text-white">
                   Cristian Văduva · Powered by CristianVaduva.com
@@ -99,7 +99,7 @@ export default function GhidGeneraliPage() {
                 className="py-2.5 px-4 rounded-xl bg-[#E10600] hover:bg-[#c20500] text-white text-xs font-bold flex items-center gap-2 transition-all shadow-md"
               >
                 <Phone className="w-3.5 h-3.5 text-white" />
-                <span>Consultanță &amp; Asistență: +40 767 110 439</span>
+                <span>Consultanță: +40 767 110 439</span>
               </a>
             </div>
           </div>
@@ -600,13 +600,13 @@ export default function GhidGeneraliPage() {
             <div className="p-8 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-lg">
               <div className="space-y-2">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-red-400 font-bold block">
-                  Consultanță &amp; Asistență
+                  Consultanță
                 </span>
                 <h4 className="text-xl font-bold">
-                  Nu ești sigur cum să formulezi cererea de despăgubire?
+                  Ai nevoie de consultanță privind clauzele poliței tale Generali?
                 </h4>
                 <p className="text-xs text-slate-300 max-w-xl leading-relaxed">
-                  Cristian Văduva este alături de tine la fiecare pas: de la documentarea corectă a fotografiilor până la depunerea dosarului complet la Generali România.
+                  Cristian Văduva îți oferă consultanță dedicată pentru înțelegerea condițiilor contractuale, verificarea acoperirilor și optimizarea viitoare a protecției tale de asigurare.
                 </p>
               </div>
 

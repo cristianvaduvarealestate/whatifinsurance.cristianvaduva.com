@@ -27,7 +27,11 @@ export type AnalyticsEventType =
   | 'contact_audit'
   | 'scenario_proposal_submit'
   | 'share_studio_export'
-  | 'quiz_email_optin';
+  | 'quiz_email_optin'
+  | 'calculator_use'
+  | 'calculator_preset_select'
+  | 'audit_answer_select'
+  | 'audit_pdf_export';
 
 export interface BaseEventProperties {
   path?: string;
@@ -139,6 +143,32 @@ export interface EditorialConceptSelectedProps extends BaseEventProperties {
   conceptId: string;
 }
 
+export interface CalculatorUseProps extends BaseEventProperties {
+  category?: string;
+  currency?: string;
+  verdict?: string;
+}
+
+export interface CalculatorPresetSelectProps extends BaseEventProperties {
+  preset_id: string;
+  category: string;
+}
+
+export interface AuditAnswerSelectProps extends BaseEventProperties {
+  product: string;
+  clauseId: string;
+  answer: string;
+}
+
+export interface AuditPdfExportProps extends BaseEventProperties {
+  product: string;
+  score: string;
+  confirmedCount?: number;
+  declaredAbsentCount?: number;
+  unverifiedCount: number;
+  verifiedCount?: number;
+}
+
 export type EventPayloadMap = {
   challenge_started: ChallengeStartedProps;
   challenge_completed: ChallengeCompletedProps;
@@ -160,6 +190,10 @@ export type EventPayloadMap = {
   scenario_proposal_submit: ScenarioProposalSubmitProps;
   share_studio_export: ShareStudioExportProps;
   quiz_email_optin: QuizEmailOptinProps;
+  calculator_use: CalculatorUseProps;
+  calculator_preset_select: CalculatorPresetSelectProps;
+  audit_answer_select: AuditAnswerSelectProps;
+  audit_pdf_export: AuditPdfExportProps;
 };
 
 /**

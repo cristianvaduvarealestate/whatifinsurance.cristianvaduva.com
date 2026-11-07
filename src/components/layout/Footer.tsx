@@ -5,7 +5,7 @@ import { CATEGORIES } from '@/data/categories';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-slate-50 border-t border-slate-200/80 pt-16 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:pb-12 mt-20">
+    <footer className="print:hidden w-full bg-slate-50 border-t border-slate-200/80 pt-16 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:pb-12 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Footer Grid */}
@@ -70,9 +70,11 @@ export const Footer: React.FC = () => {
                   href="https://insurance.cristianvaduva.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-xs font-mono text-[#06141B] font-semibold hover:underline pt-1"
+                  className="flex items-center gap-1.5 text-xs text-[#06141B] font-bold hover:text-[#E10600] transition-colors pt-2 border-t border-slate-200/80"
+                  title="Consultanță în asigurări — Cristian Văduva"
                 >
-                  <span>insurance.cristianvaduva.com</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span>Consultanță în asigurări</span>
                   <ExternalLink className="w-3 h-3 text-slate-400" />
                 </a>
               </div>
@@ -155,6 +157,18 @@ export const Footer: React.FC = () => {
                 <Link href="/contact" className="hover:text-[#06141B] transition-colors">
                   Audit poliță &amp; Contact
                 </Link>
+              </li>
+              <li className="pt-1.5 border-t border-slate-200">
+                <a
+                  href="https://insurance.cristianvaduva.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#06141B] transition-colors flex items-center gap-1 font-bold text-slate-900"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span>Consultanță în asigurări</span>
+                  <ExternalLink className="w-2.5 h-2.5 text-slate-400" />
+                </a>
               </li>
             </ul>
           </div>

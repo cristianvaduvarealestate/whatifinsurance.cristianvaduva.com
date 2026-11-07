@@ -5,8 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { CATEGORIES } from '@/data/categories';
-import { SCENARIOS, getScenarioOfTheDay, getScenarioOfTheWeek, getRandomScenario } from '@/data/scenarios';
-import { getSeasonalScenarioOfTheWeek } from '@/lib/seasonalScenarios';
+import { SCENARIOS, getRandomScenario } from '@/data/scenarios';
+import { getScenarioOfTheDay, getScenarioOfTheWeek } from '@/lib/seasonalScenarios';
 import { ScenarioCard } from '@/components/scenario/ScenarioCard';
 import { Scenario } from '@/types/scenario';
 import {
@@ -36,11 +36,11 @@ export default function HomePage() {
   const [isPolicyModalOpen, setIsPolicyModalOpen] = useState(false);
   const [isProposeModalOpen, setIsProposeModalOpen] = useState(false);
 
-  // Curated hero spotlight scenario (deterministic seasonal rotation)
-  const seasonalInfo = useMemo(() => {
-    return getSeasonalScenarioOfTheWeek();
-  }, []);
-  const heroScenario = seasonalInfo.scenario;
+  // Curated hero spotlight: both Scenario of the Day and Scenario of the Week
+  const [spotlightTab, setSpotlightTab] = useState<'day' | 'week'>('day');
+  const dayInfo = useMemo(() => getScenarioOfTheDay(), []);
+  const weekInfo = useMemo(() => getScenarioOfTheWeek(), []);
+  const activeSpotlight = spotlightTab === 'day' ? dayInfo.scenario : weekInfo.scenario;
 
   // Curated 6-8 scenarios for Section D (editorial selection)
   const curatedSelection = useMemo(() => {
@@ -101,53 +101,49 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-7">
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-semibold text-slate-800">
                 <span className="w-2 h-2 rounded-full bg-[#E10600]" />
-                <span className="uppercase tracking-wider">Ce se întâmplă dacă...?</span>
+                <span className="uppercase tracking-wider">Simulator Educațional de Risc Financiar</span>
               </div>
 
               <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-[68px] font-black tracking-tight text-[#06141B] leading-[1.08] break-words">
-                Ai fi acoperit <br />
+                Crezi că ești asigurat. <br />
                 <span className="text-slate-900 underline decoration-[#E10600] decoration-4 underline-offset-8">
-                  dacă s-ar întâmpla mâine?
+                  Dar dacă mâine se întâmplă asta?
                 </span>
               </h1>
 
               <p className="text-base sm:text-xl text-slate-600 max-w-xl font-normal leading-relaxed">
-                Descoperă riscurile reale ale vieții cotidiene la care nu te-ai gândit niciodată. Înțelege diferența critică dintre ce presupui că acoperă o poliță și ce plătești din propriul buzunar.
+                O țeavă ascunsă în perete cedează. Apa distruge parchetul, mobilierul și ajunge la vecini. Cât crezi că te-ar costa această situație?
               </p>
 
-              {/* Action Buttons & Self-Explanatory Surprinde-mă */}
+              {/* Action Buttons with Single Main CTA */}
               <div className="space-y-3 pt-2">
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                  {/* Signature "Surprinde-mă cu un scenariu" */}
-                  <button
-                    type="button"
-                    onClick={handleSurpriseMe}
-                    aria-label="Surprinde-mă cu un scenariu — Descoperă situații neașteptate și află ce ai putea să nu știi despre asigurări"
-                    title="Surprinde-mă cu un scenariu — Descoperă situații neașteptate și află ce ai putea să nu știi despre asigurări."
-                    className="py-3.5 px-6 sm:px-7 rounded-full bg-[#06141B] hover:bg-slate-900 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-3 shadow-lg shadow-slate-900/20 hover:shadow-xl transition-all group min-h-[48px] active:scale-95"
-                  >
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#E10600] group-hover:scale-125 transition-transform animate-pulse shrink-0" />
-                    <Shuffle className="w-4 h-4 text-slate-300 group-hover:rotate-45 transition-transform shrink-0" />
-                    <span>Surprinde-mă cu un scenariu</span>
-                  </button>
-
-                  {/* Explore Scenarios */}
+                  {/* Single Primary CTA */}
                   <Link
-                    href="/scenarii"
-                    className="py-3.5 px-6 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300/80 text-[#06141B] font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all min-h-[48px] active:scale-95 text-center"
+                    href="/scenarii/casa/teava-sparta"
+                    className="py-4 px-8 rounded-full bg-[#E10600] hover:bg-red-700 text-white font-extrabold text-base sm:text-lg flex items-center justify-center gap-3 shadow-lg shadow-red-600/25 hover:shadow-xl transition-all group min-h-[52px] active:scale-95 text-center"
                   >
-                    <Compass className="w-4 h-4 text-slate-600 shrink-0" />
-                    <span>Explorează 121 Scenarii</span>
+                    <span>Descoperă dacă ești protejat</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
 
-                  {/* Direct Policy Check */}
-                  <button
-                    type="button"
-                    onClick={() => setIsPolicyModalOpen(true)}
-                    className="py-3 px-3 text-slate-600 hover:text-[#06141B] text-xs sm:text-sm font-semibold underline underline-offset-4 transition-colors text-center"
+                  {/* Secondary Explore Scenarios */}
+                  <Link
+                    href="/scenarii"
+                    className="py-3.5 px-6 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 text-[#06141B] font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all min-h-[48px] active:scale-95 text-center"
                   >
-                    Ai deja o poliță? Verifică clauzele
-                  </button>
+                    <Compass className="w-4 h-4 text-slate-600 shrink-0" />
+                    <span>Explorează {SCENARIOS.length} Scenarii</span>
+                  </Link>
+
+                  {/* Financial Exposure Calculator */}
+                  <Link
+                    href="/calculator"
+                    className="py-3.5 px-5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all min-h-[48px] text-center"
+                  >
+                    <span>Calculator Pierdere</span>
+                    <ArrowUpRight className="w-4 h-4 text-[#E10600]" />
+                  </Link>
                 </div>
               </div>
 
@@ -155,64 +151,94 @@ export default function HomePage() {
               <div className="pt-6 sm:pt-8 border-t border-slate-200 grid grid-cols-3 gap-2 sm:gap-6 text-xs">
                 <div>
                   <span className="font-mono text-lg sm:text-xl font-black text-[#06141B] block">
-                    121
+                    {SCENARIOS.length}
                   </span>
-                  <span className="text-slate-500 font-medium text-[11px] sm:text-xs">Scenarii Practice</span>
+                  <span className="text-slate-500 font-medium text-[11px] sm:text-xs">Scenarii Reale</span>
                 </div>
                 <div>
                   <span className="font-mono text-lg sm:text-xl font-black text-[#06141B] block">
-                    10
+                    {CATEGORIES.length}
                   </span>
                   <span className="text-slate-500 font-medium text-[11px] sm:text-xs">Categorii de Risc</span>
                 </div>
                 <div>
                   <span className="font-mono text-lg sm:text-xl font-black text-[#E10600] block">
-                    0 Lei
+                    100%
                   </span>
-                  <span className="text-slate-500 font-medium text-[11px] sm:text-xs">Acces Gratuit</span>
+                  <span className="text-slate-500 font-medium text-[11px] sm:text-xs">Simulator Gratuit</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Spotlight Scenario Card (5 cols) */}
+            {/* Right Spotlight Scenario Card with Day / Week Switcher (5 cols) */}
             <div className="lg:col-span-5">
               <div className="relative rounded-3xl bg-white border border-slate-200/90 p-5 sm:p-6 shadow-2xl shadow-slate-200/80 transition-all">
+                
+                {/* Pill Switcher */}
+                <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl mb-4">
+                  <button
+                    type="button"
+                    onClick={() => setSpotlightTab('day')}
+                    className={`flex-1 py-1.5 px-2.5 rounded-lg text-[11px] font-mono font-bold transition-all text-center ${
+                      spotlightTab === 'day'
+                        ? 'bg-white shadow-sm text-[#06141B]'
+                        : 'text-slate-500 hover:text-slate-900'
+                    }`}
+                  >
+                    Scenariul Zilei
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSpotlightTab('week')}
+                    className={`flex-1 py-1.5 px-2.5 rounded-lg text-[11px] font-mono font-bold transition-all text-center ${
+                      spotlightTab === 'week'
+                        ? 'bg-white shadow-sm text-[#06141B]'
+                        : 'text-slate-500 hover:text-slate-900'
+                    }`}
+                  >
+                    Scenariul Săptămânii
+                  </button>
+                </div>
+
                 <div className="pb-3 border-b border-slate-100 mb-4 space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-[#E10600] font-bold">
-                      SCENARIUL SĂPTĂMÂNII
+                      {spotlightTab === 'day' ? `EDIȚIE ZILNICĂ · ${dayInfo.dateFormatted}` : `SĂPTĂMÂNA ${weekInfo.weekNumber}`}
                     </span>
                     <span className="text-[11px] font-mono text-slate-500 font-semibold">
-                      {heroScenario.categoryName}
+                      {activeSpotlight.categoryName}
                     </span>
                   </div>
                   <p className="text-[11px] text-slate-500 font-medium">
-                    {seasonalInfo.seasonalTagline}
+                    {spotlightTab === 'day' ? dayInfo.seasonalRelevance : weekInfo.weeklyThemeTitle}
                   </p>
                 </div>
 
                 <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 mb-4 border border-slate-200">
                   <Image
-                    src={heroScenario.heroImage}
-                    alt={`Ilustrație: ${heroScenario.title}`}
+                    src={activeSpotlight.heroImage}
+                    alt={`Ilustrație: ${activeSpotlight.title}`}
                     fill
                     priority
                     sizes="(max-width: 768px) 100vw, 40vw"
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3">
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                     <span className="py-1 px-2.5 rounded-full text-[10px] font-bold uppercase bg-white/95 text-[#E10600] border border-red-200 shadow-sm">
-                      {heroScenario.severityLabel || 'Risc Critic'}
+                      {activeSpotlight.severityLabel || 'Risc Critic'}
+                    </span>
+                    <span className="text-white text-[10px] font-mono font-medium drop-shadow">
+                      {spotlightTab === 'day' ? 'Stabil 24h' : weekInfo.seasonName}
                     </span>
                   </div>
                 </div>
 
                 <h2 className="text-lg sm:text-xl font-bold text-[#06141B] leading-tight">
-                  {heroScenario.title}
+                  {activeSpotlight.title}
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 mt-2 line-clamp-2">
-                  „{heroScenario.mainQuestion}”
+                  „{activeSpotlight.mainQuestion}”
                 </p>
 
                 {/* Comparison preview snippet */}
@@ -223,7 +249,7 @@ export default function HomePage() {
                       Fără poliță relevantă:
                     </span>
                     <span className="text-[#06141B] font-mono font-bold">
-                      {heroScenario.withoutInsurance.financialImpact}
+                      {activeSpotlight.withoutInsurance.financialImpact}
                     </span>
                   </div>
                   <div className="flex items-center justify-between pt-1 border-t border-slate-200/60">
@@ -240,7 +266,7 @@ export default function HomePage() {
                 {/* Actions */}
                 <div className="flex items-center gap-3 mt-5">
                   <Link
-                    href={`/scenarii/${heroScenario.categoryId}/${heroScenario.slug}`}
+                    href={`/scenarii/${activeSpotlight.categoryId}/${activeSpotlight.slug}`}
                     className="flex-1 py-3 px-4 rounded-xl bg-[#06141B] hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors text-center shadow-sm"
                   >
                     <span>Deschide scenariul ilustrativ</span>
@@ -249,7 +275,7 @@ export default function HomePage() {
 
                   <button
                     type="button"
-                    onClick={() => setActiveShareScenario(heroScenario)}
+                    onClick={() => setActiveShareScenario(activeSpotlight)}
                     className="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-[#06141B] transition-colors"
                     title="Distribuie acest scenariu"
                     aria-label="Distribuie acest scenariu"
@@ -260,6 +286,140 @@ export default function HomePage() {
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================
+          TRASEUL PRINCIPAL DE PROTECȚIE:
+          DESCOPERĂ → ÎNȚELEGE → TESTEAZĂ → VERIFICĂ → ACȚIONEAZĂ
+         ======================================================== */}
+      <section className="py-12 bg-slate-900 text-white border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div>
+              <span className="text-xs font-mono uppercase tracking-widest text-red-400 font-bold">
+                Traseul Tău de Protecție
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
+                De la Conștientizare la Siguranță Financiară
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-300 max-w-md">
+              5 pași logici prin care treci de la ipoteze nesigure la verificarea contractuală a riscului tău.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+            {/* 1. DESCOPERĂ */}
+            <Link
+              href="/scenarii"
+              className="p-5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase mb-1">
+                  Pasul 1
+                </div>
+                <div className="font-black text-sm text-white group-hover:text-[#E10600] transition-colors flex items-center justify-between">
+                  <span>DESCOPERĂ</span>
+                  <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                  Explorează cele 121 de scenarii practice din viața reală.
+                </p>
+              </div>
+              <span className="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-white/5 block">
+                Catalog Complet →
+              </span>
+            </Link>
+
+            {/* 2. ÎNȚELEGE */}
+            <Link
+              href="/calculator"
+              className="p-5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase mb-1">
+                  Pasul 2
+                </div>
+                <div className="font-black text-sm text-white group-hover:text-[#E10600] transition-colors flex items-center justify-between">
+                  <span>ÎNȚELEGE</span>
+                  <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                  Calculează pierderea din fonduri proprii (out-of-pocket).
+                </p>
+              </div>
+              <span className="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-white/5 block">
+                Calculator Expunere →
+              </span>
+            </Link>
+
+            {/* 3. TESTEAZĂ */}
+            <Link
+              href="/quiz"
+              className="p-5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase mb-1">
+                  Pasul 3
+                </div>
+                <div className="font-black text-sm text-white group-hover:text-[#E10600] transition-colors flex items-center justify-between">
+                  <span>TESTEAZĂ</span>
+                  <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                  Răspunde la Quiz și vezi scorul de conștientizare a riscului.
+                </p>
+              </div>
+              <span className="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-white/5 block">
+                Risk Quiz →
+              </span>
+            </Link>
+
+            {/* 4. VERIFICĂ */}
+            <Link
+              href="/verificare-polita"
+              className="p-5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase mb-1">
+                  Pasul 4
+                </div>
+                <div className="font-black text-sm text-white group-hover:text-[#E10600] transition-colors flex items-center justify-between">
+                  <span>VERIFICĂ</span>
+                  <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                  Mini-Audit clauze pe polița ta Generali și export raport PDF.
+                </p>
+              </div>
+              <span className="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-white/5 block">
+                Mini-Audit Poliță →
+              </span>
+            </Link>
+
+            {/* 5. ACȚIONEAZĂ */}
+            <Link
+              href="/contact"
+              className="p-5 rounded-2xl bg-[#E10600]/15 hover:bg-[#E10600]/25 border border-[#E10600]/30 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-[10px] font-mono font-bold text-[#E10600] uppercase mb-1">
+                  Pasul 5
+                </div>
+                <div className="font-black text-sm text-white group-hover:text-[#E10600] transition-colors flex items-center justify-between">
+                  <span>ACȚIONEAZĂ</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#E10600]" />
+                </div>
+                <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                  Solicită o analiză profesională dedicată cu Cristian Văduva.
+                </p>
+              </div>
+              <span className="text-[11px] font-mono text-[#E10600] mt-3 pt-2 border-t border-white/10 block font-bold">
+                Consultanță Generali →
+              </span>
+            </Link>
           </div>
         </div>
       </section>
@@ -990,18 +1150,18 @@ export default function HomePage() {
 
           </div>
 
-          {/* Action Callout */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-[#06141B] text-white flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl">
-            <div className="space-y-2 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-slate-300">
+          {/* Action Callout — Distinct Advisory Positioning */}
+          <div className="p-8 sm:p-10 rounded-3xl bg-[#06141B] text-white flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl border border-slate-800">
+            <div className="space-y-3 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-red-400">
                 <span className="w-2 h-2 rounded-full bg-[#E10600]" />
-                <span>SERVICII &amp; CONSULTANȚĂ PRIN PARTENER GENERALI</span>
+                <span>PLATFORMĂ EDUCAȚIONALĂ &amp; CONSULTANȚĂ DEDICATĂ</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
                 Treci de la presupuneri la certitudini contractuale.
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
-                Accesează platforma principală pentru emitere de polițe, suport la deschiderea dosarelor și consultanță directă cu Cristian Văduva.
+              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+                <strong className="text-white">WHAT IF INSURANCE</strong> te ajută să înțelegi riscurile prin scenarii practice. Pentru consultanță individuală în asigurări, audit detaliat de clauze și emiterea de polițe personalizate, vizitează platforma dedicată.
               </p>
             </div>
 
@@ -1012,15 +1172,15 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto py-4 px-7 rounded-full bg-white hover:bg-slate-100 text-[#06141B] font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-md group"
               >
-                <span>Accesează Insurance.CristianVaduva.com</span>
+                <span>Consultanță: insurance.cristianvaduva.com</span>
                 <ArrowUpRight className="w-4 h-4 text-[#E10600] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
 
               <Link
-                href="/contact?topic=review-polita"
+                href="/verificare-polita"
                 className="w-full sm:w-auto py-4 px-6 rounded-full bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm flex items-center justify-center gap-2 border border-slate-700 transition-all text-center"
               >
-                Solicită un audit de clauze
+                Mini-Audit Clauze
               </Link>
             </div>
           </div>

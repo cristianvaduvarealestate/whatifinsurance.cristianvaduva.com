@@ -7,6 +7,7 @@ import { SCENARIOS, getScenarioBySlug, getRelatedScenarios } from '@/data/scenar
 import { ComparisonViewer } from '@/components/scenario/ComparisonViewer';
 import { ScenarioCard } from '@/components/scenario/ScenarioCard';
 import { ScenarioDetailClient } from './ScenarioDetailClient';
+import { ScenarioThreeQuestionAnalysis } from '@/components/scenario/ScenarioThreeQuestionAnalysis';
 import {
   Shield,
   ArrowLeft,
@@ -486,6 +487,9 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
           )}
         </section>
 
+        {/* Cele 3 Întrebări Esențiale & Verdictul Vizual */}
+        <ScenarioThreeQuestionAnalysis scenario={scenario} />
+
         {/* Interactive Comparison Section */}
         <section>
           <ComparisonViewer scenario={scenario} />
@@ -631,6 +635,28 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
 
         {/* Client Interactive Actions Bar */}
         <ScenarioDetailClient scenario={scenario} />
+
+        {/* Contextual Advisory CTA — Discrete & Non-Aggressive */}
+        <section className="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="space-y-1">
+            <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-mono font-bold text-slate-500 uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span>Consultanță dedicată în asigurări</span>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-700 leading-relaxed max-w-2xl">
+              WHAT IF INSURANCE este o resursă educațională. Pentru analizarea situației tale concrete, audit contractual și consultanță individuală în asigurări, vizitează platforma dedicată.
+            </p>
+          </div>
+          <a
+            href="https://insurance.cristianvaduva.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white hover:bg-slate-100 border border-slate-300 text-xs font-bold text-[#06141B] transition-all shadow-xs shrink-0 group"
+          >
+            <span>insurance.cristianvaduva.com</span>
+            <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#E10600] transition-colors" />
+          </a>
+        </section>
 
         {/* Documentary Sources & Editorial Verification */}
         <section className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-600">

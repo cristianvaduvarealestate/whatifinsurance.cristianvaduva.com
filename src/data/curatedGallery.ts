@@ -174,7 +174,7 @@ const RAW_CURATED_GALLERY_SCENARIOS: any[] = [
     categoryBadge: 'CASĂ · PREVENȚIE',
     title: 'Locuință Neocupată & Îngheț Instalații',
     headline: 'Pleci 30 de zile în vacanță. Știai că gerul poate anula dosarul?',
-    heroImage: '/images/scenarios/vacant-frozen-pipe.svg',
+    heroImage: '/images/scenarios/vacant-frozen-pipe.jpg',
     imageCaption: 'Îngheț și inundație într-o locuință neocupată pe timp de iarnă',
     shortDescription: 'O plecare de o lună iarna duce la înghețarea conductelor și spargerea instalației sanitare.',
     contractualTakeaway: 'Clauza de neocupare exclude adesea daunele de îngheț dacă locuința stă nelocuită peste termenul contractual (uzual 30–60 de zile) fără oprirea apei și golirea instalației.',

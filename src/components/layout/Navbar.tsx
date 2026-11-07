@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
-import { Menu, X, Shield, Sparkles, Shuffle, ArrowRight, Phone, Mail } from 'lucide-react';
+import { Menu, X, Shield, Sparkles, Shuffle, ArrowRight, ArrowUpRight, Phone, Mail } from 'lucide-react';
 import { PolicyCheckModal } from '@/components/lead/PolicyCheckModal';
 import { SCENARIOS } from '@/data/scenarios';
 import { useSmartScroll } from '@/hooks/useSmartScroll';
@@ -250,7 +250,7 @@ export const Navbar: React.FC = () => {
             setHasFocus(false);
           }
         }}
-        className={`sticky top-0 ${
+        className={`print:hidden sticky top-0 ${
           mobileMenuOpen ? 'z-50' : 'z-40'
         } w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transform transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
           isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
@@ -298,27 +298,41 @@ export const Navbar: React.FC = () => {
               </div>
             </div>
 
-            {/* Right: Generali Partner Badge */}
-            <div className="flex items-center gap-3.5 pl-5 border-l border-slate-200 shrink-0">
-              <div className="text-right flex flex-col justify-center">
-                <div className="flex items-center justify-end gap-1.5">
-                  <span className="text-[11px] font-mono font-bold tracking-[0.16em] uppercase text-slate-500">
-                    PARTENER
-                  </span>
-                  <span className="text-[12px] font-black tracking-wider uppercase text-[#C21B17]">
-                    GENERALI
-                  </span>
-                </div>
-              </div>
+            {/* Center/Right: Insurance Consulting Link & Generali Partner Badge */}
+            <div className="flex items-center gap-4 shrink-0">
+              <a
+                href="https://insurance.cristianvaduva.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-[#06141B] text-xs font-semibold border border-slate-200/90 transition-colors shadow-2xs group"
+                title="Consultanță individuală în asigurări — Cristian Văduva"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span>Consultanță: insurance.cristianvaduva.com</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-[#E10600] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+              </a>
 
-              <div className="p-1.5 rounded-lg bg-slate-50/80 border border-slate-200/60 flex items-center justify-center shrink-0">
-                <Image
-                  src="/images/generali-logo.svg"
-                  alt="Generali România — Partener"
-                  className="h-8 w-auto object-contain"
-                  width={40}
-                  height={32}
-                />
+              <div className="flex items-center gap-3.5 pl-4 border-l border-slate-200 shrink-0">
+                <div className="text-right flex flex-col justify-center">
+                  <div className="flex items-center justify-end gap-1.5">
+                    <span className="text-[11px] font-mono font-bold tracking-[0.16em] uppercase text-slate-500">
+                      PARTENER
+                    </span>
+                    <span className="text-[12px] font-black tracking-wider uppercase text-[#C21B17]">
+                      GENERALI
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-1.5 rounded-lg bg-slate-50/80 border border-slate-200/60 flex items-center justify-center shrink-0">
+                  <Image
+                    src="/images/generali-logo.svg"
+                    alt="Generali România — Partener"
+                    className="h-8 w-auto object-contain"
+                    width={40}
+                    height={32}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -375,6 +389,14 @@ export const Navbar: React.FC = () => {
               }`}
             >
               Checklist clauze
+            </Link>
+            <Link
+              href="/calculator"
+              className={`hover:text-[#06141B] transition-colors py-1 ${
+                pathname === '/calculator' ? 'text-[#06141B] font-bold' : ''
+              }`}
+            >
+              Calculator expunere
             </Link>
             <Link
               href="/studio"
@@ -493,6 +515,23 @@ export const Navbar: React.FC = () => {
               <span className="text-[10px] font-mono text-slate-500">CristianVaduva.com</span>
             </div>
 
+            {/* Dedicated Insurance Consulting link on mobile */}
+            <div className="mb-2">
+              <a
+                href="https://insurance.cristianvaduva.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleNavLinkClick}
+                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-[#06141B] transition-colors"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  <span>Consultanță: insurance.cristianvaduva.com</span>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-slate-500" />
+              </a>
+            </div>
+
             {/* Navigation links with comfortable 44px touch targets */}
             <Link
               href="/scenarii"
@@ -514,6 +553,13 @@ export const Navbar: React.FC = () => {
               className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
             >
               Checklist clauze contractuale
+            </Link>
+            <Link
+              href="/calculator"
+              onClick={handleNavLinkClick}
+              className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#06141B] transition-colors"
+            >
+              Calculator expunere financiară
             </Link>
             <Link
               href="/studio"

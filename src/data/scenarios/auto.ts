@@ -10,7 +10,7 @@ export const autoScenarios: Scenario[] = [
     "mainQuestion": "Ce se întâmplă dacă lovești ușor bara din față într-o frânare bruscă în coloană?",
     "shortDescription": "O viteză de doar 20 km/h sparge farurile adaptive Matrix LED, grila activă și senzorii radar/LiDAR.",
     "situation": "În timp ce înaintezi lent pe bulevard la oră de vârf, mașina din față oprește neașteptat. Impactul are loc la circa 20 km/h. Caroseria metalică pare aproape intactă, dar farul laser dreapta este spart, bara de plastic a crăpat în dreptul senzorului radar de distanță (ACC), iar camera frontală este decalibrată.",
-    "heroImage": "/images/scenarios/car-crash.jpg",
+    "heroImage": "/images/scenarios/minor-bumper-collision.jpg",
     "imageCaption": "La vehiculele moderne, sistemele ADAS și blocurile optice complexe transformă o tamponare ușoară într-o reparație de mii de euro.",
     "severityLabel": "Risc Financiar Moderat spre Ridicat",
     "featured": true,
