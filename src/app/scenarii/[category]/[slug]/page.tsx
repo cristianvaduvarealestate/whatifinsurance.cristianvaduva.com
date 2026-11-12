@@ -445,7 +445,7 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
                 <div className="flex flex-col sm:items-end gap-1">
                   <span className="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-[11px] font-mono font-semibold bg-slate-200/80 text-slate-700 border border-slate-300">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                    Cifră retrasă · În curs de documentare primară
+                    Evaluare calitativă · În curs de documentare primară
                   </span>
                   <span className="text-[10px] text-slate-500 font-mono">
                     Fără cifre inventate sau devize neconfirmate
@@ -456,7 +456,7 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
               <div className="space-y-3 text-xs text-slate-700 leading-relaxed">
                 <p>
                   {scenario.financialEstimate?.qualitativeAssessment ||
-                    'Costul efectiv al remedierii variază substanțial în funcție de amploarea degradărilor, costul pieselor/materialelor și tarifele de manoperă autorizată. Pentru a nu induce în eroare utilizatorii prin sume nesusținute de devize concrete pe piața din România, cifra orientativă a fost retrasă din afișare până la validarea documentară.'}
+                    'Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.'}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">

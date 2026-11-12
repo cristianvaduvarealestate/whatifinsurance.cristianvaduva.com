@@ -127,8 +127,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -166,8 +166,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -443,8 +443,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -482,8 +482,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -517,8 +517,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -552,8 +552,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -591,8 +591,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -626,8 +626,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -661,8 +661,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -696,8 +696,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -735,8 +735,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -770,8 +770,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -813,8 +813,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -852,8 +852,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -887,8 +887,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -922,8 +922,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -957,8 +957,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -992,8 +992,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1469,8 +1469,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1510,8 +1510,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1644,8 +1644,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1680,8 +1680,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1716,8 +1716,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1752,8 +1752,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1788,8 +1788,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1832,8 +1832,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1868,8 +1868,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1904,8 +1904,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -1940,8 +1940,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2218,8 +2218,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2255,8 +2255,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2296,8 +2296,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2332,8 +2332,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2369,8 +2369,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2405,8 +2405,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2447,8 +2447,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2486,8 +2486,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2714,8 +2714,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2796,8 +2796,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2878,8 +2878,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -2915,8 +2915,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3006,8 +3006,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3089,8 +3089,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3126,8 +3126,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3163,8 +3163,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3200,8 +3200,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3237,8 +3237,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3278,8 +3278,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3315,8 +3315,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3492,8 +3492,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3528,8 +3528,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3656,8 +3656,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3692,8 +3692,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3772,8 +3772,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3812,8 +3812,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3856,8 +3856,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3896,8 +3896,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3932,8 +3932,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -3972,8 +3972,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4008,8 +4008,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4045,8 +4045,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4171,8 +4171,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4263,8 +4263,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4299,8 +4299,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4340,8 +4340,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4376,8 +4376,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4469,8 +4469,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4565,8 +4565,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4608,8 +4608,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4648,8 +4648,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4689,8 +4689,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4725,8 +4725,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4863,8 +4863,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4903,8 +4903,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4947,8 +4947,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -4984,8 +4984,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"
@@ -5021,8 +5021,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
       "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare exclusiv calitativă. Suma orientativă a fost retrasă din afișarea publică pentru că nu există devize medii sau surse primare documentate pe piața din România.",
-      "qualitativeAssessment": "Impactul financiar variază considerabil în funcție de circumstanțele avariei, gravitatea daunelor și tarifele practicate de prestatorii autorizați. Până la obținerea unor devize oficiale sau studii de piață documentate, suma a fost retrasă din interfață pentru a garanta acuratețea informației.",
+      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
+      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
       "includedItems": [
         "Evaluarea calitativă a riscului financiar potențial",
         "Măsuri de prevenție practică independente de poliță"

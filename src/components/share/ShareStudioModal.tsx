@@ -26,6 +26,58 @@ import {
 } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
+export const PROMOTIONAL_FOOTER = `Eu te ajut să găsești protecția potrivită pentru ceea ce contează pentru tine.
+
+🌐 Asigurări: insurance.cristianvaduva.com
+
+🔗 WhatIFinsurance.CristianVaduva.com
+
+🌐 Imobiliare: homefind.cristianvaduva.com
+
+Contact: 
+
+https://linktr.ee/cristianvaduvarealestate
+
+Formular imobiliare:
+
+https://form.jotform.com/260995822821061
+
+Formular asigurări:
+
+https://form.jotform.com/260995914926069
+
+CRISTIAN VĂDUVA
+
+Asigurări • Imobiliare • Investiții
+
+GENERALI | Cristian Văduva`;
+
+/** Atașează footerul promoțional exact o singură dată, după două newline-uri. */
+export function buildCopyLinkText(originalText: string): string {
+  if (originalText.includes(PROMOTIONAL_FOOTER)) return originalText;
+  return `${originalText}\n\n${PROMOTIONAL_FOOTER}`;
+}
+
+/** Fallback pentru browsere fără Clipboard API: copiază același conținut prin textarea + execCommand. */
+export function fallbackCopyText(text: string): boolean {
+  if (typeof document === "undefined") return false;
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  let ok = false;
+  try {
+    ok = document.execCommand("copy");
+  } catch {
+    ok = false;
+  }
+  document.body.removeChild(textarea);
+  return ok;
+}
+
 interface ShareStudioModalProps {
   scenario: Scenario;
   isOpen: boolean;
@@ -173,12 +225,18 @@ export const ShareStudioModal: React.FC<ShareStudioModalProps> = ({
   };
 
   const handleCopyLink = async () => {
+    // Textul original copiat (nemodificat) + URL, urmat de două newline-uri și footerul, o singură dată.
+    const copyText = buildCopyLinkText(`${challengeText}\n\n${currentUrl}`);
     try {
-      await navigator.clipboard.writeText(`${challengeText}\n\n${currentUrl}`);
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard API indisponibil');
+      await navigator.clipboard.writeText(copyText);
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     } catch {
-      setCopied(true);
+      if (fallbackCopyText(copyText)) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+      }
     }
   };
 
