@@ -99,7 +99,12 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
   }
 
   const pageUrl = `https://whatifinsurance.cristianvaduva.com/scenarii/${scenario.categoryId}/${scenario.slug}`;
-  const relatedScenarios = getRelatedScenarios(scenario, 3);
+  const relatedScenarios = getRelatedScenarios(scenario, 3).map((rel) => ({
+    ...rel,
+    financialEstimate: undefined,
+    contractualDocument: undefined,
+    contractualProduct: undefined,
+  }));
 
   // Structured Data: BreadcrumbList
   const breadcrumbJsonLd = {
@@ -438,7 +443,13 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
                     </span>
                   </div>
                   <p className="text-sm font-semibold text-slate-900">
-                    Impact variabil în funcție de devizul autorizat și amploarea avariei
+                    {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
+                      ? 'Expunere financiară determinată de valoarea tranzacției și posibilitatea contestării plății'
+                      : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
+                      ? 'Cost determinat de distanță, mijlocul de transport și logistica medicală de urgență'
+                      : scenario.slug === 'teava-inghetata-iarna'
+                      ? 'Impact financiar determinat de gravitatea avariei, instalațiile afectate și daunele cauzate de apă'
+                      : 'Impact variabil în funcție de devizul autorizat și amploarea avariei'}
                   </p>
                 </div>
 
@@ -448,7 +459,11 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
                     Evaluare calitativă · În curs de documentare primară
                   </span>
                   <span className="text-[10px] text-slate-500 font-mono">
-                    Fără cifre inventate sau devize neconfirmate
+                    {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
+                      ? 'Fără cifre inventate sau promisiuni neconfirmate'
+                      : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
+                      ? 'Fără tarife inventate sau estimări neconfirmate'
+                      : 'Fără cifre inventate sau devize neconfirmate'}
                   </span>
                 </div>
               </div>
@@ -456,40 +471,123 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
               <div className="space-y-3 text-xs text-slate-700 leading-relaxed">
                 <p>
                   {scenario.financialEstimate?.qualitativeAssessment ||
-                    'Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.'}
+                    (scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
+                      ? 'Expunerea financiară depinde de suma plătită, autorizarea tranzacției și posibilitatea contestării plății la bancă. Orice recuperare depinde de verificarea bunei-credințe și de termenii aplicabili.'
+                      : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
+                      ? 'Costul evacuării depinde de distanță, accesibilitate geografică, mijlocul de transport și echipajul medical necesar. Acoperirea depinde de aprobarea dispeceratului și de limitele poliței.'
+                      : scenario.slug === 'teava-inghetata-iarna'
+                      ? 'Costurile remedierii depind de gravitatea avariei, volumul de apă la dezgheț și instalațiile sau finisajele afectate. Acoperirea depinde de clauza facultativă de îngheț și respectarea obligațiilor preventive.'
+                      : 'Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.')}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                  <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                    <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                      Ce determină costul real:
-                    </span>
-                    <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                      <li>Amploarea și profunzimea avariilor constatate la fața locului</li>
-                      {scenario.categoryId === 'auto' ? (
-                        <>
-                          <li>Prețul pieselor de schimb originale vs. compatibile omologate</li>
-                          <li>Tariful orar al manoperei din atelierele sau service-urile autorizate</li>
-                        </>
-                      ) : (
-                        <>
-                          <li>Costul materialelor, finisajelor sau instalațiilor necesare refacerii</li>
-                          <li>Tariful manoperei practicate de echipele sau prestatorii autorizați</li>
-                        </>
-                      )}
-                    </ul>
-                  </div>
+                  {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom' ? (
+                    <>
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+                          Ce determină expunerea financiară:
+                        </span>
+                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                          <li>Suma plătită și pierderea financiară potențială</li>
+                          <li>Modalitatea de plată și autorizarea tranzacției</li>
+                          <li>Neprimirea produsului și imposibilitatea contactării comerciantului</li>
+                        </ul>
+                      </div>
 
-                  <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                    <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                      Elemente care rămân în sarcina asiguratului:
-                    </span>
-                    <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                      <li>Franșiza contractuală prevăzută expres în poliță (dacă există)</li>
-                      <li>Avariile sau degradările preexistente producerii evenimentului</li>
-                      <li>Îmbunătățirile sau modernizările peste starea anterioară</li>
-                    </ul>
-                  </div>
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+                          Ce poate influența recuperarea banilor:
+                        </span>
+                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                          <li>Dovada comenzii, a plății și sesizarea băncii</li>
+                          <li>Solicitarea procedurii de contestare a tranzacției (fără garantarea rezultatului)</li>
+                          <li>Limitele și condițiile unei eventuale protecții de cumpărături online documentate</li>
+                        </ul>
+                      </div>
+                    </>
+                  ) : scenario.slug === 'evacuare-urgenta-destinatie-izolata' ? (
+                    <>
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+                          Ce determină costul evacuării:
+                        </span>
+                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                          <li>Distanța până la cel mai apropiat centru medical adecvat</li>
+                          <li>Accesibilitatea geografică și condițiile locale</li>
+                          <li>Mijlocul de transport disponibil: elicopter, hidroavion, ambulanță aeriană sau maritim</li>
+                          <li>Necesitatea personalului medical și a echipamentelor de transport</li>
+                        </ul>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+                          Ce influențează organizarea transferului:
+                        </span>
+                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                          <li>Urgența și complexitatea transferului</li>
+                          <li>Organizarea și autorizarea evacuării prin dispeceratul de asistență</li>
+                          <li>Limitele, aprobările și condițiile contractuale ale asigurării de călătorie</li>
+                        </ul>
+                      </div>
+                    </>
+                  ) : scenario.slug === 'teava-inghetata-iarna' ? (
+                    <>
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+                          Ce determină costul remedierii:
+                        </span>
+                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                          <li>Înghețarea și fisurarea conductei și scurgerea apei la dezgheț</li>
+                          <li>Afectarea instalațiilor sanitare, termice și a bunurilor prin apă</li>
+                          <li>Eventualele daune produse vecinilor sau terților</li>
+                        </ul>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+                          Ce depinde de contractul de asigurare:
+                        </span>
+                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                          <li>Includerea expresă a clauzei de îngheț / apă de conductă în anexa poliței</li>
+                          <li>Condițiile de prevenție, notificare și acoperire confirmate în documentație</li>
+                          <li>Franșiza contractuală și sublimitele stabilite în polița de locuință</li>
+                        </ul>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+                          Ce determină costul real:
+                        </span>
+                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                          <li>Amploarea și profunzimea avariilor constatate la fața locului</li>
+                          {scenario.categoryId === 'auto' ? (
+                            <>
+                              <li>Prețul pieselor de schimb originale vs. compatibile omologate</li>
+                              <li>Tariful orar al manoperei din atelierele sau service-urile autorizate</li>
+                            </>
+                          ) : (
+                            <>
+                              <li>Costul materialelor, finisajelor sau instalațiilor necesare refacerii</li>
+                              <li>Tariful manoperei practicate de echipele sau prestatorii autorizați</li>
+                            </>
+                          )}
+                        </ul>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+                          Elemente care rămân în sarcina asiguratului:
+                        </span>
+                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                          <li>Franșiza contractuală prevăzută expres în poliță (dacă există)</li>
+                          <li>Avariile sau degradările preexistente producerii evenimentului</li>
+                          <li>Îmbunătățirile sau modernizările peste starea anterioară</li>
+                        </ul>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

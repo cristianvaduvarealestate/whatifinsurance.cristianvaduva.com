@@ -562,37 +562,41 @@ export const calatoriiScenarios: Scenario[] = [
     ],
     "illustrativeCost": "Cost transfer aerian de urgență cu hidroavion: 8.000 – 22.000 USD",
     "withoutInsurance": {
-      "title": "Fără asigurare de călătorie cu căutare și salvare (Search & Rescue)",
-      "statusLabel": "Operatorul aerian cere plata garantată înainte de decolare",
-      "financialImpact": "Mii de dolari blocați pe card sau întârzierea transferului vital",
+      "title": "Fără asigurare de călătorie cu acoperire pentru evacuare medicală de urgență",
+      "statusLabel": "Costurile logistice și de transport medical sunt suportate integral de călător",
+      "financialImpact": "Expunere financiară masivă pentru transport medical specializat",
       "points": [
-        "Companiile de hidroavioane private nu efectuează misiuni de evacuare medicală fără confirmarea plății de la resort sau familie.",
-        "Resortul de lux transferă costul zborului direct pe nota de plată a camerei.",
-        "Orice minut de întârziere cauzat de verificarea fondurilor bancare poate fi fatal în cazul unui hematom intracranian."
+        "Distanța până la cel mai apropiat centru medical adecvat și condițiile geografice izolate impun mijloace speciale de transport (hidroavion, elicopter, ambulanță aeriană sau maritim).",
+        "Operatorii privați de transport solicită garanții financiare imediate înainte de inițierea zborului sau cursei maritime.",
+        "Costul mobilizării echipajului medical, a echipamentelor de suport vital și a transferului de urgență este suportat integral din fonduri proprii."
       ],
-      "summary": "Lipsa unei polițe recunoscute internațional poate întârzia transferul medical critic."
+      "summary": "Fără o poliță de călătorie adecvată, pacientul sau familia trebuie să asigure fondurile pentru transferul medical critic."
     },
     "withInsurance": {
-      "title": "Cu asigurare de călătorie internațională cu acoperire Search, Rescue & Evacuation",
-      "statusLabel": "Coordonare instantă de către dispeceratul internațional de asistență",
-      "financialImpact": "Decontare 100% a transferului aerian și a spitalizării",
+      "title": "Cu asigurare de călătorie internațională cu acoperire pentru evacuare medicală de urgență",
+      "statusLabel": "Organizare și decontare prin dispeceratul de asistență de călătorie",
+      "financialImpact": "Acoperire în limita sumei asigurate pentru evacuare și asistență de urgență",
       "points": [
-        "Dispeceratul de asistență activează direct rețeaua regională de evacuare medicală de urgență.",
-        "Zborul cu hidroavionul sau elicopterul este achitat integral, iar echipa medicală preia pacientul de pe debarcader.",
-        "La aterizare în capitală, o ambulanță specializată așteaptă pe pistă pentru transferul la spitalul chirurgical de referință."
+        "Dispeceratul de asistență medicală coordonează transportul disponibil (aerian, maritim sau terestru) către cea mai apropiată unitate spitalicească adecvată.",
+        "Sunt preluate cheltuielile cu transportul specializat, personalul medical însoțitor și echipamentele necesare, în limita condițiilor contractate.",
+        "Autorizarea transferului de urgență depinde de obținerea acordului prealabil al dispeceratului și de respectarea limitelor stipulate în poliță."
       ],
-      "summary": "Salvarea vieții primează, costurile de evacuare medicală fiind preluate de asigurător în limita sumei asigurate agregate."
+      "summary": "Dispeceratul de asistență preia organizarea și cheltuielile de evacuare în limitele și condițiile prevăzute în contract."
     },
     "whatToCheck": {
       "title": "Ce trebuie să verifici în contractul tău",
       "items": [
         {
-          "label": "Clauza de Evacuare de Urgență (Emergency Evacuation)",
-          "detail": "Verifică dacă evacuarea către cel mai apropiat centru medical adecvat are sumă separată generoasă."
+          "label": "Clauza de evacuare medicală de urgență (Emergency Medical Evacuation)",
+          "detail": "Verifică existența clauzei de evacuare către cel mai apropiat spital adecvat și sumele asigurate prevăzute pentru transport sanitar aerian sau naval."
         },
         {
-          "label": "Zone geografice izolate",
-          "detail": "Asigură-te că polița nu exclude insulele mici sau călătoriile de tip expediție/safari."
+          "label": "Accesibilitate geografică și condiții locale",
+          "detail": "Asigură-te că destinația izolată, insulele sau activitățile de tip expediție/safari nu sunt excluse expres din acoperire."
+        },
+        {
+          "label": "Organizarea și autorizarea evacuării",
+          "detail": "Polițele impun contactarea dispeceratului de asistență pentru autorizarea prealabilă a transferului și a mijlocului de transport ales."
         }
       ]
     },

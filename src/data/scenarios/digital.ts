@@ -466,37 +466,41 @@ export const digitalScenarios: Scenario[] = [
     ],
     "illustrativeCost": "Pierdere financiară nerambursabilă: 4.000 – 12.000 RON",
     "withoutInsurance": {
-      "title": "Doar procedura standard bancară de refuz la plată",
-      "statusLabel": "Banca respinge chargeback-ul dacă tranzacția a fost autorizată prin 3D-Secure",
-      "financialImpact": "Pierdere de 100% a banilor transferați",
+      "title": "Doar procedura bancară standard de contestare a tranzacției",
+      "statusLabel": "Banca poate respinge refuzul la plată dacă tranzacția a fost autorizată",
+      "financialImpact": "Pierdere potențială a întregii sume achitate",
       "points": [
-        "Dacă ai introdus codul SMS sau ai aprobat plata în aplicația bancară (3D Secure), banca consideră tranzacția autorizată voluntar și respinge cererea de refuz.",
-        "Recuperarea banilor de la servere găzduite în zone offshore este practic imposibilă pentru o persoană fizică.",
-        "Rămâi și fără produs și fără banii plătiți."
+        "Suma plătită și pierderea financiară rămân în sarcina cumpărătorului dacă tranzacția a fost autorizată prin procedurile băncii.",
+        "Neprimirea produsului și imposibilitatea contactării comerciantului fantomă fac recuperarea directă extrem de dificilă.",
+        "Procedura de refuz la plată (chargeback) depinde de regulile schemei de plată și nu garantează recuperarea sumei transferate."
       ],
-      "summary": "Fără o poliță de protecție a cumpărăturilor online, banii virați pe site-uri fantomă sunt pierduți iremediabil."
+      "summary": "Fără o protecție documentată pentru tranzacții online, recuperarea sumei plătite este incertă."
     },
     "withInsurance": {
-      "title": "Cu poliță de Protecție a Cumpărăturilor Online (Online Shopper Protection)",
-      "statusLabel": "Rambursare integrală a sumei furate pe baza dosarului de fraudă",
-      "financialImpact": "Recuperare a sumei de 7.500 RON direct în cont",
+      "title": "Cu asigurare sau protecție documentată pentru tranzacții și cumpărături online",
+      "statusLabel": "Posibilă evaluare a dosarului de daună conform limitelor din contract",
+      "financialImpact": "Evaluare a pierderii financiare conform condițiilor poliței",
       "points": [
-        "Polița acoperă ne-livrarea produselor achiziționate de la comercianți online frauduloși sau fraudarea la plată.",
-        "Asigurătorul decontează contravaloarea comenzii dacă bunurile nu ajung în 30 de zile și comerciantul nu poate fi contactat.",
-        "Primești asistență specializată pentru raportarea domeniului fraudulos la autorități."
+        "Polița ce include o clauză documentată de protecție a cumpărăturilor online poate analiza preluarea pierderii financiare din frauda la plată.",
+        "Deschiderea dosarului necesită dovada comenzii, a plății, a neprimirii produsului și refuzul băncii de soluționare a chargeback-ului.",
+        "Despăgubirea depinde de limitele și condițiile prevăzute expres în contract, fără a garanta o rambursare automată a pierderii."
       ],
-      "summary": "Cumpărăturile pe internet sunt lipsite de riscuri chiar și în fața celor mai abile înșelăciuni."
+      "summary": "Protecția documentată poate oferi suport financiar în caz de fraudă comercială online, sub rezerva condițiilor poliței."
     },
     "whatToCheck": {
       "title": "Ce trebuie să verifici în contractul tău",
       "items": [
         {
-          "label": "Termenul de raportare a ne-livrării",
-          "detail": "Verifică în câte zile de la data estimată a livrării trebuie deschis dosarul la asigurător (uzual 30 – 60 de zile)."
+          "label": "Dovada comenzii și a plății",
+          "detail": "Păstrează confirmarea tranzacției, extrasul bancar și dovezile încercării de contactare a comerciantului."
         },
         {
-          "label": "Plafonul anual de cumpărături online",
-          "detail": "Asigură-te că polița oferă un plafon rezonabil (ex. 2.000 – 5.000 EUR/an per asigurat)."
+          "label": "Sesizarea băncii și contestarea tranzacției",
+          "detail": "Notifică banca emitentă pentru blocarea instrumentului de plată și inițierea procedurii de refuz la plată (chargeback)."
+        },
+        {
+          "label": "Limitele și condițiile protecției",
+          "detail": "Verifică dacă polița conține o clauză confirmată de protecție a tranzacțiilor online și care sunt excluderile prevăzute."
         }
       ]
     },

@@ -316,29 +316,32 @@ export const CASA_SCENARIOS: Scenario[] = [
       statusLabel: 'Cheltuieli suportate în totalitate de proprietar',
       financialImpact: 'Plată integrală a instalației și finisajelor',
       points: [
-        'Instalațiile sanitare trebuie refăcute în regim de urgență pe temperaturi negative.',
-        'Costul echipamentelor din camera tehnică (boilere, pompe) avariate este suportat personal.'
+        'Instalațiile sanitare și termice afectate trebuie refăcute în regim de urgență pe temperaturi negative.',
+        'Costul echipamentelor din camera tehnică (boilere, pompe) sau bunurilor degradate de apă este suportat personal.',
+        'Eventualele daune provocate bunurilor vecinilor prin infiltrarea apei sunt suportate direct de proprietar.'
       ],
       summary: 'Proprietarul suportă toate pagubele fără niciun sprijin financiar extern.'
     },
     withInsurance: {
       title: 'Cu poliță facultativă ce include explicit riscul de îngheț la instalații',
-      statusLabel: 'Despăgubire pentru reparația instalației și daunele cauzate de apă',
-      financialImpact: 'Reparație acoperită pe baza devizului',
+      statusLabel: 'Despăgubire condiționată de clauza facultativă și măsurile de prevenție',
+      financialImpact: 'Acoperire condiționată de clauza de îngheț și respectarea condițiilor contractuale',
       points: [
-        'Se decontează reparația conductelor și a echipamentelor afectate de inundație.',
-        'Se acoperă daunele produse finisajelor interioare de apa rezultată la dezgheț.'
+        'Despăgubirea pentru repararea conductelor și daunele produse de apă depinde de includerea expresă a clauzei de îngheț în anexa poliței.',
+        'Asigurătorul verifică respectarea măsurilor preventive (încălzire minimă, conservarea instalațiilor pe ger) și termenul de notificare.',
+        'Daunele produse vecinilor pot fi preluate doar dacă polița include clauza de răspundere civilă legală față de terți.'
       ],
-      summary: 'Clauza de îngheț previne pierderea fondurilor de economii în sezonul rece.'
+      summary: 'Clauza de îngheț poate proteja bugetul familiei dacă sunt respectate obligațiile contractuale de prevenție.'
     },
     whatToCheck: {
       title: 'Ce trebuie să verifici în contractul tău',
       items: [
-        { label: 'Obligația de încălzire minimă', detail: 'Verifică dacă asigurătorul cere ca imobilul să fi fost menținut la o temperatură minimă (ex. +10°C) pe timp de iarnă.' },
-        { label: 'Golirea instalațiilor', detail: 'În casele de vacanță, este obligatorie de regulă golirea instalației de apă pe perioada nelocuirii.' }
+        { label: 'Obligația de încălzire minimă', detail: 'Verifică dacă asigurătorul cere ca imobilul să fi fost menținut la o temperatură minimă (uzual +8°C până la +10°C) pe timp de iarnă.' },
+        { label: 'Golirea instalațiilor pe perioada nelocuirii', detail: 'În casele de vacanță sau imobilele nelocuite, golirea completă a instalației este de regulă o condiție obligatorie.' },
+        { label: 'Răspunderea civilă față de terți', detail: 'Verifică dacă polița acoperă și prejudiciile cauzate vecinilor în cazul refulării apei la dezgheț.' }
       ],
       exclusions: [
-        'Locuințe părăsite fără măsuri de conservare și fără oprirea robinetului general.'
+        'Locuințe părăsite sau neîncălzite fără măsuri de conservare și fără oprirea robinetului general.'
       ]
     },
     immediateSteps: [
@@ -357,7 +360,10 @@ export const CASA_SCENARIOS: Scenario[] = [
       'Ce temperatură minimă cere asigurătorul tău să menții în casă iarna?',
       'Care este procedura pentru casele de vacanță pe timpul gerului?'
     ],
-    sources: ['UNSAR — Riscurile de iarnă și asigurarea locuințelor'],
+    sources: [
+      'UNSAR — Riscurile de iarnă și asigurarea locuințelor',
+      'Codul Civil Român — Răspunderea pentru prejudiciul cauzat de lucruri'
+    ],
     lastEditorialDate: '28 Octombrie 2026',
     ctaText: 'Află dacă locuința ta e asigurată la îngheț',
     shareText: 'O țeavă înghețată poate distruge o casă la dezgheț! Vezi ce clauză te protejează pe WHAT IF INSURANCE.',

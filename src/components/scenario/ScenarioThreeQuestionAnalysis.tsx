@@ -86,7 +86,15 @@ export function ScenarioThreeQuestionAnalysis({ scenario }: ScenarioThreeQuestio
           </div>
           <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700">
             <span className="font-bold text-slate-900 block mb-0.5">Consecință patrimonială:</span>
-            <span>Prejudiciul poate include avarii directe, degradarea bunurilor adiacente și pretenții de despăgubire din partea terților afectați.</span>
+            <span>
+              {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
+                ? 'Suma plătită și pierderea financiară potențială prin debitarea contului, neprimirea produselor și blocarea fondurilor transferate.'
+                : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
+                ? 'Expunere financiară masivă pentru logistica de transport medical specializat (aerian, maritim sau terestru), echipaj medical de urgență și spitalizare critică.'
+                : scenario.slug === 'teava-inghetata-iarna'
+                ? 'Prejudiciul poate include înlocuirea conductei sparte, afectarea instalațiilor sanitare/termice și a bunurilor prin apă, precum și eventuale daune provocate proprietăților învecinate.'
+                : 'Prejudiciul poate include avarii directe, degradarea bunurilor adiacente și pretenții de despăgubire din partea terților afectați.'}
+            </span>
           </div>
         </div>
 
@@ -117,18 +125,24 @@ export function ScenarioThreeQuestionAnalysis({ scenario }: ScenarioThreeQuestio
             ) : isLegalOnly ? (
               <div className="space-y-2 mt-2 text-xs text-slate-600 leading-relaxed">
                 <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-200 font-mono text-[11px] text-blue-950">
-                  <span className="font-bold block">Cadru legal de referință:</span>
+                  <span className="font-bold block">Cadru de referință:</span>
                   <span>{scenario.legalBasis}</span>
                 </div>
                 <p className="text-xs text-slate-500 italic">
-                  Normele legale stabilesc răspunderea civilă. Clauzele specifice ale produsului comercial Generali sunt în curs de documentare detaliată.
+                  {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
+                    ? 'Normele aplicabile stabilesc regulile privind drepturile consumatorilor și procedurile de refuz la plată. Clauzele unei eventuale protecții private se verifică în contract.'
+                    : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
+                    ? 'Standardele internaționale reglementează asistența medicală de urgență. Preluarea cheltuielilor depinde de limitele și aprobările poliței de călătorie.'
+                    : scenario.slug === 'teava-inghetata-iarna'
+                    ? 'Normele legale stabilesc răspunderea civilă. Acoperirea depinde de contractarea clauzei facultative de îngheț și respectarea obligațiilor preventive.'
+                    : 'Normele legale stabilesc răspunderea civilă. Clauzele specifice ale produsului comercial sunt în curs de documentare detaliată.'}
                 </p>
               </div>
             ) : (
               <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 mt-2 space-y-1">
                 <span className="font-bold block">Documentație necesară pentru verificare</span>
                 <p className="text-[11px] leading-relaxed">
-                  Pentru acest scenariu specific, condițiile contractuale Generali sunt în curs de revizuire individuală. Nu prezentăm afirmații presupuse.
+                  Pentru acest scenariu specific, condițiile contractuale sunt în curs de revizuire individuală. Nu prezentăm afirmații presupuse.
                 </p>
               </div>
             )}
@@ -216,10 +230,35 @@ export function ScenarioThreeQuestionAnalysis({ scenario }: ScenarioThreeQuestio
               Ce Depinde de Contract
             </div>
             <ul className="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
-              <li>Valoarea franșizei (0, sumă fixă 50–200 € sau procentuală)</li>
-              <li>Suma maximă asigurată și eventualele sublimite per obiect</li>
-              <li>Excluderile exprese (uzură, viciu ascuns, nelocuire prelungită)</li>
-              <li>Măsurile preventive obligatorii declarate în contract</li>
+              {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom' ? (
+                <>
+                  <li>Plafonul maxim per tranzacție și limita anuală pentru protecția cumpărăturilor (dacă există)</li>
+                  <li>Termenul limită de notificare a băncii și deschiderea procedurii de refuz la plată</li>
+                  <li>Excluderea tranzacțiilor autorizate expres prin metode de autentificare strictă</li>
+                  <li>Condițiile de furnizare a dovezilor privind neprimirea produsului</li>
+                </>
+              ) : scenario.slug === 'evacuare-urgenta-destinatie-izolata' ? (
+                <>
+                  <li>Limita maximă de acoperire pentru evacuare medicală și transport sanitar de urgență</li>
+                  <li>Obligația contactării și aprobării prealabile prin dispeceratul de asistență 24/7</li>
+                  <li>Excluderile geografice specifice (zone izolate, insule, safari sau expediții)</li>
+                  <li>Acoperirea costurilor pentru personalul medical însoțitor și echipamentele de suport</li>
+                </>
+              ) : scenario.slug === 'teava-inghetata-iarna' ? (
+                <>
+                  <li>Includerea expresă a clauzei facultative de îngheț și apă de conductă în poliță</li>
+                  <li>Respectarea cerințelor de prevenție (menținerea încălzirii minime pe timp de ger)</li>
+                  <li>Obligația golirii instalațiilor de apă în perioadele de nelocuire a imobilului</li>
+                  <li>Franșiza contractuală și sublimita pentru daunele produse vecinilor sau terților</li>
+                </>
+              ) : (
+                <>
+                  <li>Valoarea franșizei (0, sumă fixă 50–200 € sau procentuală)</li>
+                  <li>Suma maximă asigurată și eventualele sublimite per obiect</li>
+                  <li>Excluderile exprese (uzură, viciu ascuns, nelocuire prelungită)</li>
+                  <li>Măsurile preventive obligatorii declarate în contract</li>
+                </>
+              )}
             </ul>
           </div>
 
@@ -230,14 +269,39 @@ export function ScenarioThreeQuestionAnalysis({ scenario }: ScenarioThreeQuestio
               Ce Trebuie Verificat
             </div>
             <ul className="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
-              <li>Polița tipărită și Anexa cu riscuri suplimentare bifate</li>
-              <li>Existența dovezilor de notificare la termen a avariei</li>
-              {scenario.categoryId === 'auto' ? (
-                <li>Ghidul de decontare (în reprezentanță vs. ateliere partenere)</li>
+              {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom' ? (
+                <>
+                  <li>Dovada comenzii, confirmarea plății și extrasul de cont bancar</li>
+                  <li>Formularul de refuz la plată (chargeback) transmis băncii emitente a cardului</li>
+                  <li>Dovada neprimirii bunurilor și a imposibilității contactării comerciantului</li>
+                  <li>Clauzele specifice de protecție a cumpărăturilor online din poliță sau contractul de card</li>
+                </>
+              ) : scenario.slug === 'evacuare-urgenta-destinatie-izolata' ? (
+                <>
+                  <li>Numărul de asistență de urgență de pe cardul de asigurare de călătorie</li>
+                  <li>Raportul medical care atestă urgența vitală și necesitatea transportului aerian/naval</li>
+                  <li>Aprobarea prealabilă a transferului și a mijlocului de transport prin dispecerat</li>
+                  <li>Limitele, aprobările și condițiile contractuale ale poliței de călătorie</li>
+                </>
+              ) : scenario.slug === 'teava-inghetata-iarna' ? (
+                <>
+                  <li>Polița facultativă de locuință și anexa cu clauza de fenomene de îngheț bifată</li>
+                  <li>Dovada respectării măsurilor de încălzire minimă sau conservare a conductelor</li>
+                  <li>Constatarea avariei la conductă și a consecințelor scurgerii la dezgheț</li>
+                  <li>Acoperirea de răspundere civilă în cazul în care apa a afectat proprietățile vecine</li>
+                </>
               ) : (
-                <li>Devizul de reparații și evaluarea inspectorului de daună</li>
+                <>
+                  <li>Polița tipărită și Anexa cu riscuri suplimentare bifate</li>
+                  <li>Existența dovezilor de notificare la termen a avariei</li>
+                  {scenario.categoryId === 'auto' ? (
+                    <li>Ghidul de decontare (în reprezentanță vs. ateliere partenere)</li>
+                  ) : (
+                    <li>Devizul de reparații și evaluarea inspectorului de daună</li>
+                  )}
+                  <li>Limita de răspundere civilă față de vecini și terți</li>
+                </>
               )}
-              <li>Limita de răspundere civilă față de vecini și terți</li>
             </ul>
           </div>
 

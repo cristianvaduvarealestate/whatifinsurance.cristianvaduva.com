@@ -201,33 +201,32 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "currency": "RON",
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
-      "sourceTitle": "Ghidul Asigurării CASCO & Condiții Standard Generali România (Mod. CSC 18)",
+      "sourceTitle": "Condiții Cadru de Asigurare Facultativă a Locuințelor și Bunurilor (Piața din România)",
       "sourceUrl": "https://asfromania.ro/consumatori/ghiduri-si-brosuri/",
       "sourceDate": "Ediții Condiții Generale 2023-2024",
-      "insurer": "Piața Asigurărilor din România (Standard UNSAR / ASF)",
-      "product": "CASCO / RCA",
-      "policyVersion": "Condiții Particulare CASCO",
-      "assumptions": "Evaluare calitativă a riscului conform Ghidul Asigurării CASCO & Condiții Standard Generali România (Mod. CSC 18). Cifra orientativă a fost retrasă din afișarea publică pentru a preveni inducerea în eroare; despăgubirea efectivă depinde de devizul aprobat și de franșiză.",
-      "qualitativeAssessment": "Costul remedierii depinde de circumstanțele concrete, de piesele avariate și de devizul unității reparatoare autorizate. Cifra orientativă a fost retrasă din afișarea publică până la documentarea cu surse primare verificabile.",
+      "insurer": "Asigurători Locuințe Retail (Piața din România)",
+      "product": "Asigurare Facultativă de Locuință",
+      "policyVersion": "Clauza Avarii Accidentale la Instalațiile de Apă / Fenomene de Îngheț",
+      "assumptions": "Evaluare calitativă a riscului de îngheț și refulare de apă la instalații interioare conform normelor generale de asigurare a locuinței. Acoperirea nu este automată: depinde de contractarea expresă a clauzei de îngheț/apă de conductă, respectarea măsurilor de prevenție (menținerea unei temperaturi minime în imobil, golirea instalațiilor în spații neîncălzite) și de devizul aprobat.",
+      "qualitativeAssessment": "Costul remedierii depinde de amploarea fisurii conductei, debitul de apă eliberat la dezgheț, instalațiile sanitare și termice avariate, finisajele degradate și eventualele daune provocate proprietăților învecinate. O eventuală despăgubire depinde strict de existența clauzei contractuale specifice în polița de locuință, notificarea în termen și respectarea măsurilor preventive (menținerea încălzirii minime, conservarea instalațiilor pe ger).",
       "includedItems": [
-        "Evaluarea calitativă a riscului și a limitărilor de acoperire",
-        "Analiza clauzelor și condițiilor aplicabile"
+        "Evaluarea calitativă a riscului de îngheț și a daunelor produse de apă la instalații",
+        "Cerințele de prevenție și notificare aplicabile asigurării locuinței"
       ],
       "excludedItems": [
-        "Sume fixe sau estimări numerice nesusținute prin devize oficiale",
-        "Garanții privind valoarea despăgubirii"
+        "Sume fixe sau estimări nesusținute de devize concrete",
+        "Polițe de asigurare auto sau alte riscuri nespecifice locuinței"
       ]
     },
     "editorialStatus": "revizuit",
-    "editorialReviewDate": "30 octombrie 2026",
-    "contractualReviewDate": "30 octombrie 2026",
-    "contractualProduct": "CASCO / RCA",
-    "contractualDocument": "Ghidul Asigurării CASCO & Condiții Standard Generali România (Mod. CSC 18) (Condiții Particulare CASCO)",
+    "editorialReviewDate": "12 noiembrie 2026",
+    "legalReviewDate": "12 noiembrie 2026",
+    "legalBasis": "Codul Civil Român — Art. 1376 (Răspunderea pentru prejudiciul cauzat de lucruri) & Norme Cadru de Asigurare a Locuinței",
     "preventionTips": [
-      "Închide robinetul general de alimentare cu apă când locuința rămâne nesupravegheată mai mult de 48 de ore.",
-      "Instalează senzori independenți de inundație cu notificare pe telefon lângă chiuvete, mașina de spălat și centrală.",
-      "Înlocuiește racordurile flexibile din cauciuc și plasă metalică la fiecare 3–5 ani, înainte de apariția semnelor de îmbătrânire.",
-      "Izolează conductele amplasate pe pereți exteriori sau în spații neîncălzite înainte de începerea sezonului rece."
+      "Menține o temperatură minimă de cel puțin 8–10°C în toate spațiile tranzitate de conducte în perioadele de ger extrem.",
+      "Golește complet instalațiile de apă din imobilele nelocuite sau casele de vacanță înainte de debutul iernii.",
+      "Izolează termic traseele conductelor amplasate pe pereți exteriori sau în camere tehnice neîncălzite.",
+      "Oprește alimentarea generală cu apă înainte de dezghețare la observarea unei conducte înghețate pentru a limita inundarea."
     ],
     "userProfiles": [
       "proprietar"
@@ -2292,27 +2291,35 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
   },
   "calatorii-evacuare-urgenta-destinatie-izolata": {
     "financialEstimate": {
-      "currency": "RON",
+      "currency": "EUR",
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
-      "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
-      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
+      "sourceTitle": "Condiții Generale de Asigurare pentru Călătorii în Străinătate (Clauza Asistență Medicală și Evacuare de Urgență)",
+      "sourceUrl": "https://asfromania.ro/consumatori/ghiduri-si-brosuri/",
+      "sourceDate": "Ediții Standard Piață 2024-2025",
+      "insurer": "Asigurători de Călătorie & Companii Internaționale de Asistență",
+      "product": "Asigurare Medicală de Călătorie cu Asistență de Urgență",
+      "policyVersion": "Secțiunea Transport Medical de Urgență, Salvare și Evacuare Aeriană",
+      "assumptions": "Evaluare calitativă a cheltuielilor generate de o evacuare medicală de urgență dintr-o destinație izolată. Costul real depinde de distanța geografică până la cel mai apropiat centru medical specializat, mijlocul de transport impus de condițiile locale și aprobarea prealabilă a dispeceratului de asistență.",
+      "qualitativeAssessment": "Costul evacuării depinde de distanța geografică până la cel mai apropiat spital adecvat, mijlocul de transport disponibil (elicopter, hidroavion, ambulanță aeriană sau maritim), necesitatea personalului medical și a echipamentelor de suport pe durata transportului, precum și urgența transferului. Decontarea costurilor de către asigurător depinde strict de respectarea procedurii de autorizare prin dispeceratul de asistență, de limitele maxime prevăzute în poliță și de absența excluderilor geografice.",
       "includedItems": [
-        "Evaluarea calitativă a riscului financiar potențial",
-        "Măsuri de prevenție practică independente de poliță"
+        "Evaluarea calitativă a logisticii de evacuare medicală și a transportului de urgență",
+        "Analiza cerințelor de aprobare prin dispecerat și a limitelor poliței de călătorie"
       ],
       "excludedItems": [
-        "Sume fixe sau intervale numerice neconfirmate prin documente"
+        "Tarife orare de zbor sau sume fixe nesusținute de devize concrete",
+        "Referințe la reparații materiale, manoperă sau avarii de clădiri"
       ]
     },
     "editorialStatus": "revizuit",
     "editorialReviewDate": "12 noiembrie 2026",
+    "legalReviewDate": "12 noiembrie 2026",
+    "legalBasis": "Standarde Internaționale privind Asistența Medicală de Urgență în Călătorii & Condiții Cadru de Asigurare de Călătorie",
     "preventionTips": [
-      "Fă copii digitale ale pașaportului, biletelor și asigurărilor și salvează-le pe telefon și pe email.",
-      "Verifică alertele de călătorie și recomandările sanitare publicate pe site-ul Ministerului Afacerilor Externe (mae.ro).",
-      "Păstrează fonduri de urgență pe un card secundar și configurează limite zilnice rezonabile de tranzacționare.",
-      "Notează numărul de urgență al asistenței de călătorie înainte de plecarea din țară."
+      "Salvează numărul internațional de urgență al dispeceratului de asistență pe telefon și pe un suport fizic înainte de plecare.",
+      "Verifică dacă polița de călătorie acoperă destinația izolată și activitățile specifice (safari, sporturi acvatice, transfer cu hidroavion).",
+      "Păstrează o copie a poliței și a condițiilor contractuale la îndemână pe toată durata călătoriei.",
+      "Asigură-te că însoțitorii de călătorie cunosc procedura de apelare a dispeceratului în cazul în care ești în incapacitate medicală."
     ],
     "userProfiles": [
       "calator"
@@ -2323,7 +2330,10 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "insule-izolate",
       "asigurare-calatorie",
       "safari-africa",
-      "călătorii & internațional"
+      "călătorii & internațional",
+      "transport sanitar",
+      "salvare aeriana",
+      "urgenta medicala strainatate"
     ]
   },
   "calatorii-intrerupere-sejur-deces-ruda": {
@@ -3931,24 +3941,32 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "currency": "RON",
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
-      "sourceTitle": "În curs de documentare cu surse primare",
-      "assumptions": "Evaluare calitativă a riscului de infiltrație prin terasă conform condițiilor generale de asigurare a locuinței.",
-      "qualitativeAssessment": "Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.",
+      "sourceTitle": "Ghidul privind Securitatea Tranzacțiilor Online și Drepturile Consumatorilor (ECC România / ANPC)",
+      "sourceUrl": "https://eccromania.ro/informatii/cumparaturi-online-in-ue/",
+      "sourceDate": "Ediție 2024-2025",
+      "insurer": "Asigurători Cyber & Pachete Bancare Retail",
+      "product": "Protecție Cibernetică / Clauză Cumpărături Online",
+      "policyVersion": "Condiții Cadru privind Frauda în Comerțul Electronic",
+      "assumptions": "Evaluare calitativă a expunerii financiare rezultate din tranzacții pe platforme online frauduloase. Recuperarea sumei nu este garantată și depinde de modalitatea de autorizare a plății, răspunsul procesatorului bancar la procedura de refuz la plată (chargeback) și existența unei clauze de protecție a cumpărăturilor online în contract.",
+      "qualitativeAssessment": "Expunerea financiară este determinată de suma totală achitată, modalitatea de plată și autorizarea tranzacției. Posibilitatea recuperării banilor depinde de sesizarea rapidă a băncii pentru refuz la plată (chargeback), furnizarea dovezilor privind neprimirea produsului și imposibilitatea contactării comerciantului, precum și de limitele și condițiile unei eventuale clauze de protecție a cumpărăturilor online documentate în contract.",
       "includedItems": [
-        "Evaluarea calitativă a riscului financiar potențial",
-        "Măsuri de prevenție practică independente de poliță"
+        "Evaluarea calitativă a expunerii financiare și a mecanismelor de contestare a tranzacției",
+        "Pașii de sesizare bancară și documentare a fraudei online"
       ],
       "excludedItems": [
-        "Sume fixe sau intervale numerice neconfirmate prin documente"
+        "Garanții ferme de recuperare sau termene bancare prestabilite",
+        "Referințe la reparații materiale, manoperă sau devize de atelier"
       ]
     },
     "editorialStatus": "revizuit",
     "editorialReviewDate": "12 noiembrie 2026",
+    "legalReviewDate": "12 noiembrie 2026",
+    "legalBasis": "OG nr. 34/2014 privind drepturile consumatorilor în cadrul contractelor încheiate la distanță & Regulamentele schemelor de plată cu cardul privind refuzul la plată (Chargeback)",
     "preventionTips": [
-      "Păstrează copii de siguranță offline sau pe medii imutabile (regula 3-2-1), cu teste periodice de restaurare.",
-      "Activează autentificarea cu factor multiplu (MFA/2FA) pe toate conturile cu acces la date și infrastructură.",
-      "Aplică actualizările de securitate ale sistemelor de operare în maximum câteva zile de la publicare.",
-      "Instruiește periodic echipa sau membrii familiei privind identificarea mesajelor false și linkurilor malițioase."
+      "Verifică datele de identificare ale comerciantului (CUI, adresă fizică, număr de telefon funcțional) înainte de a efectua plăți online.",
+      "Verifică vechimea domeniului web și recenziile independente pe platforme externe înainte de comenzi de valori mari.",
+      "Folosește carduri virtuale cu limită strictă de tranzacționare sau plata ramburs la livrare când magazinul este necunoscut.",
+      "Nu autoriza tranzacții în aplicația bancară dacă descrierea sau beneficiarul nu corespund comerciantului de la care cumperi."
     ],
     "userProfiles": [
       "antreprenor"
@@ -3960,10 +3978,9 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "cyber-protectie-cumparaturi",
       "card-clonat",
       "viață digitală & tech",
-      "copil a spart ceva",
-      "televizor spart magazin",
-      "raspundere parinte",
-      "daune facute de copii"
+      "teapa online",
+      "magazin fals",
+      "plata card nerecunoscuta"
     ]
   },
   "digital-scurgere-date-confidential-email-gresit": {

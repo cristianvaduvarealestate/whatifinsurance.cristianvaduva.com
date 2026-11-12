@@ -239,7 +239,13 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
                   <span className="text-xl font-black text-[#E10600]">
                     {scenario.withoutInsurance.financialImpact}
                   </span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">* Costurile reale variază în funcție de circumstanțe și deviz.</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">
+                    {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
+                      ? '* Expunerea financiară depinde de suma tranzacționată și de rezultatul demersurilor bancare.'
+                      : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
+                      ? '* Costurile reale depind de distanță, accesibilitate și mijlocul de transport medical necesar.'
+                      : '* Costurile reale variază în funcție de circumstanțe și deviz.'}
+                  </span>
                 </div>
               </div>
 
@@ -387,7 +393,11 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
               1. A avea o poliță vs Polița potrivită
             </span>
             <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-              O asigurare obligatorie (PAD) acoperă exclusiv cele 3 riscuri de dezastru natural prevăzute de lege (cutremur, inundații naturale, alunecări de teren) și nu este interschimbabilă cu o asigurare facultativă. Nu despăgubește o țeavă spartă, un incendiu accidental din interior sau daunele provocate vecinilor. Pentru aceste riscuri este necesară o poliță facultativă cu clauze contractate distinct.
+              {scenario.categoryId === 'digital-tech'
+                ? 'O simplă procedură bancară de refuz la plată nu este echivalentă cu o protecție contractuală împotriva fraudelor din comerțul electronic. Pentru riscurile din mediul digital este necesară verificarea atentă a clauzelor și condițiilor de protecție la cumpărături online.'
+                : scenario.categoryId === 'calatorii'
+                ? 'Un card european sau o asigurare medicală de bază acoperă de regulă doar urgențe în spitale publice și nu include transportul aerian privat, căutarea-salvarea sau evacuarea din zone izolate. Pentru aceste situații este necesară o poliță de călătorie cu clauză expresă de evacuare medicală.'
+                : 'O asigurare obligatorie (PAD) acoperă exclusiv cele 3 riscuri de dezastru natural prevăzute de lege (cutremur, inundații naturale, alunecări de teren) și nu este interschimbabilă cu o asigurare facultativă. Nu despăgubește o țeavă spartă, un incendiu accidental din interior sau daunele provocate vecinilor. Pentru aceste riscuri este necesară o poliță facultativă cu clauze contractate distinct.'}
             </p>
           </div>
 
