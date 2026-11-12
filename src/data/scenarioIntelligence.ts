@@ -75,6 +75,7 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
     ]
   },
   "casa-daune-vecini": {
+
     "financialEstimate": {
       "currency": "RON",
       "type": "exemplu_ipotetic",
