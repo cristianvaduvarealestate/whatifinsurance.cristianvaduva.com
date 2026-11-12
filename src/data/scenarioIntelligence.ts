@@ -79,33 +79,35 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "currency": "RON",
       "type": "exemplu_ipotetic",
       "verificationStatus": "necesita_documentare",
-      "sourceTitle": "Ghidul Asigurării CASCO & Condiții Standard Generali România (Mod. CSC 18)",
-      "sourceUrl": "https://asfromania.ro/consumatori/ghiduri-si-brosuri/",
-      "sourceDate": "Ediții Condiții Generale 2023-2024",
-      "insurer": "Piața Asigurărilor din România (Standard UNSAR / ASF)",
-      "product": "CASCO / RCA",
-      "policyVersion": "Condiții Particulare CASCO",
-      "assumptions": "Evaluare calitativă a riscului conform Ghidul Asigurării CASCO & Condiții Standard Generali România (Mod. CSC 18). Cifra orientativă a fost retrasă din afișarea publică pentru a preveni inducerea în eroare; despăgubirea efectivă depinde de devizul aprobat și de franșiză.",
-      "qualitativeAssessment": "Costul remedierii depinde de circumstanțele concrete, de piesele avariate și de devizul unității reparatoare autorizate. Cifra orientativă a fost retrasă din afișarea publică până la documentarea cu surse primare verificabile.",
+      "sourceTitle": "Condiții Generale de Asigurare a Locuințelor Generali Eurocasa (Mod. E18) & Codul Civil Român",
+      "sourceUrl": "https://www.generali.ro/asigurari/persoane-fizice/locuinte/completa-plus/",
+      "sourceDate": "Mod. E18 / Ianuarie 2025",
+      "insurer": "Generali România / Asigurători de Locuință Autorizați ASF",
+      "product": "Generali Eurocasa",
+      "policyVersion": "Condiții Generale Mod. E18 (Secțiunea Răspundere Civilă Față de Terți)",
+      "assumptions": "Evaluare calitativă a riscului de răspundere civilă delictuală conform Art. 1376 Cod Civil și Condițiilor Generale Generali Eurocasa (Mod. E18). O eventuală despăgubire a vecinului afectat depinde de existența clauzei de răspundere civilă a proprietarului pe polița ta, de sublimita contractată per eveniment, de excluderile aplicabile și de devizul aprobat.",
+      "qualitativeAssessment": "Costul remedierii depinde de gravitatea infiltrației, finisajele afectate în apartamentul vecinului de dedesubt (tavan fals, glet, parchet, mobilier) și tarifele manoperei autorizate. Despăgubirea nu este automată și depinde de produsul deținut, clauzele contractate, limitele maxime stabilite și lipsa culpei grave sau a excluderilor contractuale.",
       "includedItems": [
-        "Evaluarea calitativă a riscului și a limitărilor de acoperire",
-        "Analiza clauzelor și condițiilor aplicabile"
+        "Evaluarea calitativă a riscului de răspundere civilă față de terți și regres",
+        "Analiza clauzelor și condițiilor aplicabile pentru daune de apă produse vecinilor"
       ],
       "excludedItems": [
-        "Sume fixe sau estimări numerice nesusținute prin devize oficiale",
-        "Garanții privind valoarea despăgubirii"
+        "Sume fixe sau promisiuni automate de despăgubire",
+        "Avarii provenite din coloanele comune aflate în paza asociației de bloc"
       ]
     },
     "editorialStatus": "revizuit",
     "editorialReviewDate": "30 octombrie 2026",
     "contractualReviewDate": "30 octombrie 2026",
-    "contractualProduct": "CASCO / RCA",
-    "contractualDocument": "Ghidul Asigurării CASCO & Condiții Standard Generali România (Mod. CSC 18) (Condiții Particulare CASCO)",
+    "contractualProduct": "Generali Eurocasa",
+    "contractualDocument": "Generali Eurocasa — Condiții Generale Mod. E18 (Secțiunea Răspundere Civilă Față de Terți)",
+    "legalReviewDate": "30 octombrie 2026",
+    "legalBasis": "Codul Civil Român — Art. 1376 (Răspunderea pentru prejudiciul cauzat de lucruri)",
     "preventionTips": [
-      "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
-      "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
-      "Montează corpuri de iluminat cu senzor și alarme de securitate la punctele vulnerabile de acces.",
-      "Evită postarea în timp real pe rețelele sociale a perioadelor în care locuința rămâne complet nesupravegheată."
+      "Verifică periodic etanșeitatea racordurilor flexibile și a furtunului de alimentare al mașinii de spălat.",
+      "Montează o electrovalvă automată sau senzori de inundație cu notificare și oprire la scurgere accidentală.",
+      "Oprește robinetul dedicat mașinii de spălat și robinetul general de apă când pleci de acasă pe durate mai mari.",
+      "Asigură refacerea hidroizolației elastice sub gresie în baie și bucătărie la lucrările de renovare."
     ],
     "userProfiles": [
       "proprietar"
@@ -134,7 +136,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Evită pornirea ciclurilor de spălare pe durata nopții sau când ești plecat de acasă.",
       "Echipează aparatul cu un furtun de siguranță cu supapă mecanică (sistem de tip AquaStop).",
@@ -172,7 +175,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Evită pornirea ciclurilor de spălare pe durata nopții sau când ești plecat de acasă.",
       "Echipează aparatul cu un furtun de siguranță cu supapă mecanică (sistem de tip AquaStop).",
@@ -448,7 +452,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Instalează un sistem de alarmă antiefracție conectat la un dispecerat de monitorizare și intervenție rapidă.",
       "Păstrează bijuteriile și bunurile de valoare într-un seif omologat, ancorat mecanic în structura de rezistență.",
@@ -486,7 +491,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -520,7 +526,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -554,7 +561,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Întocmește un proces-verbal detaliat de predare-primire însoțit de fotografii clare la începutul și finalul contractului.",
       "Prevede în contract o garanție echitabilă și reguli clare privind responsabilitatea micilor reparații curente.",
@@ -592,7 +600,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -626,7 +635,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -660,7 +670,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -694,7 +705,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Încarcă vehiculul sau echipamentele electrice folosind exclusiv stații sau cabluri conforme cu protecție diferențială.",
       "Evită încărcarea nesupravegheată peste noapte a bateriilor detașabile de trotinete pe căile de evacuare.",
@@ -732,7 +744,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -766,7 +779,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Închide robinetul general de alimentare cu apă când locuința rămâne nesupravegheată mai mult de 48 de ore.",
       "Instalează senzori independenți de inundație cu notificare pe telefon lângă chiuvete, mașina de spălat și centrală.",
@@ -808,7 +822,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Instalează un sistem de alarmă antiefracție conectat la un dispecerat de monitorizare și intervenție rapidă.",
       "Păstrează bijuteriile și bunurile de valoare într-un seif omologat, ancorat mecanic în structura de rezistență.",
@@ -846,7 +861,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -880,7 +896,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -914,7 +931,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Folosește o cameră de bord cu modul de supraveghere în parcare și senzor de șoc alimentat prin kit dedicat.",
       "Alege locuri de parcare iluminate corespunzător și evită parcarea în unghiuri moarte sau strâmte.",
@@ -948,7 +966,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -982,7 +1001,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o inspecție vizuală a acoperișului, jgheaburilor și etanșeității ferestrelor înainte de sosirea toamnei.",
       "Păstrează o evidență digitală cu facturile și fotografiile bunurilor electrocasnice din locuință.",
@@ -1458,7 +1478,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Plasează un dispozitiv discret de localizare (AirTag / SmartTag) în fiecare bagaj predat la cală.",
       "Fotografiază exteriorul bagajului și conținutul orientativ înainte de predarea la ghișeul de check-in.",
@@ -1498,7 +1519,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Verifică regulat starea anvelopelor, adâncimea profilului și presiunea recomandată de producător.",
       "Nu lăsa genți, echipamente electronice sau obiecte atractive la vedere pe scaunele mașinii.",
@@ -1631,7 +1653,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Verifică regulat starea anvelopelor, adâncimea profilului și presiunea recomandată de producător.",
       "Nu lăsa genți, echipamente electronice sau obiecte atractive la vedere pe scaunele mașinii.",
@@ -1666,7 +1689,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Verifică regulat starea anvelopelor, adâncimea profilului și presiunea recomandată de producător.",
       "Nu lăsa genți, echipamente electronice sau obiecte atractive la vedere pe scaunele mașinii.",
@@ -1701,7 +1725,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Verifică regulat starea anvelopelor, adâncimea profilului și presiunea recomandată de producător.",
       "Nu lăsa genți, echipamente electronice sau obiecte atractive la vedere pe scaunele mașinii.",
@@ -1736,7 +1761,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Verifică regulat starea anvelopelor, adâncimea profilului și presiunea recomandată de producător.",
       "Nu lăsa genți, echipamente electronice sau obiecte atractive la vedere pe scaunele mașinii.",
@@ -1771,7 +1797,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Montează detectoare autonome de fum în dormitoare și zonele de trecere și verifică bateriile semestrial.",
       "Nu conecta consumatori de mare putere (aeroterme, boilere, cuptoare) pe același prelungitor sau priză multiplă.",
@@ -1814,7 +1841,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează o diagnoză auto completă și verifică starea fluidelor de răcire înainte de călătorii lungi pe autostradă.",
       "Păstrează în mașină un compresor portabil, o roată de rezervă verificată sau un kit de pană cu spumă activă valabilă.",
@@ -1849,7 +1877,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Verifică regulat starea anvelopelor, adâncimea profilului și presiunea recomandată de producător.",
       "Nu lăsa genți, echipamente electronice sau obiecte atractive la vedere pe scaunele mașinii.",
@@ -1884,7 +1913,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Montează detectoare autonome de fum în dormitoare și zonele de trecere și verifică bateriile semestrial.",
       "Nu conecta consumatori de mare putere (aeroterme, boilere, cuptoare) pe același prelungitor sau priză multiplă.",
@@ -1919,7 +1949,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Verifică regulat starea anvelopelor, adâncimea profilului și presiunea recomandată de producător.",
       "Nu lăsa genți, echipamente electronice sau obiecte atractive la vedere pe scaunele mașinii.",
@@ -2196,7 +2227,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Fă copii digitale ale pașaportului, biletelor și asigurărilor și salvează-le pe telefon și pe email.",
       "Verifică alertele de călătorie și recomandările sanitare publicate pe site-ul Ministerului Afacerilor Externe (mae.ro).",
@@ -2232,7 +2264,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Stabilește reguli clare cu minorii înainte de vizite în spații comerciale sau locuințele prietenilor.",
       "Ancorează ecranele TV mari și corpurile grele de mobilier de perete folosind kituri antibruscaj.",
@@ -2272,7 +2305,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Fă copii digitale ale pașaportului, biletelor și asigurărilor și salvează-le pe telefon și pe email.",
       "Verifică alertele de călătorie și recomandările sanitare publicate pe site-ul Ministerului Afacerilor Externe (mae.ro).",
@@ -2307,7 +2341,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Fă copii digitale ale pașaportului, biletelor și asigurărilor și salvează-le pe telefon și pe email.",
       "Verifică alertele de călătorie și recomandările sanitare publicate pe site-ul Ministerului Afacerilor Externe (mae.ro).",
@@ -2343,7 +2378,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează un set anual de analize preventive și monitorizează periodic valorile tensiunii arteriale.",
       "Păstrează un dosar medical digital organizat cu istoricul consulturilor, prescripțiilor și alergiilor cunoscute.",
@@ -2378,7 +2414,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Consultă drepturile stabilite prin Regulamentul European CE 261/2004 privind compensațiile la zboruri anulate sau întârziate.",
       "Păstrează toate chitanțele pentru mese, băuturi sau cazare pe perioada așteptării în aeroport.",
@@ -2419,7 +2456,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Inspectează vizual starea țiglelor, coamelor și a jgheaburilor înainte de începerea sezonului de furtuni.",
       "Toaletează crengile bătrâne sau uscate din apropierea acoperișului și a liniilor electrice aeriene.",
@@ -2457,7 +2495,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Instalează un sistem de alarmă antiefracție conectat la un dispecerat de monitorizare și intervenție rapidă.",
       "Păstrează bijuteriile și bunurile de valoare într-un seif omologat, ancorat mecanic în structura de rezistență.",
@@ -2684,7 +2723,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează inspecții vizuale periodice ale etanșeității sifoanelor de pardoseală și robineților de colț.",
       "Șterge prompt suprafețele umede din băi sau bucătării pentru a reduce riscul de alunecare al oaspeților.",
@@ -2765,7 +2805,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează inspecții vizuale periodice ale etanșeității sifoanelor de pardoseală și robineților de colț.",
       "Șterge prompt suprafețele umede din băi sau bucătării pentru a reduce riscul de alunecare al oaspeților.",
@@ -2846,7 +2887,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Inspectează vizual starea țiglelor, coamelor și a jgheaburilor înainte de începerea sezonului de furtuni.",
       "Toaletează crengile bătrâne sau uscate din apropierea acoperișului și a liniilor electrice aeriene.",
@@ -2882,7 +2924,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Mărește distanța de urmărire față de autocamioane și vehicule de mare tonaj pe autostrăzi și drumuri expres.",
       "Repară operativ ciobiturile minore prin injectare cu rășină optică înainte ca vibrațiile să extindă fisura.",
@@ -2972,7 +3015,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Închide robinetul general de alimentare cu apă când locuința rămâne nesupravegheată mai mult de 48 de ore.",
       "Instalează senzori independenți de inundație cu notificare pe telefon lângă chiuvete, mașina de spălat și centrală.",
@@ -3054,7 +3098,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează un set anual de analize preventive și monitorizează periodic valorile tensiunii arteriale.",
       "Păstrează un dosar medical digital organizat cu istoricul consulturilor, prescripțiilor și alergiilor cunoscute.",
@@ -3090,7 +3135,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează un set anual de analize preventive și monitorizează periodic valorile tensiunii arteriale.",
       "Păstrează un dosar medical digital organizat cu istoricul consulturilor, prescripțiilor și alergiilor cunoscute.",
@@ -3126,7 +3172,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează un set anual de analize preventive și monitorizează periodic valorile tensiunii arteriale.",
       "Păstrează un dosar medical digital organizat cu istoricul consulturilor, prescripțiilor și alergiilor cunoscute.",
@@ -3162,7 +3209,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează un set anual de analize preventive și monitorizează periodic valorile tensiunii arteriale.",
       "Păstrează un dosar medical digital organizat cu istoricul consulturilor, prescripțiilor și alergiilor cunoscute.",
@@ -3198,7 +3246,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează un set anual de analize preventive și monitorizează periodic valorile tensiunii arteriale.",
       "Păstrează un dosar medical digital organizat cu istoricul consulturilor, prescripțiilor și alergiilor cunoscute.",
@@ -3238,7 +3287,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează un set anual de analize preventive și monitorizează periodic valorile tensiunii arteriale.",
       "Păstrează un dosar medical digital organizat cu istoricul consulturilor, prescripțiilor și alergiilor cunoscute.",
@@ -3274,7 +3324,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Efectuează un set anual de analize preventive și monitorizează periodic valorile tensiunii arteriale.",
       "Păstrează un dosar medical digital organizat cu istoricul consulturilor, prescripțiilor și alergiilor cunoscute.",
@@ -3450,7 +3501,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Implementează proceduri clare de aprobare ierarhică pentru plățile bancare și modificarea conturilor furnizorilor.",
       "Revizuiește periodic contractele comerciale pentru a asigura echilibrul clauzelor de răspundere și penalități.",
@@ -3485,7 +3537,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Documentează deciziile strategice și raționamentul economic în procesele-verbale ale Adunării Generale și Consiliului.",
       "Solicită opinii juridice și fiscale scrise prealabile pentru contractele atipice sau de valoare ridicată.",
@@ -3612,7 +3665,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Definește precis în contractul de prestări servicii sfera livrabilelor, responsabilitățile și un plafon al răspunderii.",
       "Obține confirmarea scrisă în etape (proces-verbal de recepție parțială) pentru fiecare fază a proiectului.",
@@ -3647,7 +3701,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Păstrează copii de siguranță offline sau pe medii imutabile (regula 3-2-1), cu teste periodice de restaurare.",
       "Activează autentificarea cu factor multiplu (MFA/2FA) pe toate conturile cu acces la date și infrastructură.",
@@ -3726,7 +3781,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Păstrează copii de siguranță offline sau pe medii imutabile (regula 3-2-1), cu teste periodice de restaurare.",
       "Activează autentificarea cu factor multiplu (MFA/2FA) pe toate conturile cu acces la date și infrastructură.",
@@ -3765,7 +3821,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Păstrează copii de siguranță offline sau pe medii imutabile (regula 3-2-1), cu teste periodice de restaurare.",
       "Activează autentificarea cu factor multiplu (MFA/2FA) pe toate conturile cu acces la date și infrastructură.",
@@ -3808,7 +3865,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Încarcă vehiculul sau echipamentele electrice folosind exclusiv stații sau cabluri conforme cu protecție diferențială.",
       "Evită încărcarea nesupravegheată peste noapte a bateriilor detașabile de trotinete pe căile de evacuare.",
@@ -3847,7 +3905,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Păstrează copii de siguranță offline sau pe medii imutabile (regula 3-2-1), cu teste periodice de restaurare.",
       "Activează autentificarea cu factor multiplu (MFA/2FA) pe toate conturile cu acces la date și infrastructură.",
@@ -3882,7 +3941,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Păstrează copii de siguranță offline sau pe medii imutabile (regula 3-2-1), cu teste periodice de restaurare.",
       "Activează autentificarea cu factor multiplu (MFA/2FA) pe toate conturile cu acces la date și infrastructură.",
@@ -3921,7 +3981,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Păstrează copii de siguranță offline sau pe medii imutabile (regula 3-2-1), cu teste periodice de restaurare.",
       "Activează autentificarea cu factor multiplu (MFA/2FA) pe toate conturile cu acces la date și infrastructură.",
@@ -3956,7 +4017,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Păstrează copii de siguranță offline sau pe medii imutabile (regula 3-2-1), cu teste periodice de restaurare.",
       "Activează autentificarea cu factor multiplu (MFA/2FA) pe toate conturile cu acces la date și infrastructură.",
@@ -3992,7 +4054,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Montează detectoare autonome de fum în dormitoare și zonele de trecere și verifică bateriile semestrial.",
       "Nu conecta consumatori de mare putere (aeroterme, boilere, cuptoare) pe același prelungitor sau priză multiplă.",
@@ -4117,7 +4180,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Inspectează vizual starea țiglelor, coamelor și a jgheaburilor înainte de începerea sezonului de furtuni.",
       "Toaletează crengile bătrâne sau uscate din apropierea acoperișului și a liniilor electrice aeriene.",
@@ -4208,7 +4272,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Instalează un sistem de alarmă antiefracție conectat la un dispecerat de monitorizare și intervenție rapidă.",
       "Păstrează bijuteriile și bunurile de valoare într-un seif omologat, ancorat mecanic în structura de rezistență.",
@@ -4243,7 +4308,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Păstrează bunurile de valoare într-un seif ancorat mecanic, certificat pentru clasa de securitate adecvată.",
       "Păstrează documentele de proveniență, certificatele gemologice și fotografiile de detaliu într-o arhivă digitală securizată.",
@@ -4283,7 +4349,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Păstrează bunurile de valoare într-un seif ancorat mecanic, certificat pentru clasa de securitate adecvată.",
       "Păstrează documentele de proveniență, certificatele gemologice și fotografiile de detaliu într-o arhivă digitală securizată.",
@@ -4318,7 +4385,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Inspectează vizual starea țiglelor, coamelor și a jgheaburilor înainte de începerea sezonului de furtuni.",
       "Toaletează crengile bătrâne sau uscate din apropierea acoperișului și a liniilor electrice aeriene.",
@@ -4410,7 +4478,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Întocmește un proces-verbal detaliat de predare-primire însoțit de fotografii clare la începutul și finalul contractului.",
       "Prevede în contract o garanție echitabilă și reguli clare privind responsabilitatea micilor reparații curente.",
@@ -4505,7 +4574,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Închide robinetul general de alimentare cu apă când locuința rămâne nesupravegheată mai mult de 48 de ore.",
       "Instalează senzori independenți de inundație cu notificare pe telefon lângă chiuvete, mașina de spălat și centrală.",
@@ -4547,7 +4617,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Montează detectoare autonome de fum în dormitoare și zonele de trecere și verifică bateriile semestrial.",
       "Nu conecta consumatori de mare putere (aeroterme, boilere, cuptoare) pe același prelungitor sau priză multiplă.",
@@ -4586,7 +4657,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Întocmește un proces-verbal detaliat de predare-primire însoțit de fotografii clare la începutul și finalul contractului.",
       "Prevede în contract o garanție echitabilă și reguli clare privind responsabilitatea micilor reparații curente.",
@@ -4626,7 +4698,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Întocmește un proces-verbal detaliat de predare-primire însoțit de fotografii clare la începutul și finalul contractului.",
       "Prevede în contract o garanție echitabilă și reguli clare privind responsabilitatea micilor reparații curente.",
@@ -4661,7 +4734,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Întocmește un proces-verbal detaliat de predare-primire însoțit de fotografii clare la începutul și finalul contractului.",
       "Prevede în contract o garanție echitabilă și reguli clare privind responsabilitatea micilor reparații curente.",
@@ -4798,7 +4872,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Folosește lesa în spațiile publice și botnița acolo unde temperamentul animalului sau normele locale o cer.",
       "Păstrează carnetul de sănătate al animalului cu vaccinările antirabice efectuate strict la termen.",
@@ -4837,7 +4912,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Documentează detaliat orice incident prin fotografii din multiple unghiuri și notarea martorilor la fața locului.",
       "Păstrează chitanțele, facturile de achiziție și certificatele de garanție într-un dosar digital securizat.",
@@ -4880,7 +4956,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Documentează detaliat orice incident prin fotografii din multiple unghiuri și notarea martorilor la fața locului.",
       "Păstrează chitanțele, facturile de achiziție și certificatele de garanție într-un dosar digital securizat.",
@@ -4916,7 +4993,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Inspectează vizual starea țiglelor, coamelor și a jgheaburilor înainte de începerea sezonului de furtuni.",
       "Toaletează crengile bătrâne sau uscate din apropierea acoperișului și a liniilor electrice aeriene.",
@@ -4952,7 +5030,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Sume fixe sau intervale numerice neconfirmate prin documente"
       ]
     },
-    "editorialStatus": "in_curs",
+    "editorialStatus": "revizuit",
+    "editorialReviewDate": "12 noiembrie 2026",
     "preventionTips": [
       "Montează detectoare autonome de fum în dormitoare și zonele de trecere și verifică bateriile semestrial.",
       "Nu conecta consumatori de mare putere (aeroterme, boilere, cuptoare) pe același prelungitor sau priză multiplă.",
