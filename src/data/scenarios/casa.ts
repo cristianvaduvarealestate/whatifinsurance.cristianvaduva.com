@@ -777,7 +777,7 @@ export const CASA_SCENARIOS: Scenario[] = [
     shortDescription: 'Apa topită din zăpadă se infiltrează sub gresia terasei și distruge finisajele din camerele de dedesubt.',
     situation: 'După topirea unui strat gros de zăpadă depus pe terasa circulabilă a penthouse-ului sau etajului superior, apa găsește o fisură în hidroizolație. Tavanul livingului de dedesubt se pătează sever, tencuiala se desprinde, iar parchetul începe să se deformeze.',
     heroImage: '/images/scenarios/terrace-snow-melt-infiltration.jpg',
-    imageCaption: 'Zăpada topită pe acoperiș se scurge spre margine, reîngheață și pătrunde prin învelitoare, apoi se infiltrează în perete și în jurul ferestrei. Herzi Pinki / Wikimedia Commons, CC BY-SA 3.0.',
+    imageCaption: 'Zăpada topită pe terasă băltește și se infiltrează prin hidroizolația degradată și rosturile perimetrale, degradând structura și finisajele de dedesubt.',
     illustrativeCost: '20.000 – 60.000 RON (decopertare terasă, refacere membrană și zugrăveli)',
     severityLabel: 'Risc Financiar Ridicat',
     featured: false,

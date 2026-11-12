@@ -232,7 +232,11 @@ export function ScenarioThreeQuestionAnalysis({ scenario }: ScenarioThreeQuestio
             <ul className="text-xs text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
               <li>Polița tipărită și Anexa cu riscuri suplimentare bifate</li>
               <li>Existența dovezilor de notificare la termen a avariei</li>
-              <li>Ghidul de decontare (în reprezentanță vs. ateliere partenere)</li>
+              {scenario.categoryId === 'auto' ? (
+                <li>Ghidul de decontare (în reprezentanță vs. ateliere partenere)</li>
+              ) : (
+                <li>Devizul de reparații și evaluarea inspectorului de daună</li>
+              )}
               <li>Limita de răspundere civilă față de vecini și terți</li>
             </ul>
           </div>

@@ -466,8 +466,17 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
                     </span>
                     <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
                       <li>Amploarea și profunzimea avariilor constatate la fața locului</li>
-                      <li>Prețul pieselor de schimb originale vs. compatibile omologate</li>
-                      <li>Tariful orar al manoperei din atelierele sau echipele autorizate</li>
+                      {scenario.categoryId === 'auto' ? (
+                        <>
+                          <li>Prețul pieselor de schimb originale vs. compatibile omologate</li>
+                          <li>Tariful orar al manoperei din atelierele sau service-urile autorizate</li>
+                        </>
+                      ) : (
+                        <>
+                          <li>Costul materialelor, finisajelor sau instalațiilor necesare refacerii</li>
+                          <li>Tariful manoperei practicate de echipele sau prestatorii autorizați</li>
+                        </>
+                      )}
                     </ul>
                   </div>
 
