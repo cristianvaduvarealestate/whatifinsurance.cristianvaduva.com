@@ -2307,8 +2307,8 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
         "Analiza cerințelor de aprobare prin dispecerat și a limitelor poliței de călătorie"
       ],
       "excludedItems": [
-        "Tarife orare de zbor sau sume fixe nesusținute de devize concrete",
-        "Referințe la reparații materiale, manoperă sau avarii de clădiri"
+        "Tarife orare de transport sau sume fixe neconfirmate prin documente oficiale",
+        "Garanții de preluare automată fără autorizarea prealabilă a dispeceratului"
       ]
     },
     "editorialStatus": "revizuit",
@@ -3951,7 +3951,7 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       ],
       "excludedItems": [
         "Garanții ferme de recuperare sau termene bancare prestabilite",
-        "Referințe la reparații materiale, manoperă sau devize de atelier"
+        "Despăgubiri automate fără verificarea bunei-credințe și a procedurilor bancare"
       ]
     },
     "editorialStatus": "revizuit",
@@ -4889,7 +4889,7 @@ export const SCENARIO_INTELLIGENCE: Record<string, ScenarioIntelligenceItem> = {
       "excludedItems": [
         "Garanții de despăgubire integrală a sumei de 6.500 RON",
         "Tratamente pentru afecțiuni preexistente sau apărute în perioada de așteptare",
-        "Referințe la reparații de bunuri materiale sau devize de atelier"
+        "Cheltuieli neînsoțite de factură fiscală detaliată și raport medical veterinar"
       ]
     },
     "editorialStatus": "revizuit",
