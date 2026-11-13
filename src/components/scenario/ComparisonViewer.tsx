@@ -22,6 +22,80 @@ interface ComparisonViewerProps {
 
 type TabType = 'without' | 'with' | 'verify';
 
+
+function getComparisonFootnote(scenario: Scenario): string {
+  if (scenario.slug === "animal-companie-inghite-corp-strain-operatie") {
+    return "* Costurile reale variază în funcție de complexitatea intervenției chirurgicale, durata anesteziei și perioada de spitalizare la terapie intensivă veterinară.";
+  }
+  if (scenario.slug === "teapa-cumparaturi-online-magazin-fantom") {
+    return "* Expunerea financiară depinde de suma tranzacționată și de rezultatul demersurilor bancare de refuz la plată.";
+  }
+  if (scenario.slug === "evacuare-urgenta-destinatie-izolata") {
+    return "* Costurile reale depind de distanță, accesibilitate și mijlocul de transport medical necesar.";
+  }
+  if (scenario.slug === "teava-inghetata-iarna") {
+    return "* Costurile reale depind de gravitatea avariei, volumul de apă la dezgheț și instalațiile sau finisajele afectate.";
+  }
+  switch (scenario.categoryId) {
+    case "auto":
+      return "* Costurile reale variază în funcție de devizul service-ului, piesele necesare și tarifele de manoperă autorizată.";
+    case "viata-sanatate":
+      return "* Costurile reale variază în funcție de spitalizarea necesară, investigațiile clinice și protocolul medical urmat.";
+    case "calatorii":
+      return "* Costurile reale depind de tarifele medicale locale, transportul de urgență și durata repatrierii sanitare.";
+    case "digital-tech":
+      return "* Expunerea financiară depinde de valoarea transferurilor frauduloase și costul tehnic de remediere a sistemelor.";
+    case "raspundere-civila":
+      return "* Valoarea despăgubirilor depinde de amploarea prejudiciului pretins de terți și soluționarea amiabilă sau judiciară.";
+    case "business":
+      return "* Impactul financiar variază în funcție de cifra de afaceri afectată, durata întreruperii și termenii contractuali.";
+    case "familie-lifestyle":
+      return "* Costurile reale depind de cheltuielile neprevăzute apărute și de valoarea de înlocuire a bunurilor afectate.";
+    case "luxury-bunuri":
+      return "* Costurile reale depind de raportul de expertiză de specialitate și cotațiile meșterilor sau atelierelor autorizate.";
+    case "casa":
+    case "proprietari-chiriasi":
+      return "* Costurile reale variază în funcție de amploarea avariei, materialele necesare și devizele de reparații.";
+    default:
+      return "* Impactul financiar real variază în funcție de circumstanțele concrete ale evenimentului și documentele justificative emise.";
+  }
+}
+
+function getComparisonPolicyVsAppropriate(scenario: Scenario): string {
+  if (scenario.slug === "animal-companie-inghite-corp-strain-operatie") {
+    return "O asigurare standard de locuință sau de răspundere civilă nu include cheltuielile medical-veterinare de urgență pentru animale de companie. Pentru intervenții chirurgicale, imagistică și spitalizare veterinară este necesară o poliță dedicată de sănătate pentru animale (Pet Insurance) cu pachet chirurgical activat.";
+  }
+  if (scenario.slug === "teapa-cumparaturi-online-magazin-fantom") {
+    return "O simplă procedură bancară de refuz la plată nu este echivalentă cu o protecție contractuală împotriva fraudelor din comerțul electronic. Pentru riscurile din mediul digital este necesară verificarea atentă a clauzelor și condițiilor de protecție la cumpărături online.";
+  }
+  if (scenario.slug === "evacuare-urgenta-destinatie-izolata") {
+    return "Un card european sau o asigurare medicală de bază acoperă de regulă doar urgențe în spitale publice și nu include transportul aerian privat, căutarea-salvarea sau evacuarea din zone izolate. Pentru aceste situații este necesară o poliță de călătorie cu clauză expresă de evacuare medicală.";
+  }
+  switch (scenario.categoryId) {
+    case "auto":
+      return "O asigurare obligatorie (RCA) acoperă exclusiv daunele produse altor persoane și bunurilor acestora din vina ta, fără a despăgubi avariile propriei mașini. Pentru reparația vehiculului propriu (accidente din culpă proprie, grindină, fenomene meteo, vandalism, furt) este necesară o poliță facultativă CASCO cu riscurile adecvate contractate.";
+    case "viata-sanatate":
+      return "Asigurarea publică de sănătate (CASS) oferă servicii de bază în unitățile de stat, însă are limite semnificative pentru spitale private, intervenții chirurgicale de înaltă complexitate sau compensare financiară directă a familiei. Pentru protecție financiară completă este necesară o asigurare privată de sănătate sau de viață cu beneficii garantate.";
+    case "calatorii":
+      return "Un card european sau o asigurare medicală simplă acoperă doar asistență publică standard, fără a include repatrierea sanitară de urgență, asistența privată 24/7 sau anularea călătoriei. Pentru acoperire sigură în străinătate este necesară o asigurare de călătorie extinsă.";
+    case "digital-tech":
+      return "O simplă procedură bancară de refuz la plată nu este echivalentă cu o protecție contractuală împotriva incidentelor cibernetice. Pentru riscurile digitale este necesară verificarea clauzelor specifice de securitate a plăților, recuperare a datelor și protecție a identității.";
+    case "raspundere-civila":
+      return "O poliță generală nu acoperă automat orice formă de prejudiciu cauzat terților. Pretențiile formulate de vecini, clienți sau persoane vătămate din culpă involuntară impun o poliță dedicată de răspundere civilă legală cu sume asigurate dimensionate corespunzător.";
+    case "business":
+      return "O poliță standard de incendiu și bunuri nu despăgubește pierderile financiare cauzate de oprirea activității operaționale sau răspunderea conducerii. Pentru continuitatea afacerii sunt necesare clauze de pierderi din exploatare (Business Interruption) și polițe D&O.";
+    case "familie-lifestyle":
+      return "Asigurările uzuale nu acoperă implicit toate riscurile legate de stilul de viață, activitățile sportive ale copiilor sau animalele de companie. Protecția patrimoniului familiei cere contractarea unor pachete specifice de stil de viață și răspundere a familiei.";
+    case "luxury-bunuri":
+      return "Polițele standard de locuință sau conținut au sublimite restrictive pentru bijuterii, ceasuri, opere de artă sau ambarcațiuni (adesea 1.000–2.500 € per obiect). Pentru bunuri de valoare ridicată este indispensabilă o asigurare specializată all-risks cu evaluare agreată.";
+    case "casa":
+    case "proprietari-chiriasi":
+      return "O asigurare obligatorie (PAD) acoperă exclusiv cele 3 riscuri de dezastru natural prevăzute de lege (cutremur, inundații naturale, alunecări de teren) și nu este interschimbabilă cu o asigurare facultativă. Nu despăgubește o țeavă spartă, un incendiu accidental din interior sau daunele provocate vecinilor. Pentru aceste riscuri este necesară o poliță facultativă cu clauze contractate distinct.";
+    default:
+      return "O asigurare standard nu acoperă implicit toate riscurile posibile. Fiecare eveniment impune verificarea atentă a clauzelor facultative contractate, a limitelor de despăgubire și a excluderilor aplicabile.";
+  }
+}
+
 export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) => {
   const [activeTab, setActiveTab] = useState<TabType>('without');
   const [dilemmaAnswer, setDilemmaAnswer] = useState<'automatic' | 'conditional' | null>(null);
@@ -240,11 +314,7 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
                     {scenario.withoutInsurance.financialImpact}
                   </span>
                   <span className="text-[10px] text-slate-400 block mt-0.5">
-                    {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
-                      ? '* Expunerea financiară depinde de suma tranzacționată și de rezultatul demersurilor bancare.'
-                      : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
-                      ? '* Costurile reale depind de distanță, accesibilitate și mijlocul de transport medical necesar.'
-                      : '* Costurile reale variază în funcție de circumstanțe și deviz.'}
+                    {getComparisonFootnote(scenario)}
                   </span>
                 </div>
               </div>
@@ -393,11 +463,7 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({ scenario }) 
               1. A avea o poliță vs Polița potrivită
             </span>
             <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-              {scenario.categoryId === 'digital-tech'
-                ? 'O simplă procedură bancară de refuz la plată nu este echivalentă cu o protecție contractuală împotriva fraudelor din comerțul electronic. Pentru riscurile din mediul digital este necesară verificarea atentă a clauzelor și condițiilor de protecție la cumpărături online.'
-                : scenario.categoryId === 'calatorii'
-                ? 'Un card european sau o asigurare medicală de bază acoperă de regulă doar urgențe în spitale publice și nu include transportul aerian privat, căutarea-salvarea sau evacuarea din zone izolate. Pentru aceste situații este necesară o poliță de călătorie cu clauză expresă de evacuare medicală.'
-                : 'O asigurare obligatorie (PAD) acoperă exclusiv cele 3 riscuri de dezastru natural prevăzute de lege (cutremur, inundații naturale, alunecări de teren) și nu este interschimbabilă cu o asigurare facultativă. Nu despăgubește o țeavă spartă, un incendiu accidental din interior sau daunele provocate vecinilor. Pentru aceste riscuri este necesară o poliță facultativă cu clauze contractate distinct.'}
+              {getComparisonPolicyVsAppropriate(scenario)}
             </p>
           </div>
 

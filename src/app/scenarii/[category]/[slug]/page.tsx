@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Scenario } from '@/types/scenario';
 import { SCENARIOS, getScenarioBySlug, getRelatedScenarios } from '@/data/scenarios';
 import { ComparisonViewer } from '@/components/scenario/ComparisonViewer';
 import { ScenarioCard } from '@/components/scenario/ScenarioCard';
@@ -89,6 +90,456 @@ export async function generateMetadata({
       images: [ogImageUrl],
     },
   };
+}
+
+// Helper for category-aware qualitative financial evaluation
+function getQualitativeHeader(scenario: Scenario): string {
+  if (scenario.slug === 'animal-companie-inghite-corp-strain-operatie') {
+    return 'Costuri determinate de investigațiile clinice, manopera chirurgicală și spitalizarea veterinară';
+  }
+  if (scenario.slug === 'teapa-cumparaturi-online-magazin-fantom') {
+    return 'Expunere financiară determinată de valoarea tranzacției și posibilitatea contestării plății';
+  }
+  if (scenario.slug === 'evacuare-urgenta-destinatie-izolata') {
+    return 'Cost determinat de distanță, mijlocul de transport și logistica medicală de urgență';
+  }
+  if (scenario.slug === 'teava-inghetata-iarna') {
+    return 'Impact financiar determinat de gravitatea avariei, instalațiile afectate și daunele cauzate de apă';
+  }
+  switch (scenario.categoryId) {
+    case 'auto':
+      return 'Impact financiar determinat de devizul de reparații, piesele de schimb și manopera de service';
+    case 'viata-sanatate':
+      return 'Impact financiar determinat de costurile tratamentelor medicale, spitalizării și recuperării';
+    case 'digital-tech':
+      return 'Expunere financiară determinată de valoarea tranzacției, refuzul la plată sau costul echipamentelor IT';
+    case 'calatorii':
+      return 'Cost determinat de asistența medicală de urgență, transportul specializat sau stornarea călătoriei';
+    case 'raspundere-civila':
+      return 'Expunere patrimonială determinată de prejudiciul cauzat terților și costurile apărării';
+    case 'business':
+      return 'Impact financiar determinat de întreruperea activității, pierderile operaționale sau răspunderea legală';
+    case 'familie-lifestyle':
+      return 'Impact financiar determinat de cheltuielile medicale neprevăzute sau înlocuirea bunurilor familiei';
+    case 'luxury-bunuri':
+      return 'Impact financiar determinat de evaluarea de specialitate și costul restaurării sau înlocuirii';
+    case 'casa':
+    case 'proprietari-chiriasi':
+      return 'Impact financiar determinat de amploarea avariilor la imobil, instalații și bunurile afectate';
+    default:
+      return 'Impact financiar determinat de circumstanțele concrete ale evenimentului';
+  }
+}
+
+function getQualitativeSubtitle(scenario: Scenario): string {
+  if (scenario.slug === 'animal-companie-inghite-corp-strain-operatie' || scenario.categoryId === 'viata-sanatate') {
+    return 'Fără tarife inventate sau estimări medicale neconfirmate';
+  }
+  if (scenario.slug === 'teapa-cumparaturi-online-magazin-fantom' || scenario.categoryId === 'digital-tech') {
+    return 'Fără cifre inventate sau promisiuni neconfirmate';
+  }
+  if (scenario.slug === 'evacuare-urgenta-destinatie-izolata' || scenario.categoryId === 'calatorii') {
+    return 'Fără tarife inventate sau estimări neconfirmate';
+  }
+  if (scenario.categoryId === 'auto' || scenario.categoryId === 'casa' || scenario.categoryId === 'proprietari-chiriasi') {
+    return 'Fără cifre inventate sau devize neconfirmate';
+  }
+  return 'Fără cifre inventate sau valori neconfirmate prin documente';
+}
+
+function getQualitativeAssessmentText(scenario: Scenario): string {
+  if (scenario.financialEstimate?.qualitativeAssessment) {
+    return scenario.financialEstimate.qualitativeAssessment;
+  }
+  if (scenario.slug === 'animal-companie-inghite-corp-strain-operatie') {
+    return 'Expunerea financiară include consultația veterinară de urgență, investigațiile imagistice (ecografie, radiografie), chirurgia pentru extragerea corpului străin, anestezia inhalatorie și terapia intensivă. Despăgubirea depinde de polița de sănătate pentru animale, termenii contractuali agreați, eventuala franșiză sau coplată și documentele clinice eliberate de clinica veterinară.';
+  }
+  if (scenario.slug === 'teapa-cumparaturi-online-magazin-fantom') {
+    return 'Expunerea financiară depinde de suma plătită, autorizarea tranzacției și posibilitatea contestării plății la bancă. Orice recuperare depinde de verificarea bunei-credințe și de termenii aplicabili.';
+  }
+  if (scenario.slug === 'evacuare-urgenta-destinatie-izolata') {
+    return 'Costul evacuării depinde de distanță, accesibilitate geografică, mijlocul de transport și echipajul medical necesar. Acoperirea depinde de aprobarea dispeceratului și de limitele poliței.';
+  }
+  if (scenario.slug === 'teava-inghetata-iarna') {
+    return 'Costurile remedierii depind de gravitatea avariei, volumul de apă la dezgheț și instalațiile sau finisajele afectate. Acoperirea depinde de clauza facultativă de îngheț și respectarea obligațiilor preventive.';
+  }
+  if (scenario.slug === 'terasa-infiltratie-hidroizolatie') {
+    return 'Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.';
+  }
+  return 'Impactul financiar concret depinde de circumstanțele specifice ale evenimentului, natura prejudiciului și documentele justificative emise de entitățile competente. Evaluarea calitativă detaliată a acestui risc este în curs de documentare pe baza surselor primare.';
+}
+
+function renderQualitativeCards(scenario: Scenario): React.ReactNode {
+  if (scenario.slug === 'animal-companie-inghite-corp-strain-operatie') {
+    return (
+      <>
+        <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+          <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+            Ce determină costurile medicale veterinare:
+          </span>
+          <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+            <li>Consultația de urgență și investigațiile imagistice (ecografie / radiografie)</li>
+            <li>Dificultatea intervenției chirurgicale și durata anesteziei inhalatorii</li>
+            <li>Numărul de zile de spitalizare la terapie intensivă veterinară (ATI)</li>
+          </ul>
+        </div>
+        <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+          <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+            Ce depinde de polița pentru animale (Pet Insurance):
+          </span>
+          <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+            <li>Includerea expresă a intervențiilor chirurgicale de urgență și spitalizării ATI</li>
+            <li>Nivelul franșizei sau coplății prevăzute în condițiile contractuale individuale</li>
+            <li>Perioada de așteptare de la emitere și excluderile stipulate în poliță</li>
+          </ul>
+        </div>
+      </>
+    );
+  }
+
+  if (scenario.slug === 'teapa-cumparaturi-online-magazin-fantom') {
+    return (
+      <>
+        <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+          <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+            Ce determină expunerea financiară:
+          </span>
+          <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+            <li>Suma plătită și pierderea financiară potențială</li>
+            <li>Modalitatea de plată și autorizarea tranzacției</li>
+            <li>Neprimirea produsului și imposibilitatea contactării comerciantului</li>
+          </ul>
+        </div>
+        <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+          <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+            Ce influențează recuperarea:
+          </span>
+          <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+            <li>Rapiditatea contestării plății la banca emitentă a cardului (chargeback)</li>
+            <li>Verificarea bunei-credințe și a măsurilor de securitate luate de utilizator</li>
+            <li>Termenii contractuali ai serviciului de plată sau ai asigurării atașate cardului</li>
+          </ul>
+        </div>
+      </>
+    );
+  }
+
+  if (scenario.slug === 'evacuare-urgenta-destinatie-izolata') {
+    return (
+      <>
+        <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+          <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+            Ce determină costul operațiunii:
+          </span>
+          <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+            <li>Distanța și accesibilitatea geografică a destinației</li>
+            <li>Mijlocul de transport utilizat: elicopter, hidroavion, ambulanță aeriană sau maritim</li>
+            <li>Necesitatea personalului medical și a echipamentelor de transport</li>
+          </ul>
+        </div>
+        <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+          <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+            Ce influențează organizarea transferului:
+          </span>
+          <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+            <li>Urgența și complexitatea transferului</li>
+            <li>Organizarea și autorizarea evacuării prin dispeceratul de asistență</li>
+            <li>Limitele, aprobările și condițiile contractuale ale asigurării de călătorie</li>
+          </ul>
+        </div>
+      </>
+    );
+  }
+
+  if (scenario.slug === 'teava-inghetata-iarna') {
+    return (
+      <>
+        <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+          <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+            Ce determină costul remedierii:
+          </span>
+          <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+            <li>Înghețarea și fisurarea conductei și scurgerea apei la dezgheț</li>
+            <li>Afectarea instalațiilor sanitare, termice și a bunurilor prin apă</li>
+            <li>Eventualele daune produse vecinilor sau terților</li>
+          </ul>
+        </div>
+        <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+          <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+            Ce depinde de contractul de asigurare:
+          </span>
+          <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+            <li>Includerea expresă a clauzei de îngheț / apă de conductă în anexa poliței</li>
+            <li>Condițiile de prevenție, notificare și acoperire confirmate în documentație</li>
+            <li>Franșiza contractuală și sublimitele stabilite în polița de locuință</li>
+          </ul>
+        </div>
+      </>
+    );
+  }
+
+  switch (scenario.categoryId) {
+    case 'auto':
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină costul real:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Amploarea și profunzimea avariilor constatate la fața locului</li>
+              <li>Prețul pieselor de schimb originale vs. compatibile omologate</li>
+              <li>Tariful orar al manoperei din atelierele sau service-urile autorizate</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Elemente care rămân în sarcina asiguratului:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Franșiza contractuală prevăzută expres în poliță (dacă există)</li>
+              <li>Avariile sau degradările preexistente producerii evenimentului</li>
+              <li>Îmbunătățirile sau modernizările peste starea anterioară</li>
+            </ul>
+          </div>
+        </>
+      );
+
+    case 'viata-sanatate':
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină expunerea financiară:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Complexitatea diagnosticului, investigațiilor clinice și intervențiilor medicale</li>
+              <li>Tarifele unității medicale și durata spitalizării sau recuperării</li>
+              <li>Pierderea temporară sau permanentă a capacității de muncă și a veniturilor</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce depinde de polița de viață / sănătate:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Perioada de așteptare contractuală (carantină) de la semnarea poliței</li>
+              <li>Excluderile pentru afecțiuni preexistente sau nedeclarate la subscriere</li>
+              <li>Plafonul maxim anual de decontare sau indemnizația forfetară stabilită</li>
+            </ul>
+          </div>
+        </>
+      );
+
+    case 'calatorii':
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină expunerea financiară:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Costul serviciilor medicale de urgență în țara de destinație</li>
+              <li>Necesitatea transportului sanitar specializat sau a repatrierii medicale</li>
+              <li>Cheltuielile generate de întreruperea sau reprogramarea călătoriei</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce depinde de polița de călătorie:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Notificarea și autorizarea prealabilă prin dispeceratul de asistență 24/7</li>
+              <li>Plafonul maxim de acoperire pentru asistență medicală și transport</li>
+              <li>Excluderile pentru activități sportive de agrement fără clauză dedicată</li>
+            </ul>
+          </div>
+        </>
+      );
+
+    case 'digital-tech':
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină expunerea financiară:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Valoarea fondurilor transferate fraudulos sau a tranzacțiilor neautorizate</li>
+              <li>Costurile de refacere, curățare și securizare a sistemelor informatice</li>
+              <li>Valoarea echipamentelor deteriorate sau costul recuperării datelor</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce depinde de protecția contractuală:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Termenul limită de notificare a incidentului către bancă sau asigurător</li>
+              <li>Gradul de diligență al utilizatorului în protejarea credențialelor de acces</li>
+              <li>Limita maximă per tranzacție și plafoanele stabilite în contract</li>
+            </ul>
+          </div>
+        </>
+      );
+
+    case 'raspundere-civila':
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină expunerea financiară:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Întinderea prejudiciului material cauzat terților sau bunurilor acestora</li>
+              <li>Eventualele costuri medicale sau de refacere solicitate de partea prejudiciată</li>
+              <li>Cheltuielile de asistență juridică și apărare în caz de litigiu</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce depinde de polița de răspundere civilă:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Limita maximă a răspunderii asigurătorului per eveniment și per an</li>
+              <li>Lipsa intenției sau a culpei grave în producerea prejudiciului</li>
+              <li>Interdicția de a recunoaște răspunderea fără acordul asigurătorului</li>
+            </ul>
+          </div>
+        </>
+      );
+
+    case 'business':
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină impactul financiar:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Pierderile financiare operaționale și întreruperea fluxului de activitate</li>
+              <li>Costurile de remediere a incidentului și restabilire a proceselor curente</li>
+              <li>Pretențiile patrimoniale formulate de clienți, parteneri sau autorități</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce depinde de polițele comerciale:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Clauzele specifice de pierderi din exploatare sau răspundere managerială (D&O)</li>
+              <li>Franșiza financiară sau temporală prevăzută în condițiile contractuale</li>
+              <li>Respectarea măsurilor legale de conformitate și notificare a incidentului</li>
+            </ul>
+          </div>
+        </>
+      );
+
+    case 'familie-lifestyle':
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină expunerea financiară:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Costul remedierii sau înlocuirii bunurilor familiei afectate</li>
+              <li>Cheltuielile medicale sau de asistență neprevăzute apărute în familie</li>
+              <li>Eventualele prejudicii produse involuntar terților de către membrii familiei</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce depinde de contractul de asigurare:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Includerea clauzelor dedicate stilului de viață, animalelor sau bunurilor mobile</li>
+              <li>Franșiza contractuală și sublimitele stabilite per eveniment</li>
+              <li>Măsurile preventive rezonabile și notificarea la termen a incidentului</li>
+            </ul>
+          </div>
+        </>
+      );
+
+    case 'luxury-bunuri':
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină expunerea financiară:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Valoarea atestată prin expertiză sau catalog de evaluare a bunului de lux</li>
+              <li>Costurile restaurării de specialitate, pieselor rare sau transportului securizat</li>
+              <li>Deprecierea valorii de piață a bunului în urma intervenției</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce depinde de asigurarea bunurilor de valoare:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Existența unui certificat de autenticitate și a unei evaluări valabile</li>
+              <li>Clauzele all-risks și respectarea măsurilor de securitate cerute (seif, monitorizare)</li>
+              <li>Sublimitele de răspundere și franșizele contractuale aplicabile</li>
+            </ul>
+          </div>
+        </>
+      );
+
+    case 'casa':
+    case 'proprietari-chiriasi':
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină costul remedierii:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Amploarea și profunzimea avariilor la structură, instalații și finisaje</li>
+              <li>Costul materialelor necesare refacerii conform stării inițiale</li>
+              <li>Tariful manoperei practicate de echipele sau prestatorii autorizați</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Elemente care rămân în sarcina asiguratului:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Franșiza contractuală prevăzută expres în poliță (dacă există)</li>
+              <li>Avariile sau degradările preexistente producerii evenimentului</li>
+              <li>Îmbunătățirile sau modernizările peste starea anterioară</li>
+            </ul>
+          </div>
+        </>
+      );
+
+    default:
+      return (
+        <>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce determină expunerea financiară:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Gravitatea și consecințele directe ale evenimentului produs</li>
+              <li>Documentele justificative eliberate de entitățile abilitate</li>
+              <li>Cheltuielile necesare remedierii și limitării prejudiciului</li>
+            </ul>
+          </div>
+          <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+            <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
+              Ce depinde de contractul de asigurare:
+            </span>
+            <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+              <li>Includerea expresă a riscului în condițiile poliței încheiate</li>
+              <li>Franșiza contractuală și sublimitele stabilite pe contract</li>
+              <li>Respectarea măsurilor preventive și a termenelor de notificare</li>
+            </ul>
+          </div>
+        </>
+      );
+  }
 }
 
 export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
@@ -443,13 +894,7 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
                     </span>
                   </div>
                   <p className="text-sm font-semibold text-slate-900">
-                    {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
-                      ? 'Expunere financiară determinată de valoarea tranzacției și posibilitatea contestării plății'
-                      : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
-                      ? 'Cost determinat de distanță, mijlocul de transport și logistica medicală de urgență'
-                      : scenario.slug === 'teava-inghetata-iarna'
-                      ? 'Impact financiar determinat de gravitatea avariei, instalațiile afectate și daunele cauzate de apă'
-                      : 'Impact variabil în funcție de devizul autorizat și amploarea avariei'}
+                    {getQualitativeHeader(scenario)}
                   </p>
                 </div>
 
@@ -459,135 +904,18 @@ export default function ScenarioDetailPage({ params }: ScenarioPageProps) {
                     Evaluare calitativă · În curs de documentare primară
                   </span>
                   <span className="text-[10px] text-slate-500 font-mono">
-                    {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
-                      ? 'Fără cifre inventate sau promisiuni neconfirmate'
-                      : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
-                      ? 'Fără tarife inventate sau estimări neconfirmate'
-                      : 'Fără cifre inventate sau devize neconfirmate'}
+                    {getQualitativeSubtitle(scenario)}
                   </span>
                 </div>
               </div>
 
               <div className="space-y-3 text-xs text-slate-700 leading-relaxed">
                 <p>
-                  {scenario.financialEstimate?.qualitativeAssessment ||
-                    (scenario.slug === 'teapa-cumparaturi-online-magazin-fantom'
-                      ? 'Expunerea financiară depinde de suma plătită, autorizarea tranzacției și posibilitatea contestării plății la bancă. Orice recuperare depinde de verificarea bunei-credințe și de termenii aplicabili.'
-                      : scenario.slug === 'evacuare-urgenta-destinatie-izolata'
-                      ? 'Costul evacuării depinde de distanță, accesibilitate geografică, mijlocul de transport și echipajul medical necesar. Acoperirea depinde de aprobarea dispeceratului și de limitele poliței.'
-                      : scenario.slug === 'teava-inghetata-iarna'
-                      ? 'Costurile remedierii depind de gravitatea avariei, volumul de apă la dezgheț și instalațiile sau finisajele afectate. Acoperirea depinde de clauza facultativă de îngheț și respectarea obligațiilor preventive.'
-                      : 'Costurile reparațiilor pot varia semnificativ în funcție de natura și amploarea avariei, materialele necesare, complexitatea intervenției și tarifele practicate de prestatorii autorizați. Valoarea despăgubirii sau a reparației se stabilește în funcție de evaluarea concretă a daunelor și de devizele aferente.')}
+                  {getQualitativeAssessmentText(scenario)}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                  {scenario.slug === 'teapa-cumparaturi-online-magazin-fantom' ? (
-                    <>
-                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                          Ce determină expunerea financiară:
-                        </span>
-                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                          <li>Suma plătită și pierderea financiară potențială</li>
-                          <li>Modalitatea de plată și autorizarea tranzacției</li>
-                          <li>Neprimirea produsului și imposibilitatea contactării comerciantului</li>
-                        </ul>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                          Ce poate influența recuperarea banilor:
-                        </span>
-                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                          <li>Dovada comenzii, a plății și sesizarea băncii</li>
-                          <li>Solicitarea procedurii de contestare a tranzacției (fără garantarea rezultatului)</li>
-                          <li>Limitele și condițiile unei eventuale protecții de cumpărături online documentate</li>
-                        </ul>
-                      </div>
-                    </>
-                  ) : scenario.slug === 'evacuare-urgenta-destinatie-izolata' ? (
-                    <>
-                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                          Ce determină costul evacuării:
-                        </span>
-                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                          <li>Distanța până la cel mai apropiat centru medical adecvat</li>
-                          <li>Accesibilitatea geografică și condițiile locale</li>
-                          <li>Mijlocul de transport disponibil: elicopter, hidroavion, ambulanță aeriană sau maritim</li>
-                          <li>Necesitatea personalului medical și a echipamentelor de transport</li>
-                        </ul>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                          Ce influențează organizarea transferului:
-                        </span>
-                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                          <li>Urgența și complexitatea transferului</li>
-                          <li>Organizarea și autorizarea evacuării prin dispeceratul de asistență</li>
-                          <li>Limitele, aprobările și condițiile contractuale ale asigurării de călătorie</li>
-                        </ul>
-                      </div>
-                    </>
-                  ) : scenario.slug === 'teava-inghetata-iarna' ? (
-                    <>
-                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                          Ce determină costul remedierii:
-                        </span>
-                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                          <li>Înghețarea și fisurarea conductei și scurgerea apei la dezgheț</li>
-                          <li>Afectarea instalațiilor sanitare, termice și a bunurilor prin apă</li>
-                          <li>Eventualele daune produse vecinilor sau terților</li>
-                        </ul>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                          Ce depinde de contractul de asigurare:
-                        </span>
-                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                          <li>Includerea expresă a clauzei de îngheț / apă de conductă în anexa poliței</li>
-                          <li>Condițiile de prevenție, notificare și acoperire confirmate în documentație</li>
-                          <li>Franșiza contractuală și sublimitele stabilite în polița de locuință</li>
-                        </ul>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                          Ce determină costul real:
-                        </span>
-                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                          <li>Amploarea și profunzimea avariilor constatate la fața locului</li>
-                          {scenario.categoryId === 'auto' ? (
-                            <>
-                              <li>Prețul pieselor de schimb originale vs. compatibile omologate</li>
-                              <li>Tariful orar al manoperei din atelierele sau service-urile autorizate</li>
-                            </>
-                          ) : (
-                            <>
-                              <li>Costul materialelor, finisajelor sau instalațiilor necesare refacerii</li>
-                              <li>Tariful manoperei practicate de echipele sau prestatorii autorizați</li>
-                            </>
-                          )}
-                        </ul>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
-                        <span className="font-semibold text-slate-900 block text-[11px] uppercase font-mono">
-                          Elemente care rămân în sarcina asiguratului:
-                        </span>
-                        <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
-                          <li>Franșiza contractuală prevăzută expres în poliță (dacă există)</li>
-                          <li>Avariile sau degradările preexistente producerii evenimentului</li>
-                          <li>Îmbunătățirile sau modernizările peste starea anterioară</li>
-                        </ul>
-                      </div>
-                    </>
-                  )}
+                  {renderQualitativeCards(scenario)}
                 </div>
               </div>
             </div>

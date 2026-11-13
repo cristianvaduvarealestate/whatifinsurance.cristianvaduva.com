@@ -155,11 +155,11 @@ export const familieScenarios: Scenario[] = [
     "categoryId": "familie-lifestyle",
     "categoryName": "FAMILIE & LIFESTYLE",
     "title": "Câinele familiei înghite o jucărie sau o șosetă: operație veterinară de urgență",
-    "mainQuestion": "Ce faci dacă salvarea vieții animalului tău de companie impune o operație veterinară de 6.000 RON?",
-    "shortDescription": "Ocluzia intestinală acută necesită endoscopie chirurgicală și 4 zile de spitalizare la clinica veterinară privată.",
-    "situation": "Câinele familiei (un Golden Retriever jucăuș de 2 ani) înghite o minge de cauciuc sau o șosetă în timp ce se joacă în casă. După 24 de ore de vărsături continue și letargie, ecografia și radiografia cu bariu la clinica veterinară de urgență confirmă un blocaj intestinal complet. Medicul chirurg avertizează că întârzierea operației va duce la necroză de intestin și deces. Costul chirurgiei de urgență, anesteziei inhalatorii și al terapiei intensive veterinare atinge 6.500 RON.",
+    "mainQuestion": "Ce faci dacă salvarea vieții animalului tău de companie impune o operație veterinară de urgență de 6.500 RON?",
+    "shortDescription": "Ocluzia intestinală acută necesită intervenție chirurgicală de urgență, investigații imagistice și spitalizare la terapie intensivă veterinară.",
+    "situation": "Câinele familiei (un Golden Retriever jucăuș de 2 ani) înghite o minge de cauciuc sau o șosetă în timp ce se joacă în casă. După 24 de ore de vărsături continue și letargie, ecografia și radiografia la clinica veterinară de urgență confirmă un blocaj intestinal complet. Medicul chirurg avertizează că întârzierea operației va duce la necroză de intestin și deces. Costul chirurgiei de urgență, anesteziei inhalatorii și al terapiei intensive veterinare atinge 6.500 RON.",
     "heroImage": "/images/scenarios/pet-damage.jpg",
-    "imageCaption": "Medicina veterinară modernă pentru animale de companie folosește tehnologii chirurgicale de vârf, dar tarifele clinice se achită integral privat.",
+    "imageCaption": "Chirurgia veterinară de urgență și terapia intensivă pentru animale de companie implică tehnologii avansate, costurile clinice fiind achitate exclusiv privat în lipsa unei polițe.",
     "severityLabel": "Urgență Veterinară și Cost Imediat",
     "featured": false,
     "tags": [
@@ -169,59 +169,64 @@ export const familieScenarios: Scenario[] = [
       "asigurare-animale-pet",
       "ocluzie-intestinala"
     ],
-    "illustrativeCost": "Cost chirurgie veterinară + spitalizare: 4.500 – 9.000 RON",
+    "illustrativeCost": "6.500 RON (cost ilustrativ intervenție chirurgicală veterinară și terapie intensivă)",
     "withoutInsurance": {
       "title": "Fără asigurare de sănătate pentru animale de companie (Pet Insurance)",
-      "statusLabel": "Stăpânul achită 100% din veniturile familiei",
-      "financialImpact": "Plată de mii de lei pe loc la recepția clinicii",
+      "statusLabel": "Toate costurile medicale veterinare sunt suportate integral de stăpân",
+      "financialImpact": "Plata integrală a facturii veterinare de 6.500 RON din fonduri proprii",
       "points": [
-        "Nu există niciun sistem public de asigurări pentru animale de companie în România; orice act medical veterinar este privat.",
-        "Multe familii sunt puse în fața unei alegeri sfâșietoare între bugetul casei și viața companionului drag.",
-        "Economiile de vacanță ale familiei sunt epuizate într-o singură noapte de urgență."
+        "Consultația veterinară de urgență, ecografia și radiografia de diagnostic sunt achitate integral la recepția clinicii.",
+        "Intervenția chirurgicală pentru îndepărtarea corpului străin, anestezia inhalatorie, terapia intensivă veterinară și spitalizarea se plătesc pe loc din economiile familiei.",
+        "Tratamentul postoperator, perfuziile și medicația prescrisă rămân în totalitate în sarcina financiară a stăpânului."
       ],
-      "summary": "Urgențele veterinare grave impun plăți mari care destabilizează finanțele familiei."
+      "summary": "În lipsa unei polițe medicale veterinare, salvarea animalului implică un efort financiar de 6.500 RON suportat exclusiv din bugetul familiei."
     },
     "withInsurance": {
-      "title": "Cu poliță de Asigurare de Sănătate pentru Animale de Companie (Pet Insurance)",
-      "statusLabel": "Decontare integrală a intervențiilor chirurgicale de urgență",
-      "financialImpact": "Plata a 80 – 90% din factura veterinară preluată de asigurător",
+      "title": "Cu asigurare de sănătate pentru animale de companie (Pet Insurance)",
+      "statusLabel": "Posibilă preluare a costurilor medicale conform limitelor și condițiilor poliței",
+      "financialImpact": "Evaluare a dosarului veterinar în limita plafonului contractat (fără despăgubire automată garantată)",
       "points": [
-        "Polița acoperă intervențiile chirurgicale de urgență provocate de accidente și ingerare de corpi străini.",
-        "Sunt decontate investigațiile imagistice (radiografii, ecografii), analizele de sânge și salonul de terapie intensivă.",
-        "Animalul este salvat fără ca stăpânii să fie stresați de costul facturilor medicale."
+        "Polițele de sănătate pentru animale pot acoperi intervențiile chirurgicale de urgență și spitalizarea veterinară, dacă riscul este inclus expres în contract.",
+        "Decontarea depinde de termenii contractuali agreați, valabilitatea poliței la data incidentului și lipsa afecțiunilor preexistente nestipulate în contract.",
+        "Despăgubirea se acordă în baza fișei clinice detaliate, a protocolului operator și a facturilor fiscale, cu aplicarea eventualei franșize sau coplăți prevăzute în contract."
       ],
-      "summary": "Iubirea pentru animalul de companie este dublată de o plasă de siguranță financiară responsabilă."
+      "summary": "Polița poate reduce povara financiară a intervenției chirurgicale veterinare de urgență, în limita condițiilor, franșizelor și excluderilor contractate."
     },
     "whatToCheck": {
       "title": "Ce trebuie să verifici în contractul tău",
       "items": [
         {
-          "label": "Vârsta maximă de asigurare a animalului",
-          "detail": "Polițele acceptă de regulă câini și pisici cu vârsta între 3 luni și 7-8 ani la intrarea în asigurare."
+          "label": "Includerea intervențiilor chirurgicale de urgență și a spitalizării",
+          "detail": "Verifică dacă polița acoperă intervenția chirurgicală, anestezia, terapia intensivă veterinară și investigațiile imagistice (ecografie, radiografie)."
         },
         {
-          "label": "Carnetul de sănătate și vaccinurile",
-          "detail": "Animalul trebuie să aibă microcip înregistrat în RECS și toate vaccinările anuale obligatorii la zi."
+          "label": "Perioada de așteptare și excluderile aplicabile",
+          "detail": "Verifică dacă polița prevede o perioadă de așteptare de la emitere până la intrarea în vigoare a acoperirii chirurgicale și consultă lista completă a excluderilor din contract."
+        },
+        {
+          "label": "Franșiza, coplata și limitele per eveniment",
+          "detail": "Verifică dacă există o limită maximă per intervenție, nivelul franșizei sau coplății contractate și dacă este cerută avizarea prealabilă a clinicii."
         }
       ]
     },
     "immediateSteps": [
-      "Transportă imediat animalul la cea mai apropiată clinică veterinară dotată cu laborator și secție de chirurgie.",
-      "Cere medicului veterinar completarea fișei clinice de urgență cu diagnosticul exact.",
-      "Păstrează toate facturile, chitanțele și imaginile radiologice.",
-      "Transmite cererea de decontare către compania de asigurări."
+      "Transportă de urgență animalul la o clinică veterinară dotată cu secție de chirurgie și terapie intensivă.",
+      "Solicită medicului veterinar completarea fișei de urgență, protocolul operator și raportul imagistic.",
+      "Verifică dacă asigurătorul solicită avizare prealabilă înainte de începerea procedurii chirurgicale (acolo unde timpul permite).",
+      "Păstrează toate facturile fiscale detaliate, bonurile și rezultatele investigațiilor pentru dosarul de daună."
     ],
     "usefulDocuments": [
-      "Fișa clinică veterinară și protocolul operator",
-      "Factura fiscală detaliată și chitanța de plată din clinică",
-      "Carnetul de sănătate cu seria microcipului"
+      "Fișa clinică veterinară detaliată și protocolul operator semnat de medicul chirurg",
+      "Raportul ecografic și filmele/interpretarea radiologică care atestă blocajul intestinal",
+      "Factura fiscală detaliată și chitanța/dovada plății eliberată de clinica veterinară",
+      "Carnetul de sănătate al animalului cu seria microcipului înregistrat și vaccinările la zi"
     ],
     "advisorQuestions": [
-      "Include polița mea de animale de companie intervențiile de urgență pentru ingerare de obiecte străine?",
-      "Care este plafonul anual de decontare veterinară per animal asigurat?"
+      "Sunt acoperite intervențiile chirurgicale de urgență cauzate de ingestia accidentală a unui corp străin?",
+      "Care este limita maximă de decontare per eveniment și ce coplată procentuală se aplică facturii veterinare?"
     ],
-    "disclaimer": "Asigurarea pentru animale de companie impune îngrijirea responsabilă a companionului și menținerea vaccinărilor periodice.",
-    "lastReviewed": "Octombrie 2026"
+    "disclaimer": "Asigurarea pentru animale de companie presupune deținerea legală a animalului, microciparea și respectarea schemelor obligatorii de vaccinare.",
+    "lastReviewed": "Noiembrie 2026"
   },
   {
     "id": "familie-firma-mutari-deterioreaza-mobilier-scump",
